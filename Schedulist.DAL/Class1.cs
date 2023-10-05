@@ -7,5 +7,10 @@
         //
         //np. WorkModeMemory (lub data)
         //predefiniowane WorkMode -> będziemy mieć referencję do innych miejsc
+        //Employees
+        //Empoloyee1 = "Jan Kowalski"
+        string Employee1Role = "Admin";
+
+        //
     }
 }
