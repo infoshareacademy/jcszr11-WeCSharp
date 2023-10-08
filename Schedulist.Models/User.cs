@@ -7,21 +7,15 @@ using System.Threading.Tasks;
 
 namespace Schedulist.Models
 {
-    enum Rights
-    {
-        IsAdmin = 10,
-        DeleteUser = 20,
-        AddUser = 30,
-        ReadOnly = 40
-    }
     public class User
     {
        
         public List<Rights> Uprawnienia { get; set; }
 
-        public User(string name, params Rights[] rights)
+        public User(string name, string login, params Rights[] rights)
         {
-            this.Name= name;
+            this.Name = name;
+            this.Login = login;
             if (rights.Length > 0) {
                 Uprawnienia = rights.ToList();
             }
@@ -39,6 +33,12 @@ namespace Schedulist.Models
         public string Surname { get; private set; }
         public string Position { get; private set; }
         public string Department { get; private set; }
+        public string Login { get; private set; }
+        public string Password { get; private set; }
      
+        public void CreatePassword(string newPassword)
+        {
+            Password = newPassword;
+        }
     }
 }

@@ -6,4 +6,8 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\Schedulist.DAL\Schedulist.DAL.csproj" />
+  </ItemGroup>
+
 </Project>
