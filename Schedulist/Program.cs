@@ -1,4 +1,7 @@
 ﻿using Schedulist.Models;
+using Schedulist.Business;
+
+using System;
 
 namespace Schedulist
 {
@@ -18,8 +21,9 @@ namespace Schedulist
                 if (user.Uprawnienia.Contains(Rights.IsAdmin)) { Console.WriteLine("admin menu"); }
                 if (user.Uprawnienia.Contains(Rights.ReadOnly)) { Console.WriteLine("readolny menu"); }
 
-            }    
-            
+            }
+            Console.WriteLine("Hello. This is Schedulist!");
+            new Login().Run();    //Metoda do logowania użytkownika
             Console.ReadLine();
 
         }
