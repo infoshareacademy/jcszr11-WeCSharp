@@ -8,7 +8,7 @@ namespace Schedulist
         static void Main(string[] args)
         {
             Console.WriteLine("Hello. This is Schedulist!");
-            new Login().UserLogin();    //Metoda do logowania użytkownika
+            new Login().Run();    //Metoda do logowania użytkownika
         }
     }
 }

@@ -8,7 +8,7 @@ namespace Schedulist.Business
 {
     public class Login
     {
-        public void UserLogin()
+        public void Run()
         {
             bool gotLogin = false;
             bool gotPassword = false;
@@ -16,6 +16,7 @@ namespace Schedulist.Business
             {
                 Console.WriteLine("Enter your login:");  //Login użytkownika
                 string login = Console.ReadLine();
+                //userList???
                 foreach (var user in userList)
                 {
                     if (user.Login == login)
