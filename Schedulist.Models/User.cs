@@ -9,7 +9,7 @@ namespace Schedulist.Models
 {
     public class User
     {
-       
+
         public List<Rights> Uprawnienia { get; set; }
 
         public User(string name, string surname, string position, string department, string login, params Rights[] rights)
@@ -19,19 +19,15 @@ namespace Schedulist.Models
             Login = login;
             Position = position;
             Department = department;
-
-            if (rights.Length > 0) {
+            if (rights.Length > 0)
+            {
                 Uprawnienia = rights.ToList();
             }
-
-            else 
+            else
             {
-                Uprawnienia = new List<Rights> {Rights.ReadOnly};
+                Uprawnienia = new List<Rights> { Rights.ReadOnly };
             }
-
         }
-
-
         public int Id { get; private set; }
         public int CurrentId { get; set; } = 0;
         public string Name { get; private set; }

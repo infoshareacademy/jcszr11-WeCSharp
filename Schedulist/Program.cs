@@ -26,9 +26,8 @@ namespace Schedulist
             Console.WriteLine("Hello. This is Schedulist!");
             while (true)
             {
-                var currentUser = new Login().Run();    //Metoda do logowania użytkownika // do dokończenia
-                if (currentUser != null)
-                    Console.WriteLine(currentUser.Name);
+                var currentUser = new Login().Run();    //Metoda do logowania użytkownika
+                if (currentUser != null) new ConsoleMenu().Run(currentUser);
             }
             Console.ReadLine();
 
