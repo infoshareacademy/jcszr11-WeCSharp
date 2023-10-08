@@ -23,7 +23,7 @@ namespace Schedulist
 
             }
             Console.WriteLine("Hello. This is Schedulist!");
-            new Login().Run();    //Metoda do logowania użytkownika
+           // new Login().Run();    //Metoda do logowania użytkownika // do dokończenia
             Console.ReadLine();
 
         }
