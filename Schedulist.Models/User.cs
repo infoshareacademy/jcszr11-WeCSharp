@@ -14,7 +14,7 @@ namespace Schedulist.Models
         AddUser = 30,
         ReadOnly = 40
     }
-    internal class User
+    public class User
     {
        
         public List<Rights> Uprawnienia { get; set; }
