@@ -12,30 +12,36 @@ namespace Schedulist.Models
        
         public List<Rights> Uprawnienia { get; set; }
 
-        public User(string name, string login, params Rights[] rights)
+        public User(string name, string surname, string position, string department, string login, params Rights[] rights)
         {
-            this.Name = name;
-            this.Login = login;
+            Name = name;
+            Surname = surname;
+            Login = login;
+            Position = position;
+            Department = department;
+
             if (rights.Length > 0) {
                 Uprawnienia = rights.ToList();
             }
 
             else 
             {
-                Uprawnienia = new List<Rights> {Rights.ReadOnly };
+                Uprawnienia = new List<Rights> {Rights.ReadOnly};
             }
 
         }
 
 
         public int Id { get; private set; }
+        public int CurrentId { get; set; } = 0;
         public string Name { get; private set; }
         public string Surname { get; private set; }
         public string Position { get; private set; }
         public string Department { get; private set; }
         public string Login { get; private set; }
         public string Password { get; private set; }
-     
+        public bool AdminPrivilege { get; set; }
+
         public void CreatePassword(string newPassword)
         {
             Password = newPassword;
