@@ -38,9 +38,23 @@ namespace Schedulist.Models
         public string Password { get; private set; }
         public bool AdminPrivilege { get; set; }
 
-        public void CreatePassword(string newPassword)
+        public void CreatePassword(User user)
         {
-            Password = newPassword;
+            while (true)
+            {
+                Console.WriteLine("Create password:");
+                string newPassword = Console.ReadLine();
+                Console.WriteLine("Enter your password again:");
+                string repeatedNewPassoword = Console.ReadLine();
+                if (newPassword == repeatedNewPassoword && repeatedNewPassoword != null)  //Sprawdza, czy hasła są takie same
+                {
+                    Password = newPassword;
+                    Console.WriteLine("Password has been created");
+                    Console.WriteLine("===============================================================================");
+                    break;
+                }
+                else Console.WriteLine("Passwords do not match, enter your passwords again");
+            }
         }
     }
 }

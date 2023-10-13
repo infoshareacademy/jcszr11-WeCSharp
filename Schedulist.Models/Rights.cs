@@ -2,9 +2,9 @@
 {
     public enum Rights
     {
-        IsAdmin = 10,
-        DeleteUser = 20,
-        AddUser = 30,
-        ReadOnly = 40
+        IsAdmin = 1,
+        DeleteUser,
+        AddUser,
+        ReadOnly
     }
 }

@@ -10,12 +10,10 @@ namespace Schedulist.Business
 {
     public class Login
     {
-        public User Run()
+        public User Run(UsersMemory usersMemory)
         {
             bool isLoginCorrect = false;
             bool isPasswordCorrect = false;
-            var usersMemory = new UsersMemory();
-
             Console.WriteLine("Enter your login:");  //Login użytkownika
             string login = Console.ReadLine();
             foreach (var user in usersMemory.GetUsers())
@@ -25,20 +23,8 @@ namespace Schedulist.Business
                     isLoginCorrect = true;
                     if (string.IsNullOrEmpty(user.Password))    //Prosi o stworzenie hasła dla użytkownika jeżeli on takowego nie posiada
                     {
-                        while (true)
-                        {
-                            Console.WriteLine("Create password:");
-                            string newpassword = Console.ReadLine();
-                            Console.WriteLine("Enter your password again:");
-                            string repeatedNewPassoword = Console.ReadLine();
-                            if (newpassword == repeatedNewPassoword && repeatedNewPassoword != null)  //Sprawdza, czy hasła są takie same
-                            {
-                                user.CreatePassword(repeatedNewPassoword);
-                                Console.WriteLine("Password has been created");
-                                return user;
-                            }
-                            else Console.WriteLine("Passwords do not match, enter your passwords again");
-                        }
+                        user.CreatePassword(user);  //Metoda do tworzenia hasła
+                        return user;
                     }
                     Console.WriteLine("Enter your password:");
                     string password = Console.ReadLine();
@@ -54,7 +40,6 @@ namespace Schedulist.Business
             }
             if (!isLoginCorrect) Console.WriteLine("Login not found, please try again");
             return null;
-
         }
     }
 }
