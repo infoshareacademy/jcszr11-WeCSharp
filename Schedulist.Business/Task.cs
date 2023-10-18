@@ -21,31 +21,31 @@ namespace Schedulist.Business
             TaskStartDateTime = taskStartDateTime;
             TaskEndDateTime = taskEndDateTime;
         }
-        public void CreateNewTask()
+        public void CreateNewTask() 
         {
             Console.WriteLine("You are creating new Task, please provide following data");
             Console.WriteLine("Task Name");
             string taskName = Console.ReadLine();
             Console.WriteLine("Task Description");
             string taskDescription = Console.ReadLine();
-            Console.WriteLine("Start date of task");
+            Console.WriteLine("Start date and time of task using format DD/MM/YYYY HH:MM");
             string taskStartDateTime = Console.ReadLine();
             DateTime parsedStartDate;
             bool isValidStartDate = DateTime.TryParse(taskStartDateTime, out parsedStartDate);
             if (isValidStartDate)
             {
-                Console.WriteLine(parsedStartDate);
+                Console.Write(" ");
             }
             else
                 Console.WriteLine($"Unable to parse date: {taskStartDateTime}");
 
-            Console.WriteLine("End date of task");
+            Console.WriteLine("End date and time of task using format DD/MM/YYYY HH:MM");
             string taskEndDateTime = Console.ReadLine();
             DateTime parsedEndDateTime;
             bool isValidEndDate = DateTime.TryParse(taskEndDateTime, out parsedEndDateTime);
             if (isValidEndDate)
             {
-                Console.WriteLine(parsedEndDateTime);
+                Console.Write(" ");
             }
             else
                 Console.WriteLine($"Unable to parse date: {taskEndDateTime}");
