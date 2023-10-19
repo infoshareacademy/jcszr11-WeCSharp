@@ -9,8 +9,14 @@ namespace Schedulist.DAL
 {
     public class UsersMemory
     {
-        private List<User> users = new List<User> { new User("Basic user", "Login1"), new User("Admin user", "Login2", Rights.IsAdmin, Rights.DeleteUser, Rights.AddUser) };
-         
+        //User  name  surname  position  department  login   Rights[] rights)
+        private List<User> users = new List<User> {
+            new User("T", "G", "e", "a", "User"),
+            new User("T", "G", "e", "a", "Admin")
+            {
+                AdminPrivilege = true,
+            }
+        };
         public List<User> GetUsers()
         {
             return users;   

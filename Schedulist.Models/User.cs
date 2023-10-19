@@ -9,7 +9,7 @@ namespace Schedulist.Models
 {
     public class User
     {
-       
+
         public List<Rights> Uprawnienia { get; set; }
 
         public User(string name, string surname, string position, string department, string login, params Rights[] rights)
@@ -19,19 +19,15 @@ namespace Schedulist.Models
             Login = login;
             Position = position;
             Department = department;
-
-            if (rights.Length > 0) {
+            if (rights.Length > 0)
+            {
                 Uprawnienia = rights.ToList();
             }
-
-            else 
+            else
             {
-                Uprawnienia = new List<Rights> {Rights.ReadOnly};
+                Uprawnienia = new List<Rights> { Rights.ReadOnly };
             }
-
         }
-
-
         public int Id { get; private set; }
         public int CurrentId { get; set; } = 0;
         public string Name { get; private set; }
@@ -42,9 +38,23 @@ namespace Schedulist.Models
         public string Password { get; private set; }
         public bool AdminPrivilege { get; set; }
 
-        public void CreatePassword(string newPassword)
+        public void CreatePassword(User user)
         {
-            Password = newPassword;
+            while (true)
+            {
+                Console.WriteLine("Create password:");
+                string newPassword = Console.ReadLine();
+                Console.WriteLine("Enter your password again:");
+                string repeatedNewPassoword = Console.ReadLine();
+                if (newPassword == repeatedNewPassoword && repeatedNewPassoword != null)  //Sprawdza, czy hasła są takie same
+                {
+                    Password = newPassword;
+                    Console.WriteLine("Password has been created");
+                    Console.WriteLine("===============================================================================");
+                    break;
+                }
+                else Console.WriteLine("Passwords do not match, enter your passwords again");
+            }
         }
     }
 }
