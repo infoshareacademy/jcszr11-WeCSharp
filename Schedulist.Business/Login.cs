@@ -28,12 +28,10 @@ namespace Schedulist.Business
                     }
                     Console.WriteLine("Enter your password:");
                     string password = Console.ReadLine();
-                    if (user.Password == password)  //Loguje użytkownika jeżeli hasło jest poprawne
+                    if (user.Password == password)  //Sprawdza czy hasło jest poprawne
                     {
                         isPasswordCorrect = true;
-                        Console.WriteLine("Successful login");
-                        Console.WriteLine("===============================================================================");
-                        return user;
+                        return user;    //Loguje użytkownika
                     }
                     if (!isPasswordCorrect) Console.WriteLine("Wrong password, please try again");
                 }
