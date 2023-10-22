@@ -10,32 +10,44 @@ namespace Schedulist.Business
 {
     public class Login
     {
-        public User Run(UsersMemory usersMemory)
+        public User Run()
         {
             bool isLoginCorrect = false;
             bool isPasswordCorrect = false;
             Console.WriteLine("Enter your login:");  //Login użytkownika
             string login = Console.ReadLine();
-            foreach (var user in usersMemory.GetUsers())
+            if (UsersMemory.listOfUsers.Any(x => x.Login == login))
             {
-                if (user.Login == login)
+
+            }
+            else
+            {
+                Console.WriteLine("User not found, please try again");
+            }
+            foreach (User item in UsersMemory.listOfUsers)
+            {
+                if (item.Login == login)
                 {
                     isLoginCorrect = true;
-                    if (string.IsNullOrEmpty(user.Password))    //Prosi o stworzenie hasła dla użytkownika jeżeli on takowego nie posiada
+                    if (string.IsNullOrEmpty(item.Password))    //Prosi o stworzenie hasła dla użytkownika jeżeli on takowego nie posiada
                     {
-                        user.CreatePassword(user);  //Metoda do tworzenia hasła
-                        return user;
+                        item.CreatePassword(item);  //Metoda do tworzenia hasła
+                        return item;
                     }
                     Console.WriteLine("Enter your password:");
                     string password = Console.ReadLine();
-                    if (user.Password == password)  //Loguje użytkownika jeżeli hasło jest poprawne
+                    if (item.Password == password)  //Loguje użytkownika jeżeli hasło jest poprawne
                     {
                         isPasswordCorrect = true;
                         Console.WriteLine("Successful login");
                         Console.WriteLine("===============================================================================");
-                        return user;
+                        return item;
                     }
                     if (!isPasswordCorrect) Console.WriteLine("Wrong password, please try again");
+                }
+                else
+                {
+                    Console.WriteLine("Login not found, please try again");
                 }
             }
             if (!isLoginCorrect) Console.WriteLine("Login not found, please try again");
