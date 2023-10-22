@@ -24,24 +24,22 @@ namespace Schedulist.Business
             {
                 Console.WriteLine("User not found, please try again");
             }
-            foreach (User item in UsersMemory.listOfUsers)
+            foreach (User user in UsersMemory.listOfUsers)
             {
-                if (item.Login == login)
+                if (user.Login == login)
                 {
                     isLoginCorrect = true;
-                    if (string.IsNullOrEmpty(item.Password))    //Prosi o stworzenie hasła dla użytkownika jeżeli on takowego nie posiada
+                    if (string.IsNullOrEmpty(user.Password))    //Prosi o stworzenie hasła dla użytkownika jeżeli on takowego nie posiada
                     {
-                        item.CreatePassword(item);  //Metoda do tworzenia hasła
-                        return item;
+                        user.CreatePassword(user);  //Metoda do tworzenia hasła
+                        return user;
                     }
                     Console.WriteLine("Enter your password:");
                     string password = Console.ReadLine();
-                    if (item.Password == password)  //Loguje użytkownika jeżeli hasło jest poprawne
+                    if (user.Password == password)  //Sprawdza czy hasło jest poprawne
                     {
                         isPasswordCorrect = true;
-                        Console.WriteLine("Successful login");
-                        Console.WriteLine("===============================================================================");
-                        return item;
+                        return user;    //Loguje użytkownika
                     }
                     if (!isPasswordCorrect) Console.WriteLine("Wrong password, please try again");
                 }

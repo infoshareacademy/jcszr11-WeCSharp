@@ -9,13 +9,14 @@ namespace Schedulist.Business
 {
     public class MenuMain
     {
-        public User Run(User user)
+        public User Run(User currentUser)
         {
-            Console.WriteLine($"Welcome, {user.Name}");
+            Console.Clear();
+            Console.WriteLine($"Welcome, {currentUser.Name}");
             Console.WriteLine("Choose the option:");
             Console.WriteLine("1. Show calendar");
             Console.WriteLine("2. Manage tasks");
-            if (user.AdminPrivilege == true)
+            if (currentUser.AdminPrivilege)
             {
                 Console.WriteLine("3. Manage work modes");
                 Console.WriteLine("4. Manage users");
@@ -30,11 +31,11 @@ namespace Schedulist.Business
                     return null;
                 }
                 else if (option.Key == ConsoleKey.D1) Console.WriteLine("*****calendar*****");
-                else if (option.Key == ConsoleKey.D2) new MenuOptions().MenuTasks(user);
-                else if (user.AdminPrivilege == true) // Admin options
+                else if (option.Key == ConsoleKey.D2) new MenuOptions().MenuTasks(currentUser);
+                else if (currentUser.AdminPrivilege) // Admin options
                 {
-                    if (option.Key == ConsoleKey.D3) new MenuOptions().MenuWorkModes(user);
-                    else if (option.Key == ConsoleKey.D4) new MenuOptions().MenuUsers(user);
+                    if (option.Key == ConsoleKey.D3) new MenuOptions().MenuWorkModes(currentUser);
+                    else if (option.Key == ConsoleKey.D4) new MenuOptions().MenuUsers(currentUser);
                 }
             }
 
