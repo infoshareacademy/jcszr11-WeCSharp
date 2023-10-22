@@ -18,4 +18,10 @@
     <ProjectReference Include="..\Schedulist.DAL\Schedulist.DAL.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Update="Users.csv">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
 </Project>

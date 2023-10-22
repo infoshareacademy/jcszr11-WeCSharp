@@ -1,9 +1,11 @@
-﻿using System;
+﻿using CsvHelper.Configuration.Attributes;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Security.Principal;
 using System.Text;
 using System.Threading.Tasks;
+
 
 namespace Schedulist.Models
 {
@@ -19,13 +21,25 @@ namespace Schedulist.Models
             Department = department;
             Password = password;
         }
-        public int Id { get; private set; }
-        public string Name { get; private set; }
-        public string Surname { get; private set; }
-        public string Position { get; private set; }
-        public string Department { get; private set; }
-        public string Login { get; private set; }
-        public string Password { get; private set; }
+        public User()
+        {
+            
+        }
+        //[Index(0)]
+        public int Id { get;  set; }
+        //[Index(1)]
+        public string Name { get;  set; }
+        //[Index(2)]
+        public string Surname { get; set; }
+        //[Index(3)]
+        public string Position { get; set; }
+        //[Index(4)]
+        public string Department { get; set; }
+        //[Index(5)]
+        public string Login { get; set; }
+        //[Index(6)]
+        public string Password { get; set; }
+        //[Index(7)]
         public bool AdminPrivilege { get; set; }
 
         public void CreatePassword(User user)

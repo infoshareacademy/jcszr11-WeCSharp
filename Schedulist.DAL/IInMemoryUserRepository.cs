@@ -7,22 +7,25 @@ using System.Threading.Tasks;
 
 namespace Schedulist.DAL
 {
-    public class UsersMemory
+    public class InMemoryUserRepository : IUserRepository
     {
-        //User  name  surname  position  department  login)
-        public static List<User> listOfUsers = new List<User> {
+        public void AddUser(User user)
+        {
+            throw new NotImplementedException();
+        }
+
+        public List<User> GetAllUsers()
+        {
+            return new List<User> 
+            {
             new User("Tomasz", "Tomaszewicz", "Driver", "Logistics", "LogU1", "passU1"),
             new User("Bartek", "Bartkowicz", "Salesmen", "Sales Department","LogU2", "passU2"),
             new User("Romek", "Romanowicz", "CEO", "Executive", "LogA1", "passA1")
-            {
-                AdminPrivilege = true,
-            }
-        };
+                {
+                    AdminPrivilege = true,
+                }
+            };
 
-        public List<User> GetUsers()
-        {
-            return listOfUsers;
         }
-
     }
 }

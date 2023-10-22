@@ -8,23 +8,29 @@ using System.Threading.Tasks;
 
 namespace Schedulist.Business
 {
-    public class Login
+    public class Login 
     {
+        private readonly IUserRepository userRepository;
+
+        public Login(IUserRepository userRepository)
+        {
+            this.userRepository = userRepository;
+        }
         public User Run()
         {
             bool isLoginCorrect = false;
             bool isPasswordCorrect = false;
             Console.WriteLine("Enter your login:");  //Login użytkownika
             string login = Console.ReadLine();
-            if (UsersMemory.listOfUsers.Any(x => x.Login == login))
-            {
+            //if (userRepository.GetAllUsers().Any(x => x.Login == login))
+            //{
 
-            }
-            else
-            {
-                Console.WriteLine("User not found, please try again");
-            }
-            foreach (User user in UsersMemory.listOfUsers)
+            //}
+            //else
+            //{
+            //    Console.WriteLine("User not found, please try again");
+            //}
+            foreach (User user in userRepository.GetAllUsers())
             {
                 if (user.Login == login)
                 {
