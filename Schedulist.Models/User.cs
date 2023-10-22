@@ -20,7 +20,6 @@ namespace Schedulist.Models
             Password = password;
         }
         public int Id { get; private set; }
-        public int CurrentId { get; set; } = 0;
         public string Name { get; private set; }
         public string Surname { get; private set; }
         public string Position { get; private set; }
@@ -44,7 +43,7 @@ namespace Schedulist.Models
                     Console.WriteLine("===============================================================================");
                     break;
                 }
-                else Console.WriteLine("Passwords do not match, enter your passwords again");
+                else Console.WriteLine("Passwords do not match or is empty, enter your passwords again");
             }
         }
     }

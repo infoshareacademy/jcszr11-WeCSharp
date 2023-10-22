@@ -10,13 +10,21 @@ namespace Schedulist.Business
 {
     public class Login
     {
-        public User Run(UsersMemory usersMemory)
+        public User Run()
         {
             bool isLoginCorrect = false;
             bool isPasswordCorrect = false;
             Console.WriteLine("Enter your login:");  //Login użytkownika
             string login = Console.ReadLine();
-            foreach (var user in usersMemory.GetUsers())
+            if (UsersMemory.listOfUsers.Any(x => x.Login == login))
+            {
+
+            }
+            else
+            {
+                Console.WriteLine("User not found, please try again");
+            }
+            foreach (User user in UsersMemory.listOfUsers)
             {
                 if (user.Login == login)
                 {
@@ -34,6 +42,10 @@ namespace Schedulist.Business
                         return user;    //Loguje użytkownika
                     }
                     if (!isPasswordCorrect) Console.WriteLine("Wrong password, please try again");
+                }
+                else
+                {
+                    Console.WriteLine("Login not found, please try again");
                 }
             }
             if (!isLoginCorrect) Console.WriteLine("Login not found, please try again");

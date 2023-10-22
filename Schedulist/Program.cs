@@ -13,7 +13,7 @@ namespace Schedulist
             var usersMemory = new UsersMemory();
             while (true)
             {
-                User currentUser = new Login().Run(usersMemory);    //Metoda do logowania użytkownika
+                User currentUser = new Login().Run();    //Metoda do logowania użytkownika
                 if (currentUser != null) currentUser = new MenuMain().Run(currentUser);
             }
         }
