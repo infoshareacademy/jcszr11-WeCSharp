@@ -42,24 +42,17 @@ namespace Schedulist.DAL
                 HasHeaderRecord = true,
                 //Delimiter = "\t",
             };
+            listOfUsers = GetAllUsers();
             try
             {
-                // Create a new StreamWriter to write to the CSV file.
-                //using (StreamWriter writer = new StreamWriter(filePath))
-                //{
-                    //foreach (User record in listOfUsers)
-                    //{
-                    //    // Join the values in the row with commas and write to the file.
-                    //    writer.WriteLine(record);
-                    //}
-                    //writer.WriteRecord(user);
-                    //Console.WriteLine("Succes");
-                    using (var writer = new StreamWriter(filePath))
-                    using (var csv = new CsvWriter(writer))
-                    {
-                        csv.WriteRecord(user);
-                    }
-                //}
+                using (StreamWriter writer = new StreamWriter(filePath, true))
+                using (var csv = new CsvWriter(writer, csvConfig))
+                {
+                    listOfUsers.Add(user);
+                    csv.WriteRecords(listOfUsers);
+                 
+                    Console.WriteLine("Succes");
+                }
             }
             catch (Exception ex)
             {

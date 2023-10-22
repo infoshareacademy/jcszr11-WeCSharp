@@ -24,22 +24,13 @@ namespace Schedulist.Business
         ////}
         internal void Create()
         {
-            Console.WriteLine();
-            Console.WriteLine("===============================================================================");
-            Console.WriteLine("Create User");
-            Console.WriteLine("===============================================================================");
-            Console.WriteLine("Type User name");
-            string name = Console.ReadLine();
-            Console.WriteLine("Type User surname");
-            string surname = Console.ReadLine();
-            Console.WriteLine("Type User position");
-            string position = Console.ReadLine();
-            Console.WriteLine("Type User department");
-            string department = Console.ReadLine();
-            Console.WriteLine("Type User login");
-            string login = Console.ReadLine();
-            Console.WriteLine("Type User password");
-            string password = Console.ReadLine();
+            Console.WriteLine("======Create User Section======");
+            string name = ConsolHelper("Type User name");
+            string surname = ConsolHelper("Type User surname");
+            string position = ConsolHelper("Type User position");
+            string department = ConsolHelper("Type User department");
+            string login = ConsolHelper("Type User login");
+            string password = ConsolHelper("Type User password");
             Console.WriteLine("Is created User Admin? type y/n");
             bool isAdmin = false;
             switch (Console.ReadLine())
@@ -51,7 +42,7 @@ namespace Schedulist.Business
                     isAdmin = false;
                     break;
                 default:
-                    Console.WriteLine("Error");
+                    Console.WriteLine("Invalid Admin access");
                     break;
             }
             User user = new User(name, surname, position, department, login, password) 
@@ -72,6 +63,13 @@ namespace Schedulist.Business
             Console.WriteLine("===============================================================================");
             Console.WriteLine("Delete User");
             Console.WriteLine("===============================================================================");
+        }
+
+        internal string ConsolHelper(string message)
+        {
+            Console.WriteLine(message);
+            string userInput = Console.ReadLine();
+            return userInput;
         }
     }
 }
