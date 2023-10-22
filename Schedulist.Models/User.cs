@@ -10,23 +10,14 @@ namespace Schedulist.Models
     public class User
     {
 
-        public List<Rights> Uprawnienia { get; set; }
-
-        public User(string name, string surname, string position, string department, string login, params Rights[] rights)
+        public User(string name, string surname, string position, string department, string login, string password)
         {
             Name = name;
             Surname = surname;
             Login = login;
             Position = position;
             Department = department;
-            if (rights.Length > 0)
-            {
-                Uprawnienia = rights.ToList();
-            }
-            else
-            {
-                Uprawnienia = new List<Rights> { Rights.ReadOnly };
-            }
+            Password = password;
         }
         public int Id { get; private set; }
         public int CurrentId { get; set; } = 0;

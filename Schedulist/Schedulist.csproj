@@ -8,7 +8,9 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Menus\" />
+    <Compile Remove="Menus\**" />
+    <EmbeddedResource Remove="Menus\**" />
+    <None Remove="Menus\**" />
   </ItemGroup>
 
   <ItemGroup>
