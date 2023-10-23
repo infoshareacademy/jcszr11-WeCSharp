@@ -45,13 +45,12 @@ namespace Schedulist.DAL
             listOfUsers = GetAllUsers();
             try
             {
-                using (StreamWriter writer = new StreamWriter(filePath, true))
+                using (StreamWriter writer = new StreamWriter("C:\\Users\\Mariusz\\Desktop\\InfoShare\\#4 Projekt grupowy Work-Schedule\\jcszr11-WeCSharp\\Schedulist\\Users.csv", true))
                 using (var csv = new CsvWriter(writer, csvConfig))
                 {
-                    listOfUsers.Add(user);
-                    csv.WriteRecords(listOfUsers);
-                 
-                    Console.WriteLine("Succes");
+                    csv.WriteRecord(user);
+                    Console.Clear();        
+                    Console.WriteLine($" The User {user.Name} {user.Surname} Has been added to the list succesfully");
                 }
             }
             catch (Exception ex)

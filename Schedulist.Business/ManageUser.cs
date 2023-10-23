@@ -13,18 +13,14 @@ namespace Schedulist.Business
         IUserRepository _userRepository;
         User _user;
 
-        //public ManageUser(/*IUserRepository userRepository*/);
-        ////{
-        ////    _userRepository = userRepository;
-        ////}
-        ////public void ConsolHelper(string message)
-        ////{
-        ////    message;
-        ////    Console.ReadLine(message);
-        ////}
+        //public ManageUser(IUserRepository userRepository);
+        //{
+        //    _userRepository = userRepository;
+        //}
+
         internal void Create()
         {
-            Console.WriteLine("======Create User Section======");
+            Console.WriteLine("====== Create User Section ======");
             string name = ConsolHelper("Type User name");
             string surname = ConsolHelper("Type User surname");
             string position = ConsolHelper("Type User position");
@@ -45,9 +41,9 @@ namespace Schedulist.Business
                     Console.WriteLine("Invalid Admin access");
                     break;
             }
-            User user = new User(name, surname, position, department, login, password) 
-            {AdminPrivilege = isAdmin, Id=1};
-            new CsvUserRepository("Users.csv").AddUser(user);
+            User user = new User(name, surname, position, department, login, password)
+            { AdminPrivilege = isAdmin, Id = 4 };
+            new CsvUserRepository("C:\\Users\\Mariusz\\Desktop\\InfoShare\\#4 Projekt grupowy Work-Schedule\\jcszr11-WeCSharp\\Schedulist\\Users.csv").AddUser(user);
         }
 
         internal void Modify()
