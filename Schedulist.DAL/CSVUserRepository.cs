@@ -14,11 +14,11 @@ namespace Schedulist.DAL
 {
     public class CsvUserRepository : IUserRepository
     {
-        private readonly string filePath;
-        public List<User> listOfUsers;
+        private readonly string FilePath;
+        public List<User> ListOfUsers;
         public CsvUserRepository(string filePath)
         {
-            this.filePath = filePath;
+            this.FilePath = filePath;
         }
 
         public List<User> GetAllUsers()
@@ -28,11 +28,11 @@ namespace Schedulist.DAL
                 HasHeaderRecord = true,
                 //Delimiter = "\t",
             };
-            using (var reader = new StreamReader(filePath))
+            using (var reader = new StreamReader(FilePath))
             using (var csv = new CsvReader(reader, csvConfig))
             {
-                listOfUsers = csv.GetRecords<User>().ToList();
-                return listOfUsers;
+                ListOfUsers = csv.GetRecords<User>().ToList();
+                return ListOfUsers;
             }
         }
         public void AddUser(User user)
@@ -42,13 +42,21 @@ namespace Schedulist.DAL
                 HasHeaderRecord = true,
                 //Delimiter = "\t",
             };
-            listOfUsers = GetAllUsers();
+            ListOfUsers = GetAllUsers();
+
+            // Oblicza lość użytkowników w liście i na tej podstawie nowemu użytkownikowi przydziela wartosć 
+            // Id o jeden większą lub 1 w przypadku pustej listy. 
+            int nextUserId = ListOfUsers.Count > 0 ? ListOfUsers.Max(u => u.Id) + 1 : 1;
+
+            // przydzielenie Id nowego użytkownika do dobranej wartości.
+            user.Id = nextUserId;
             try
             {
-                using (StreamWriter writer = new StreamWriter("C:\\Users\\Mariusz\\Desktop\\InfoShare\\#4 Projekt grupowy Work-Schedule\\jcszr11-WeCSharp\\Schedulist\\Users.csv", true))
+                ListOfUsers.Add(user);
+                using (StreamWriter writer = new StreamWriter("Users.csv"))
                 using (var csv = new CsvWriter(writer, csvConfig))
                 {
-                    csv.WriteRecord(user);
+                    csv.WriteRecords(ListOfUsers);
                     Console.Clear();        
                     Console.WriteLine($" The User {user.Name} {user.Surname} Has been added to the list succesfully");
                 }

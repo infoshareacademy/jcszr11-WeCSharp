@@ -21,6 +21,7 @@ namespace Schedulist.Business
 
         internal void Create()
         {
+            Console.Clear();
             Console.WriteLine("====== Create User Section ======");
             string name = Method.ConsolHelper("Type User name");
             string surname = Method.ConsolHelper("Type User surname");
@@ -43,7 +44,7 @@ namespace Schedulist.Business
                     break;
             }
             User user = new User(name, surname, position, department, login, password)
-            { AdminPrivilege = isAdmin, Id = 4 };
+            { AdminPrivilege = isAdmin };
             new CsvUserRepository("Users.csv").AddUser(user);
         }
 

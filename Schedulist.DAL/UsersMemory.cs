@@ -19,10 +19,10 @@ namespace Schedulist.DAL
             }
         };
 
-        //public List<User> GetUsers()
-        //{
-        //    return listOfUsers;
-        //}
+        public List<User> GetUsers()
+        {
+            return listOfUsers;
+        }
 
     }
 }

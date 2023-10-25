@@ -1,5 +1,6 @@
 Id,Name,Surname,Position,Department,Login,Password,AdminPrivilege
-1,Tomasz,Tomaszewicz,Driver,Logistics,LogU1,passU1,false
-2,Bartek,Bartkowicz,Salesmen,Sales Department,LogU2,passU2,false
-3,Romek,Romanowicz,CEO,Executive,LogA1,passA1,True
+1,Tomasz,Tomaszewicz,Driver,Logistics,LogU1,PassU1,False
+2,Bartek,Bartkowicz,Salesmen,Sales Department,LogU2,PassU2,False
+3,Romek,Romanowicz,CEO,Executive,LogA1,PassA1,True
 4,Mar,Mar,Mar,v,Mar,Mar,True
+
