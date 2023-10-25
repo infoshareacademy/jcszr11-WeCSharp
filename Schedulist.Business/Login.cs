@@ -26,15 +26,36 @@ namespace Schedulist.Business
                 {
                     User currentUser = userRepository.GetAllUsers().First(x => x.Login == login); // Sprawdzenie czy w bazie jest użytkownik o podanym loginie
                     string password = Method.ConsolHelper("Enter your password:");
-                    if (currentUser.Password == password) // Sprawdzanie czy podane hasło jest zgodne z tym wpisanym w konsoli
+                    while (true)
                     {
-                        return currentUser; //Loguje użytkownika
-                    }
-                    else
-                    {
-                        Console.WriteLine("Your password has not been found.");
-                        Method.CreatePassword(currentUser);  //Metoda do tworzenia hasła
-                        return currentUser; //Loguje użytkownika
+                        if (currentUser.Password == password) // Sprawdzanie czy podane hasło jest zgodne z tym wpisanym w konsoli
+                            return currentUser; //Loguje użytkownika
+
+                        else if (currentUser.Password != password)
+                        {
+                            Console.Clear();
+                            Console.WriteLine("Your password has not been found.");
+                            Console.WriteLine("Do you want to create new password? Choose option:");
+                            Console.WriteLine("1.Create new password");
+                            Console.WriteLine("2.Retry typing");
+                            string userAnswer = Method.ConsolHelper("3.Exit");
+                            switch (userAnswer)
+                            {
+                                case "1":
+                                    Console.Clear();
+                                    Method.CreatePassword(currentUser);
+                                    return currentUser;
+                                case "2":
+                                    Console.Clear();
+                                    password = Method.ConsolHelper("Enter your password:");
+                                    break;
+                                case "3":
+                                    Environment.Exit(0);
+                                    break;
+                                default:
+                                    break;
+                            }
+                        }
                     }
                 }
                 else

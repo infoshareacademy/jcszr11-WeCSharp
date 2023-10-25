@@ -15,7 +15,7 @@ namespace Schedulist.Business.Actions
             string userInput = Console.ReadLine();
             return userInput;
         }
-        public static void CreatePassword(User user)
+        public static User CreatePassword(User user)
         {
             while (true)
             {
@@ -26,7 +26,7 @@ namespace Schedulist.Business.Actions
                 {
                     user.Password = newPassword;
                     Console.WriteLine("Password has been created.");
-                    break;
+                    return user;
                 }
                 else Console.WriteLine("Passwords do not match or is empty, enter your passwords again.");
             }
