@@ -53,7 +53,7 @@ namespace Schedulist.DAL
             try
             {
                 ListOfUsers.Add(user);
-                using (StreamWriter writer = new StreamWriter("Users.csv"))
+                using (StreamWriter writer = new StreamWriter(FilePath))
                 using (var csv = new CsvWriter(writer, csvConfig))
                 {
                     csv.WriteRecords(ListOfUsers);

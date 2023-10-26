@@ -45,7 +45,7 @@ namespace Schedulist.Business
             }
             User user = new User(name, surname, position, department, login, password)
             { AdminPrivilege = isAdmin };
-            new CsvUserRepository("Users.csv").AddUser(user);
+            new CsvUserRepository("..\\..\\..\\Users.csv").AddUser(user);
         }
 
         internal void Modify()
