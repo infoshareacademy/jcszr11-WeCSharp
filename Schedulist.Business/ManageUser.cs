@@ -1,4 +1,5 @@
-﻿using Schedulist.DAL;
+﻿using Schedulist.Business.Actions;
+using Schedulist.DAL;
 using Schedulist.Models;
 using System;
 using System.Collections.Generic;
@@ -20,13 +21,14 @@ namespace Schedulist.Business
 
         internal void Create()
         {
+            Console.Clear();
             Console.WriteLine("====== Create User Section ======");
-            string name = ConsolHelper("Type User name");
-            string surname = ConsolHelper("Type User surname");
-            string position = ConsolHelper("Type User position");
-            string department = ConsolHelper("Type User department");
-            string login = ConsolHelper("Type User login");
-            string password = ConsolHelper("Type User password");
+            string name = Method.ConsolHelper("Type User name");
+            string surname = Method.ConsolHelper("Type User surname");
+            string position = Method.ConsolHelper("Type User position");
+            string department = Method.ConsolHelper("Type User department");
+            string login = Method.ConsolHelper("Type User login");
+            string password = Method.ConsolHelper("Type User password");
             Console.WriteLine("Is created User Admin? type y/n");
             bool isAdmin = false;
             switch (Console.ReadLine())
@@ -42,8 +44,8 @@ namespace Schedulist.Business
                     break;
             }
             User user = new User(name, surname, position, department, login, password)
-            { AdminPrivilege = isAdmin, Id = 4 };
-            new CsvUserRepository("C:\\Users\\Mariusz\\Desktop\\InfoShare\\#4 Projekt grupowy Work-Schedule\\jcszr11-WeCSharp\\Schedulist\\Users.csv").AddUser(user);
+            { AdminPrivilege = isAdmin };
+            new CsvUserRepository("..\\..\\..\\Users.csv").AddUser(user);
         }
 
         internal void Modify()
@@ -59,13 +61,6 @@ namespace Schedulist.Business
             Console.WriteLine("===============================================================================");
             Console.WriteLine("Delete User");
             Console.WriteLine("===============================================================================");
-        }
-
-        internal string ConsolHelper(string message)
-        {
-            Console.WriteLine(message);
-            string userInput = Console.ReadLine();
-            return userInput;
         }
     }
 }

@@ -1,4 +1,5 @@
-﻿using Schedulist.DAL;
+﻿using Schedulist.Business.Actions;
+using Schedulist.DAL;
 using Schedulist.Models;
 using System;
 using System.Collections.Generic;
@@ -8,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace Schedulist.Business
 {
-    public class Login 
+    public class Login
     {
         private readonly IUserRepository userRepository;
 
@@ -18,44 +19,49 @@ namespace Schedulist.Business
         }
         public User Run()
         {
-            bool isLoginCorrect = false;
-            bool isPasswordCorrect = false;
-            Console.WriteLine("Enter your login:");  //Login użytkownika
-            string login = Console.ReadLine();
-            //if (userRepository.GetAllUsers().Any(x => x.Login == login))
-            //{
-
-            //}
-            //else
-            //{
-            //    Console.WriteLine("User not found, please try again");
-            //}
-            foreach (User user in userRepository.GetAllUsers())
+            while (true)
             {
-                if (user.Login == login)
+                string login = Method.ConsolHelper("Enter your login:");
+                if (userRepository.GetAllUsers().Any(x => x.Login == login))
                 {
-                    isLoginCorrect = true;
-                    if (string.IsNullOrEmpty(user.Password))    //Prosi o stworzenie hasła dla użytkownika jeżeli on takowego nie posiada
+                    User currentUser = userRepository.GetAllUsers().First(x => x.Login == login); // Sprawdzenie czy w bazie jest użytkownik o podanym loginie
+                    string password = Method.ConsolHelper("Enter your password:");
+                    while (true)
                     {
-                        user.CreatePassword(user);  //Metoda do tworzenia hasła
-                        return user;
+                        if (currentUser.Password == password) // Sprawdzanie czy podane hasło jest zgodne z tym wpisanym w konsoli
+                            return currentUser; //Loguje użytkownika
+
+                        else if (currentUser.Password != password)
+                        {
+                            Console.Clear();
+                            Console.WriteLine("Your password has not been found.");
+                            Console.WriteLine("Do you want to create new password? Choose option:");
+                            Console.WriteLine("1.Create new password");
+                            Console.WriteLine("2.Retry typing");
+                            string userAnswer = Method.ConsolHelper("3.Exit");
+                            switch (userAnswer)
+                            {
+                                case "1":
+                                    Console.Clear();
+                                    Method.CreatePassword(currentUser);
+                                    return currentUser;
+                                case "2":
+                                    Console.Clear();
+                                    password = Method.ConsolHelper("Enter your password:");
+                                    break;
+                                case "3":
+                                    Environment.Exit(0);
+                                    break;
+                                default:
+                                    break;
+                            }
+                        }
                     }
-                    Console.WriteLine("Enter your password:");
-                    string password = Console.ReadLine();
-                    if (user.Password == password)  //Sprawdza czy hasło jest poprawne
-                    {
-                        isPasswordCorrect = true;
-                        return user;    //Loguje użytkownika
-                    }
-                    if (!isPasswordCorrect) Console.WriteLine("Wrong password, please try again");
                 }
                 else
-                {
-                    Console.WriteLine("Login not found, please try again");
-                }
+                    Console.WriteLine("Login not found, please try again.");
             }
-            if (!isLoginCorrect) Console.WriteLine("Login not found, please try again");
-            return null;
         }
     }
 }
+
