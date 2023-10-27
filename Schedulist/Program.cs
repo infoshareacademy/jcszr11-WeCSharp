@@ -1,5 +1,4 @@
-﻿using Schedulist.Models;
-using Schedulist.Business;
+﻿using Schedulist.Business;
 using System;
 using Schedulist.DAL;
 

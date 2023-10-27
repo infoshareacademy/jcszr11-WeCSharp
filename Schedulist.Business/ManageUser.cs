@@ -1,6 +1,5 @@
 ﻿using Schedulist.Business.Actions;
 using Schedulist.DAL;
-using Schedulist.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -50,10 +49,8 @@ namespace Schedulist.Business
 
         internal void Modify()
         {
-            Console.WriteLine();
-            Console.WriteLine("===============================================================================");
-            Console.WriteLine("Modify User");
-            Console.WriteLine("===============================================================================");
+            Console.Clear();
+            Console.WriteLine("====== Modify User Section ======");
         }
         internal void Delete()
         {
