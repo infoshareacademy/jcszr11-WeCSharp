@@ -61,7 +61,7 @@ namespace Schedulist.Business
             {
                 var option = Console.ReadKey();
                 if (option.Key == ConsoleKey.D1) new ManageUser().Create();
-                else if (option.Key == ConsoleKey.D2) new ManageUser().Modify();
+                else if (option.Key == ConsoleKey.D2) new ManageUser().Modify(currentUser);
                 else if (option.Key == ConsoleKey.D3) new ManageUser().Delete();
                 else if (option.Key == ConsoleKey.Backspace) new MenuMain().Run(currentUser);
                 break;
