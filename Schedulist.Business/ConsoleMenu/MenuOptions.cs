@@ -10,21 +10,23 @@ namespace Schedulist.Business
 {
     internal class MenuOptions
     {
-        public void MenuTasks(User currentUser)
+        public void MenuCalendarEvents(User currentUser)
         {
             Console.Clear();
             Console.WriteLine("Choose the option:");
-            Console.WriteLine("1. Create new task");
-            Console.WriteLine("2. Modify existing task");
-            Console.WriteLine("3. Delete existing task");
+            Console.WriteLine("1. Create new calendar event");
+            Console.WriteLine("2. Show calendar events");
+            Console.WriteLine("3. Modify existing calendar event");
+            Console.WriteLine("4. Delete existing calendar event");
             Console.WriteLine("Backspace. Go back");
             Console.WriteLine("===============================================================================");
             while (true)
             {
                 var option = Console.ReadKey();
                 if (option.Key == ConsoleKey.D1) new ManageCalendarEvent().CreateCalendarEvent();
-                else if (option.Key == ConsoleKey.D2) Console.WriteLine("*****modify task*****");
-                else if (option.Key == ConsoleKey.D3) Console.WriteLine("*****delete task*****");
+                else if (option.Key == ConsoleKey.D2) Console.WriteLine("*****show tasks*****");
+                else if (option.Key == ConsoleKey.D3) Console.WriteLine("*****modify task*****");
+                else if (option.Key == ConsoleKey.D4) Console.WriteLine("*****delete task*****");
                 else if (option.Key == ConsoleKey.Backspace) new MenuMain().Run(currentUser);
                 break;
             }
