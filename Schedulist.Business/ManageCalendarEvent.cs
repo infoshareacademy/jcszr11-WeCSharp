@@ -26,24 +26,30 @@ namespace Schedulist.Business
         }
         public void CreateCalendarEvent()
         {
-            Console.WriteLine("You are creating new Calendar Event, please provide following data");
-            Console.WriteLine("TasCalendar Event Name");
-            string calendarEventName = Console.ReadLine();
-            Console.WriteLine("Task Description");
-            string calendarEventDescription = Console.ReadLine();
-            Console.WriteLine("Start date and time of task using format DD/MM/YYYY HH:MM");
-            string calendarEventStartDateTime = Console.ReadLine();
-            DateTime parsedStartDate;
-            var isValidStartDate = DateTime.TryParse(calendarEventStartDateTime, out parsedStartDate);
-            if (!isValidStartDate) Console.WriteLine($"Incorrect date/time format, unable to parse date: {calendarEventStartDateTime}");                
+            var finishCreatingTask = false;
 
-            Console.WriteLine("End date and time of task using format DD/MM/YYYY HH:MM");
-            string calendarEventEndDateTime = Console.ReadLine();
-            DateTime parsedEndDateTime;
-            bool isValidEndDate = DateTime.TryParse(calendarEventEndDateTime, out parsedEndDateTime);
-            if (!isValidEndDate) Console.WriteLine($"Incorrect date/time format, unable to parse date: {calendarEventEndDateTime}");
-           
-                
+            while (!finishCreatingTask)
+            {
+                Console.WriteLine("You are creating new Calendar Event, please provide following data:");
+                Console.WriteLine("Calendar Event ID:");
+                int calendarEventId = int.Parse(Console.ReadLine());
+                Console.WriteLine("Calendar Event Name:");
+                string calendarEventName = Console.ReadLine();
+                Console.WriteLine("Calendar Event Description");
+                string calendarEventDescription = Console.ReadLine();
+                Console.WriteLine("Start date and time of Calendar Event using format DD/MM/YYYY HH:MM");
+                DateTime calendarEventStartDateTime = Convert.ToDateTime(Console.ReadLine());
+                Console.WriteLine("End date and time of Calendar Event using format DD/MM/YYYY HH:MM");
+                DateTime calendarEventEndDateTime = Convert.ToDateTime(Console.ReadLine());
+                Console.WriteLine("You created new task as following:");
+                Console.WriteLine(
+                    $"Task ID:             |{calendarEventId}    \nTask Name:           |{calendarEventName}    \nTask Description:    |{calendarEventDescription}    \nStart Date and Time: | {calendarEventStartDateTime} \nEnd Date and Time:   | {calendarEventEndDateTime}");
+                Console.Write(
+                    "Press 'x' and Enter to close the app, or press any other key and Enter to continue creating tasks: ");
+                if (Console.ReadLine() == "x") finishCreatingTask = true;
+                else if (Console.ReadLine() == "y") //read menu
+                    Console.WriteLine("\n");
+            }
         }
     }
 }

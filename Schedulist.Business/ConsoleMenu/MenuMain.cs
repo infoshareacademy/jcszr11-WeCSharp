@@ -15,7 +15,7 @@ namespace Schedulist.Business
             Console.WriteLine($"Welcome, {currentUser.Name}");
             Console.WriteLine("Choose the option:");
             Console.WriteLine("1. Show calendar");
-            Console.WriteLine("2. Manage tasks");
+            Console.WriteLine("2. Manage calendar events");
             if (currentUser.AdminPrivilege == true)
             {
                 Console.WriteLine("3. Manage work modes");
