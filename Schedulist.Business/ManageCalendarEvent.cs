@@ -49,7 +49,15 @@ namespace Schedulist.Business
                 if (Console.ReadLine() == "x") finishCreatingTask = true;
                 else if (Console.ReadLine() == "y") //read menu
                     Console.WriteLine("\n");
+
+
+                CalendarEvent calendarEvent = new CalendarEvent(calendarEventId, calendarEventName,
+                    calendarEventDescription, calendarEventStartDateTime, calendarEventEndDateTime);
+                new CsvCalendarEventRepository("..\\..\\..\\CalendarEvents.csv").Add(calendarEvent);
+
+                //TODO - to update headers/CSV file to save correctly
             }
+
         }
     }
 }

@@ -19,6 +19,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Update="CalendarEvents.csv">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Update="Users.csv">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>

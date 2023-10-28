@@ -10,6 +10,6 @@ namespace Schedulist.DAL
     {
         List<T> GetAll();
         T GetById(int id);
-        void Add(T item);
+        void Add(T @event);
     }
 }
