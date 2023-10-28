@@ -22,7 +22,7 @@ namespace Schedulist.Business
             while (true)
             {
                 var option = Console.ReadKey();
-                if (option.Key == ConsoleKey.D1) new Task().CreateNewTask();
+                if (option.Key == ConsoleKey.D1) new ManageCalendarEvent().CreateCalendarEvent();
                 else if (option.Key == ConsoleKey.D2) Console.WriteLine("*****modify task*****");
                 else if (option.Key == ConsoleKey.D3) Console.WriteLine("*****delete task*****");
                 else if (option.Key == ConsoleKey.Backspace) new MenuMain().Run(currentUser);
