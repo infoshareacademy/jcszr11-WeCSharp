@@ -7,7 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 
-namespace Schedulist.Models
+namespace Schedulist.DAL
 {
     public class User
     {

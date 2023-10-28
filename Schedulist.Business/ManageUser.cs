@@ -1,6 +1,5 @@
 ﻿using Schedulist.Business.Actions;
 using Schedulist.DAL;
-using Schedulist.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -48,12 +47,43 @@ namespace Schedulist.Business
             new CsvUserRepository("..\\..\\..\\Users.csv").AddUser(user);
         }
 
-        internal void Modify()
+        internal void Modify(User currentUser)
         {
-            Console.WriteLine();
-            Console.WriteLine("===============================================================================");
-            Console.WriteLine("Modify User");
-            Console.WriteLine("===============================================================================");
+            Console.Clear();
+            Console.WriteLine("====== Modify User ======");
+            string userToModify_login = Method.ConsolHelper("Provide login of the user you want to modify:");
+            if (new CsvUserRepository("Users.csv").GetAllUsers().Any(x => x.Login == userToModify_login))
+            {
+                User userToModify = new CsvUserRepository("Users.csv").GetAllUsers().First(x => x.Login == userToModify_login);
+                Console.Clear();
+                Console.WriteLine($"User {userToModify.Login} found");
+                Console.WriteLine("Choose variable of user that you want to modify:");
+                Console.WriteLine($"1. Name:            {userToModify.Name}");
+                Console.WriteLine($"2. Surname:         {userToModify.Surname}");
+                Console.WriteLine($"3. Position:        {userToModify.Position}");
+                Console.WriteLine($"4. Department:      {userToModify.Department}");
+                Console.WriteLine($"5. Login:           {userToModify.Login}");
+                Console.WriteLine($"6. Password:        {userToModify.Password}");
+                Console.WriteLine($"7. AdminPrivilege:  {userToModify.AdminPrivilege}");
+                Console.WriteLine("Backspace. Go back");
+                Console.WriteLine("===============================================================================");
+                while (true)
+                {
+                    var option = Console.ReadKey();
+                    if (option.Key == ConsoleKey.D1) Console.WriteLine("1");
+                    else if (option.Key == ConsoleKey.D2) Console.WriteLine("2");
+                    else if (option.Key == ConsoleKey.D3) Console.WriteLine("3");
+                    else if (option.Key == ConsoleKey.D4) Console.WriteLine("4");
+                    else if (option.Key == ConsoleKey.D5) Console.WriteLine("5");
+                    else if (option.Key == ConsoleKey.D6) Console.WriteLine("6");
+                    else if (option.Key == ConsoleKey.D7) Console.WriteLine("7");
+                    else if (option.Key == ConsoleKey.Backspace) new MenuOptions().MenuUsers(currentUser);
+                    break;
+                }
+            }
+            else Console.WriteLine("User not found, moving back to menu...");
+            Thread.Sleep(3000);
+            new MenuOptions().MenuUsers(currentUser);
         }
         internal void Delete()
         {
