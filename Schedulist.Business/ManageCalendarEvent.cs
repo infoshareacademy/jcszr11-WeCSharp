@@ -9,20 +9,21 @@ namespace Schedulist.Business
 {
     public class ManageCalendarEvent
     {
-        IRepository<CalendarEvent> _calendarEventRepository;
+        ICalendarEventRepository _calendarEventRepository;
 
-        public ManageCalendarEvent(IRepository<CalendarEvent> calendarEventRepository)
+        public ManageCalendarEvent(ICalendarEventRepository calendarEventRepository)
         {
             _calendarEventRepository = calendarEventRepository;
         }
 
+        
         public ManageCalendarEvent()
         {
         }
 
         public void ShowCalendarEvent()
         {
-            var calendarEvents = _calendarEventRepository.GetAll();
+            var calendarEvents = _calendarEventRepository.GetAllCalendarEvents();
         }
         public void CreateCalendarEvent()
         {
@@ -53,7 +54,7 @@ namespace Schedulist.Business
 
                 CalendarEvent calendarEvent = new CalendarEvent(calendarEventId, calendarEventName,
                     calendarEventDescription, calendarEventStartDateTime, calendarEventEndDateTime);
-                new CsvCalendarEventRepository("..\\..\\..\\CalendarEvents.csv").Add(calendarEvent);
+                new CsvCalendarEventRepository("..\\..\\..\\CalendarEvents.csv").AddCalendarEvent(calendarEvent);
 
                 //TODO - to update headers/CSV file to save correctly
             //}

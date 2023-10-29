@@ -1,3 +1,5 @@
-CalendarEventId,CalendarEventName,CalendarEventDescription,CalendarEventStartDateTime,CalendarEventEndDateTime
-1,Test 1,Testing of defined list,02/11/2023 08:00,02/11/2023 16:00
-1,Test 2,Testing of defined list,03/11/2023 08:00,03/11/2023 16:00
+calendarEventId,calendarEventName,calendarEventDescription,calendarEventStartDateTime,calendarEventEndDateTime
+1,Test 1,Testing of defined list,02/11/2023 08:00:00,02/11/2023 16:00:00
+1,Test 2,Testing of defined list,03/11/2023 08:00:00,03/11/2023 16:00:00
+12,Test from app,small letters,10/20/2023 08:00:00,10/20/2023 16:00:00
+11,Test from app 2,again,11/20/2023 08:00:00,11/20/2023 16:00:00

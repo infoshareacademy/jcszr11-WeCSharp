@@ -9,16 +9,19 @@ using System.Threading.Tasks;
 
 namespace Schedulist.DAL
 {
-    public class CsvCalendarEventRepository : IRepository<CalendarEvent>
+    public class CsvCalendarEventRepository : ICalendarEventRepository
     {
         private string _pathToCsvFile;
-        private List<CalendarEvent> _calendarEvents;
+        public List<CalendarEvent> calendarEvents;
         public CsvCalendarEventRepository(string pathToCsvFile)
         {
             _pathToCsvFile = pathToCsvFile;
         }
-
-        public List<CalendarEvent> GetAll()
+        public CalendarEvent GetById(int id)
+        {
+            return calendarEvents.Single(c => c.CalendarEventId == id);
+        }
+        public List<CalendarEvent> GetAllCalendarEvents()
         {
             var csvConfig = new CsvConfiguration(CultureInfo.InvariantCulture)
             {
@@ -28,34 +31,27 @@ namespace Schedulist.DAL
             using (var reader = new StreamReader(_pathToCsvFile))
             using (var csv = new CsvReader(reader, csvConfig))
             {
-                _calendarEvents = csv.GetRecords<CalendarEvent>().ToList();
-                return _calendarEvents;
+                calendarEvents = csv.GetRecords<CalendarEvent>().ToList();
+                return calendarEvents;
             }
         }
-
-        public CalendarEvent GetById(int id)
-        {
-            return _calendarEvents.Single(c => c.CalendarEventId == id);
-        }
-
-        public void Add(CalendarEvent item)
+        public void AddCalendarEvent(CalendarEvent calendarEvent)
         {
             var csvConfig = new CsvConfiguration(CultureInfo.InvariantCulture)
             {
                 HasHeaderRecord = true,
                 //Delimiter = "\t",
             };
-            _calendarEvents = GetAll();
-
+            calendarEvents = GetAllCalendarEvents();
             try
             {
-                _calendarEvents.Add(item);
+                calendarEvents.Add(calendarEvent);
                 using (StreamWriter writer = new StreamWriter(_pathToCsvFile))
                 using (var csv = new CsvWriter(writer, csvConfig))
                 {
-                    csv.WriteRecords(_calendarEvents);
-                    Console.Clear();
-                    Console.WriteLine($" The Calendar Event named '{item.CalendarEventName}' /n staring {item.CalendarEventStartDateTime} /n and ending {item.CalendarEventEndDateTime} as been added to the list successfully");
+                    csv.WriteRecords(calendarEvents);
+                    //Console.Clear();
+                    Console.WriteLine($" The Calendar Event named '{calendarEvent.CalendarEventName}' /n staring {calendarEvent.CalendarEventStartDateTime} /n and ending {calendarEvent.CalendarEventEndDateTime} as been added to the list successfully");
                 }
             }
             catch (Exception ex)
@@ -63,7 +59,7 @@ namespace Schedulist.DAL
                 Console.WriteLine("An error occurred: " + ex.Message);
             }
 
-            // _calendarEvents.Add(item);
+            // calendarEvents.Add(item);
         }
     }
 }
