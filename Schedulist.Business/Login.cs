@@ -18,6 +18,7 @@ namespace Schedulist.Business
         }
         public User Run()
         {
+            Console.Clear();
             while (true)
             {
                 string login = Method.ConsolHelper("Enter your login:");
@@ -28,8 +29,10 @@ namespace Schedulist.Business
                     while (true)
                     {
                         if (currentUser.Password == password) // Sprawdzanie czy podane hasło jest zgodne z tym wpisanym w konsoli
-                            return currentUser; //Loguje użytkownika
-
+                        {  
+                            CurrentUser.currentUser = currentUser; //Loguje użytkownika
+                            return null;
+                        }
                         else if (currentUser.Password != password)
                         {
                             Console.Clear();
@@ -43,7 +46,8 @@ namespace Schedulist.Business
                                 case "1":
                                     Console.Clear();
                                     Method.CreatePassword(currentUser);
-                                    return currentUser;
+                                    CurrentUser.currentUser = currentUser;
+                                    break;
                                 case "2":
                                     Console.Clear();
                                     password = Method.ConsolHelper("Enter your password:");
@@ -57,8 +61,7 @@ namespace Schedulist.Business
                         }
                     }
                 }
-                else
-                    Console.WriteLine("Login not found, please try again.");
+                else Console.WriteLine("Login not found, please try again.");
             }
         }
     }

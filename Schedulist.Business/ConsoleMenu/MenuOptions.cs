@@ -10,7 +10,7 @@ namespace Schedulist.Business
 {
     internal class MenuOptions
     {
-        public void MenuTasks(User currentUser)
+        public void MenuTasks()
         {
             Console.Clear();
             Console.WriteLine("Choose the option:");
@@ -25,11 +25,11 @@ namespace Schedulist.Business
                 if (option.Key == ConsoleKey.D1) new Task().CreateNewTask();
                 else if (option.Key == ConsoleKey.D2) Console.WriteLine("*****modify task*****");
                 else if (option.Key == ConsoleKey.D3) Console.WriteLine("*****delete task*****");
-                else if (option.Key == ConsoleKey.Backspace) new MenuMain().Run(currentUser);
+                else if (option.Key == ConsoleKey.Backspace) new MenuMain().Run();
                 break;
             }
         }
-        public void MenuWorkModes(User currentUser)
+        public void MenuWorkModes()
         {
             Console.Clear();
             Console.WriteLine("Choose the option:");
@@ -44,11 +44,11 @@ namespace Schedulist.Business
                 if (option.Key == ConsoleKey.D1) Console.WriteLine("*****create work mode*****");
                 else if (option.Key == ConsoleKey.D2) Console.WriteLine("*****modify work mode*****");
                 else if (option.Key == ConsoleKey.D3) Console.WriteLine("*****delete work mode*****");
-                else if (option.Key == ConsoleKey.Backspace) new MenuMain().Run(currentUser);
+                else if (option.Key == ConsoleKey.Backspace) new MenuMain().Run();
                 break;
             }
         }
-        public void MenuUsers(User currentUser)
+        public void MenuUsers()
         {
             Console.Clear();
             Console.WriteLine("Choose the option:");
@@ -61,9 +61,9 @@ namespace Schedulist.Business
             {
                 var option = Console.ReadKey();
                 if (option.Key == ConsoleKey.D1) new ManageUser().Create();
-                else if (option.Key == ConsoleKey.D2) new ManageUser().Modify(currentUser);
+                else if (option.Key == ConsoleKey.D2) new ManageUser().Modify();
                 else if (option.Key == ConsoleKey.D3) new ManageUser().Delete();
-                else if (option.Key == ConsoleKey.Backspace) new MenuMain().Run(currentUser);
+                else if (option.Key == ConsoleKey.Backspace) new MenuMain().Run();
                 break;
             }
         }
