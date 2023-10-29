@@ -50,6 +50,7 @@ namespace Schedulist.Business
             Console.WriteLine("====== Modify User ======");
             foreach (User users in new CsvUserRepository("Users.csv").GetAllUsers()) Console.WriteLine($"{users.Name} {users.Surname} : {users.Login}");
             string userToModify_login = Method.ConsolHelper("Provide login of the user from the provided list that you want to modify:");
+            System.ConsoleKeyInfo option;
             if (new CsvUserRepository("Users.csv").GetAllUsers().Any(x => x.Login == userToModify_login))
             {
                 User userToModify = new CsvUserRepository("Users.csv").GetAllUsers().First(x => x.Login == userToModify_login);
@@ -66,19 +67,18 @@ namespace Schedulist.Business
                 Console.WriteLine("===============================================================================");
                 while (true)
                 {
-                    var option = Console.ReadKey();
-                    if (option.Key == ConsoleKey.D1) Console.WriteLine("1");
-                    else if (option.Key == ConsoleKey.D2) Console.WriteLine("2");
-                    else if (option.Key == ConsoleKey.D3) Console.WriteLine("3");
-                    else if (option.Key == ConsoleKey.D4) Console.WriteLine("4");
-                    else if (option.Key == ConsoleKey.D5) Console.WriteLine("5");
-                    else if (option.Key == ConsoleKey.D6) Console.WriteLine("6");
-                    else if (option.Key == ConsoleKey.D7) Console.WriteLine("7");
+                    option = Console.ReadKey();
+                    if (option.Key == ConsoleKey.D1) break;
+                    else if (option.Key == ConsoleKey.D2) break;
+                    else if (option.Key == ConsoleKey.D3) break;
+                    else if (option.Key == ConsoleKey.D4) break;
+                    else if (option.Key == ConsoleKey.D5) break;
+                    else if (option.Key == ConsoleKey.D6) break;
+                    else if (option.Key == ConsoleKey.D7) break;
                     else if (option.Key == ConsoleKey.Backspace) new MenuOptions().MenuUsers();
-                    break;
                 }
                 //todo
-                Console.WriteLine("Do modyfikacji");
+                Console.WriteLine("Option: "+ option.Key);
             }
             else Console.WriteLine("User not found, moving back to menu...");
             Thread.Sleep(3000);
