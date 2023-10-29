@@ -16,5 +16,9 @@ namespace Schedulist.DAL
             WorkModeID = idWM;
             WorkModeName = nameWM;
         }
+        public WorkModes() 
+        { 
+        
+        }
     }
 }
