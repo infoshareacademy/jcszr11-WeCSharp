@@ -5,3 +5,4 @@ Id,Name,Surname,Position,Department,Login,Password,AdminPrivilege
 4,Mar,Mar,Mar,v,Mar,Mar,True
 5,Mar,Mar,Mar,Mar,Mar,Mar,True
 6,Adam,Tester,Tester,IT,AdamT,Y**8,True
+7,Test,Test2,Tester,IT,Test,djf,False

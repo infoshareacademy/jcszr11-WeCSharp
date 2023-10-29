@@ -26,10 +26,10 @@ namespace Schedulist.Business
         }
         public void CreateCalendarEvent()
         {
-            var finishCreatingTask = false;
+            //var finishCreatingTask = false;
 
-            while (!finishCreatingTask)
-            {
+            //while (!finishCreatingTask)
+            //{
                 Console.WriteLine("You are creating new Calendar Event, please provide following data:");
                 Console.WriteLine("Calendar Event ID:");
                 int calendarEventId = int.Parse(Console.ReadLine());
@@ -43,12 +43,12 @@ namespace Schedulist.Business
                 DateTime calendarEventEndDateTime = Convert.ToDateTime(Console.ReadLine());
                 Console.WriteLine("You created new task as following:");
                 Console.WriteLine(
-                    $"Task ID:             |{calendarEventId}    \nTask Name:           |{calendarEventName}    \nTask Description:    |{calendarEventDescription}    \nStart Date and Time: | {calendarEventStartDateTime} \nEnd Date and Time:   | {calendarEventEndDateTime}");
-                Console.Write(
-                    "Press 'x' and Enter to close the app, or press any other key and Enter to continue creating tasks: ");
-                if (Console.ReadLine() == "x") finishCreatingTask = true;
-                else if (Console.ReadLine() == "y") //read menu
-                    Console.WriteLine("\n");
+                    $"Calendar Event ID:             |{calendarEventId}    \n Calendar Event Name:           |{calendarEventName}    \n Calendar Event Description:    |{calendarEventDescription}    \nStart Date and Time: | {calendarEventStartDateTime} \nEnd Date and Time:   | {calendarEventEndDateTime}");
+                //Console.Write(
+                //    "Press 'x' and Enter to close the app, or press any other key and Enter to continue creating tasks: ");
+                //if (Console.ReadLine() == "x") finishCreatingTask = true;
+                //else if (Console.ReadLine() == "y") //read menu
+                //    Console.WriteLine("\n");
 
 
                 CalendarEvent calendarEvent = new CalendarEvent(calendarEventId, calendarEventName,
@@ -56,7 +56,7 @@ namespace Schedulist.Business
                 new CsvCalendarEventRepository("..\\..\\..\\CalendarEvents.csv").Add(calendarEvent);
 
                 //TODO - to update headers/CSV file to save correctly
-            }
+            //}
 
         }
     }
