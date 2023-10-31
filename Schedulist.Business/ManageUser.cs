@@ -1,7 +1,9 @@
-﻿using Schedulist.Business.Actions;
+﻿using Microsoft.VisualBasic.FileIO;
+using Schedulist.Business.Actions;
 using Schedulist.DAL;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.Design;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -49,6 +51,9 @@ namespace Schedulist.Business
             Console.Clear();
             Console.WriteLine("====== Modify User ======");
             User userToModify = new AdminCommands().DiplayUsers();
+            string variableToModify = null;
+            string variableName = null;
+            bool variableToModify_bool = false;
             System.ConsoleKeyInfo option;
             Console.Clear();
             Console.WriteLine("Choose variable of user that you want to modify:");
@@ -64,18 +69,73 @@ namespace Schedulist.Business
             while (true)
             {
                 option = Console.ReadKey();
-                if (option.Key == ConsoleKey.D1) break;
-                else if (option.Key == ConsoleKey.D2) break;
-                else if (option.Key == ConsoleKey.D3) break;
-                else if (option.Key == ConsoleKey.D4) break;
-                else if (option.Key == ConsoleKey.D5) break;
-                else if (option.Key == ConsoleKey.D6) break;
-                else if (option.Key == ConsoleKey.D7) break;
-                else if (option.Key == ConsoleKey.Backspace) MenuOptions.MenuUsers();
+                if (option.Key == ConsoleKey.D1)
+                {
+                    Modify_Ask(userToModify.Name, "Name", false, userToModify);
+                    break;
+                }
+                else if (option.Key == ConsoleKey.D2)
+                {
+                    Modify_Ask(userToModify.Surname, "Surname", false, userToModify);
+                    break;
+                }
+                else if (option.Key == ConsoleKey.D3)
+                {
+                    Modify_Ask(userToModify.Position, "Position", false, userToModify);
+                    break;
+                }
+                else if (option.Key == ConsoleKey.D4)
+                {
+                    Modify_Ask(userToModify.Department, "Department", false, userToModify);
+                    break;
+                }
+                else if (option.Key == ConsoleKey.D5)
+                {
+                    Modify_Ask(userToModify.Login, "Login", false, userToModify);
+                    break;
+                }
+                else if (option.Key == ConsoleKey.D6)
+                {   
+                    Modify_Ask(userToModify.Password, "Password", false, userToModify);
+                    break;
+                }
+                else if (option.Key == ConsoleKey.D7)
+                    Modify_Ask(userToModify.AdminPrivilege.ToString(), "admin privilage", true, userToModify);
+                else if (option.Key == ConsoleKey.Backspace) break;
             }
-            //todo
-            Console.WriteLine("Option: " + option.Key);
-            MenuOptions.MenuUsers();
+        }
+        internal void Modify_Ask(string variableToModify, string variableName, bool variableToModify_bool, User userToModify)
+        {
+            Console.Clear();
+            if (variableToModify != null)
+            {
+                Console.WriteLine($"Currnt {variableName.ToLower()} is {variableToModify} for {userToModify.Name} {userToModify.Surname}");
+                Console.WriteLine($"Provide new {variableName.ToLower()}:");
+                variableToModify = Console.ReadLine();
+                if (userToModify.GetType().GetProperty(variableName) != null) userToModify.Name = variableToModify;
+                else if (userToModify.GetType().GetProperty(variableName) != null) userToModify.Surname = variableToModify;
+                else if (userToModify.GetType().GetProperty(variableName) != null) userToModify.Position = variableToModify;
+                else if (userToModify.GetType().GetProperty(variableName) != null) userToModify.Department = variableToModify;
+                else if (userToModify.GetType().GetProperty(variableName) != null) userToModify.Login = variableToModify;
+                else if (userToModify.GetType().GetProperty(variableName) != null) userToModify.Password = variableToModify;
+                //todo save to file
+                Console.WriteLine($"{variableName} for {userToModify.Name} {userToModify.Surname} changed to {variableToModify}");
+            }
+            else if (variableToModify_bool)
+            {
+                Console.WriteLine($"Current Admin Privilege for {userToModify.Name} {userToModify.Surname} is {userToModify.AdminPrivilege}");
+                Console.WriteLine("Do you want to change it? y/n");
+                while (true)
+                {
+                    System.ConsoleKeyInfo option = Console.ReadKey();
+                    if (option.Key == ConsoleKey.Y)
+                    {
+                        userToModify.AdminPrivilege = !userToModify.AdminPrivilege;
+                        break;
+                    }
+                    else if (option.Key == ConsoleKey.N) break;
+                }
+            }
         }
         internal void Delete()
         {
