@@ -6,13 +6,13 @@ namespace Schedulist
 {
     internal class Program
     {
-        static void Main(string[] args)
+        static void Main()
         {
             Console.WriteLine("Hello. This is Schedulist!");
             while (true)
             {
-                User currentUser = new Login(new CsvUserRepository("Users.csv")).Run();    //Metoda do logowania użytkownika
-                if (currentUser != null) currentUser = new MenuMain().Run(currentUser);
+                new Login(new CsvUserRepository("Users.csv")).Run();    //Metoda do logowania użytkownika
+                if (CurrentUser.currentUser != null) MenuMain.Run();
             }
         }
     }

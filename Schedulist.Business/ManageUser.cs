@@ -10,9 +10,6 @@ namespace Schedulist.Business
 {
     internal class ManageUser
     {
-        IUserRepository _userRepository;
-        User _user;
-
         //public ManageUser(IUserRepository userRepository);
         //{
         //    _userRepository = userRepository;
@@ -42,48 +39,43 @@ namespace Schedulist.Business
                     Console.WriteLine("Invalid Admin access");
                     break;
             }
-            User user = new User(name, surname, position, department, login, password)
+            User user = new(name, surname, position, department, login, password)
             { AdminPrivilege = isAdmin };
             new CsvUserRepository("..\\..\\..\\Users.csv").AddUser(user);
         }
 
-        internal void Modify(User currentUser)
+        internal void Modify()
         {
             Console.Clear();
             Console.WriteLine("====== Modify User ======");
-            string userToModify_login = Method.ConsolHelper("Provide login of the user you want to modify:");
-            if (new CsvUserRepository("Users.csv").GetAllUsers().Any(x => x.Login == userToModify_login))
+            User userToModify = new AdminCommands().DiplayUsers();
+            System.ConsoleKeyInfo option;
+            Console.Clear();
+            Console.WriteLine("Choose variable of user that you want to modify:");
+            Console.WriteLine($"1. Name:            {userToModify.Name}");
+            Console.WriteLine($"2. Surname:         {userToModify.Surname}");
+            Console.WriteLine($"3. Position:        {userToModify.Position}");
+            Console.WriteLine($"4. Department:      {userToModify.Department}");
+            Console.WriteLine($"5. Login:           {userToModify.Login}");
+            Console.WriteLine($"6. Password:        {userToModify.Password}");
+            Console.WriteLine($"7. AdminPrivilege:  {userToModify.AdminPrivilege}");
+            Console.WriteLine("Backspace. Go back");
+            Console.WriteLine("===============================================================================");
+            while (true)
             {
-                User userToModify = new CsvUserRepository("Users.csv").GetAllUsers().First(x => x.Login == userToModify_login);
-                Console.Clear();
-                Console.WriteLine($"User {userToModify.Login} found");
-                Console.WriteLine("Choose variable of user that you want to modify:");
-                Console.WriteLine($"1. Name:            {userToModify.Name}");
-                Console.WriteLine($"2. Surname:         {userToModify.Surname}");
-                Console.WriteLine($"3. Position:        {userToModify.Position}");
-                Console.WriteLine($"4. Department:      {userToModify.Department}");
-                Console.WriteLine($"5. Login:           {userToModify.Login}");
-                Console.WriteLine($"6. Password:        {userToModify.Password}");
-                Console.WriteLine($"7. AdminPrivilege:  {userToModify.AdminPrivilege}");
-                Console.WriteLine("Backspace. Go back");
-                Console.WriteLine("===============================================================================");
-                while (true)
-                {
-                    var option = Console.ReadKey();
-                    if (option.Key == ConsoleKey.D1) Console.WriteLine("1");
-                    else if (option.Key == ConsoleKey.D2) Console.WriteLine("2");
-                    else if (option.Key == ConsoleKey.D3) Console.WriteLine("3");
-                    else if (option.Key == ConsoleKey.D4) Console.WriteLine("4");
-                    else if (option.Key == ConsoleKey.D5) Console.WriteLine("5");
-                    else if (option.Key == ConsoleKey.D6) Console.WriteLine("6");
-                    else if (option.Key == ConsoleKey.D7) Console.WriteLine("7");
-                    else if (option.Key == ConsoleKey.Backspace) new MenuOptions().MenuUsers(currentUser);
-                    break;
-                }
+                option = Console.ReadKey();
+                if (option.Key == ConsoleKey.D1) break;
+                else if (option.Key == ConsoleKey.D2) break;
+                else if (option.Key == ConsoleKey.D3) break;
+                else if (option.Key == ConsoleKey.D4) break;
+                else if (option.Key == ConsoleKey.D5) break;
+                else if (option.Key == ConsoleKey.D6) break;
+                else if (option.Key == ConsoleKey.D7) break;
+                else if (option.Key == ConsoleKey.Backspace) MenuOptions.MenuUsers();
             }
-            else Console.WriteLine("User not found, moving back to menu...");
-            Thread.Sleep(3000);
-            new MenuOptions().MenuUsers(currentUser);
+            //todo
+            Console.WriteLine("Option: " + option.Key);
+            MenuOptions.MenuUsers();
         }
         internal void Delete()
         {

@@ -18,49 +18,40 @@ namespace Schedulist.Business
         }
         public User Run()
         {
+            Console.Clear();
             while (true)
             {
                 string login = Method.ConsolHelper("Enter your login:");
                 if (userRepository.GetAllUsers().Any(x => x.Login == login))
                 {
                     User currentUser = userRepository.GetAllUsers().First(x => x.Login == login); // Sprawdzenie czy w bazie jest użytkownik o podanym loginie
-                    string password = Method.ConsolHelper("Enter your password:");
                     while (true)
                     {
-                        if (currentUser.Password == password) // Sprawdzanie czy podane hasło jest zgodne z tym wpisanym w konsoli
-                            return currentUser; //Loguje użytkownika
-
-                        else if (currentUser.Password != password)
+                        if (string.IsNullOrEmpty(currentUser.Password))    //Prosi o stworzenie hasła dla użytkownika jeżeli on takowego nie posiada
                         {
-                            Console.Clear();
-                            Console.WriteLine("Your password has not been found.");
-                            Console.WriteLine("Do you want to create new password? Choose option:");
-                            Console.WriteLine("1.Create new password");
-                            Console.WriteLine("2.Retry typing");
-                            string userAnswer = Method.ConsolHelper("3.Exit");
-                            switch (userAnswer)
+                            Method.CreatePassword(currentUser);  //Metoda do tworzenia hasła
+                            if (!string.IsNullOrEmpty(currentUser.Password))
                             {
-                                case "1":
-                                    Console.Clear();
-                                    Method.CreatePassword(currentUser);
-                                    return currentUser;
-                                case "2":
-                                    Console.Clear();
-                                    password = Method.ConsolHelper("Enter your password:");
-                                    break;
-                                case "3":
-                                    Environment.Exit(0);
-                                    break;
-                                default:
-                                    break;
+                                CurrentUser.currentUser = currentUser;
+                                return null;    //Loguje użytkownika
                             }
+                            else break;
+                        }
+                        string password = Method.ConsolHelper("Enter your password or type x to leave:");
+                        if (password == "x") return null;
+                        else
+                        {
+                            if (currentUser.Password == password)  //Sprawdza czy hasło jest poprawne
+                            {
+                                CurrentUser.currentUser = currentUser;
+                                return null;    //Loguje użytkownika
+                            }
+                            else Console.WriteLine("Wrong password, please try again");
                         }
                     }
                 }
-                else
-                    Console.WriteLine("Login not found, please try again.");
+                else Console.WriteLine("Login not found, please try again.");
             }
         }
     }
 }
-
