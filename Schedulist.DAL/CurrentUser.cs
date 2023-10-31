@@ -8,6 +8,6 @@ namespace Schedulist.DAL
 {
     public static class CurrentUser
     {
-        public static User currentUser;
+        public static User? currentUser;
     }
 }

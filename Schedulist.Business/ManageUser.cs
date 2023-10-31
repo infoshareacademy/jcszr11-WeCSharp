@@ -48,41 +48,34 @@ namespace Schedulist.Business
         {
             Console.Clear();
             Console.WriteLine("====== Modify User ======");
-            foreach (User users in new CsvUserRepository("Users.csv").GetAllUsers()) Console.WriteLine($"{users.Name} {users.Surname} : {users.Login}");
-            string userToModify_login = Method.ConsolHelper("Provide login of the user from the provided list that you want to modify:");
+            User userToModify = new AdminCommands().DiplayUsers();
             System.ConsoleKeyInfo option;
-            if (new CsvUserRepository("Users.csv").GetAllUsers().Any(x => x.Login == userToModify_login))
+            Console.Clear();
+            Console.WriteLine("Choose variable of user that you want to modify:");
+            Console.WriteLine($"1. Name:            {userToModify.Name}");
+            Console.WriteLine($"2. Surname:         {userToModify.Surname}");
+            Console.WriteLine($"3. Position:        {userToModify.Position}");
+            Console.WriteLine($"4. Department:      {userToModify.Department}");
+            Console.WriteLine($"5. Login:           {userToModify.Login}");
+            Console.WriteLine($"6. Password:        {userToModify.Password}");
+            Console.WriteLine($"7. AdminPrivilege:  {userToModify.AdminPrivilege}");
+            Console.WriteLine("Backspace. Go back");
+            Console.WriteLine("===============================================================================");
+            while (true)
             {
-                User userToModify = new CsvUserRepository("Users.csv").GetAllUsers().First(x => x.Login == userToModify_login);
-                Console.Clear();
-                Console.WriteLine("Choose variable of user that you want to modify:");
-                Console.WriteLine($"1. Name:            {userToModify.Name}");
-                Console.WriteLine($"2. Surname:         {userToModify.Surname}");
-                Console.WriteLine($"3. Position:        {userToModify.Position}");
-                Console.WriteLine($"4. Department:      {userToModify.Department}");
-                Console.WriteLine($"5. Login:           {userToModify.Login}");
-                Console.WriteLine($"6. Password:        {userToModify.Password}");
-                Console.WriteLine($"7. AdminPrivilege:  {userToModify.AdminPrivilege}");
-                Console.WriteLine("Backspace. Go back");
-                Console.WriteLine("===============================================================================");
-                while (true)
-                {
-                    option = Console.ReadKey();
-                    if (option.Key == ConsoleKey.D1) break;
-                    else if (option.Key == ConsoleKey.D2) break;
-                    else if (option.Key == ConsoleKey.D3) break;
-                    else if (option.Key == ConsoleKey.D4) break;
-                    else if (option.Key == ConsoleKey.D5) break;
-                    else if (option.Key == ConsoleKey.D6) break;
-                    else if (option.Key == ConsoleKey.D7) break;
-                    else if (option.Key == ConsoleKey.Backspace) new MenuOptions().MenuUsers();
-                }
-                //todo
-                Console.WriteLine("Option: "+ option.Key);
+                option = Console.ReadKey();
+                if (option.Key == ConsoleKey.D1) break;
+                else if (option.Key == ConsoleKey.D2) break;
+                else if (option.Key == ConsoleKey.D3) break;
+                else if (option.Key == ConsoleKey.D4) break;
+                else if (option.Key == ConsoleKey.D5) break;
+                else if (option.Key == ConsoleKey.D6) break;
+                else if (option.Key == ConsoleKey.D7) break;
+                else if (option.Key == ConsoleKey.Backspace) MenuOptions.MenuUsers();
             }
-            else Console.WriteLine("User not found, moving back to menu...");
-            Thread.Sleep(3000);
-            new MenuOptions().MenuUsers();
+            //todo
+            Console.WriteLine("Option: " + option.Key);
+            MenuOptions.MenuUsers();
         }
         internal void Delete()
         {

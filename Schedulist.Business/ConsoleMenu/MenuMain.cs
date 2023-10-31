@@ -9,7 +9,7 @@ namespace Schedulist.Business
 {
     public class MenuMain
     {
-        public User Run()
+        public static User Run()
         {
             Console.Clear();
             Console.WriteLine($"Welcome, {CurrentUser.currentUser.Name}");
@@ -31,11 +31,11 @@ namespace Schedulist.Business
                     return null;
                 }
                 else if (option.Key == ConsoleKey.D1) Console.WriteLine("*****calendar*****");
-                else if (option.Key == ConsoleKey.D2) new MenuOptions().MenuTasks();
+                else if (option.Key == ConsoleKey.D2) MenuOptions.MenuTasks();
                 else if (CurrentUser.currentUser.AdminPrivilege) // Admin options
                 {
-                    if (option.Key == ConsoleKey.D3) new MenuOptions().MenuWorkModes();
-                    else if (option.Key == ConsoleKey.D4) new MenuOptions().MenuUsers();
+                    if (option.Key == ConsoleKey.D3) MenuOptions.MenuWorkModes();
+                    else if (option.Key == ConsoleKey.D4) MenuOptions.MenuUsers();
                 }
             }
 
