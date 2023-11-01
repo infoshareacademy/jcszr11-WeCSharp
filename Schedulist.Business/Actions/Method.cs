@@ -1,6 +1,8 @@
-﻿using Schedulist.DAL;
+﻿using CsvHelper.Configuration;
+using Schedulist.DAL;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -57,8 +59,8 @@ namespace Schedulist.Business.Actions
                 if (newPassword == repeatedNewPassoword && newPassword != null)
                 {
                     user.Password = newPassword;
-                    //todo save to file
-                    Console.WriteLine("Password has been created.");
+                    new CsvUserRepository("..\\..\\..\\Users.csv").ModifyUser(user.Login, user);
+                    Console.WriteLine("Password has been created");
                     return user;
                 }
                 else Console.WriteLine("Passwords do not match, enter your passwords again or type x to leave");

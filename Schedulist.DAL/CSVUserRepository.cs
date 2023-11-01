@@ -76,8 +76,6 @@ namespace Schedulist.DAL
                 csv.WriteRecords(ListOfUsers);
             }
             AddUser(modifiedUser);
-            Console.Clear();
-            Console.WriteLine($"The user {modifiedUser.Name} {modifiedUser.Surname} has been modified succesfully");
         }
     }
 }
