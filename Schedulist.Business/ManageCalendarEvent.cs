@@ -34,9 +34,9 @@ namespace Schedulist.Business
 
             //while (!finishCreatingTask)
             //{
-                Console.WriteLine("You are creating new Calendar Event, please provide following data:");
-                Console.WriteLine("ID");
-                int calendarEventId = int.Parse(Console.ReadLine());
+                Console.WriteLine("\nYou are creating new Calendar Event, please provide following data:");
+                //Console.WriteLine("ID");
+                int calendarEventId = 1;
                 Console.WriteLine("Name of Calendar Event:");
                 string calendarEventName = Console.ReadLine();
                 Console.WriteLine("Description of the Calendar Event:");
@@ -58,9 +58,9 @@ namespace Schedulist.Business
                 string endTime = Console.ReadLine();
                 TimeOnly.TryParse(endTime, out TimeOnly calendarEventEndTime);
              
-            Console.WriteLine("You created new task as following:");
-                Console.WriteLine(
-                    $"Calendar Event Name:           |{calendarEventName}    \n Calendar Event Description:    |{calendarEventDescription}    \nCalendar Event Date: | {calendarEventDate} \n Start Time:   | {calendarEventStartTime} \nEnd Time:   | {calendarEventEndTime}");
+            //Console.WriteLine("You created new task as following:");
+            //    Console.WriteLine(
+            //        $"Calendar Event Name:           |{calendarEventName}    \n Calendar Event Description:    |{calendarEventDescription}    \nCalendar Event Date: | {calendarEventDate} \n Start Time:   | {calendarEventStartTime} \nEnd Time:   | {calendarEventEndTime}");
             //Console.Write(
             //    "Press 'x' and Enter to close the app, or press any other key and Enter to continue creating tasks: ");
             //if (Console.ReadLine() == "x") finishCreatingTask = true;
