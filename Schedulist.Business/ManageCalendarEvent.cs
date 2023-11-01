@@ -25,6 +25,7 @@ namespace Schedulist.Business
         public void ShowCalendarEvent()
         {
             var calendarEvents = _calendarEventRepository.GetAllCalendarEvents();
+           // Console.WriteLine(calendarEvents);
         }
         public void CreateCalendarEvent()
         {
