@@ -12,6 +12,7 @@ namespace Schedulist.Business
         private List<User> _userlist = new CsvUserRepository("Users.csv").GetAllUsers();
         public User DiplayUsers()
         {
+            Console.Clear();
             Console.WriteLine("====== List of users ======");
             Console.WriteLine("ID.  Name and surname");
             for (int i = 0; i < _userlist.Count; i++)

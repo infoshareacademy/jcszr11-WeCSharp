@@ -46,25 +46,24 @@ namespace Schedulist.Business
             new CsvUserRepository("..\\..\\..\\Users.csv").AddUser(user);
         }
 
-        internal void Modify()
+        internal static void Modify()
         {
-            Console.Clear();
-            Console.WriteLine("====== Modify User ======");
             User userToModify = new AdminCommands().DiplayUsers();
             System.ConsoleKeyInfo option;
-            Console.Clear();
-            Console.WriteLine("Choose variable of user that you want to modify:");
-            Console.WriteLine($"1. Name:            {userToModify.Name}");
-            Console.WriteLine($"2. Surname:         {userToModify.Surname}");
-            Console.WriteLine($"3. Position:        {userToModify.Position}");
-            Console.WriteLine($"4. Department:      {userToModify.Department}");
-            Console.WriteLine($"5. Login:           {userToModify.Login}");
-            Console.WriteLine($"6. Password:        {userToModify.Password}");
-            Console.WriteLine($"7. AdminPrivilege:  {userToModify.AdminPrivilege}");
-            Console.WriteLine("Backspace. Go back");
-            Console.WriteLine("===============================================================================");
             while (true)
             {
+                Console.Clear();
+                Console.WriteLine("====== Modify User ======");
+                Console.WriteLine("Choose variable of user that you want to modify:");
+                Console.WriteLine($"1. Name:            {userToModify.Name}");
+                Console.WriteLine($"2. Surname:         {userToModify.Surname}");
+                Console.WriteLine($"3. Position:        {userToModify.Position}");
+                Console.WriteLine($"4. Department:      {userToModify.Department}");
+                Console.WriteLine($"5. Login:           {userToModify.Login}");
+                Console.WriteLine($"6. Password:        {userToModify.Password}");
+                Console.WriteLine($"7. AdminPrivilege:  {userToModify.AdminPrivilege}");
+                Console.WriteLine("Backspace. Go back");
+                Console.WriteLine("===============================================================================");
                 option = Console.ReadKey();
                 if (option.Key == ConsoleKey.D1)
                 {
@@ -101,8 +100,9 @@ namespace Schedulist.Business
                 else if (option.Key == ConsoleKey.Backspace) break;
             }
         }
-        internal static User Modify_Ask(string variableToModify, string variableName, bool variableToModify_bool, User userToModify)
+        internal static void Modify_Ask(string variableToModify, string variableName, bool variableToModify_bool, User userToModify)
         {
+            string userToModifyLogin = userToModify.Login;
             Console.Clear();
             if (variableToModify != null)
             {
@@ -115,7 +115,7 @@ namespace Schedulist.Business
                 else if (userToModify.GetType().GetProperty(variableName) != null) userToModify.Department = variableToModify;
                 else if (userToModify.GetType().GetProperty(variableName) != null) userToModify.Login = variableToModify;
                 else if (userToModify.GetType().GetProperty(variableName) != null) userToModify.Password = variableToModify;
-                //todo save to file
+                new CsvUserRepository("..\\..\\..\\Users.csv").ModifyUser(userToModifyLogin, userToModify);
                 Console.WriteLine($"{variableName} for {userToModify.Name} {userToModify.Surname} changed to {variableToModify}");
             }
             else if (variableToModify_bool)
@@ -128,13 +128,12 @@ namespace Schedulist.Business
                     if (option.Key == ConsoleKey.Y)
                     {
                         userToModify.AdminPrivilege = !userToModify.AdminPrivilege;
-                        //todo save to file
+                        new CsvUserRepository("..\\..\\..\\Users.csv").ModifyUser(userToModifyLogin, userToModify);
                         break;
                     }
                     else if (option.Key == ConsoleKey.N) break;
                 }
             }
-            return userToModify;
         }
         internal void Delete()
         {
