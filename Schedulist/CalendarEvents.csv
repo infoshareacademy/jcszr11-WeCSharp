@@ -1,6 +1,10 @@
-calendarEventId,calendarEventName,calendarEventDescription,calendarEventStartDateTime,calendarEventEndDateTime
-1,Test 1,Testing of defined list,02/11/2023 08:00:00,02/11/2023 16:00:00
-1,Test 2,Testing of defined list,03/11/2023 08:00:00,03/11/2023 16:00:00
-12,Test from app,small letters,10/20/2023 08:00:00,10/20/2023 16:00:00
-11,Test from app 2,again,11/20/2023 08:00:00,11/20/2023 16:00:00
-444,Test3 from app,if it works,11/21/2023 08:00:00,11/21/2023 16:00:00
+calendarEventId,calendarEventName,calendarEventDescription,calendarEventDate,calendarEventStartTime,calendarEventEndTime
+1,Test 1,Testing of defined list,02/11/2023,08:00,16:00
+1,Test 2,Testing of defined list,03/11/2023,08:00,16:00
+12,Test from app,small letters,10/10/2023,08:00,16:00
+11,11,1,11/11/2023,08:00,16:00
+44,444,44,11/12/2023,08:00,16:00
+55,Mar,<M,12/12/2023,08:00,16:00
+111,Test again,rr,10/14/2023,08:00,16:00
+1111,YTets,hcxjws,11/15/2023,08:00,16:00
+33,Mss,KK,11/16/2023,08:00,16:00

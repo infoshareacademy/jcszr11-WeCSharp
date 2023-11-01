@@ -26,7 +26,7 @@ namespace Schedulist.DAL
             var csvConfig = new CsvConfiguration(CultureInfo.InvariantCulture)
             {
                 HasHeaderRecord = true,
-                //Delimiter = "\t",
+                Delimiter = ",",
             };
             using (var reader = new StreamReader(_pathToCsvFile))
             using (var csv = new CsvReader(reader, csvConfig))
@@ -40,9 +40,11 @@ namespace Schedulist.DAL
             var csvConfig = new CsvConfiguration(CultureInfo.InvariantCulture)
             {
                 HasHeaderRecord = true,
-                //Delimiter = "\t",
+                Delimiter = ",",
             };
             calendarEvents = GetAllCalendarEvents();
+            //int nextCalendarEventId = calendarEvents.Count > 0 ? calendarEvents.Max(u => u.CalendarEventId) + 1 : 1;
+            //calendarEvent.CalendarEventId = nextCalendarEventId;
             try
             {
                 calendarEvents.Add(calendarEvent);
@@ -51,7 +53,7 @@ namespace Schedulist.DAL
                 {
                     csv.WriteRecords(calendarEvents);
                     //Console.Clear();
-                    Console.WriteLine($" The Calendar Event named '{calendarEvent.CalendarEventName}' /n staring {calendarEvent.CalendarEventStartDateTime} /n and ending {calendarEvent.CalendarEventEndDateTime} as been added to the list successfully");
+                    Console.WriteLine($" The Calendar Event named '{calendarEvent.CalendarEventName}' /n on day {calendarEvent.CalendarEventDate} /n starting at {calendarEvent.CalendarEventStartTime} and ending {calendarEvent.CalendarEventEndTime} as been added to the list successfully");
                 }
             }
             catch (Exception ex)

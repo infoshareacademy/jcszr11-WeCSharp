@@ -12,25 +12,32 @@ namespace Schedulist.DAL
         //[Index(0)]
         [Name("calendarEventId")]
         public int CalendarEventId { get; set; }
-       // [Index(1)]
+        //[Index(1)]
         [Name("calendarEventName")]
         public string CalendarEventName { get; set; }
-       // [Index(2)]
+        //[Index(2)]
         [Name("calendarEventDescription")]
         public string CalendarEventDescription { get; set; }
         //[Index(3)]
-        [Name("calendarEventStartDateTime")]
-        public DateTime CalendarEventStartDateTime { get; set; }
+        [Name("calendarEventDate")]
+        public DateOnly CalendarEventDate { get; set; }
         //[Index(4)]
-        [Name("calendarEventEndDateTime")]
-        public DateTime CalendarEventEndDateTime { get; set; }
-        public CalendarEvent(int calendarEventId,  string calendarEventName, string calendarEventDescription, DateTime calendarEventStartDateTime, DateTime calendarEventEndDateTime)
+        [Name("calendarEventStartTime")]
+        public TimeOnly CalendarEventStartTime { get; set; }
+        //[Index(5)]
+        [Name("calendarEventEndTime")]
+        public TimeOnly CalendarEventEndTime { get; set; }
+
+        public CalendarEvent(int calendarEventId, string calendarEventName, string calendarEventDescription, DateOnly calendarEventDate,
+            TimeOnly calendarEventStartTime, TimeOnly calendarEventEndTime)
+
         {
             CalendarEventId = calendarEventId;
             CalendarEventName = calendarEventName;
             CalendarEventDescription = calendarEventDescription;
-            CalendarEventStartDateTime = calendarEventStartDateTime;
-            CalendarEventEndDateTime = calendarEventEndDateTime;
+            CalendarEventDate = calendarEventDate;
+            CalendarEventStartTime = calendarEventStartTime;
+            CalendarEventEndTime = calendarEventEndTime;
         }
 
     }

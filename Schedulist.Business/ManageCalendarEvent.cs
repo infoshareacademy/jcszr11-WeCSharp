@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using CsvHelper.TypeConversion;
 
 namespace Schedulist.Business
 {
@@ -32,19 +33,31 @@ namespace Schedulist.Business
             //while (!finishCreatingTask)
             //{
                 Console.WriteLine("You are creating new Calendar Event, please provide following data:");
-                Console.WriteLine("Calendar Event ID:");
+                Console.WriteLine("ID");
                 int calendarEventId = int.Parse(Console.ReadLine());
-                Console.WriteLine("Calendar Event Name:");
+                Console.WriteLine("Name of Calendar Event:");
                 string calendarEventName = Console.ReadLine();
-                Console.WriteLine("Calendar Event Description");
+                Console.WriteLine("Description of the Calendar Event:");
                 string calendarEventDescription = Console.ReadLine();
-                Console.WriteLine("Start date and time of Calendar Event using format DD/MM/YYYY HH:MM");
-                DateTime calendarEventStartDateTime = Convert.ToDateTime(Console.ReadLine());
-                Console.WriteLine("End date and time of Calendar Event using format DD/MM/YYYY HH:MM");
-                DateTime calendarEventEndDateTime = Convert.ToDateTime(Console.ReadLine());
-                Console.WriteLine("You created new task as following:");
+                Console.WriteLine("Date of Calendar Event using format DD/MM/YYYY");
+                string dateValue = Console.ReadLine();
+                DateOnly.TryParse(dateValue, out DateOnly calendarEventDate);
+                //{
+                //    Console.WriteLine("You entered a valid date: " + dateValue);
+                //}
+                //else
+                //{
+                //    Console.WriteLine("Invalid date format. Please enter a date in the format 'dd/MM/yyyy'.");
+                //}
+            Console.WriteLine("Start time of Calendar Event using format  HH:MM");
+                string startTime = Console.ReadLine();
+                TimeOnly.TryParse(startTime, out TimeOnly calendarEventStartTime);
+            Console.WriteLine("End time of Calendar Event using format DD/MM/YYYY HH:MM");
+                string endTime = Console.ReadLine();
+                TimeOnly.TryParse(endTime, out TimeOnly calendarEventEndTime);
+            Console.WriteLine("You created new task as following:");
                 Console.WriteLine(
-                    $"Calendar Event ID:             |{calendarEventId}    \n Calendar Event Name:           |{calendarEventName}    \n Calendar Event Description:    |{calendarEventDescription}    \nStart Date and Time: | {calendarEventStartDateTime} \nEnd Date and Time:   | {calendarEventEndDateTime}");
+                    $"Calendar Event Name:           |{calendarEventName}    \n Calendar Event Description:    |{calendarEventDescription}    \nCalendar Event Date: | {calendarEventDate} \n Start Time:   | {calendarEventStartTime} \nEnd Time:   | {calendarEventEndTime}");
                 //Console.Write(
                 //    "Press 'x' and Enter to close the app, or press any other key and Enter to continue creating tasks: ");
                 //if (Console.ReadLine() == "x") finishCreatingTask = true;
@@ -53,7 +66,7 @@ namespace Schedulist.Business
 
 
                 CalendarEvent calendarEvent = new CalendarEvent(calendarEventId, calendarEventName,
-                    calendarEventDescription, calendarEventStartDateTime, calendarEventEndDateTime);
+                    calendarEventDescription, calendarEventDate, calendarEventStartTime, calendarEventEndTime);
                 new CsvCalendarEventRepository("..\\..\\..\\CalendarEvents.csv").AddCalendarEvent(calendarEvent);
 
                 //TODO - to update headers/CSV file to save correctly

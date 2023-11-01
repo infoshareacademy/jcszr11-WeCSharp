@@ -1,0 +1,4 @@
+calendarEventId,calendarEventName,calendarEventDescription,calendarEventDate,calendarEventStartTime,calendarEventEndTime
+1,Test 1,Testing of defined list,02/11/2023,08:00:00,16:00:00
+1,Test 2,Testing of defined list,03/11/2023,08:00:00,16:00:00
+12,Test from app,small letters,10/10/2023,08:00:00,16:00:00
