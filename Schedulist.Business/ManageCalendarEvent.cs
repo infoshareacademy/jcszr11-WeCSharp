@@ -52,7 +52,7 @@ namespace Schedulist.Business
             Console.WriteLine("Start time of Calendar Event using format  HH:MM");
                 string startTime = Console.ReadLine();
                 TimeOnly.TryParse(startTime, out TimeOnly calendarEventStartTime);
-            Console.WriteLine("End time of Calendar Event using format DD/MM/YYYY HH:MM");
+            Console.WriteLine("End time of Calendar Event using format HH:MM");
                 string endTime = Console.ReadLine();
                 TimeOnly.TryParse(endTime, out TimeOnly calendarEventEndTime);
             Console.WriteLine("You created new task as following:");
