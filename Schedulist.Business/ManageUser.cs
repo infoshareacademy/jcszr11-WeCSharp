@@ -51,9 +51,6 @@ namespace Schedulist.Business
             Console.Clear();
             Console.WriteLine("====== Modify User ======");
             User userToModify = new AdminCommands().DiplayUsers();
-            string variableToModify = null;
-            string variableName = null;
-            bool variableToModify_bool = false;
             System.ConsoleKeyInfo option;
             Console.Clear();
             Console.WriteLine("Choose variable of user that you want to modify:");
@@ -104,7 +101,7 @@ namespace Schedulist.Business
                 else if (option.Key == ConsoleKey.Backspace) break;
             }
         }
-        internal void Modify_Ask(string variableToModify, string variableName, bool variableToModify_bool, User userToModify)
+        internal static User Modify_Ask(string variableToModify, string variableName, bool variableToModify_bool, User userToModify)
         {
             Console.Clear();
             if (variableToModify != null)
@@ -131,11 +128,13 @@ namespace Schedulist.Business
                     if (option.Key == ConsoleKey.Y)
                     {
                         userToModify.AdminPrivilege = !userToModify.AdminPrivilege;
+                        //todo save to file
                         break;
                     }
                     else if (option.Key == ConsoleKey.N) break;
                 }
             }
+            return userToModify;
         }
         internal void Delete()
         {

@@ -37,7 +37,7 @@ namespace Schedulist.Business
                             }
                             else break;
                         }
-                        string password = Method.ConsolHelper("Enter your password or type x to leave:");
+                        string password = Method.ConsolHelper("Enter your password or type x to enter login again:");
                         if (password == "x") return null;
                         else
                         {
