@@ -35,32 +35,6 @@ namespace Schedulist.DAL
                 return calendarEvents;
             }
         }
-        //public void AddCalendarEvent(CalendarEvent calendarEvent)
-        //{
-        //    var csvConfig = new CsvConfiguration(CultureInfo.InvariantCulture)
-        //    {
-        //        HasHeaderRecord = true,
-        //        Delimiter = ",",
-        //    };
-        //    calendarEvents = GetAllCalendarEvents();
-        //    //int nextCalendarEventId = calendarEvents.Count > 0 ? calendarEvents.Max(u => u.CalendarEventId) + 1 : 1;
-        //    //calendarEvent.CalendarEventId = nextCalendarEventId;
-        //    try
-        //    {
-        //        calendarEvents.Add(calendarEvent);
-        //        using (var writer = new StreamWriter(_pathToCsvFile, append: true))
-        //        using (var csv = new CsvWriter(writer, csvConfig))
-        //        {
-        //            csv.WriteRecords(calendarEvents);
-        //            //Console.Clear();
-        //            Console.WriteLine($" The Calendar Event named '{calendarEvent.CalendarEventName}' /n on day {calendarEvent.CalendarEventDate} /n starting at {calendarEvent.CalendarEventStartTime} and ending {calendarEvent.CalendarEventEndTime} as been added to the list successfully");
-        //        }
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        Console.WriteLine("An error occurred: " + ex.Message);
-        //    }
-
         public void AddCalendarEvent(CalendarEvent calendarEvent)
         {
             var csvConfig = new CsvConfiguration(CultureInfo.InvariantCulture)
