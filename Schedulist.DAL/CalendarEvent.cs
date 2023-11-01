@@ -7,7 +7,7 @@ using CsvHelper.Configuration.Attributes;
 
 namespace Schedulist.DAL
 {
-    public class CalendarEvent
+    public class CalendarEvent : IAssignable
     {
         //[Index(0)]
         [Name("calendarEventId")]
@@ -27,6 +27,9 @@ namespace Schedulist.DAL
         //[Index(5)]
         [Name("calendarEventEndTime")]
         public TimeOnly CalendarEventEndTime { get; set; }
+        [Name("user")]
+        //public User AssignedToUser { get; set; } 
+        public int UserId { get; set; }
 
         public CalendarEvent(int calendarEventId, string calendarEventName, string calendarEventDescription, DateOnly calendarEventDate,
             TimeOnly calendarEventStartTime, TimeOnly calendarEventEndTime)
@@ -40,5 +43,15 @@ namespace Schedulist.DAL
             CalendarEventEndTime = calendarEventEndTime;
         }
 
+        //public void assign(user user)
+        //{
+        //    assignedtouser = user;
+        //}
+
+
+        public void AssignUserById(int id)
+        {
+            UserId = id;
+        }
     }
 }

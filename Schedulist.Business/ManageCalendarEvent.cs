@@ -11,6 +11,7 @@ namespace Schedulist.Business
     public class ManageCalendarEvent
     {
         ICalendarEventRepository _calendarEventRepository;
+        public User currentUser;
 
         public ManageCalendarEvent(ICalendarEventRepository calendarEventRepository)
         {
@@ -56,19 +57,24 @@ namespace Schedulist.Business
             Console.WriteLine("End time of Calendar Event using format HH:MM");
                 string endTime = Console.ReadLine();
                 TimeOnly.TryParse(endTime, out TimeOnly calendarEventEndTime);
+             
             Console.WriteLine("You created new task as following:");
                 Console.WriteLine(
                     $"Calendar Event Name:           |{calendarEventName}    \n Calendar Event Description:    |{calendarEventDescription}    \nCalendar Event Date: | {calendarEventDate} \n Start Time:   | {calendarEventStartTime} \nEnd Time:   | {calendarEventEndTime}");
-                //Console.Write(
-                //    "Press 'x' and Enter to close the app, or press any other key and Enter to continue creating tasks: ");
-                //if (Console.ReadLine() == "x") finishCreatingTask = true;
-                //else if (Console.ReadLine() == "y") //read menu
-                //    Console.WriteLine("\n");
+            //Console.Write(
+            //    "Press 'x' and Enter to close the app, or press any other key and Enter to continue creating tasks: ");
+            //if (Console.ReadLine() == "x") finishCreatingTask = true;
+            //else if (Console.ReadLine() == "y") //read menu
+            //    Console.WriteLine("\n");
+            //int userId = currentUser.Id;
+            //User assignedUser = userId;
+            int assignedUser = 1;
 
-
-                CalendarEvent calendarEvent = new CalendarEvent(calendarEventId, calendarEventName,
-                    calendarEventDescription, calendarEventDate, calendarEventStartTime, calendarEventEndTime);
-                new CsvCalendarEventRepository("..\\..\\..\\CalendarEvents.csv").AddCalendarEvent(calendarEvent);
+            CalendarEvent calendarEvent = new CalendarEvent(calendarEventId, calendarEventName,
+                    calendarEventDescription, calendarEventDate, calendarEventStartTime, calendarEventEndTime)
+                // { AssignedToUser = assignedUser};
+                { UserId = assignedUser };
+            new CsvCalendarEventRepository("..\\..\\..\\CalendarEvents.csv").AddCalendarEvent(calendarEvent);
 
                 //TODO - to update headers/CSV file to save correctly
             //}
