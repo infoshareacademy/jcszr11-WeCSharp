@@ -15,7 +15,7 @@ namespace Schedulist.Business
             Console.WriteLine($"Welcome, {CurrentUser.currentUser.Name}");
             Console.WriteLine("Choose the option:");
             Console.WriteLine("1. Show calendar");
-            Console.WriteLine("2. Manage tasks");
+            Console.WriteLine("2. Manage calendar events");
             if (CurrentUser.currentUser.AdminPrivilege == true)
             {
                 Console.WriteLine("3. Manage work modes");
@@ -31,7 +31,7 @@ namespace Schedulist.Business
                     return null;
                 }
                 else if (option.Key == ConsoleKey.D1) Console.WriteLine("*****calendar*****");
-                else if (option.Key == ConsoleKey.D2) MenuOptions.MenuTasks();
+                else if (option.Key == ConsoleKey.D2) MenuOptions.MenuCalendarEvents();
                 else if (CurrentUser.currentUser.AdminPrivilege) // Admin options
                 {
                     if (option.Key == ConsoleKey.D3) MenuOptions.MenuWorkModes();
