@@ -5,3 +5,4 @@ Id,Name,Surname,Position,Department,Login,Password,AdminPrivilege
 4,Mar,Mar,Mar,v,Mar,Mar,True
 5,Mar,Mar,Mar,Mar,Mar,Mar,True
 5,NoPass,NoPass,NoPass,NoPass,NoPass,,True
+6,Marta,Debowska,Supporter,IT,MarDeb,Random123#,True
