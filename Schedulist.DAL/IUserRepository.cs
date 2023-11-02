@@ -1,4 +1,4 @@
-﻿using Schedulist.Models;
+﻿using Schedulist.DAL.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;

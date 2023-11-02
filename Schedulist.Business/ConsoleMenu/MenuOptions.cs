@@ -1,5 +1,6 @@
 ﻿using Microsoft.VisualBasic.FileIO;
-using Schedulist.Models;
+using Schedulist.DAL;
+using Schedulist.DAL.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,6 +11,15 @@ namespace Schedulist.Business
 {
     internal class MenuOptions
     {
+        //private readonly CsvUserRepository _csvUserRepository;
+        //private readonly CsvUserRepository _newCsvUserRepository;
+
+        //public MenuOptions(CsvUserRepository csvUserRepository)
+        //{
+        //    _csvUserRepository = csvUserRepository;
+        //    _newCsvUserRepository = new CsvUserRepository;
+
+        //}
         public void MenuTasks(User currentUser)
         {
             Console.Clear();
@@ -60,7 +70,7 @@ namespace Schedulist.Business
             while (true)
             {
                 var option = Console.ReadKey();
-                if (option.Key == ConsoleKey.D1) new ManageUser().Create();
+                if (option.Key == ConsoleKey.D1) new ManageUser().CreateUser();
                 else if (option.Key == ConsoleKey.D2) new ManageUser().Modify();
                 else if (option.Key == ConsoleKey.D3) new ManageUser().Delete();
                 else if (option.Key == ConsoleKey.Backspace) new MenuMain().Run(currentUser);

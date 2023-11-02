@@ -7,7 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 
-namespace Schedulist.Models
+namespace Schedulist.DAL.Models
 {
     public class User
     {
@@ -23,12 +23,12 @@ namespace Schedulist.Models
         }
         public User()
         {
-            
+
         }
         //[Index(0)]
-        public int Id { get;  set; }
+        public int Id { get; set; }
         //[Index(1)]
-        public string Name { get;  set; }
+        public string Name { get; set; }
         //[Index(2)]
         public string Surname { get; set; }
         //[Index(3)]

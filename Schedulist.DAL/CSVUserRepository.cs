@@ -1,6 +1,6 @@
 ﻿using CsvHelper;
 using CsvHelper.Configuration;
-using Schedulist.Models;
+using Schedulist.DAL.Models;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
@@ -66,5 +66,19 @@ namespace Schedulist.DAL
                 Console.WriteLine("An error occurred: " + ex.Message);
             }
         }
+        public User GetById (int id)
+        {
+            try
+            {
+                return GetAllUsers().Where(u => u.Id == id).FirstOrDefault();
+
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("An error occurred: " + ex.Message);
+                return null;
+            }
+        }
+        
     }
 }

@@ -4,3 +4,4 @@ Id,Name,Surname,Position,Department,Login,Password,AdminPrivilege
 3,Romek,Romanowicz,CEO,Executive,LogA1,PassA1,True
 4,Mar,Mar,Mar,v,Mar,Mar,True
 5,Mar,Mar,Mar,Mar,Mar,Mar,True
+6,MAriusz,MAriusz,MAriusz,MAriusz,MAriusz,MAriusz,True

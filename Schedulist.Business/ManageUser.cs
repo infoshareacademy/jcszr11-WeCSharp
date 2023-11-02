@@ -1,6 +1,6 @@
 ﻿using Schedulist.Business.Actions;
 using Schedulist.DAL;
-using Schedulist.Models;
+using Schedulist.DAL.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,15 +11,20 @@ namespace Schedulist.Business
 {
     internal class ManageUser
     {
-        IUserRepository _userRepository;
-        User _user;
+        //IUserRepository _userRepository;
+        //User _user;
 
         //public ManageUser(IUserRepository userRepository);
         //{
         //    _userRepository = userRepository;
         //}
+        CsvUserRepository _csvUserRepository;
+        public ManageUser(CsvUserRepository _csvUserRepository)
+        {
+            _csvUserRepository = new CsvUserRepository("..\\..\\..\\Users.csv");
+        }
 
-        internal void Create()
+        internal void CreateUser()
         {
             Console.Clear();
             Console.WriteLine("====== Create User Section ======");
@@ -55,12 +60,28 @@ namespace Schedulist.Business
             Console.WriteLine("Modify User");
             Console.WriteLine("===============================================================================");
         }
-        internal void Delete()
+        public bool Delete(User user)
         {
-            Console.WriteLine();
-            Console.WriteLine("===============================================================================");
-            Console.WriteLine("Delete User");
-            Console.WriteLine("===============================================================================");
+            try
+            {
+                
+                return true;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("An error occurred: " + ex.Message);
+                return false;
+            }
         }
+        //internal void Delete(User user)
+        //{
+        //    Console.Clear();
+        //    Console.WriteLine("====== Delete User section ======");
+        //    Console.WriteLine("Type Id od user to delete");
+
+        //    Console.WriteLine("===============================================================================");
+
+        //    Console.WriteLine("===============================================================================");
+        //}
     }
 }
