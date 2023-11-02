@@ -2,5 +2,5 @@ Id,Name,Surname,Position,Department,Login,Password,AdminPrivilege
 1,Tomasz,Tomaszewicz,Driver,Logistics,LogU1,PassU1,False
 2,Bartek,Bartkowicz,Salesmen,Sales Department,LogU2,PassU2,False
 3,Romek,Romanowicz,CEO,Executive,LogA1,PassA1,True
-6,Marta,Mar,Mar,v,Mar,Mar,True
-7,NoPass,NoPass,NoPass,NoPass,NoPass,,True
+8,Marta,Mar,Mar,IT,Mar,Mar,True
+9,NoPass,NoPass,NoPass,NoPass,NoPass,,True

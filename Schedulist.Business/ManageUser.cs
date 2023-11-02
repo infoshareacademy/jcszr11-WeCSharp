@@ -108,15 +108,15 @@ namespace Schedulist.Business
             {
                 Console.WriteLine($"Currnt {variableName.ToLower()} is {variableToModify} for {userToModify.Name} {userToModify.Surname}");
                 Console.WriteLine($"Provide new {variableName.ToLower()}:");
-                variableToModify = Console.ReadLine();
-                if (userToModify.GetType().GetProperty(variableName) != null) userToModify.Name = variableToModify;
-                else if (userToModify.GetType().GetProperty(variableName) != null) userToModify.Surname = variableToModify;
-                else if (userToModify.GetType().GetProperty(variableName) != null) userToModify.Position = variableToModify;
-                else if (userToModify.GetType().GetProperty(variableName) != null) userToModify.Department = variableToModify;
-                else if (userToModify.GetType().GetProperty(variableName) != null) userToModify.Login = variableToModify;
-                else if (userToModify.GetType().GetProperty(variableName) != null) userToModify.Password = variableToModify;
+                string modifiedVariable = Console.ReadLine();
+                if (userToModify.Name == variableToModify) userToModify.Name = modifiedVariable;
+                else if (userToModify.Surname == variableToModify) userToModify.Surname = modifiedVariable;
+                else if (userToModify.Position == variableToModify) userToModify.Position = modifiedVariable;
+                else if (userToModify.Department == variableToModify) userToModify.Department = modifiedVariable;
+                else if (userToModify.Login == variableToModify) userToModify.Login = modifiedVariable;
+                else if (userToModify.Password == variableToModify) userToModify.Password = modifiedVariable;
                 new CsvUserRepository("..\\..\\..\\Users.csv").ModifyUser(userToModifyLogin, userToModify);
-                Console.WriteLine($"{variableName} for {userToModify.Name} {userToModify.Surname} changed to {variableToModify}");
+                Console.WriteLine($"{variableName} for {userToModify.Name} {userToModify.Surname} changed to {modifiedVariable}");
             }
             else if (variableToModify_bool)
             {
