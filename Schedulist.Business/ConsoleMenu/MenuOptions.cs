@@ -14,9 +14,10 @@ namespace Schedulist.Business
         {
             Console.Clear();
             Console.WriteLine("Choose the option:");
-            Console.WriteLine("1. Create new task");
-            Console.WriteLine("2. Modify existing task");
-            Console.WriteLine("3. Delete existing task");
+            Console.WriteLine("1. Create new calendar event");
+            Console.WriteLine("2. Show calendar events");
+            Console.WriteLine("3. Modify existing calendar event");
+            Console.WriteLine("4. Delete existing calendar event");
             Console.WriteLine("Backspace. Go back");
             Console.WriteLine("===============================================================================");
             while (true)
