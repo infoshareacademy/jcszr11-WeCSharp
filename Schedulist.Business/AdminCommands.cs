@@ -33,5 +33,29 @@ namespace Schedulist.Business
                     }
             }
         }
+        public User DisplayUsersToDelete()
+        {
+            List<User> users = new CsvUserRepository("..\\..\\..\\Users.csv").GetAllUsers();
+
+            Console.WriteLine("Choose a number of User to delete:");
+
+            for (int i = 0; i < users.Count; i++)
+            {
+                Console.WriteLine($"{i + 1}. {users[i].Name} {users[i].Surname}");
+            }
+
+            int userChoice;
+            while (true)
+            {
+                if (int.TryParse(Console.ReadLine(), out userChoice) && userChoice >= 1 && userChoice <= users.Count)
+                {
+                    return users[userChoice - 1];
+                }
+                else
+                {
+                    Console.WriteLine("Invalid choice. Please enter a valid number.");
+                }
+            }
+        }
     }
 }

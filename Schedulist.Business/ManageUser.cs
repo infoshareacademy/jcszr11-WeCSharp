@@ -1,7 +1,10 @@
-﻿using Schedulist.Business.Actions;
+﻿using CsvHelper.Configuration;
+using CsvHelper;
+using Schedulist.Business.Actions;
 using Schedulist.DAL;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -80,9 +83,38 @@ namespace Schedulist.Business
         internal void Delete()
         {
             Console.Clear();
-            Console.WriteLine("====== Modify User section ======");
-            User userToModify = new AdminCommands().DiplayUsers();
+            Console.WriteLine("====== Delete User section ======");
+            User userToDelete = new AdminCommands().DisplayUsersToDelete();
 
+            Console.WriteLine($"Are you sure you want to delete {userToDelete.Name} {userToDelete.Surname}? (y/n)");
+            string confirmation = Console.ReadLine();
+
+            if (confirmation.ToLower() == "y")
+            {
+                List<User> users = new CsvUserRepository("..\\..\\..\\Users.csv").GetAllUsers();
+                users.Remove(userToDelete);
+
+                // Zapisanie zaktualizowanej listy użytkowników do pliku CSV.
+                UpdateUserList(users);
+                Console.Clear();
+                Console.WriteLine($"User {userToDelete.Name} {userToDelete.Surname} has been deleted.");
+            }
+            else
+            {
+                Console.WriteLine("Deletion canceled.");
+            }
         }
+
+        private void UpdateUserList(List<User> users)
+        {
+            var csvConfig = new CsvConfiguration(CultureInfo.InvariantCulture)
+            {
+                HasHeaderRecord = true,
+            };
+
+            using StreamWriter writer = new StreamWriter("..\\..\\..\\Users.csv");
+            using var csv = new CsvWriter(writer, csvConfig);
+            csv.WriteRecords(users);
+        }   
     }
 }

@@ -38,7 +38,6 @@ namespace Schedulist.Business
                     else if (option.Key == ConsoleKey.D4) MenuOptions.MenuUsers();
                 }
             }
-
         }
     }
 }
