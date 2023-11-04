@@ -23,25 +23,15 @@ namespace Schedulist.DAL
         }
         public List<CalendarEvent> GetAllCalendarEvents()
         {
-            var csvConfig = new CsvConfiguration(CultureInfo.InvariantCulture)
-            {
-                HasHeaderRecord = true,
-                Delimiter = ",",
-            };
-            using (var reader = new StreamReader(_pathToCsvFile))
-            using (var csv = new CsvReader(reader, csvConfig))
-            {
-                calendarEvents = csv.GetRecords<CalendarEvent>().ToList();
-                return calendarEvents;
-            }
+            var csvConfig = CsvConfiguration();
+            using var reader = new StreamReader(_pathToCsvFile);
+            using var csv = new CsvReader(reader, csvConfig);
+            calendarEvents = csv.GetRecords<CalendarEvent>().ToList();
+            return calendarEvents;
         }
         public void AddCalendarEvent(CalendarEvent calendarEvent)
         {
-            var csvConfig = new CsvConfiguration(CultureInfo.InvariantCulture)
-            {
-                HasHeaderRecord = true,
-                Delimiter = ",",
-            };
+            var csvConfig = CsvConfiguration();
             List<CalendarEvent> calendarEvents = GetAllCalendarEvents();
 
             int nextCalendarEventId = calendarEvents.Count > 0 ? calendarEvents.Max(u => u.CalendarEventId) + 1 : 1;
@@ -50,21 +40,31 @@ namespace Schedulist.DAL
             try
             {
                 calendarEvents.Add(calendarEvent);
-                using (var writer = new StreamWriter(_pathToCsvFile, append: false))
-                using (var csv = new CsvWriter(writer, csvConfig))
-                {
-                    csv.WriteHeader<CalendarEvent>();
-                    csv.NextRecord();
+                //using (var writer = new StreamWriter(_pathToCsvFile, append: false))
+                //using (var csv = new CsvWriter(writer, csvConfig))
+
+                using StreamWriter writer = new(_pathToCsvFile, append: false);
+                using var csv = new CsvWriter(writer, csvConfig);
+                //csv.WriteHeader<CalendarEvent>();
+                   // csv.NextRecord();
                     //Console.Clear();
                     csv.WriteRecords(calendarEvents);
                     Console.WriteLine($"\nThe Calendar Event named: '{calendarEvent.CalendarEventName}' \nwith description: '{calendarEvent.CalendarEventDescription}' \non day {calendarEvent.CalendarEventDate} \nstarting at {calendarEvent.CalendarEventStartTime} \nending at {calendarEvent.CalendarEventEndTime} \nhas been added to the list successfully");
-
-                }
             }
             catch (Exception ex)
             {
                 Console.WriteLine("An error occurred: " + ex.Message);
             }
+        }
+
+        private static CsvConfiguration CsvConfiguration()
+        {
+            var csvConfig = new CsvConfiguration(CultureInfo.InvariantCulture)
+            {
+                HasHeaderRecord = true,
+                Delimiter = ",",
+            };
+            return csvConfig;
         }
     }
 }

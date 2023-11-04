@@ -1,25 +1,39 @@
-calendarEventId,calendarEventName,calendarEventDescription,calendarEventDate,calendarEventStartTime,calendarEventEndTime,user
-1,Test 1,Testing of defined list,02/11/2023,08:00,16:00,0
-2,Test 2,Testing of defined list,03/11/2023,08:00,16:00,0
-3,Test from app,small letters,10/10/2023,08:00,16:00,0
-4,11,1,11/11/2023,08:00,16:00,0
-5,444,44,11/12/2023,08:00,16:00,0
-6,Mar,<M,12/12/2023,08:00,16:00,0
-7,Test again,rr,10/14/2023,08:00,16:00,0
-8,YTets,hcxjws,11/15/2023,08:00,16:00,0
-9,Mss,KK,11/16/2023,08:00,16:00,0
-10,Test,dd,12/12/2023,08:00,16:00,0
-11,Test2023,test,12/18/2023,08:00,16:00,0
-12,Test1,yry,12/12/2023,08:00,16:00,0
-13,test2,test2036,12/16/2023,08:00,16:00,0
-14,test,2107,11/19/2023,08:00,16:00,0
-15,test2,2108,11/19/2023,08:00,16:00,0
-16,Test3,2114,11/20/2023,08:00,16:00,0
-17,Test,2119,11/21/2023,09:00,12:00,0
-18,Test,2131,11/22/2023,08:00,12:00,0
-19,test2,2132,11/22/2023,12:00,16:00,0
-20,Test3,2134,11/23/2023,08:00,09:00,0
-21,Test4,2135 to test with longer description,11/24/2023,08:00,12:00,0
-22,Test5,Testing again - 2139,11/23/2023,12:00,14:00,0
-23,Test6,testing 2143,11/24/2023,08:00,09:00,0
-24,Test7,test 2145,11/25/2023,08:00,09:00,1
+calendarEventId,calendarEventName,calendarEventDescription,calendarEventDate,calendarEventStartTime,calendarEventEndTime,Id,Name,Surname,Position,Department,Login,Password,AdminPrivilege
+1,Test 1,Testing of defined list,02/11/2023,08:00,16:00,1,Tomasz,Tomaszewicz,Driver,Logistics,LogU1,PassU1,False
+2,Test 2,Testing of defined list,03/11/2023,08:00,16:00,1,Tomasz,Tomaszewicz,Driver,Logistics,LogU1,PassU1,False
+3,Test from app,small letters,10/10/2023,08:00,16:00,1,Tomasz,Tomaszewicz,Driver,Logistics,LogU1,PassU1,False
+4,11,1,11/11/2023,08:00,16:00,2,Bartek,Bartkowicz,Salesmen,Sales Department,LogU2,PassU2,False
+5,444,44,11/12/2023,08:00,16:00,2,Bartek,Bartkowicz,Salesmen,Sales Department,LogU2,PassU2,False
+6,Mar,<M,12/12/2023,08:00,16:00,2,Bartek,Bartkowicz,Salesmen,Sales Department,LogU2,PassU2,False
+7,Test again,rr,10/14/2023,08:00,16:00,2,Bartek,Bartkowicz,Salesmen,Sales Department,LogU2,PassU2,False
+8,YTets,hcxjws,11/15/2023,08:00,16:00,2,Bartek,Bartkowicz,Salesmen,Sales Department,LogU2,PassU2,False
+9,Mss,KK,11/16/2023,08:00,16:00,2,Bartek,Bartkowicz,Salesmen,Sales Department,LogU2,PassU2,False
+10,Test,dd,12/12/2023,08:00,16:00,2,Bartek,Bartkowicz,Salesmen,Sales Department,LogU2,PassU2,False
+11,Test2023,test,12/18/2023,08:00,16:00,2,Bartek,Bartkowicz,Salesmen,Sales Department,LogU2,PassU2,False
+12,Test1,yry,12/12/2023,08:00,16:00,2,Bartek,Bartkowicz,Salesmen,Sales Department,LogU2,PassU2,False
+13,test2,test2036,12/16/2023,08:00,16:00,1,Tomasz,Tomaszewicz,Driver,Logistics,LogU1,PassU1,False
+14,test,2107,11/19/2023,08:00,16:00,7,Marta,Debowska,Supporter,IT,MarDeb,Random123#,True
+15,test2,2108,11/19/2023,08:00,16:00,2,Bartek,Bartkowicz,Salesmen,Sales Department,LogU2,PassU2,False
+16,Test3,2114,11/20/2023,08:00,16:00,7,Marta,Debowska,Supporter,IT,MarDeb,Random123#,True
+17,Test,2119,11/21/2023,09:00,12:00,7,Marta,Debowska,Supporter,IT,MarDeb,Random123#,True
+18,Test,2131,11/22/2023,08:00,12:00,7,Marta,Debowska,Supporter,IT,MarDeb,Random123#,True
+19,test2,2132,11/22/2023,12:00,16:00,7,Marta,Debowska,Supporter,IT,MarDeb,Random123#,True
+20,Test3,2134,11/23/2023,08:00,09:00,7,Marta,Debowska,Supporter,IT,MarDeb,Random123#,True
+21,Test4,2135 to test with longer description,11/24/2023,08:00,12:00,1,Tomasz,Tomaszewicz,Driver,Logistics,LogU1,PassU1,False
+22,Test5,Testing again - 2139,11/23/2023,12:00,14:00,1,Tomasz,Tomaszewicz,Driver,Logistics,LogU1,PassU1,False
+23,Test6,testing 2143,11/24/2023,08:00,09:00,7,Marta,Debowska,Supporter,IT,MarDeb,Random123#,True
+24,Test7,test 2145,11/25/2023,08:00,09:00,7,Marta,Debowska,Supporter,IT,MarDeb,Random123#,True
+25,test,tte,10/10/2023,08:00,16:00,4,Mar,Mar,Mar,v,Mar,Mar,True
+26,test,2,10/10/2023,08:00,09:00,4,Mar,Mar,Mar,v,Mar,Mar,True
+27,test,test 2019,11/01/2023,08:00,09:00,7,Marta,Debowska,Supporter,IT,MarDeb,Random123#,True
+28,test,ee,11/02/2023,08:00,09:00,7,Marta,Debowska,Supporter,IT,MarDeb,Random123#,True
+29,test on 04112023,2107,11/04/2023,21:00,22:00,7,Marta,Debowska,Supporter,IT,MarDeb,Random123#,True
+30,Test,test 2110,11/04/2023,22:00,23:00,7,Marta,Debowska,Supporter,IT,MarDeb,Random123#,True
+31,Test 2116,test1,11/05/2023,08:00,16:00,7,Marta,Debowska,Supporter,IT,MarDeb,Random123#,True
+32,Test2,2119,11/05/2023,09:00,10:00,7,Marta,Debowska,Supporter,IT,MarDeb,Random123#,True
+33,Test3,2120,11/05/2023,10:00,11:00,7,Marta,Debowska,Supporter,IT,MarDeb,Random123#,True
+34,Test4,2123,11/05/2023,14:00,15:00,7,Marta,Debowska,Supporter,IT,MarDeb,Random123#,True
+35,Test2142,testing name validation\,11/06/2023,08:00,09:00,7,Marta,Debowska,Supporter,IT,MarDeb,Random123#,True
+36,dd,ddd,11/06/2023,09:00,10:00,7,Marta,Debowska,Supporter,IT,MarDeb,Random123#,True
+37,Test2149,Testing functionalities,11/07/2023,08:00,16:00,7,Marta,Debowska,Supporter,IT,MarDeb,Random123#,True
+38,33,empty try,01/01/0001,00:00,00:00,7,Marta,Debowska,Supporter,IT,MarDeb,Random123#,True
