@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace Schedulist.DAL
 {
-    public interface IUserRepository
+    public interface IAssignable
     {
-        List<User> GetAllUsers();
-        void AddUser(User user);   
+        //void Assign(User user);
+        void AssignUserById (int id);
     }
 }

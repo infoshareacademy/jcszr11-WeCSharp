@@ -1,6 +1,5 @@
 ﻿using CsvHelper;
 using CsvHelper.Configuration;
-using Schedulist.DAL.Models;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
@@ -28,12 +27,10 @@ namespace Schedulist.DAL
                 HasHeaderRecord = true,
                 //Delimiter = "\t",
             };
-            using (var reader = new StreamReader(FilePath))
-            using (var csv = new CsvReader(reader, csvConfig))
-            {
-                ListOfUsers = csv.GetRecords<User>().ToList();
-                return ListOfUsers;
-            }
+            using var reader = new StreamReader(FilePath);
+            using var csv = new CsvReader(reader, csvConfig);
+            ListOfUsers = csv.GetRecords<User>().ToList();
+            return ListOfUsers;
         }
         public void AddUser(User user)
         {
@@ -53,32 +50,16 @@ namespace Schedulist.DAL
             try
             {
                 ListOfUsers.Add(user);
-                using (StreamWriter writer = new StreamWriter(FilePath))
-                using (var csv = new CsvWriter(writer, csvConfig))
-                {
-                    csv.WriteRecords(ListOfUsers);
-                    Console.Clear();        
-                    Console.WriteLine($" The User {user.Name} {user.Surname} Has been added to the list succesfully");
-                }
+                using StreamWriter writer = new (FilePath);
+                using var csv = new CsvWriter(writer, csvConfig);
+                csv.WriteRecords(ListOfUsers);
+                Console.Clear();
+                Console.WriteLine($" The User {user.Name} {user.Surname} Has been added to the list succesfully");
             }
             catch (Exception ex)
             {
                 Console.WriteLine("An error occurred: " + ex.Message);
             }
         }
-        public User GetById (int id)
-        {
-            try
-            {
-                return GetAllUsers().Where(u => u.Id == id).FirstOrDefault();
-
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine("An error occurred: " + ex.Message);
-                return null;
-            }
-        }
-        
     }
 }

@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace Schedulist.DAL
 {
-    public interface IUserRepository
+    internal interface IWorkModesRepository
     {
-        List<User> GetAllUsers();
-        void AddUser(User user);   
+        List<WorkModes> GetAllWorkModes();
+        void AddWorkModes(WorkModes workMode);
     }
 }

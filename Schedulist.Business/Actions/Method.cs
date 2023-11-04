@@ -1,4 +1,5 @@
-﻿using Schedulist.DAL.Models;
+﻿using ConsoleApp1;
+using Schedulist.DAL;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -19,10 +20,22 @@ namespace Schedulist.Business.Actions
         {
             while (true)
             {
-                Console.WriteLine("===== Create password section =====");
+                Console.Clear();
+                Console.WriteLine("===== Create password =====");
+                Console.WriteLine("Password should contain between 5 - 15 letters, lowercase, uppercase and number");
                 string newPassword = ConsolHelper("Type your password:");
+
+                //todo - wip
+
+                //var validator = new StringValidationBuilder().AddValidationOption(
+                //    new LengthValidation(5, 15),
+                //    new HasLowercaseValidation(),
+                //    new HasUppercaseValidation(),
+                //    new HasDigitValidation()
+                //    );
+                new StringValidationBuilder().Validate( newPassword );
                 string repeatedNewPassoword = ConsolHelper("Enter your password again:");
-                if (newPassword == repeatedNewPassoword && repeatedNewPassoword != null)  //Sprawdza, czy hasła są takie same lub czy hasło nie jest puste
+                if (newPassword == repeatedNewPassoword && newPassword != null)  //Sprawdza, czy hasła są takie same lub czy hasło nie jest puste
                 {
                     user.Password = newPassword;
                     Console.WriteLine("Password has been created.");

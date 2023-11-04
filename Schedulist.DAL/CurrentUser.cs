@@ -6,9 +6,8 @@ using System.Threading.Tasks;
 
 namespace Schedulist.DAL
 {
-    public interface IUserRepository
+    public static class CurrentUser
     {
-        List<User> GetAllUsers();
-        void AddUser(User user);   
+        public static User? currentUser;
     }
 }
