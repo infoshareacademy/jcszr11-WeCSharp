@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading.Channels;
 using System.Threading.Tasks;
 using CsvHelper.TypeConversion;
 
@@ -11,8 +12,12 @@ namespace Schedulist.Business
     public class ManageCalendarEvent
     {
         ICalendarEventRepository _calendarEventRepository;
-        public User currentUser;
+       // public User currentUser;
 
+       private List<CalendarEvent> _calendarEvents =
+            new CsvCalendarEventRepository("..\\..\\..\\CalendarEvents.csv").GetAllCalendarEvents();
+
+       private CsvCalendarEventRepository csvCalendarEventRepository = new CsvCalendarEventRepository("..\\..\\..\\CalendarEvents.csv");
         public ManageCalendarEvent(ICalendarEventRepository calendarEventRepository)
         {
             _calendarEventRepository = calendarEventRepository;
@@ -23,10 +28,18 @@ namespace Schedulist.Business
         {
         }
 
-        public void ShowCalendarEvent()
+        public CalendarEvent ShowCalendarEvent()
         {
-            var calendarEvents = _calendarEventRepository.GetAllCalendarEvents();
+            //var calendarEvents = _calendarEventRepository.GetAllCalendarEvents();
            // Console.WriteLine(calendarEvents);
+           Console.WriteLine("List of Calendar Events");
+           Console.WriteLine("ID \t| Calendar Event Name \t\t|Date");
+           
+           for (int i = 0; i < _calendarEvents.Count; i++)
+           {
+               Console.WriteLine($"{i} \t{_calendarEvents[i].CalendarEventName} \t\t\t {_calendarEvents[i].CalendarEventDate}");
+           }
+           return null;
         }
         public void CreateCalendarEvent()
         {
@@ -67,17 +80,20 @@ namespace Schedulist.Business
             //else if (Console.ReadLine() == "y") //read menu
             //    Console.WriteLine("\n");
             //int userId = currentUser.Id;
-            //User assignedUser = userId;
-            int assignedUser = 1;
+            
+            //int assignedUser = 1;
+            //string filePath = "CalendarEvents.csv";
 
             CalendarEvent calendarEvent = new CalendarEvent(calendarEventId, calendarEventName,
-                calendarEventDescription, calendarEventDate, calendarEventStartTime, calendarEventEndTime);
-                // { AssignedToUser = assignedUser};
-              //  { UserId = assignedUser };
-            new CsvCalendarEventRepository("..\\..\\..\\CalendarEvents.csv").AddCalendarEvent(calendarEvent);
+                calendarEventDescription, calendarEventDate, calendarEventStartTime, calendarEventEndTime)
+            { AssignedToUser = CurrentUser.currentUser };
 
-                //TODO - to update headers/CSV file to save correctly
-            //}
+            //CsvCalendarEventRepository csvCalendarEventRepository = new CsvCalendarEventRepository(filePath);
+
+            csvCalendarEventRepository.AddCalendarEvent(calendarEvent);
+            
+
+           
 
         }
     }
