@@ -16,8 +16,9 @@ namespace Schedulist.Business
             Console.WriteLine("Choose the option:");
             Console.WriteLine("1. Create new calendar event");
             Console.WriteLine("2. Show calendar events");
-            Console.WriteLine("3. Modify existing calendar event");
-            Console.WriteLine("4. Delete existing calendar event");
+            Console.WriteLine("3. Show user and date related calendar events");
+            Console.WriteLine("4. Modify existing calendar event");
+            Console.WriteLine("5. Delete existing calendar event");
             Console.WriteLine("Backspace. Go back");
             Console.WriteLine("===============================================================================");
 
@@ -27,8 +28,9 @@ namespace Schedulist.Business
                 if (option.Key == ConsoleKey.D1) new ManageCalendarEvent().CreateCalendarEvent();
                 // else if (option.Key == ConsoleKey.D2) Console.WriteLine("*****show tasks*****");
                 else if (option.Key == ConsoleKey.D2) new ManageCalendarEvent().ShowCalendarEvent();
-                else if (option.Key == ConsoleKey.D3) Console.WriteLine("*****modify task*****");
-                else if (option.Key == ConsoleKey.D4) Console.WriteLine("*****delete task*****");
+                else if (option.Key == ConsoleKey.D3) new ManageCalendarEvent().ShowUserCalendarEvent();
+                else if (option.Key == ConsoleKey.D4) Console.WriteLine("*****modify task*****");
+                else if (option.Key == ConsoleKey.D5) Console.WriteLine("*****delete task*****");
                 else if (option.Key == ConsoleKey.Backspace) MenuMain.Run();
                 break;
             }
