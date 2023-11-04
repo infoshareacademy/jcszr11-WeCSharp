@@ -80,10 +80,10 @@ namespace Schedulist.Business
         }
         internal void Delete()
         {
-            Console.WriteLine();
-            Console.WriteLine("===============================================================================");
-            Console.WriteLine("Delete User");
-            Console.WriteLine("===============================================================================");
+            Console.Clear();
+            Console.WriteLine("====== Modify User section ======");
+            User userToModify = new AdminCommands().DiplayUsers();
+
         }
     }
 }
