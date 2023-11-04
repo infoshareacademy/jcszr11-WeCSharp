@@ -1,5 +1,6 @@
 ﻿using Schedulist.Business.Actions;
 using Schedulist.DAL;
+using Schedulist.DAL.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;

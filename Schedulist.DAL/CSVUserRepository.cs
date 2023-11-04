@@ -1,5 +1,6 @@
 ﻿using CsvHelper;
 using CsvHelper.Configuration;
+using Schedulist.DAL.Models;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
