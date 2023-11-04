@@ -11,7 +11,7 @@ namespace Schedulist.DAL
 {
     public class User
     {
-
+       
         public User(string name, string surname, string position, string department, string login, string password)
         {
             Name = name;
@@ -42,5 +42,9 @@ namespace Schedulist.DAL
         //[Index(7)]
         public bool AdminPrivilege { get; set; }
 
+        public override string ToString()
+        {
+            return ($"{Id}");
+        }
     }
 }

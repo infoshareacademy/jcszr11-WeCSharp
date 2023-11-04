@@ -8,7 +8,7 @@ namespace Schedulist.DAL
 {
     public interface IAssignable
     {
-        //void Assign(User user);
-        void AssignUserById (int id);
+        void Assign(User user);
+        //void AssignUserById (int id);
     }
 }

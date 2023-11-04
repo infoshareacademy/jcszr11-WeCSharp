@@ -71,9 +71,9 @@ namespace Schedulist.Business
             int assignedUser = 1;
 
             CalendarEvent calendarEvent = new CalendarEvent(calendarEventId, calendarEventName,
-                    calendarEventDescription, calendarEventDate, calendarEventStartTime, calendarEventEndTime)
+                calendarEventDescription, calendarEventDate, calendarEventStartTime, calendarEventEndTime);
                 // { AssignedToUser = assignedUser};
-                { UserId = assignedUser };
+              //  { UserId = assignedUser };
             new CsvCalendarEventRepository("..\\..\\..\\CalendarEvents.csv").AddCalendarEvent(calendarEvent);
 
                 //TODO - to update headers/CSV file to save correctly

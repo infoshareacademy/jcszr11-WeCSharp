@@ -9,6 +9,7 @@ namespace Schedulist.DAL
 {
     public class CalendarEvent : IAssignable
     {
+        
         //[Index(0)]
         [Name("calendarEventId")]
         public int CalendarEventId { get; set; }
@@ -28,8 +29,8 @@ namespace Schedulist.DAL
         [Name("calendarEventEndTime")]
         public TimeOnly CalendarEventEndTime { get; set; }
         [Name("user")]
-        //public User AssignedToUser { get; set; } 
-        public int UserId { get; set; }
+        public User AssignedToUser { get; set; } 
+       // public int UserId { get; set; }
 
         public CalendarEvent(int calendarEventId, string calendarEventName, string calendarEventDescription, DateOnly calendarEventDate,
             TimeOnly calendarEventStartTime, TimeOnly calendarEventEndTime)
@@ -41,17 +42,20 @@ namespace Schedulist.DAL
             CalendarEventDate = calendarEventDate;
             CalendarEventStartTime = calendarEventStartTime;
             CalendarEventEndTime = calendarEventEndTime;
+           // AssignedToUser = userId;
+
         }
 
-        //public void assign(user user)
-        //{
-        //    assignedtouser = user;
-        //}
-
-
-        public void AssignUserById(int id)
+        public void Assign(User CurrentUser)
         {
-            UserId = id;
+            AssignedToUser = CurrentUser;
+            Console.WriteLine("Task assigned");
         }
+
+
+        //public void AssignUserById(int id)
+        //{
+        //    UserId = id;
+        //}
     }
 }
