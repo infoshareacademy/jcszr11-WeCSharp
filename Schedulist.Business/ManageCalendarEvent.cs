@@ -85,8 +85,8 @@ namespace Schedulist.Business
             //string filePath = "CalendarEvents.csv";
 
             CalendarEvent calendarEvent = new CalendarEvent(calendarEventId, calendarEventName,
-                calendarEventDescription, calendarEventDate, calendarEventStartTime, calendarEventEndTime)
-            { AssignedToUser = CurrentUser.currentUser };
+                calendarEventDescription, calendarEventDate, calendarEventStartTime, calendarEventEndTime,
+                CurrentUser.currentUser);
 
             //CsvCalendarEventRepository csvCalendarEventRepository = new CsvCalendarEventRepository(filePath);
 

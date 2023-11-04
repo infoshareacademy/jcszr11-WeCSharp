@@ -23,11 +23,7 @@ namespace Schedulist.DAL
         }
         public List<CalendarEvent> GetAllCalendarEvents()
         {
-            var csvConfig = new CsvConfiguration(CultureInfo.InvariantCulture)
-            {
-                HasHeaderRecord = true,
-                Delimiter = ",",
-            };
+            var csvConfig = CsvConfiguration();
             using var reader = new StreamReader(_pathToCsvFile);
             using var csv = new CsvReader(reader, csvConfig);
             calendarEvents = csv.GetRecords<CalendarEvent>().ToList();
@@ -35,11 +31,7 @@ namespace Schedulist.DAL
         }
         public void AddCalendarEvent(CalendarEvent calendarEvent)
         {
-            var csvConfig = new CsvConfiguration(CultureInfo.InvariantCulture)
-            {
-                HasHeaderRecord = true,
-                Delimiter = ",",
-            };
+            var csvConfig = CsvConfiguration();
             List<CalendarEvent> calendarEvents = GetAllCalendarEvents();
 
             int nextCalendarEventId = calendarEvents.Count > 0 ? calendarEvents.Max(u => u.CalendarEventId) + 1 : 1;
@@ -63,6 +55,16 @@ namespace Schedulist.DAL
             {
                 Console.WriteLine("An error occurred: " + ex.Message);
             }
+        }
+
+        private static CsvConfiguration CsvConfiguration()
+        {
+            var csvConfig = new CsvConfiguration(CultureInfo.InvariantCulture)
+            {
+                HasHeaderRecord = true,
+                Delimiter = ",",
+            };
+            return csvConfig;
         }
     }
 }
