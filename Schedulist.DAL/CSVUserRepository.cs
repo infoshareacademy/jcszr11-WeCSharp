@@ -59,7 +59,6 @@ namespace Schedulist.DAL
                 Console.WriteLine("An error occurred: " + ex.Message);
             }
         }
-        //todo save to file
         public void ModifyUser(string userToModifyLogin, User modifiedUser)
         {
             var csvConfig = new CsvConfiguration(CultureInfo.InvariantCulture)

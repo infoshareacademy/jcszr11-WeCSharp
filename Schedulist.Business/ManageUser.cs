@@ -91,7 +91,7 @@ namespace Schedulist.Business
                     break;
                 }
                 else if (option.Key == ConsoleKey.D6)
-                {   
+                {
                     Modify_Ask(userToModify.Password, "Password", false, userToModify);
                     break;
                 }
