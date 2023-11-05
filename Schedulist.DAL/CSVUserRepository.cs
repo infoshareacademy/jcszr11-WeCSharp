@@ -20,6 +20,10 @@ namespace Schedulist.DAL
             this.FilePath = filePath;
         }
 
+        public CsvUserRepository()
+        {
+        }
+
         public List<User> GetAllUsers()
         {
             var csvConfig = new CsvConfiguration(CultureInfo.InvariantCulture)
