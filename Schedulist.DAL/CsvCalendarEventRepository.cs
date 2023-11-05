@@ -39,16 +39,15 @@ namespace Schedulist.DAL
                 calendarEvents.Add(calendarEvent);
                 using StreamWriter writer = new(_pathToCsvFile, append: false);
                 using var csv = new CsvWriter(writer, csvConfig);
-                    //Console.Clear();
-                    csv.WriteRecords(calendarEvents);
-                    Console.WriteLine($"\nThe Calendar Event named: '{calendarEvent.CalendarEventName}' \nwith description: '{calendarEvent.CalendarEventDescription}' \non day {calendarEvent.CalendarEventDate} \nstarting at {calendarEvent.CalendarEventStartTime} \nending at {calendarEvent.CalendarEventEndTime} \nhas been added to the list successfully");
+                csv.WriteRecords(calendarEvents);
+                Console.Clear();
+                Console.WriteLine($"The Calendar Event named: '{calendarEvent.CalendarEventName}' \nwith description: '{calendarEvent.CalendarEventDescription}' \non day {calendarEvent.CalendarEventDate} \nstarting at {calendarEvent.CalendarEventStartTime} \nending at {calendarEvent.CalendarEventEndTime} \nhas been added to the list successfully");
             }
             catch (Exception ex)
             {
                 Console.WriteLine("An error occurred: " + ex.Message);
             }
         }
-
         private static CsvConfiguration CsvConfiguration()
         {
             var csvConfig = new CsvConfiguration(CultureInfo.InvariantCulture)

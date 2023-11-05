@@ -39,3 +39,6 @@ calendarEventId,calendarEventName,calendarEventDescription,calendarEventDate,cal
 38,33,empty try,01/01/0001,00:00,00:00,7,Marta,Debowska,Supporter,IT,MarDeb,Random123#,True
 39,test1954,modified code,11/05/2023,08:00,09:00,4,Test,Test,Test,Test,Test,Test,True
 40,"test ",test2 1955,11/05/2023,19:55,20:00,4,Test,Test,Test,Test,Test,Test,True
+41,Test1,2105,11/05/2023,05:00,06:00,4,Mar,Mar,Mar,v,Mar,Mar,True
+42,Meeting with client X,Discussing opportunity OPP/23/09/22234,11/06/2023,08:00,10:00,4,Mar,Mar,Mar,v,Mar,Mar,True
+43,Meeting with client Y,Revising contract CON-23-10-00939,11/07/2023,08:00,10:00,4,Mar,Mar,Mar,v,Mar,Mar,True

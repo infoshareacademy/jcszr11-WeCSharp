@@ -26,29 +26,33 @@ namespace Schedulist.Business
         }
         public CalendarEvent ShowCalendarEvent()
         {
-            Console.WriteLine("List of Calendar Events");
+            Console.Clear();
+            Console.WriteLine("======List of Calendar Events======");
             Console.WriteLine("ID \t| Calendar Event Name \t\t|Date");
             for (int i = 0; i < _calendarEvents.Count; i++)
             {
                 Console.WriteLine(
                     $"{i} \t{_calendarEvents[i].CalendarEventName} \t\t\t {_calendarEvents[i].CalendarEventDate}");
             }
+            Console.WriteLine("\nType any key do return to Menu");
+            Console.ReadKey();
+            MenuOptions.MenuCalendarEvents();
             return null;
         }
         public CalendarEvent ShowUserCalendarEvent()
         {
-            Console.WriteLine("List of Calendar Events");
+            Console.Clear();
+            Console.WriteLine("======List of Calendar Events=======");
             Console.WriteLine("Choose User ID for which you want to show Calendar Events");
             int specifiedUserId = int.Parse(Console.ReadLine());
             Console.WriteLine("Provide date for which you want to show Calendar Events");
             string providedDate = Console.ReadLine();
             DateOnly.TryParse(providedDate, out var specifiedDate);
-            Console.WriteLine("ID \t| Calendar Event Name \t\t|Date");
             var calendarEvents = csvCalendarEventRepository.GetAllCalendarEvents();
             var userCalendarEvents = calendarEvents
                 .Where(c => c.AssignedToUser.Id == specifiedUserId && c.CalendarEventDate == specifiedDate)
                 .Select(c => c.CalendarEventName).ToList();
-            Console.WriteLine($"Calendar Event Names for user id {specifiedUserId} on {specifiedDate}:");
+            Console.WriteLine($"\nCalendar Event Names for user id {specifiedUserId} on {specifiedDate}:");
             foreach (var eventName in userCalendarEvents)
             {
                 Console.WriteLine($"{eventName}");
@@ -57,6 +61,9 @@ namespace Schedulist.Business
             //{
             //    Console.WriteLine($"Name {calendarEvents[i].CalendarEventName} starting at {calendarEvents[i].CalendarEventStartTime} and ending at {calendarEvents[i].CalendarEventEndTime}");
             //}
+            Console.WriteLine("\nType any key do return to Menu");
+            Console.ReadKey();
+            MenuOptions.MenuCalendarEvents();
             return null;
         }
 
@@ -65,7 +72,8 @@ namespace Schedulist.Business
             // var finishCreatingTask = false;
             //while (!finishCreatingTask)
             //{
-            Console.WriteLine("\nYou are creating new Calendar Event, please provide following data:");
+            Console.Clear();
+            Console.WriteLine("You are creating new Calendar Event, please provide data as following:");
             int calendarEventId = 1;
             Console.WriteLine("Name of Calendar Event:");
             string calendarEventName = Console.ReadLine();
@@ -96,13 +104,9 @@ namespace Schedulist.Business
                 calendarEventDescription, calendarEventDate, calendarEventStartTime, calendarEventEndTime,
                 CurrentUser.currentUser);
             csvCalendarEventRepository.AddCalendarEvent(calendarEvent);
-
-            //Console.Write("Press 'x' and Enter to close the app, or press any other key and Enter to continue creating tasks: ");
-            //if (Console.ReadLine() == "x") 
-            //{finishCreatingTask = true;}
-            //else if (Console.ReadLine() == "y") //read menu
-            //    Console.WriteLine("\n");
-            // }
+            Console.WriteLine("\nType any key do return to Menu");
+            Console.ReadKey();
+            MenuOptions.MenuCalendarEvents();
         }
         private static string CalendarEventDescriptionValidation(string? calendarEventDescription)
         {
