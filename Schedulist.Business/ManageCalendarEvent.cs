@@ -69,9 +69,6 @@ namespace Schedulist.Business
 
         public void CreateCalendarEvent()
         {
-            // var finishCreatingTask = false;
-            //while (!finishCreatingTask)
-            //{
             Console.Clear();
             Console.WriteLine("You are creating new Calendar Event, please provide data as following:");
             int calendarEventId = 1;
@@ -84,22 +81,12 @@ namespace Schedulist.Business
             Console.WriteLine("Date of Calendar Event using format DD/MM/YYYY");
             string dateValue = Console.ReadLine();
             DateOnly.TryParse(dateValue, out var calendarEventDate);
-            //while (true)
-            //{
-            //    if (string.IsNullOrWhiteSpace(calendarEventDescription))
-            //    {
-            //        Console.WriteLine("Calendar Event Name cannot be empty, please provide value!");
-            //        calendarEventDescription = Console.ReadLine();
-            //    }
-            //    else break;
-            //}
             Console.WriteLine("Start time of Calendar Event using format HH:MM");
             string startTime = Console.ReadLine();
             TimeOnly.TryParse(startTime, out var calendarEventStartTime);
             Console.WriteLine("End time of Calendar Event using format HH:MM");
             string endTime = Console.ReadLine();
             TimeOnly.TryParse(endTime, out var calendarEventEndTime);
-
             CalendarEvent calendarEvent = new CalendarEvent(calendarEventId, calendarEventName,
                 calendarEventDescription, calendarEventDate, calendarEventStartTime, calendarEventEndTime,
                 CurrentUser.currentUser);
