@@ -10,6 +10,7 @@ namespace Schedulist.DAL
     public interface IUserRepository
     {
         List<User> GetAllUsers();
-        void AddUser(User user);   
+        void AddUser(User user);
+        void ModifyUser(string userToModifyLogin, User modifiedUser);
     }
 }

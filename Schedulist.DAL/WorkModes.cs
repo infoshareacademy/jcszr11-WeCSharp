@@ -10,11 +10,14 @@ namespace Schedulist.DAL
     {
         public int WorkModeID { get; set; }
         public string WorkModeName { get; set; }
+        //UserID
+        //Date
         
         public WorkModes(int idWM, string nameWM)
         {
             WorkModeID = idWM;
             WorkModeName = nameWM;
+            
         }
         public WorkModes() 
         { 
