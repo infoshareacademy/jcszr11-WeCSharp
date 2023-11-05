@@ -14,7 +14,7 @@ namespace Schedulist.Business
         ICalendarEventRepository _calendarEventRepository;
         private List<CalendarEvent> _calendarEvents =
             new CsvCalendarEventRepository("..\\..\\..\\CalendarEvents.csv").GetAllCalendarEvents();
-        private List<User> _userlist = new CsvUserRepository("Users.csv").GetAllUsers();
+        private List<User> _userlist = new CsvUserRepository("..\\..\\..\\Users.csv").GetAllUsers();
         private CsvCalendarEventRepository csvCalendarEventRepository =
             new CsvCalendarEventRepository("..\\..\\..\\CalendarEvents.csv");
         public ManageCalendarEvent(ICalendarEventRepository calendarEventRepository)

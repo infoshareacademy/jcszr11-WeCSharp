@@ -9,8 +9,8 @@ namespace Schedulist.Business
 {
     internal class AdminCommands
     {
-        private List<User> _userlist = new CsvUserRepository("Users.csv").GetAllUsers();
-        public User DiplayUsers()
+        private List<User> _userlist = new CsvUserRepository("..\\..\\..\\Users.csv").GetAllUsers();
+        public User DisplayUsers()
         {
             Console.Clear();
             Console.WriteLine("====== List of users ======");
