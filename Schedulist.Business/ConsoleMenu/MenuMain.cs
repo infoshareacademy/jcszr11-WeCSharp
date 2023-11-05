@@ -11,23 +11,24 @@ namespace Schedulist.Business
     {
         public static User Run()
         {
-            Console.Clear();
-            Console.WriteLine($"Welcome, {CurrentUser.currentUser.Name}");
-            Console.WriteLine("Choose the option:");
-            Console.WriteLine("1. Show calendar");
-            Console.WriteLine("2. Manage calendar events");
-            if (CurrentUser.currentUser.AdminPrivilege == true)
-            {
-                Console.WriteLine("3. Manage work modes");
-                Console.WriteLine("4. Manage users");
-            }
-            Console.WriteLine("Backspace. Log out");
-            Console.WriteLine("===============================================================================");
             while (true)
             {
+                Console.Clear();
+                Console.WriteLine($"Welcome, {CurrentUser.currentUser.Name}");
+                Console.WriteLine("Choose the option:");
+                Console.WriteLine("1. Show calendar");
+                Console.WriteLine("2. Manage tasks");
+                if (CurrentUser.currentUser.AdminPrivilege == true)
+                {
+                    Console.WriteLine("3. Manage work modes");
+                    Console.WriteLine("4. Manage users");
+                }
+                Console.WriteLine("Backspace. Log out");
+                Console.WriteLine("===============================================================================");
                 var option = Console.ReadKey();
                 if (option.Key == ConsoleKey.Backspace)
                 {
+                    CurrentUser.currentUser = null;
                     return null;
                 }
                 else if (option.Key == ConsoleKey.D1) Console.WriteLine("*****calendar*****");

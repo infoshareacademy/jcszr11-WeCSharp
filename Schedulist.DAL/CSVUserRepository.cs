@@ -29,7 +29,6 @@ namespace Schedulist.DAL
             var csvConfig = new CsvConfiguration(CultureInfo.InvariantCulture)
             {
                 HasHeaderRecord = true,
-                //Delimiter = "\t",
             };
             using var reader = new StreamReader(FilePath);
             using var csv = new CsvReader(reader, csvConfig);
@@ -41,7 +40,6 @@ namespace Schedulist.DAL
             var csvConfig = new CsvConfiguration(CultureInfo.InvariantCulture)
             {
                 HasHeaderRecord = true,
-                //Delimiter = "\t",
             };
             ListOfUsers = GetAllUsers();
 
@@ -58,12 +56,29 @@ namespace Schedulist.DAL
                 using var csv = new CsvWriter(writer, csvConfig);
                 csv.WriteRecords(ListOfUsers);
                 Console.Clear();
-                Console.WriteLine($" The User {user.Name} {user.Surname} Has been added to the list succesfully");
+                Console.WriteLine($"The user {user.Name} {user.Surname} has been added to the list succesfully");
             }
             catch (Exception ex)
             {
                 Console.WriteLine("An error occurred: " + ex.Message);
             }
+        }
+        public void ModifyUser(string userToModifyLogin, User modifiedUser)
+        {
+            var csvConfig = new CsvConfiguration(CultureInfo.InvariantCulture)
+            {
+                HasHeaderRecord = true,
+            };
+            ListOfUsers = GetAllUsers();
+            if (ListOfUsers.Any(user => user.Login == userToModifyLogin))
+            {
+                using StreamWriter writer = new(FilePath);
+                using var csv = new CsvWriter(writer, csvConfig);
+                User user = ListOfUsers.FirstOrDefault(user => user.Login == userToModifyLogin);
+                ListOfUsers.Remove(user);
+                csv.WriteRecords(ListOfUsers);
+            }
+            AddUser(modifiedUser);
         }
     }
 }

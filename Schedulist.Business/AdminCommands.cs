@@ -12,24 +12,22 @@ namespace Schedulist.Business
         private List<User> _userlist = new CsvUserRepository("Users.csv").GetAllUsers();
         public User DiplayUsers()
         {
+            Console.Clear();
             Console.WriteLine("====== List of users ======");
             Console.WriteLine("ID.  Name and surname");
-            for (int i = 0; i < _userlist.Count; i++)
+            foreach (User user in _userlist)
             {
-                Console.WriteLine($"{i}.    {_userlist[i].Name} {_userlist[i].Surname}");
+                Console.WriteLine($"{user.Id}.    {user.Name} {user.Surname}");
             }
             Console.WriteLine("===============================================================================");
-            Console.WriteLine("Choose user from the list by ID or click Backspace to choose yourself:");
-            int ID;
+            Console.WriteLine("Choose user from the list by ID or type x to choose yourself:");
             while (true)
             {
-                var option = Console.ReadKey();
-                if (option.Key == ConsoleKey.Backspace) return CurrentUser.currentUser;
-                else if (char.IsDigit(option.KeyChar))
-                    if ((int.Parse(option.KeyChar.ToString()) <= _userlist.Count))
+                string option = Console.ReadLine();
+                if (option == "x") return CurrentUser.currentUser;
+                else foreach (User user in _userlist)
                     {
-                        ID = (int.Parse(option.KeyChar.ToString()));
-                        return _userlist[ID];
+                        if (user.Id.ToString() == option) return user;
                     }
             }
         }

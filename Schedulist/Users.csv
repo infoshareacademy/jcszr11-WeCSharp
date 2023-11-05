@@ -3,6 +3,5 @@ Id,Name,Surname,Position,Department,Login,Password,AdminPrivilege
 2,Bartek,Bartkowicz,Salesmen,Sales Department,LogU2,PassU2,False
 3,Romek,Romanowicz,CEO,Executive,LogA1,PassA1,True
 4,Mar,Mar,Mar,v,Mar,Mar,True
-5,Mar,Mar,Mar,Mar,Mar,Mar,True
 6,NoPass,NoPass,NoPass,NoPass,NoPass,,True
 7,Marta,Debowska,Supporter,IT,MarDeb,Random123#,True
