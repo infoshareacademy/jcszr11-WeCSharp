@@ -59,7 +59,7 @@ namespace Schedulist.Business
             Console.WriteLine("Choose the option:");
             Console.WriteLine("1. Create new user");
             Console.WriteLine("2. Modify existing user");
-            Console.WriteLine("3. Delete existing user");
+            Console.WriteLine("3. Delete existing Users");
             Console.WriteLine("Backspace. Go back");
             Console.WriteLine("===============================================================================");
             while (true)

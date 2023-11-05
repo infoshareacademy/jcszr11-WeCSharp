@@ -17,7 +17,6 @@ namespace Schedulist.Business
         //{
         //    _userRepository = userRepository;
         //}
-
         internal void Create()
         {
             Console.Clear();
@@ -45,6 +44,9 @@ namespace Schedulist.Business
             User user = new(name, surname, position, department, login, password)
             { AdminPrivilege = isAdmin };
             new CsvUserRepository("..\\..\\..\\Users.csv").AddUser(user);
+            Console.WriteLine("Type any key do return to MenuOptions");
+            Console.ReadKey();
+            MenuOptions.MenuUsers();
         }
 
         internal void Modify()
@@ -82,39 +84,61 @@ namespace Schedulist.Business
         }
         internal void Delete()
         {
-            Console.Clear();
-            Console.WriteLine("====== Delete User section ======");
-            User userToDelete = new AdminCommands().DisplayUsersToDelete();
-
-            Console.WriteLine($"Are you sure you want to delete {userToDelete.Name} {userToDelete.Surname}? (y/n)");
-            string confirmation = Console.ReadLine();
-
-            if (confirmation.ToLower() == "y")
             {
-                List<User> users = new CsvUserRepository("..\\..\\..\\Users.csv").GetAllUsers();
-                users.Remove(userToDelete);
-
-                // Zapisanie zaktualizowanej listy użytkowników do pliku CSV.
-                UpdateUserList(users);
                 Console.Clear();
-                Console.WriteLine($"User {userToDelete.Name} {userToDelete.Surname} has been deleted.");
-            }
-            else
-            {
-                Console.WriteLine("Deletion canceled.");
+                Console.WriteLine("====== Delete User section ======");
+                List<User> listOfUsers;
+                listOfUsers = new CsvUserRepository("..\\..\\..\\Users.csv").GetAllUsers();
+                Console.WriteLine("List of available Users to delete:");
+                for (int i = 0; i < listOfUsers.Count; i++)
+                {
+                    Console.WriteLine($"{i + 1}. {listOfUsers[i].Name} {listOfUsers[i].Surname}");
+                }
+
+                Console.WriteLine("0. Cancel");
+                Console.WriteLine("===============================================================================");
+
+                System.ConsoleKeyInfo option;
+                while (true)
+                {
+                    option = Console.ReadKey();
+                    if (option.Key == ConsoleKey.D0)
+                    {
+                        Console.Clear();
+                        Console.WriteLine("Operation canceled. Type any key to return to MenuOptions");
+                        Console.ReadKey();
+                        MenuOptions.MenuUsers();
+                    }
+                    else if (option.Key >= ConsoleKey.D1 && option.Key <= ConsoleKey.D9)
+                    {
+                        // W kodzie ASCII klawisze od D0 do D9 są reprezentowane są jako liczby dziesiętne odpowiednio: D0=48, D1=49, D2=50 itd.
+                        // Przykład po wyborze klawisza D3: userChoice = 51 -48 -1 = 3.
+                        int userChoice = (int)option.Key - (int)ConsoleKey.D0 - 1;
+
+                        // Validacja poprawności wprowadzonej wartości 
+                        if (userChoice >= 0 && userChoice < listOfUsers.Count)
+                        {
+                            // Usunięcie wybranego użytkownika
+                            User userToDelete = listOfUsers[userChoice];
+                            listOfUsers.RemoveAt(userChoice);
+
+                            // Zapisanie zmian w pliku CSV
+                            var csvUserRepository = new CsvUserRepository("..\\..\\..\\Users.csv");
+                            csvUserRepository.WriteAllUsers(listOfUsers);
+                            Console.Clear();
+
+                            Console.WriteLine($"User {userToDelete.Name} {userToDelete.Surname} has been deleted successfully.");
+                            Console.WriteLine("Type any key do return to MenuOptions");
+                            Console.ReadKey();
+                            MenuOptions.MenuUsers();
+                        }
+                        else
+                            Console.WriteLine("Invalid user choice. Please choose a valid user to delete.");
+                    }
+                    else
+                        Console.WriteLine("Invalid option. Please choose a valid option.");
+                }
             }
         }
-
-        private void UpdateUserList(List<User> users)
-        {
-            var csvConfig = new CsvConfiguration(CultureInfo.InvariantCulture)
-            {
-                HasHeaderRecord = true,
-            };
-
-            using StreamWriter writer = new StreamWriter("..\\..\\..\\Users.csv");
-            using var csv = new CsvWriter(writer, csvConfig);
-            csv.WriteRecords(users);
-        }   
     }
 }

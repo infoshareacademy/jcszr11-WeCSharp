@@ -50,15 +50,37 @@ namespace Schedulist.DAL
             try
             {
                 ListOfUsers.Add(user);
-                using StreamWriter writer = new (FilePath);
+                using StreamWriter writer = new(FilePath);
                 using var csv = new CsvWriter(writer, csvConfig);
                 csv.WriteRecords(ListOfUsers);
                 Console.Clear();
-                Console.WriteLine($" The User {user.Name} {user.Surname} Has been added to the list succesfully");
+                Console.WriteLine($"The User {user.Name} {user.Surname} Has been added to the list succesfully");
             }
             catch (Exception ex)
             {
                 Console.WriteLine("An error occurred: " + ex.Message);
+                if (ex.InnerException != null)
+                {
+                    Console.WriteLine("Inner Exception: " + ex.InnerException.Message);
+                }
+            }
+        }
+        public void WriteAllUsers(List<User> users)
+        {
+            var csvConfig = new CsvConfiguration(CultureInfo.InvariantCulture);
+            try
+            {
+                using StreamWriter writer = new StreamWriter(FilePath);
+                using var csv = new CsvWriter(writer, csvConfig);
+                csv.WriteRecords(users);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("An error occurred while writing to the CSV file: " + ex.Message);
+                if (ex.InnerException != null)
+                {
+                    Console.WriteLine("Inner Exception: " + ex.InnerException.Message);
+                }
             }
         }
     }
