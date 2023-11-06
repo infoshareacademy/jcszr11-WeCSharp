@@ -169,9 +169,16 @@ namespace Schedulist.Business
                     }
                     else if (option.Key >= ConsoleKey.D1 && option.Key <= ConsoleKey.D9)
                     {
-                        // W kodzie ASCII klawisze od D0 do D9 są reprezentowane są jako liczby dziesiętne odpowiednio: D0=48, D1=49, D2=50 itd.
-                        // Przykład po wyborze klawisza D3: userChoice = 51 -48 -1 = 3.
-                        int userChoice = (int)option.Key - (int)ConsoleKey.D0 - 1;
+
+                        if (int.TryParse(option.KeyChar.ToString(), out int userChoice) && userChoice >= 1 && userChoice <= listOfUsers.Count)
+                        {
+                            User userToDelete = listOfUsers[userChoice - 1];
+                            listOfUsers.RemoveAt(userChoice - 1);
+                        }
+                        else
+                        {
+                            Console.WriteLine("Invalid user choice. Please choose a valid user to delete.");
+                        }
 
                         // Validacja poprawności wprowadzonej wartości 
                         if (userChoice >= 0 && userChoice < listOfUsers.Count)
@@ -190,8 +197,6 @@ namespace Schedulist.Business
                             Console.ReadKey();
                             MenuOptions.MenuUsers();
                         }
-                        else
-                            Console.WriteLine("Invalid user choice. Please choose a valid user to delete.");
                     }
                     else
                         Console.WriteLine("Invalid option. Please choose a valid option.");
