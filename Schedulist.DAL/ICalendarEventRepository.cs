@@ -10,6 +10,5 @@ namespace Schedulist.DAL
     {
         List<CalendarEvent> GetAllCalendarEvents();
         void AddCalendarEvent(CalendarEvent calendarEvent);
-        CalendarEvent GetById(int id);
     }
 }

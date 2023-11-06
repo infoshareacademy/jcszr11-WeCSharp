@@ -1,11 +1,7 @@
 Id,Name,Surname,Position,Department,Login,Password,AdminPrivilege
 1,Tomasz,Tomaszewicz,Driver,Logistics,LogU1,PassU1,False
 3,Romek,Romanowicz,CEO,Executive,LogA1,PassA1,True
+4,Mar,Mar,Mar,v,Mar,Mar,True
 5,Test,Test,Test,Test,Test,Test,True
-6,Test,Test,Test,Test,Test,Test,True
-7,Test,Test,Test,Test,Test,Test,True
-8,Test,Test,Test,Test,Test,Test,True
-9,Test,Test,Test,Test,Test,Test,True
-10,Test,Test,Test,Test,Test,Test,True
-11,Test,Test,Test,Test,Test,Test,True
-12,Test,Test,Test,Test,Test,Test,True
+6,Jordan,Tester,Tester,IT,TT,Test223%,True
+7,Marta,Debowska,Supporter,IT,MarDeb,Random123#,True
