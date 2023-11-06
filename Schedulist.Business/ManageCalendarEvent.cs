@@ -80,13 +80,29 @@ namespace Schedulist.Business
             calendarEventDescription = CalendarEventDescriptionValidation(calendarEventDescription);
             Console.WriteLine("Date of Calendar Event using format DD/MM/YYYY");
             string dateValue = Console.ReadLine();
+            dateValue = DateValueEmptinessValidation(dateValue);
             DateOnly.TryParse(dateValue, out var calendarEventDate);
+
             Console.WriteLine("Start time of Calendar Event using format HH:MM");
             string startTime = Console.ReadLine();
+            startTime = StartTimeEmptinessValidation(startTime);
             TimeOnly.TryParse(startTime, out var calendarEventStartTime);
+            var calendarEvents = csvCalendarEventRepository.GetAllCalendarEvents();
+            var validatedStartTime = calendarEvents
+                .FirstOrDefault(c => c.AssignedToUser.Id == CurrentUser.currentUser.Id &&
+                            c.CalendarEventDate == calendarEventDate && c.CalendarEventStartTime == calendarEventStartTime);
+            calendarEventStartTime = CalendarEventStartTimeRepeatnessValidation(validatedStartTime, calendarEventStartTime, calendarEvents, calendarEventDate);
             Console.WriteLine("End time of Calendar Event using format HH:MM");
             string endTime = Console.ReadLine();
+            endTime = EndTimeEmptinessValidation(endTime);
             TimeOnly.TryParse(endTime, out var calendarEventEndTime);
+            calendarEventEndTime = CalendarEventEndTimeValidation(calendarEventEndTime, calendarEventStartTime);
+
+
+
+
+
+
             CalendarEvent calendarEvent = new CalendarEvent(calendarEventId, calendarEventName,
                 calendarEventDescription, calendarEventDate, calendarEventStartTime, calendarEventEndTime,
                 CurrentUser.currentUser);
@@ -95,29 +111,82 @@ namespace Schedulist.Business
             Console.ReadKey();
             MenuOptions.MenuCalendarEvents();
         }
+
+        private static string EndTimeEmptinessValidation(string? endTime)
+        {
+            while (string.IsNullOrWhiteSpace(endTime))
+            {
+                Console.WriteLine("Calendar Event Start Time cannot be empty, please provide value!");
+                endTime = Console.ReadLine();
+            }
+
+            return endTime;
+        }
+
+        private static string StartTimeEmptinessValidation(string? startTime)
+        {
+            while (string.IsNullOrWhiteSpace(startTime))
+            {
+                Console.WriteLine("Calendar Event Start Time cannot be empty, please provide value!");
+                startTime = Console.ReadLine();
+            }
+
+            return startTime;
+        }
+
+        private static TimeOnly CalendarEventStartTimeRepeatnessValidation(CalendarEvent? validatedStartTime,
+            TimeOnly calendarEventStartTime, List<CalendarEvent> calendarEvents, DateOnly calendarEventDate)
+        {
+            string? startTime;
+            while (validatedStartTime != null)
+            {
+                Console.WriteLine(
+                    "Calendar Event with provided Start time already exists for that day, please provide different value!");
+                startTime = Console.ReadLine();
+                TimeOnly.TryParse(startTime, out calendarEventStartTime);
+                validatedStartTime = calendarEvents
+                    .FirstOrDefault(c => c.AssignedToUser.Id == CurrentUser.currentUser.Id &&
+                                         c.CalendarEventDate == calendarEventDate &&
+                                         c.CalendarEventStartTime == calendarEventStartTime);
+            }
+            return calendarEventStartTime;
+        }
+        private static string DateValueEmptinessValidation(string? dateValue)
+        {
+            while (string.IsNullOrWhiteSpace(dateValue))
+            {
+                Console.WriteLine("Calendar Event Date cannot be empty, please provide value!");
+                dateValue = Console.ReadLine();
+            }
+            return dateValue;
+        }
+        private static TimeOnly CalendarEventEndTimeValidation(TimeOnly calendarEventEndTime, TimeOnly calendarEventStartTime)
+        {
+            string? endTime;
+            while (calendarEventEndTime.CompareTo(calendarEventStartTime) <= 0)
+            {
+                Console.WriteLine(
+                    "Calendar Event End Time cannot be earlier or at the same time as Start Time, adjust the value!");
+                endTime = Console.ReadLine();
+                TimeOnly.TryParse(endTime, out calendarEventEndTime);
+            }
+            return calendarEventEndTime;
+        }
         private static string CalendarEventDescriptionValidation(string? calendarEventDescription)
         {
-            while (true)
+            while (string.IsNullOrWhiteSpace(calendarEventDescription))
             {
-                if (string.IsNullOrWhiteSpace(calendarEventDescription))
-                {
-                    Console.WriteLine("Calendar Event Description cannot be empty, please provide value!");
-                    calendarEventDescription = Console.ReadLine();
-                }
-                else break;
+                Console.WriteLine("Calendar Event Description cannot be empty, please provide value!");
+                calendarEventDescription = Console.ReadLine();
             }
             return calendarEventDescription;
         }
         private static string CalendarEventNameValidation(string? calendarEventName)
         {
-            while (true)
+            while (string.IsNullOrWhiteSpace(calendarEventName))
             {
-                if (string.IsNullOrWhiteSpace(calendarEventName))
-                {
-                    Console.WriteLine("Calendar Event Name cannot be empty, please provide value!");
-                    calendarEventName = Console.ReadLine();
-                }
-                else break;
+                Console.WriteLine("Calendar Event Name cannot be empty, please provide value!");
+                calendarEventName = Console.ReadLine();
             }
             return calendarEventName;
         }
