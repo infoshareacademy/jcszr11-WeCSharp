@@ -82,7 +82,6 @@ namespace Schedulist.Business
             string dateValue = Console.ReadLine();
             dateValue = DateValueEmptinessValidation(dateValue);
             DateOnly.TryParse(dateValue, out var calendarEventDate);
-
             Console.WriteLine("Start time of Calendar Event using format HH:MM");
             string startTime = Console.ReadLine();
             startTime = StartTimeEmptinessValidation(startTime);
@@ -90,19 +89,13 @@ namespace Schedulist.Business
             var calendarEvents = csvCalendarEventRepository.GetAllCalendarEvents();
             var validatedStartTime = calendarEvents
                 .FirstOrDefault(c => c.AssignedToUser.Id == CurrentUser.currentUser.Id &&
-                            c.CalendarEventDate == calendarEventDate && c.CalendarEventStartTime == calendarEventStartTime);
-            calendarEventStartTime = CalendarEventStartTimeRepeatnessValidation(validatedStartTime, calendarEventStartTime, calendarEvents, calendarEventDate);
+                            c.CalendarEventDate == calendarEventDate && (c.CalendarEventStartTime == calendarEventStartTime || c.CalendarEventEndTime.CompareTo(calendarEventStartTime) > 0));
+            calendarEventStartTime = CalendarEventStartTimeOverlappingValidation(validatedStartTime, calendarEventStartTime, calendarEvents, calendarEventDate);
             Console.WriteLine("End time of Calendar Event using format HH:MM");
             string endTime = Console.ReadLine();
             endTime = EndTimeEmptinessValidation(endTime);
             TimeOnly.TryParse(endTime, out var calendarEventEndTime);
             calendarEventEndTime = CalendarEventEndTimeValidation(calendarEventEndTime, calendarEventStartTime);
-
-
-
-
-
-
             CalendarEvent calendarEvent = new CalendarEvent(calendarEventId, calendarEventName,
                 calendarEventDescription, calendarEventDate, calendarEventStartTime, calendarEventEndTime,
                 CurrentUser.currentUser);
@@ -111,7 +104,6 @@ namespace Schedulist.Business
             Console.ReadKey();
             MenuOptions.MenuCalendarEvents();
         }
-
         private static string EndTimeEmptinessValidation(string? endTime)
         {
             while (string.IsNullOrWhiteSpace(endTime))
@@ -119,10 +111,8 @@ namespace Schedulist.Business
                 Console.WriteLine("Calendar Event Start Time cannot be empty, please provide value!");
                 endTime = Console.ReadLine();
             }
-
             return endTime;
         }
-
         private static string StartTimeEmptinessValidation(string? startTime)
         {
             while (string.IsNullOrWhiteSpace(startTime))
@@ -130,11 +120,9 @@ namespace Schedulist.Business
                 Console.WriteLine("Calendar Event Start Time cannot be empty, please provide value!");
                 startTime = Console.ReadLine();
             }
-
             return startTime;
         }
-
-        private static TimeOnly CalendarEventStartTimeRepeatnessValidation(CalendarEvent? validatedStartTime,
+        private static TimeOnly CalendarEventStartTimeOverlappingValidation(CalendarEvent? validatedStartTime,
             TimeOnly calendarEventStartTime, List<CalendarEvent> calendarEvents, DateOnly calendarEventDate)
         {
             string? startTime;
@@ -146,8 +134,7 @@ namespace Schedulist.Business
                 TimeOnly.TryParse(startTime, out calendarEventStartTime);
                 validatedStartTime = calendarEvents
                     .FirstOrDefault(c => c.AssignedToUser.Id == CurrentUser.currentUser.Id &&
-                                         c.CalendarEventDate == calendarEventDate &&
-                                         c.CalendarEventStartTime == calendarEventStartTime);
+                                         c.CalendarEventDate == calendarEventDate && (c.CalendarEventStartTime == calendarEventStartTime || c.CalendarEventEndTime.CompareTo(calendarEventStartTime) > 0));
             }
             return calendarEventStartTime;
         }
