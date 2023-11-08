@@ -51,11 +51,11 @@ namespace Schedulist.Business
             var calendarEvents = csvCalendarEventRepository.GetAllCalendarEvents();
             var userCalendarEvents = calendarEvents
                 .Where(c => c.AssignedToUser.Id == specifiedUserId && c.CalendarEventDate == specifiedDate)
-                .Select(c => c.CalendarEventName).ToList();
+               .ToList();
             Console.WriteLine($"\nCalendar Event Names for user id {specifiedUserId} on {specifiedDate}:");
-            foreach (var eventName in userCalendarEvents)
+            foreach (var calendarEvent in userCalendarEvents)
             {
-                Console.WriteLine($"{eventName}");
+                Console.WriteLine($"{calendarEvent.CalendarEventName} {calendarEvent.CalendarEventStartTime} {calendarEvent.CalendarEventEndTime}");
             }
             //for (int i = 1; i <= userCalendarEvents.Count; i++)
             //{
