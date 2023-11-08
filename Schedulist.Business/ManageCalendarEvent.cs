@@ -11,19 +11,11 @@ namespace Schedulist.Business
 {
     public class ManageCalendarEvent
     {
-        ICalendarEventRepository _calendarEventRepository;
-        private List<CalendarEvent> _calendarEvents =
+       private List<CalendarEvent> _calendarEvents =
             new CsvCalendarEventRepository("..\\..\\..\\CalendarEvents.csv").GetAllCalendarEvents();
-        private List<User> _userlist = new CsvUserRepository("..\\..\\..\\Users.csv").GetAllUsers();
+        //private List<User> _userlist = new CsvUserRepository("..\\..\\..\\Users.csv").GetAllUsers();
         private CsvCalendarEventRepository csvCalendarEventRepository =
-            new CsvCalendarEventRepository("..\\..\\..\\CalendarEvents.csv");
-        public ManageCalendarEvent(ICalendarEventRepository calendarEventRepository)
-        {
-            _calendarEventRepository = calendarEventRepository;
-        }
-        public ManageCalendarEvent()
-        {
-        }
+            new ("..\\..\\..\\CalendarEvents.csv");
         public CalendarEvent ShowCalendarEvent()
         {
             Console.Clear();
@@ -57,10 +49,6 @@ namespace Schedulist.Business
             {
                 Console.WriteLine($"{calendarEvent.CalendarEventName} {calendarEvent.CalendarEventStartTime} {calendarEvent.CalendarEventEndTime}");
             }
-            //for (int i = 1; i <= userCalendarEvents.Count; i++)
-            //{
-            //    Console.WriteLine($"Name {calendarEvents[i].CalendarEventName} starting at {calendarEvents[i].CalendarEventStartTime} and ending at {calendarEvents[i].CalendarEventEndTime}");
-            //}
             Console.WriteLine("\nType any key do return to Menu");
             Console.ReadKey();
             MenuOptions.MenuCalendarEvents();
@@ -129,7 +117,7 @@ namespace Schedulist.Business
             while (validatedStartTime != null)
             {
                 Console.WriteLine(
-                    "Calendar Event with provided Start time already exists for that day, please provide different value!");
+                    "There is already a Calendar Event with provided Start time or that takes place on the same time, please provide different value!");
                 startTime = Console.ReadLine();
                 TimeOnly.TryParse(startTime, out calendarEventStartTime);
                 validatedStartTime = calendarEvents
