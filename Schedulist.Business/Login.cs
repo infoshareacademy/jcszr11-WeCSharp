@@ -33,7 +33,7 @@ namespace Schedulist.Business
                             if (!string.IsNullOrEmpty(currentUser.Password))
                             {
                                 CurrentUser.currentUser = currentUser;
-                                return null;    //Loguje użytkownika
+                                return currentUser;    //Loguje użytkownika
                             }
                             else break;
                         }
@@ -44,7 +44,7 @@ namespace Schedulist.Business
                             if (currentUser.Password == password)  //Sprawdza czy hasło jest poprawne
                             {
                                 CurrentUser.currentUser = currentUser;
-                                return null;    //Loguje użytkownika
+                                return currentUser;    //Loguje użytkownika
                             }
                             else Console.WriteLine("Wrong password, please try again");
                         }

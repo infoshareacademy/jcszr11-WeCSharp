@@ -53,7 +53,7 @@ namespace Schedulist.Business
 
         internal static void Modify()
         {
-            User userToModify = new AdminCommands().DisplayUsers();
+            User userToModify = AdminCommands.DisplayUsers();
             System.ConsoleKeyInfo option;
             while (true)
             {

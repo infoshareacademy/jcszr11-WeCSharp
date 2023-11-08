@@ -13,10 +13,10 @@ namespace Schedulist.Business
     {
        private List<CalendarEvent> _calendarEvents =
             new CsvCalendarEventRepository("..\\..\\..\\CalendarEvents.csv").GetAllCalendarEvents();
-        //private List<User> _userlist = new CsvUserRepository("..\\..\\..\\Users.csv").GetAllUsers();
-        private CsvCalendarEventRepository csvCalendarEventRepository =
+        private CsvCalendarEventRepository _csvCalendarEventRepository =
             new ("..\\..\\..\\CalendarEvents.csv");
-        public CalendarEvent ShowCalendarEvent()
+       
+        public void ShowCalendarEvent()
         {
             Console.Clear();
             Console.WriteLine("======List of Calendar Events======");
@@ -29,35 +29,32 @@ namespace Schedulist.Business
             Console.WriteLine("\nType any key do return to Menu");
             Console.ReadKey();
             MenuOptions.MenuCalendarEvents();
-            return null;
         }
-        public CalendarEvent ShowUserCalendarEvent()
+        public void ShowUserCalendarEvent(User user)
         {
             Console.Clear();
             Console.WriteLine("======List of Calendar Events=======");
-            Console.WriteLine("Choose User ID for which you want to show Calendar Events");
-            int specifiedUserId = int.Parse(Console.ReadLine());
             Console.WriteLine("Provide date for which you want to show Calendar Events");
             string providedDate = Console.ReadLine();
             DateOnly.TryParse(providedDate, out var specifiedDate);
-            var calendarEvents = csvCalendarEventRepository.GetAllCalendarEvents();
+            var calendarEvents = _csvCalendarEventRepository.GetAllCalendarEvents();
             var userCalendarEvents = calendarEvents
-                .Where(c => c.AssignedToUser.Id == specifiedUserId && c.CalendarEventDate == specifiedDate)
+                .Where(c => c.AssignedToUser.Id == user.Id && c.CalendarEventDate == specifiedDate)
                .ToList();
-            Console.WriteLine($"\nCalendar Event Names for user id {specifiedUserId} on {specifiedDate}:");
+            Console.WriteLine($"\nCalendar Events on {specifiedDate}:");
+            Console.WriteLine($"Start time \t End time \t Calendar Event Name");
             foreach (var calendarEvent in userCalendarEvents)
             {
-                Console.WriteLine($"{calendarEvent.CalendarEventName} {calendarEvent.CalendarEventStartTime} {calendarEvent.CalendarEventEndTime}");
+                Console.WriteLine($"{calendarEvent.CalendarEventStartTime} \t\t {calendarEvent.CalendarEventEndTime} \t\t {calendarEvent.CalendarEventName}");
             }
             Console.WriteLine("\nType any key do return to Menu");
             Console.ReadKey();
-            MenuOptions.MenuCalendarEvents();
-            return null;
+            MenuMain.Run();
         }
 
-        public void CreateCalendarEvent()
+        public void CreateCalendarEvent(User user)
         {
-            Console.Clear();
+           Console.Clear();
             Console.WriteLine("You are creating new Calendar Event, please provide data as following:");
             int calendarEventId = 1;
             Console.WriteLine("Name of Calendar Event:");
@@ -74,23 +71,22 @@ namespace Schedulist.Business
             string startTime = Console.ReadLine();
             startTime = StartTimeEmptinessValidation(startTime);
             TimeOnly.TryParse(startTime, out var calendarEventStartTime);
-            var calendarEvents = csvCalendarEventRepository.GetAllCalendarEvents();
+            var calendarEvents = _csvCalendarEventRepository.GetAllCalendarEvents();
+            
             var validatedStartTime = calendarEvents
-                .FirstOrDefault(c => c.AssignedToUser.Id == CurrentUser.currentUser.Id &&
+               .FirstOrDefault(c => c.AssignedToUser.Id == user.Id &&
                             c.CalendarEventDate == calendarEventDate && (c.CalendarEventStartTime == calendarEventStartTime || c.CalendarEventEndTime.CompareTo(calendarEventStartTime) > 0));
-            calendarEventStartTime = CalendarEventStartTimeOverlappingValidation(validatedStartTime, calendarEventStartTime, calendarEvents, calendarEventDate);
+            calendarEventStartTime = CalendarEventStartTimeOverlappingValidation(validatedStartTime, calendarEventStartTime, calendarEvents, calendarEventDate, user);
             Console.WriteLine("End time of Calendar Event using format HH:MM");
             string endTime = Console.ReadLine();
             endTime = EndTimeEmptinessValidation(endTime);
             TimeOnly.TryParse(endTime, out var calendarEventEndTime);
             calendarEventEndTime = CalendarEventEndTimeValidation(calendarEventEndTime, calendarEventStartTime);
-            CalendarEvent calendarEvent = new CalendarEvent(calendarEventId, calendarEventName,
-                calendarEventDescription, calendarEventDate, calendarEventStartTime, calendarEventEndTime,
-                CurrentUser.currentUser);
-            csvCalendarEventRepository.AddCalendarEvent(calendarEvent);
+           CalendarEvent calendarEvent = new CalendarEvent(calendarEventId, calendarEventName, calendarEventDescription, calendarEventDate, calendarEventStartTime, calendarEventEndTime, user);
+            _csvCalendarEventRepository.AddCalendarEvent(calendarEvent);
             Console.WriteLine("\nType any key do return to Menu");
             Console.ReadKey();
-            MenuOptions.MenuCalendarEvents();
+            MenuMain.Run();
         }
         private static string EndTimeEmptinessValidation(string? endTime)
         {
@@ -111,7 +107,7 @@ namespace Schedulist.Business
             return startTime;
         }
         private static TimeOnly CalendarEventStartTimeOverlappingValidation(CalendarEvent? validatedStartTime,
-            TimeOnly calendarEventStartTime, List<CalendarEvent> calendarEvents, DateOnly calendarEventDate)
+            TimeOnly calendarEventStartTime, List<CalendarEvent> calendarEvents, DateOnly calendarEventDate, User user)
         {
             string? startTime;
             while (validatedStartTime != null)
@@ -121,7 +117,7 @@ namespace Schedulist.Business
                 startTime = Console.ReadLine();
                 TimeOnly.TryParse(startTime, out calendarEventStartTime);
                 validatedStartTime = calendarEvents
-                    .FirstOrDefault(c => c.AssignedToUser.Id == CurrentUser.currentUser.Id &&
+                    .FirstOrDefault(c => c.AssignedToUser.Id == user.Id &&
                                          c.CalendarEventDate == calendarEventDate && (c.CalendarEventStartTime == calendarEventStartTime || c.CalendarEventEndTime.CompareTo(calendarEventStartTime) > 0));
             }
             return calendarEventStartTime;
