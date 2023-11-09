@@ -46,7 +46,7 @@ namespace Schedulist.Business
             while (true)
             {
                 var option = Console.ReadKey();
-                if (option.Key == ConsoleKey.D1) Console.WriteLine("*****create work mode*****");
+                if (option.Key == ConsoleKey.D1) new ManageWorkMode().ChooseOptionsWorkMode();
                 else if (option.Key == ConsoleKey.D2) Console.WriteLine("*****modify work mode*****");
                 else if (option.Key == ConsoleKey.D3) Console.WriteLine("*****delete work mode*****");
                 else if (option.Key == ConsoleKey.Backspace) MenuMain.Run();
