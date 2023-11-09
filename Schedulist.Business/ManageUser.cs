@@ -22,7 +22,7 @@ namespace Schedulist.Business
         internal void Create()
         {
             Console.Clear();
-            Console.WriteLine("====== Create User Section ======");
+            Console.WriteLine("====== Create User ======");
             string name = Method.ConsolHelper("Type User name");
             string surname = Method.ConsolHelper("Type User surname");
             string position = Method.ConsolHelper("Type User position");
@@ -45,7 +45,7 @@ namespace Schedulist.Business
             }
             User user = new(name, surname, position, department, login, password)
             { AdminPrivilege = isAdmin };
-            new CsvUserRepository("..\\..\\..\\Users.csv").AddUser(user);
+            new CsvUserRepository("..\\..\\..\\Users.csv").AddUser(user, null);
             Console.WriteLine("Type any key do return to MenuOptions");
             Console.ReadKey();
             MenuOptions.MenuUsers();
@@ -53,7 +53,7 @@ namespace Schedulist.Business
 
         internal static void Modify()
         {
-            User userToModify = new AdminCommands().DisplayUsers();
+            User userToModify = new AdminCommands().DisplayUsers("modify");
             System.ConsoleKeyInfo option;
             while (true)
             {
@@ -101,7 +101,10 @@ namespace Schedulist.Business
                     break;
                 }
                 else if (option.Key == ConsoleKey.D7)
+                {
                     Modify_Ask(userToModify.AdminPrivilege.ToString(), "admin privilage", true, userToModify);
+                    break;
+                }
                 else if (option.Key == ConsoleKey.Backspace) break;
             }
         }
@@ -112,8 +115,7 @@ namespace Schedulist.Business
             if (variableToModify != null)
             {
                 Console.WriteLine($"Currnt {variableName.ToLower()} is {variableToModify} for {userToModify.Name} {userToModify.Surname}");
-                Console.WriteLine($"Provide new {variableName.ToLower()}:");
-                string modifiedVariable = Console.ReadLine();
+                string modifiedVariable = Method.ConsolHelper($"Provide new {variableName.ToLower()}:");
                 if (userToModify.Name == variableToModify) userToModify.Name = modifiedVariable;
                 else if (userToModify.Surname == variableToModify) userToModify.Surname = modifiedVariable;
                 else if (userToModify.Position == variableToModify) userToModify.Position = modifiedVariable;
@@ -121,7 +123,10 @@ namespace Schedulist.Business
                 else if (userToModify.Login == variableToModify) userToModify.Login = modifiedVariable;
                 else if (userToModify.Password == variableToModify) userToModify.Password = modifiedVariable;
                 new CsvUserRepository("..\\..\\..\\Users.csv").ModifyUser(userToModifyLogin, userToModify);
+                Console.Clear();
                 Console.WriteLine($"{variableName} for {userToModify.Name} {userToModify.Surname} changed to {modifiedVariable}");
+                Console.WriteLine("Type any key to continue");
+                Console.ReadKey();
             }
             else if (variableToModify_bool)
             {
@@ -143,65 +148,20 @@ namespace Schedulist.Business
         internal void Delete()
         {
             {
-                Console.Clear();
-                Console.WriteLine("====== Delete User section ======");
-                List<User> listOfUsers;
-                listOfUsers = new CsvUserRepository("..\\..\\..\\Users.csv").GetAllUsers();
-                Console.WriteLine("List of available Users to delete:");
-                for (int i = 0; i < listOfUsers.Count; i++)
-                {
-                    Console.WriteLine($"{i + 1}. {listOfUsers[i].Name} {listOfUsers[i].Surname}");
-                }
-
-                Console.WriteLine("0. Cancel");
-                Console.WriteLine("===============================================================================");
-
-                System.ConsoleKeyInfo option;
                 while (true)
                 {
-                    option = Console.ReadKey();
-                    if (option.Key == ConsoleKey.D0)
+                    User userToDelete = new AdminCommands().DisplayUsers("delete");
                     {
+                        new CsvUserRepository("..\\..\\..\\Users.csv").DeleteUser(userToDelete);
                         Console.Clear();
-                        Console.WriteLine("Operation canceled. Type any key to return to MenuOptions");
+                        Console.WriteLine($"User {userToDelete.Name} {userToDelete.Surname} has been deleted successfully.");
+                        Console.WriteLine("Type any key to continue");
                         Console.ReadKey();
-                        MenuOptions.MenuUsers();
+                        break;
                     }
-                    else if (option.Key >= ConsoleKey.D1 && option.Key <= ConsoleKey.D9)
-                    {
-
-                        if (int.TryParse(option.KeyChar.ToString(), out int userChoice) && userChoice >= 1 && userChoice <= listOfUsers.Count)
-                        {
-                            User userToDelete = listOfUsers[userChoice - 1];
-                            listOfUsers.RemoveAt(userChoice - 1);
-                        }
-                        else
-                        {
-                            Console.WriteLine("Invalid user choice. Please choose a valid user to delete.");
-                        }
-
-                        // Validacja poprawności wprowadzonej wartości 
-                        if (userChoice >= 0 && userChoice < listOfUsers.Count)
-                        {
-                            // Usunięcie wybranego użytkownika
-                            User userToDelete = listOfUsers[userChoice];
-                            listOfUsers.RemoveAt(userChoice);
-
-                            // Zapisanie zmian w pliku CSV
-                            var csvUserRepository = new CsvUserRepository("..\\..\\..\\Users.csv");
-                            csvUserRepository.WriteAllUsers(listOfUsers);
-                            Console.Clear();
-
-                            Console.WriteLine($"User {userToDelete.Name} {userToDelete.Surname} has been deleted successfully.");
-                            Console.WriteLine("Type any key do return to MenuOptions");
-                            Console.ReadKey();
-                            MenuOptions.MenuUsers();
-                        }
-                    }
-                    else
-                        Console.WriteLine("Invalid option. Please choose a valid option.");
                 }
             }
         }
     }
 }
+

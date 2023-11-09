@@ -11,12 +11,13 @@ namespace Schedulist.Business
 {
     public class ManageCalendarEvent
     {
+        //not used \|/
         ICalendarEventRepository _calendarEventRepository;
         private List<CalendarEvent> _calendarEvents =
             new CsvCalendarEventRepository("..\\..\\..\\CalendarEvents.csv").GetAllCalendarEvents();
+        //not used \|/
         private List<User> _userlist = new CsvUserRepository("..\\..\\..\\Users.csv").GetAllUsers();
-        private CsvCalendarEventRepository csvCalendarEventRepository =
-            new CsvCalendarEventRepository("..\\..\\..\\CalendarEvents.csv");
+        private CsvCalendarEventRepository csvCalendarEventRepository = new("..\\..\\..\\CalendarEvents.csv");
         public ManageCalendarEvent(ICalendarEventRepository calendarEventRepository)
         {
             _calendarEventRepository = calendarEventRepository;
@@ -96,7 +97,7 @@ namespace Schedulist.Business
             endTime = EndTimeEmptinessValidation(endTime);
             TimeOnly.TryParse(endTime, out var calendarEventEndTime);
             calendarEventEndTime = CalendarEventEndTimeValidation(calendarEventEndTime, calendarEventStartTime);
-            CalendarEvent calendarEvent = new CalendarEvent(calendarEventId, calendarEventName,
+            CalendarEvent calendarEvent = new(calendarEventId, calendarEventName,
                 calendarEventDescription, calendarEventDate, calendarEventStartTime, calendarEventEndTime,
                 CurrentUser.currentUser);
             csvCalendarEventRepository.AddCalendarEvent(calendarEvent);
