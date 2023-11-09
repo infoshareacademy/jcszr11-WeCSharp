@@ -64,7 +64,7 @@ namespace Schedulist.DAL
             }
         }
 
-        public void GetWorkModeByUserAndDate (WorkModesToUser workModes, User user)
+        public void GetWorkModeByUserAndDate (WorkModesToUser workModes)
         {
             var csvConfig = new CsvConfiguration(CultureInfo.InvariantCulture)
             {

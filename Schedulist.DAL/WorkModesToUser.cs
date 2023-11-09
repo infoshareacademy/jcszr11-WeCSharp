@@ -11,10 +11,10 @@ namespace Schedulist.DAL
         public int WorkModeToUserID { get; set; }
         public int WorkModeIDName { get; set; }
         public string WorkModeName { get; set; }
-        public User? UserID { get; set; }
+        public int UserID { get; set; }
         public DateOnly dateOfWorkmode { get; set; }
         
-        public WorkModesToUser(int id, int idname, string name, User userid, DateOnly dow)
+        public WorkModesToUser(int id, int idname, string name, int userid, DateOnly dow)
         {
             WorkModeToUserID = id;
             WorkModeIDName = idname;

@@ -27,6 +27,11 @@ namespace Schedulist.Business
 
         }
 
+        public void ShowAllWorkModes()
+        {
+            var workModesToUser = _csvWorkModesRepository.GetAllWorkModes();
+        }
+
         public void ChooseOptionsWorkMode()
         {
             while (true)
@@ -46,7 +51,8 @@ namespace Schedulist.Business
                 else if (option.Key == ConsoleKey.D3) CreateWorkMode(3);
                 else if (option.Key == ConsoleKey.D4) CreateWorkMode(4);
                 else if (option.Key == ConsoleKey.D5) CreateWorkMode(5);
-                else if (option.Key == ConsoleKey.Backspace) break;
+                else if (option.Key == ConsoleKey.Backspace) MenuOptions.MenuWorkModes();
+                break;
             }
         }
 
@@ -79,9 +85,10 @@ namespace Schedulist.Business
                 workModeNameID = workModeOption;
                 workModeName = "Another workmode";
             }
-            Console.WriteLine("Enter the date: ");
+            
+            Console.WriteLine("\nEnter the date: ");
             var dateOfWorkMode = DateOnly.Parse(Console.ReadLine());
-            WorkModesToUser workModesToUser = new WorkModesToUser(id: workModeToUserID, idname: workModeNameID, name: workModeName, userid: CurrentUser.currentUser, dow: dateOfWorkMode);
+            WorkModesToUser workModesToUser = new WorkModesToUser(id: workModeToUserID, idname: workModeNameID, name: workModeName, userid: CurrentUser.currentUser.Id, dow: dateOfWorkMode);
             _csvWorkModesRepository.AddWorkModes(workModesToUser);
         }
 
@@ -96,6 +103,8 @@ namespace Schedulist.Business
                 Console.WriteLine($"Your workmode at {dateOfWorkMode} is ");
             }
         }
+
+        
 
 
     }

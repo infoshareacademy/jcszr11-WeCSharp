@@ -41,6 +41,7 @@ namespace Schedulist.Business
             Console.WriteLine("1. Create new work mode");
             Console.WriteLine("2. Modify existing work mode");
             Console.WriteLine("3. Delete existing work mode");
+            Console.WriteLine("4. Show all work modes");
             Console.WriteLine("Backspace. Go back");
             Console.WriteLine("===============================================================================");
             while (true)
@@ -49,6 +50,7 @@ namespace Schedulist.Business
                 if (option.Key == ConsoleKey.D1) new ManageWorkMode().ChooseOptionsWorkMode();
                 else if (option.Key == ConsoleKey.D2) Console.WriteLine("*****modify work mode*****");
                 else if (option.Key == ConsoleKey.D3) Console.WriteLine("*****delete work mode*****");
+                else if (option.Key == ConsoleKey.D4) new ManageWorkMode().ShowAllWorkModes();
                 else if (option.Key == ConsoleKey.Backspace) MenuMain.Run();
                 break;
             }

@@ -1,2 +1,2 @@
-WorkModeToUserID,WorkModeIDName,WorkModeName,Id,Name,Surname,Position,Department,Login,Password,AdminPrivilege,dateOfWorkmode
-1,2,Home office,4,Test,Test,Test,Test,Test,Test,True,01/23/2024
+WorkModeToUserID,WorkModeIDName,WorkModeName,UserID,dateOfWorkmode
+1,2,Home office,4,12/11/2023
