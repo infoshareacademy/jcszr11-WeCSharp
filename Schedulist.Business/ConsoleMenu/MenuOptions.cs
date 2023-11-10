@@ -19,7 +19,7 @@ namespace Schedulist.Business
             {
                 Console.Clear();
                 Console.WriteLine("Choose the option:");
-                Console.WriteLine("1. Create new calendar event");
+                Console.WriteLine("1. Create my new calendar event");
                 Console.WriteLine("2. Show my calendar events for chosen date");
                 Console.WriteLine("3. Modify existing calendar event");
                 Console.WriteLine("4. Delete existing calendar event");

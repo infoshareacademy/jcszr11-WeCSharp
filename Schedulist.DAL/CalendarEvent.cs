@@ -7,7 +7,7 @@ using CsvHelper.Configuration.Attributes;
 
 namespace Schedulist.DAL
 {
-    public class CalendarEvent : IAssignable
+    public class CalendarEvent //: IAssignable
     {
         
         //[Index(0)]
@@ -46,11 +46,11 @@ namespace Schedulist.DAL
 
         }
 
-        public void Assign(User CurrentUser)
-        {
-            AssignedToUser = CurrentUser;
-            Console.WriteLine("Task assigned");
-        }
+        //public void Assign(User CurrentUser)
+        //{
+        //    AssignedToUser = CurrentUser;
+        //    Console.WriteLine("Task assigned");
+        //}
 
 
         //public void AssignUserById(int id)
