@@ -63,14 +63,12 @@ namespace Schedulist.Business
             }
 
         }
-
         //metoda pomocnicza, żeby nie powtarzać tej samej akcji w różnych miejscach menu
         private static User SetActAsUser() 
         {
             User actAsUser = AdminCommands.DisplayUsers();
             return actAsUser;
         }
-
         public static void MenuWorkModes()
         {
             while (true)

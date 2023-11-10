@@ -123,9 +123,7 @@ namespace Schedulist.Business
             _csvCalendarEventRepository.AddCalendarEvent(calendarEvent);
             Console.WriteLine("\nType any key do return to Menu");
             Console.ReadKey();
-
         }
-
         private DateOnly CalendarEventDateAdding(out string dateValue)
         {
             dateValue = Console.ReadLine();
@@ -133,7 +131,6 @@ namespace Schedulist.Business
             DateOnly.TryParse(dateValue, out var calendarEventDate);
             return calendarEventDate;
         }
-
         private void calendarEventAvailability(User user, CalendarEvent? calendarEventAvailable, DateOnly calendarEventDate)
         {
             if (calendarEventAvailable != null)
