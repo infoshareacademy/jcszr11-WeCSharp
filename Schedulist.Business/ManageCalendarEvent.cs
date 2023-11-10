@@ -80,22 +80,7 @@ namespace Schedulist.Business
             calendarEventDescription = CalendarEventDescriptionValidation(calendarEventDescription);
             Console.WriteLine("Date of Calendar Event using format DD/MM/YYYY");
             var calendarEventDate = CalendarEventDateAdding(out var dateValue);
-            while (true)
-            {
-                if (calendarEventDate < currentDate.AddDays(-30))
-                {
-                    Console.WriteLine(
-                        "You are trying to add date that is more than 30 days in the past from today or value is incorrect, adjust the value!");
-                    calendarEventDate = CalendarEventDateAdding(out dateValue);
-                }
-                else if (calendarEventDate > currentDate.AddDays(60))
-                {
-                    Console.WriteLine(
-                        "You are trying to add date that is more than 60 days in the future from today or value is incorrect, adjust the value!");
-                    calendarEventDate = CalendarEventDateAdding(out dateValue);
-                }
-                else break;
-            }
+            calendarEventDate = CalendarEventDateMinMaxValidation(calendarEventDate);
             var calendarEvents = _csvCalendarEventRepository.GetAllCalendarEvents();
             var calendarEventAvailable = calendarEvents
                 .FirstOrDefault(c => c.AssignedToUser.Id == user.Id &&
@@ -124,6 +109,30 @@ namespace Schedulist.Business
             Console.WriteLine("\nType any key do return to Menu");
             Console.ReadKey();
         }
+
+        private DateOnly CalendarEventDateMinMaxValidation(DateOnly calendarEventDate)
+        {
+            string dateValue;
+            while (true)
+            {
+                if (calendarEventDate < currentDate.AddDays(-30))
+                {
+                    Console.WriteLine(
+                        "You are trying to add date that is more than 30 days in the past from today or value is incorrect, adjust the value!");
+                    calendarEventDate = CalendarEventDateAdding(out dateValue);
+                }
+                else if (calendarEventDate > currentDate.AddDays(60))
+                {
+                    Console.WriteLine(
+                        "You are trying to add date that is more than 60 days in the future from today or value is incorrect, adjust the value!");
+                    calendarEventDate = CalendarEventDateAdding(out dateValue);
+                }
+                else break;
+            }
+
+            return calendarEventDate;
+        }
+
         private DateOnly CalendarEventDateAdding(out string dateValue)
         {
             dateValue = Console.ReadLine();
