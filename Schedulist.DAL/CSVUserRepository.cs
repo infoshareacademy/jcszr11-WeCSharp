@@ -13,11 +13,11 @@ namespace Schedulist.DAL
 {
     public class CsvUserRepository : IUserRepository
     {
-        private readonly string FilePath;
+        private readonly string _filePath;
         public List<User> ListOfUsers;
         public CsvUserRepository(string filePath)
         {
-            this.FilePath = filePath;
+            this._filePath = filePath;
         }
 
         public CsvUserRepository()
@@ -30,7 +30,7 @@ namespace Schedulist.DAL
             {
                 HasHeaderRecord = true,
             };
-            using var reader = new StreamReader(FilePath);
+            using var reader = new StreamReader(_filePath);
             using var csv = new CsvReader(reader, csvConfig);
             ListOfUsers = csv.GetRecords<User>().ToList();
             return ListOfUsers;
@@ -52,7 +52,7 @@ namespace Schedulist.DAL
             try
             {
                 ListOfUsers.Add(user);
-                using StreamWriter writer = new(FilePath);
+                using StreamWriter writer = new(_filePath);
                 using var csv = new CsvWriter(writer, csvConfig);
                 csv.WriteRecords(ListOfUsers);
                 Console.Clear();
@@ -72,7 +72,7 @@ namespace Schedulist.DAL
             var csvConfig = new CsvConfiguration(CultureInfo.InvariantCulture);
             try
             {
-                using StreamWriter writer = new StreamWriter(FilePath);
+                using StreamWriter writer = new StreamWriter(_filePath);
                 using var csv = new CsvWriter(writer, csvConfig);
                 csv.WriteRecords(users);
             }
@@ -94,7 +94,7 @@ namespace Schedulist.DAL
             ListOfUsers = GetAllUsers();
             if (ListOfUsers.Any(user => user.Login == userToModifyLogin))
             {
-                using StreamWriter writer = new(FilePath);
+                using StreamWriter writer = new(_filePath);
                 using var csv = new CsvWriter(writer, csvConfig);
                 User user = ListOfUsers.FirstOrDefault(user => user.Login == userToModifyLogin);
                 ListOfUsers.Remove(user);

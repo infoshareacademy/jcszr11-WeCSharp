@@ -11,6 +11,7 @@ namespace Schedulist.Business
     internal class MenuOptions
     {
         public static void MenuCalendarEvents()
+        
         {
             while (true)
             {
@@ -29,7 +30,7 @@ namespace Schedulist.Business
                 else if (option.Key == ConsoleKey.D2) new ManageCalendarEvent().ShowCalendarEvent();
                 else if (option.Key == ConsoleKey.D3) new ManageCalendarEvent().ShowUserCalendarEvent();
                 else if (option.Key == ConsoleKey.D4) Console.WriteLine("*****modify task*****");
-                else if (option.Key == ConsoleKey.D5) Console.WriteLine("*****delete task*****");
+                else if (option.Key == ConsoleKey.D5) new ManageCalendarEvent().DeleteCalendarEvent();
                 else if (option.Key == ConsoleKey.Backspace) break;
             }
 

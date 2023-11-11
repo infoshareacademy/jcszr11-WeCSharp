@@ -50,3 +50,23 @@ calendarEventId,calendarEventName,calendarEventDescription,calendarEventDate,cal
 49,Tets,t,11/06/2023,16:00,17:00,4,Mar,Mar,Mar,v,Mar,Mar,True
 50,Test times,2037,11/06/2023,17:00,19:00,4,Mar,Mar,Mar,v,Mar,Mar,True
 51,Test 1910,yyuer,11/07/2023,16:00,17:00,7,Marta,Debowska,Supporter,IT,MarDeb,Random123#,True
+52,Test1,2050,12/11/2023,08:00,09:00,7,Marta,Debowska,Supporter,IT,MarDeb,Random123#,True
+53,Test for different user,yey,12/10/2023,08:00,09:00,1,Tomasz,Tomaszewicz,Driver,Logistics,LogU1,PassU1,False
+54,Test as current user,testing code after changes,12/11/2023,09:00,10:00,7,Marta,Debowska,Supporter,IT,MarDeb,Random123#,True
+55,Testing code 1,current user,12/11/2023,10:00,11:00,7,Marta,Debowska,Supporter,IT,MarDeb,Random123#,True
+56,"Testing after changes ",current user,12/11/2023,11:00,12:00,7,Marta,Debowska,Supporter,IT,MarDeb,Random123#,True
+57,Testing agian - current user,test,11/12/2023,12:00,13:00,7,Marta,Debowska,Supporter,IT,MarDeb,Random123#,True
+58,Test as different user,checking code,11/11/2023,08:00,12:00,1,Tomasz,Tomaszewicz,Driver,Logistics,LogU1,PassU1,False
+59,test as normal user,11/12/2023,12/11/2023,08:00,09:00,1,Tomasz,Tomaszewicz,Driver,Logistics,LogU1,PassU1,False
+60,Test,test1859,11/10/2023,08:00,09:00,4,Mar,Mar,Mar,v,Mar,Mar,True
+61,test,test 1901 as admin,11/11/2023,08:00,09:00,3,Romek,Romanowicz,CEO,Executive,LogA1,PassA1,True
+62,test2,testing as admin,11/11/2023,09:00,10:00,3,Romek,Romanowicz,CEO,Executive,LogA1,PassA1,True
+63,test,test 1939,11/11/2023,08:00,12:00,4,Mar,Mar,Mar,v,Mar,Mar,True
+64,test,test 1941,11/11/2023,12:00,14:00,4,Mar,Mar,Mar,v,Mar,Mar,True
+65,Test with list,test 2000,11/11/2023,15:00,16:00,4,Mar,Mar,Mar,v,Mar,Mar,True
+66,Meeting with client,To revise Opportunity OPP/23/10/003498,12/12/2023,00:00,12:00,4,Mar,Mar,Mar,v,Mar,Mar,True
+67,Bi-weekly team meeting,Scheduled call with team,12/12/2023,12:00,13:00,4,Mar,Mar,Mar,v,Mar,Mar,True
+68,Test,Test,12/12/2022,08:00,09:00,4,Mar,Mar,Mar,v,Mar,Mar,True
+69,Test,Test,12/12/2023,13:00,14:00,4,Mar,Mar,Mar,v,Mar,Mar,True
+70,Test,Test,12/01/2023,08:00,09:00,4,Mar,Mar,Mar,v,Mar,Mar,True
+71,Test,Test 2038,12/20/2023,08:00,09:00,4,Mar,Mar,Mar,v,Mar,Mar,True

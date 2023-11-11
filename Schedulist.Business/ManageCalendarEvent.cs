@@ -24,7 +24,7 @@ namespace Schedulist.Business
         public ManageCalendarEvent()
         {
         }
-        public CalendarEvent ShowCalendarEvent()
+        public void ShowCalendarEvent()
         {
             Console.Clear();
             Console.WriteLine("======List of Calendar Events======");
@@ -32,12 +32,37 @@ namespace Schedulist.Business
             for (int i = 0; i < _calendarEvents.Count; i++)
             {
                 Console.WriteLine(
-                    $"{i} \t{_calendarEvents[i].CalendarEventName} \t\t\t {_calendarEvents[i].CalendarEventDate}");
+                    $"{i+1} \t{_calendarEvents[i].CalendarEventName} \t\t\t {_calendarEvents[i].CalendarEventDate}");
             }
             Console.WriteLine("\nType any key do return to Menu");
             Console.ReadKey();
             MenuOptions.MenuCalendarEvents();
-            return null;
+        }
+        public void DeleteCalendarEvent()
+        {
+            Console.Clear();
+            Console.WriteLine("======List of Calendar Events======");
+            Console.WriteLine("ID \t| Calendar Event Name \t\t|Date");
+            for (int i = 0; i < _calendarEvents.Count; i++)
+            {
+                Console.WriteLine
+                ($"{i+1} \t {_calendarEvents[i].CalendarEventName} \t\t\t {_calendarEvents[i].CalendarEventDate}");
+            }
+            Console.WriteLine("\nChoose the ID from the above list of Calendar Events you want to delete");
+            if (int.TryParse(Console.ReadLine(), out int calendarEventId) && calendarEventId + 1 >= 0 && calendarEventId + 1 < _calendarEvents.Count)
+            {
+                csvCalendarEventRepository.DeleteCalendarEventRepository(calendarEventId-1);
+                Console.WriteLine("Calendar Event has been deleted.");
+            }
+            else
+            {
+                Console.WriteLine($"Calendar Event Id: {calendarEventId + 1} " +
+                $"does not exist. Please enter a valid Calendar Event ID.");
+            }
+
+            Console.WriteLine("Press any key to return to the menu.");
+            Console.ReadKey();
+            MenuOptions.MenuCalendarEvents();
         }
         public CalendarEvent ShowUserCalendarEvent()
         {
@@ -51,7 +76,7 @@ namespace Schedulist.Business
             var calendarEvents = csvCalendarEventRepository.GetAllCalendarEvents();
             var userCalendarEvents = calendarEvents
                 .Where(c => c.AssignedToUser.Id == specifiedUserId && c.CalendarEventDate == specifiedDate)
-               .ToList();
+                .ToList();
             Console.WriteLine($"\nCalendar Event Names for user id {specifiedUserId} on {specifiedDate}:");
             foreach (var calendarEvent in userCalendarEvents)
             {

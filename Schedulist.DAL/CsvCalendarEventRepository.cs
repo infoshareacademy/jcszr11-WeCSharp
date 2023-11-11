@@ -48,6 +48,40 @@ namespace Schedulist.DAL
                 Console.WriteLine("An error occurred: " + ex.Message);
             }
         }
+        public void DeleteCalendarEventRepository(int calendarEventId)
+        {
+
+                calendarEvents = GetAllCalendarEvents(); 
+
+            var eventToDelete = calendarEvents.FirstOrDefault(e => e.CalendarEventId == calendarEventId);
+            if (eventToDelete != null)
+            {
+                calendarEvents.Remove(eventToDelete);
+
+                try
+                {
+                    using StreamWriter writer = new(_pathToCsvFile, append: false);
+                    var csvConfig = CsvConfiguration();
+                    using var csv = new CsvWriter(writer, csvConfig);
+                    csv.WriteRecords(calendarEvents);
+                    Console.Clear();
+                    Console.WriteLine($"Calendar Event with Id: {calendarEventId - 1} has been successfully deleted.");
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine("An error occurred: " + ex.Message);
+                    if (ex.InnerException != null)
+                    {
+                        Console.WriteLine("Inner Exception: " + ex.InnerException.Message);
+                    }
+                }
+            }
+            else
+            {
+                Console.WriteLine($"Calendar Event with Id: {calendarEventId} does not exist.");
+            }
+        }
+
         private static CsvConfiguration CsvConfiguration()
         {
             var csvConfig = new CsvConfiguration(CultureInfo.InvariantCulture)
