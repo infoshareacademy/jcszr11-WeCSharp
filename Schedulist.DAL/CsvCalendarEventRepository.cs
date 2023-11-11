@@ -61,8 +61,7 @@ namespace Schedulist.DAL
                     var csvConfig = CsvConfiguration();
                     using var csv = new CsvWriter(writer, csvConfig);
                     csv.WriteRecords(calendarEvents);
-                    Console.Clear();
-                    Console.WriteLine($"Calendar Event with Id: {calendarEventId - 1} has been successfully deleted.");
+                    Console.Clear();                   
                 }
                 catch (Exception ex)
                 {

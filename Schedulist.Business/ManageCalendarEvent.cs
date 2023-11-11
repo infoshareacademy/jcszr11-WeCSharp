@@ -109,6 +109,32 @@ namespace Schedulist.Business
             Console.WriteLine("\nType any key do return to Menu");
             Console.ReadKey();
         }
+        public void DeleteCalendarEvent()
+        {
+            Console.Clear();
+            Console.WriteLine("======List of Calendar Events======");
+            Console.WriteLine("ID \t| Calendar Event Name \t\t|Date");
+            for (int i = 0; i < _calendarEvents.Count; i++)
+            {
+                Console.WriteLine
+                ($"{i+1} \t {_calendarEvents[i].CalendarEventName} \t\t\t {_calendarEvents[i].CalendarEventDate}");
+            }
+            Console.WriteLine("\nChoose the ID from the above list of Calendar Events you want to delete");
+            if (int.TryParse(Console.ReadLine(), out int calendarEventId) && calendarEventId - 1 >= 1 && calendarEventId - 1 < _calendarEvents.Count)
+            {
+                _csvCalendarEventRepository.DeleteCalendarEventRepository(calendarEventId);
+                Console.WriteLine($"Calendar Event with ID: {calendarEventId} has been successfully deleted.");
+            }
+            else
+            {
+                Console.WriteLine($"Calendar Event Id: {calendarEventId} " +
+                $"does not exist. Please enter a valid Calendar Event ID.");
+            }
+
+            Console.WriteLine("Press any key to return to the menu.");
+            Console.ReadKey();
+            MenuOptions.MenuCalendarEvents();
+        }
 
         private DateOnly CalendarEventDateMinMaxValidation(DateOnly calendarEventDate)
         {
