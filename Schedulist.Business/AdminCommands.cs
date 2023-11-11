@@ -7,10 +7,10 @@ using System.Threading.Tasks;
 
 namespace Schedulist.Business
 {
-    internal class AdminCommands
+    public class AdminCommands
     {
-        private List<User> _userlist = new CsvUserRepository("..\\..\\..\\Users.csv").GetAllUsers();
-        public User DisplayUsers()
+        private static List<User> _userlist = new CsvUserRepository("..\\..\\..\\Users.csv").GetAllUsers();
+        public static User DisplayUsers()
         {
             Console.Clear();
             Console.WriteLine("====== List of users ======");

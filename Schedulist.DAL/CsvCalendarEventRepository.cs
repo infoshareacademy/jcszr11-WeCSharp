@@ -28,12 +28,9 @@ namespace Schedulist.DAL
         public void AddCalendarEvent(CalendarEvent calendarEvent)
         {
             var csvConfig = CsvConfiguration();
-            //List<CalendarEvent> calendarEvents = GetAllCalendarEvents();
             calendarEvents = GetAllCalendarEvents();
-
             int nextCalendarEventId = calendarEvents.Count > 0 ? calendarEvents.Max(u => u.CalendarEventId) + 1 : 1;
             calendarEvent.CalendarEventId = nextCalendarEventId;
-
             try
             {
                 calendarEvents.Add(calendarEvent);
