@@ -59,7 +59,7 @@ namespace Schedulist.DAL
                 {
                     using StreamWriter writer = new(_pathToCsvFile, append: false);
                     var csvConfig = CsvConfiguration();
-                    using var csv = new CsvWriter(writer, csvConfig);
+                    using CsvWriter csv = new(writer, csvConfig);
                     csv.WriteRecords(calendarEvents);
                     Console.Clear();                   
                 }
@@ -71,10 +71,6 @@ namespace Schedulist.DAL
                         Console.WriteLine("Inner Exception: " + ex.InnerException.Message);
                     }
                 }
-            }
-            else
-            {
-                Console.WriteLine($"Calendar Event with Id: {calendarEventId} does not exist.");
             }
         }
 

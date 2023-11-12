@@ -111,7 +111,7 @@ namespace Schedulist.Business
             Console.Clear();
             if (variableToModify != null)
             {
-                Console.WriteLine($"Currnt {variableName.ToLower()} is {variableToModify} for {userToModify.Name} {userToModify.Surname}");
+                Console.WriteLine($"Current {variableName.ToLower()} is {variableToModify} for {userToModify.Name} {userToModify.Surname}");
                 Console.WriteLine($"Provide new {variableName.ToLower()}:");
                 string modifiedVariable = Console.ReadLine();
                 if (userToModify.Name == variableToModify) userToModify.Name = modifiedVariable;

@@ -55,7 +55,6 @@ calendarEventId,calendarEventName,calendarEventDescription,calendarEventDate,cal
 54,Test as current user,testing code after changes,12/11/2023,09:00,10:00,7,Marta,Debowska,Supporter,IT,MarDeb,Random123#,True
 55,Testing code 1,current user,12/11/2023,10:00,11:00,7,Marta,Debowska,Supporter,IT,MarDeb,Random123#,True
 56,"Testing after changes ",current user,12/11/2023,11:00,12:00,7,Marta,Debowska,Supporter,IT,MarDeb,Random123#,True
-57,Testing agian - current user,test,11/12/2023,12:00,13:00,7,Marta,Debowska,Supporter,IT,MarDeb,Random123#,True
 58,Test as different user,checking code,11/11/2023,08:00,12:00,1,Tomasz,Tomaszewicz,Driver,Logistics,LogU1,PassU1,False
 59,test as normal user,11/12/2023,12/11/2023,08:00,09:00,1,Tomasz,Tomaszewicz,Driver,Logistics,LogU1,PassU1,False
 60,Test,test1859,11/10/2023,08:00,09:00,4,Mar,Mar,Mar,v,Mar,Mar,True
@@ -69,4 +68,3 @@ calendarEventId,calendarEventName,calendarEventDescription,calendarEventDate,cal
 68,Test,Test,12/12/2022,08:00,09:00,4,Mar,Mar,Mar,v,Mar,Mar,True
 69,Test,Test,12/12/2023,13:00,14:00,4,Mar,Mar,Mar,v,Mar,Mar,True
 70,Test,Test,12/01/2023,08:00,09:00,4,Mar,Mar,Mar,v,Mar,Mar,True
-71,Test,Test 2038,12/20/2023,08:00,09:00,4,Mar,Mar,Mar,v,Mar,Mar,True
