@@ -6,6 +6,7 @@ using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using CsvHelper.Configuration.Attributes;
 
 namespace Schedulist.DAL
 {
@@ -23,7 +24,7 @@ namespace Schedulist.DAL
             var csvConfig = new CsvConfiguration(CultureInfo.InvariantCulture)
             {
                 HasHeaderRecord = true,
-                //Delimiter = "\t",
+                Delimiter = ",",
             };
             using (var reader = new StreamReader(FilePath))
             using (var csv = new CsvReader(reader, csvConfig))
@@ -37,7 +38,7 @@ namespace Schedulist.DAL
             var csvConfig = new CsvConfiguration(CultureInfo.InvariantCulture)
             {
                 HasHeaderRecord = true,
-                //Delimiter = "\t",
+                Delimiter = ",",
             };
             ListOfWorkModes = GetAllWorkModes();
 
@@ -53,9 +54,12 @@ namespace Schedulist.DAL
                 using (StreamWriter writer = new StreamWriter(FilePath))
                 using (var csv = new CsvWriter(writer, csvConfig))
                 {
+                    csv.WriteHeader<WorkModesToUser>();
+                    csv.NextRecord();
                     csv.WriteRecords(ListOfWorkModes);
-                    Console.Clear();
-                    Console.WriteLine($" The Workmode {workModes.WorkModeToUserID}  Has been added to the list succesfully");
+                    //Console.Clear();
+                    Console.WriteLine($" The Workmode {workModes.WorkModeName} has been added to the list succesfully at the day {workModes.dateOfWorkmode}");
+                    
                 }
             }
             catch (Exception ex)
@@ -63,25 +67,23 @@ namespace Schedulist.DAL
                 Console.WriteLine("An error occurred: " + ex.Message);
             }
         }
-
-        public void GetWorkModeByUserAndDate (WorkModesToUser workModes)
+        
+        public void ModifyWorkModes(WorkModesToUser workModes)
         {
+            //GetWorkModeByUserAndDate();
             var csvConfig = new CsvConfiguration(CultureInfo.InvariantCulture)
             {
                 HasHeaderRecord = true,
-                //Delimiter = "\t",
+                Delimiter = ",",
             };
             ListOfWorkModes = GetAllWorkModes();
-            try
-            {
-                ListOfWorkModes.Take(CurrentUser.currentUser.Id);
-                using (StreamReader reader = new StreamReader(FilePath));
-                //tu nie wiem, jak zrobic odczytanie przez currentusera aktualnej daty i ID usera
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine("An error occured: " +ex.Message);
-            }
+            
+        }
+        
+        public WorkModesToUser GetWorkModeByUserAndDate (int idUser, DateOnly dateWorkMode)
+        {
+            var workModesReturn = ListOfWorkModes.Where(u=>u.UserID==idUser && u.dateOfWorkmode==dateWorkMode);
+            return (WorkModesToUser)workModesReturn;
         }
     }
 }

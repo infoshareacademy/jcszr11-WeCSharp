@@ -17,6 +17,7 @@ namespace Schedulist.Business
             new CSVWorkModesRepository("..\\..\\..\\WorkModes.csv");
         string workModeName;
         int workModeNameID;
+        int workModeToUserID = 1;
         public ManageWorkMode (IWorkModesRepository workModesRepository)
         {
             _workModesRepository = workModesRepository;            
@@ -30,6 +31,7 @@ namespace Schedulist.Business
         public void ShowAllWorkModes()
         {
             var workModesToUser = _csvWorkModesRepository.GetAllWorkModes();
+            Console.WriteLine(workModesToUser);
         }
 
         public void ChooseOptionsWorkMode()
@@ -46,19 +48,19 @@ namespace Schedulist.Business
                 Console.WriteLine("Backspace. Go back");
                 Console.WriteLine("=========================================");
                 var option = Console.ReadKey();
-                if (option.Key == ConsoleKey.D1) CreateWorkMode(1);
-                else if (option.Key == ConsoleKey.D2) CreateWorkMode(2);
-                else if (option.Key == ConsoleKey.D3) CreateWorkMode(3);
-                else if (option.Key == ConsoleKey.D4) CreateWorkMode(4);
-                else if (option.Key == ConsoleKey.D5) CreateWorkMode(5);
+                if (option.Key == ConsoleKey.D1) AssignWorkMode(1);
+                else if (option.Key == ConsoleKey.D2) AssignWorkMode(2);
+                else if (option.Key == ConsoleKey.D3) AssignWorkMode(3);
+                else if (option.Key == ConsoleKey.D4) AssignWorkMode(4);
+                else if (option.Key == ConsoleKey.D5) AssignWorkMode(5);
                 else if (option.Key == ConsoleKey.Backspace) MenuOptions.MenuWorkModes();
                 break;
             }
         }
 
-        public void CreateWorkMode(int workModeOption)
+        public void AssignWorkMode(int workModeOption)
         {
-            int workModeToUserID = 1;
+            
             
             if(workModeOption==1)
             {
@@ -83,25 +85,66 @@ namespace Schedulist.Business
             else if(workModeOption==5)
             {
                 workModeNameID = workModeOption;
-                workModeName = "Another workmode";
+                workModeName = "Another work mode";
             }
             
-            Console.WriteLine("\nEnter the date: ");
+            Console.WriteLine("\nEnter the date of your work day: ");
             var dateOfWorkMode = DateOnly.Parse(Console.ReadLine());
             WorkModesToUser workModesToUser = new WorkModesToUser(id: workModeToUserID, idname: workModeNameID, name: workModeName, userid: CurrentUser.currentUser.Id, dow: dateOfWorkMode);
             _csvWorkModesRepository.AddWorkModes(workModesToUser);
         }
 
-        public void ChangeOptionWorkMode()
+        public void ChangeOptionWorkMode(int userID)
         {
-            while (true)
-            {
-                Console.Clear();
-                Console.WriteLine("Provide the date, you want to change your workmode:");
-                var dateOfWorkMode = DateOnly.Parse(Console.ReadLine());
+            Console.Clear();
+            Console.WriteLine("Provide the date, you want to change your work mode:");
+            var dateOfWorkMode = DateOnly.Parse(Console.ReadLine());
+            
+            WorkModesToUser workModeToChange = _csvWorkModesRepository.GetWorkModeByUserAndDate(userID, dateOfWorkMode);
+            Console.WriteLine(workModeToChange);
+            Console.Clear();
+            Console.WriteLine("Datas about work mode, you want to change:");
+            Console.WriteLine($"ID work mode:   {workModeToChange.WorkModeToUserID}");
+            Console.WriteLine($"Work mode name:  {workModeToChange.WorkModeName}");
+            Console.WriteLine($"Your users ID:  {workModeToChange.UserID}");
+            Console.WriteLine($"Date of work day:   {workModeToChange.dateOfWorkmode}");            
+            Console.WriteLine("===========================================");
+            Console.WriteLine("Choose the new work mode option: ");
+            Console.WriteLine("1. At office");
+            Console.WriteLine("2. Home office");
+            Console.WriteLine("3. Sick leave");
+            Console.WriteLine("4. Holiday leave");
+            Console.WriteLine("5. Other workmode");
 
-                Console.WriteLine($"Your workmode at {dateOfWorkMode} is ");
+            var option = Console.ReadKey();
+            
+            if (option.Key == ConsoleKey.D1)
+            {
+                workModeNameID = (int)option.Key;
+                workModeName = "Office";
             }
+            else if (option.Key == ConsoleKey.D2)
+            {
+                workModeNameID = (int)option.Key;
+                workModeName = "Home office";
+            }
+            else if (option.Key == ConsoleKey.D3)
+            {
+                workModeNameID = (int)option.Key;
+                workModeName = "Sick leave";
+            }
+            else if (option.Key == ConsoleKey.D4)
+            {
+                workModeNameID = (int)option.Key;
+                workModeName = "Holiday leave";
+            }
+            else if (option.Key == ConsoleKey.D5)
+            {
+                workModeNameID = (int)option.Key;
+                workModeName = "Another work mode";
+            }
+            WorkModesToUser workModeModified = new WorkModesToUser(workModeToUserID, workModeNameID,workModeName,userID,dateOfWorkMode);
+
         }
 
         
