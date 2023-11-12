@@ -7,14 +7,19 @@ using System.Text;
 using System.Threading.Channels;
 using System.Threading.Tasks;
 using CsvHelper.TypeConversion;
+using Schedulist.Business;
 
 namespace Schedulist.DAL
 {
 
     public class Calendar
     {
-        
-        //private ManageCalendarEvent manageCalendarEvent;
+        private List<CalendarEvent> _calendarEvents =
+            new CsvCalendarEventRepository("..\\..\\..\\CalendarEvents.csv").GetAllCalendarEvents();
+
+        private CsvCalendarEventRepository _csvCalendarEventRepository =
+            new("..\\..\\..\\CalendarEvents.csv");
+        private ManageCalendarEvent manageCalendarEvent;
         //public void CurrentDate()
         //{
         //    DateTime currentDate = DateTime.Today;
@@ -51,15 +56,38 @@ namespace Schedulist.DAL
             Console.WriteLine(" Please enter date to show your workmode and events (DD/MM/YYYY).");
 
             string inputDate = Console.ReadLine();
-            DateTime.TryParse(inputDate, out DateTime selectedDate);
+            DateOnly.TryParse(inputDate, out DateOnly selectedDate);
+            Console.WriteLine($"Your workmode for date  is ");
 
-            
+            var work
 
 
-           //if ()
-           // {
-           //     Show(selectedDate);
-           // }
+            var calendarEvents = _csvCalendarEventRepository.GetAllCalendarEvents();
+            var userCalendarEvents = calendarEvents
+                .Where(c => c.AssignedToUser == CurrentUser.currentUser.Id && c.CalendarEventDate == selectedDate)
+                .OrderBy(c => c.CalendarEventStartTime)
+                .ToList();
+            if (userCalendarEvents.Count == 0)
+            {
+                Console.WriteLine("There is no Calendar Event existing for chosen date!");
+            }
+            else
+            {
+                Console.WriteLine($"\nCalendar Events on {selectedDate}:");
+                Console.WriteLine($"Start time \t End time \t Calendar Event Name");
+                foreach (var calendarEvent in userCalendarEvents)
+                {
+                    Console.WriteLine(
+                        $"{calendarEvent.CalendarEventStartTime} \t\t {calendarEvent.CalendarEventEndTime} \t\t {calendarEvent.CalendarEventName}");
+                }
+            }
+            Console.WriteLine("========================================================");
+
+
+            //if ()
+            // {
+            //     Show(selectedDate);
+            // }
 
             //public static void ShowWorkMode(DateTime selectedDate)
             //    {
@@ -82,8 +110,8 @@ namespace Schedulist.DAL
             //        }
             //    }
 
-            //    new ManageCalendarEvent().ShowUserCalendarEvent
-            
+
+
         }
     }
 }
