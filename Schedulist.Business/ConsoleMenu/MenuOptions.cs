@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Models;
 
 namespace Schedulist.Business
 {
@@ -82,7 +83,7 @@ namespace Schedulist.Business
             while (true)
             {
                 var option = Console.ReadKey();
-                if (option.Key == ConsoleKey.D1) Calendar().ShowMyCalendar();
+                if (option.Key == ConsoleKey.D1) new Calendar().ShowCalendar();
                 break;
             }
 
