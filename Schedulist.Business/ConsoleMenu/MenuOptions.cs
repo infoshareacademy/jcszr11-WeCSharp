@@ -34,6 +34,7 @@ namespace Schedulist.Business
             }
 
         }
+
         public static void MenuWorkModes()
         {
             while (true)
@@ -52,6 +53,7 @@ namespace Schedulist.Business
                 else if (option.Key == ConsoleKey.Backspace) break;
             }
         }
+
         public static void MenuUsers()
         {
             Console.Clear();
@@ -70,5 +72,20 @@ namespace Schedulist.Business
                 else if (option.Key == ConsoleKey.Backspace) break;
             }
         }
+
+        public static void MenuCalendar()
+        {
+            Console.Clear();
+            Console.WriteLine("Choose the option:");
+            Console.WriteLine("1. Show my monthly calendar");
+            Console.WriteLine("===============================================================================");
+            while (true)
+            {
+                var option = Console.ReadKey();
+                if (option.Key == ConsoleKey.D1) Calendar().ShowMyCalendar();
+                break;
+            }
+
+        }
     }
-}
+    

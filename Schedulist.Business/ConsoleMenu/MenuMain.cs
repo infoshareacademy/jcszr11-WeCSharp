@@ -31,7 +31,7 @@ namespace Schedulist.Business
                     CurrentUser.currentUser = null;
                     return null;
                 }
-                else if (option.Key == ConsoleKey.D1) Console.WriteLine("*****calendar*****");
+                else if (option.Key == ConsoleKey.D1) MenuOptions.MenuCalendar();
                 else if (option.Key == ConsoleKey.D2) MenuOptions.MenuCalendarEvents();
                 else if (CurrentUser.currentUser.AdminPrivilege) // Admin options
                 {
