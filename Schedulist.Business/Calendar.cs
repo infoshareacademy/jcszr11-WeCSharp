@@ -16,11 +16,9 @@ namespace Schedulist.DAL
     {
         private List<CalendarEvent> _calendarEvents =
             new CsvCalendarEventRepository("..\\..\\..\\CalendarEvents.csv").GetAllCalendarEvents();
-
         private CsvCalendarEventRepository _csvCalendarEventRepository =
             new("..\\..\\..\\CalendarEvents.csv");
         private ManageCalendarEvent manageCalendarEvent;
-
         private List<WorkModesToUser> _workModesToUser =
             new CSVWorkModesRepository("..\\..\\..\\WorkModes.csv").GetAllWorkModes();
         private CSVWorkModesRepository _csvWorkModesRepository =
@@ -41,13 +39,11 @@ namespace Schedulist.DAL
             string monthName = firstDayOfMonth.ToString("MMMM");
             Console.WriteLine($"{monthName} {year}");
             Console.WriteLine(" Sun  Mon Tue Wed Thu Fri Sat");
-
             int dayOfWeek = (int)firstDayOfMonth.DayOfWeek;
             for (int i = 0; i < dayOfWeek; i++)
             {
                 Console.WriteLine("");
             }
-
             for (int day = 1; day <= daysInMonth; day++)
             {
                 Console.Write(day.ToString().PadLeft(4));
@@ -57,17 +53,14 @@ namespace Schedulist.DAL
                     Console.WriteLine();
                 }
             }
-
             Console.WriteLine("\n\nPlease enter date to show your workmode and calendar events (DD/MM/YYYY).");
-
             string inputDate = Console.ReadLine();
             DateOnly.TryParse(inputDate, out DateOnly selectedDate);
+
             var workModes = _csvWorkModesRepository.GetAllWorkModes();
             var userWorkModes = workModes
                 .FirstOrDefault(c => c.UserID == CurrentUser.currentUser.Id && c.dateOfWorkmode == selectedDate);
             Console.WriteLine($"Your workmode for date {selectedDate} is {userWorkModes.WorkModeName}");
-
-
             var calendarEvents = _csvCalendarEventRepository.GetAllCalendarEvents();
             var userCalendarEvents = calendarEvents
                 .Where(c => c.AssignedToUser == CurrentUser.currentUser.Id && c.CalendarEventDate == selectedDate)
@@ -90,35 +83,6 @@ namespace Schedulist.DAL
             Console.WriteLine("========================================================");
                         Console.WriteLine("\nType any key do return to Menu");
             Console.ReadKey();
-
-            //if ()
-            // {
-            //     Show(selectedDate);
-            // }
-
-            //public static void ShowWorkMode(DateTime selectedDate)
-            //    {
-            //        if ((selectedDate))
-            //        {
-            //            Console.WriteLine(
-            //                $" Your workmode for today is: {}"); // nie wiem czy to nie jest za duże uproszczenie?
-            //        }
-            //    }
-
-            //    public static void ShowCalendarEvents(DateTime selectedDate)
-            //    {
-            //        if ((selectedDate))
-            //        {
-            //            Console.WriteLine({ ShowCalendarEvent }); //???
-            //        }
-            //        else
-            //        {
-            //            Console.WriteLine("No events for today");
-            //        }
-            //    }
-
-
-
         }
     }
 }
