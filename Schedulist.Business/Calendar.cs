@@ -20,6 +20,11 @@ namespace Schedulist.DAL
         private CsvCalendarEventRepository _csvCalendarEventRepository =
             new("..\\..\\..\\CalendarEvents.csv");
         private ManageCalendarEvent manageCalendarEvent;
+
+        private List<WorkModesToUser> _workModesToUser =
+            new CSVWorkModesRepository("..\\..\\..\\WorkModes.csv").GetAllWorkModes();
+        private CSVWorkModesRepository _csvWorkModesRepository =
+            new CSVWorkModesRepository("..\\..\\..\\WorkModes.csv");
         //public void CurrentDate()
         //{
         //    DateTime currentDate = DateTime.Today;
@@ -40,7 +45,7 @@ namespace Schedulist.DAL
             int dayOfWeek = (int)firstDayOfMonth.DayOfWeek;
             for (int i = 0; i < dayOfWeek; i++)
             {
-                Console.WriteLine("    ");
+                Console.WriteLine("");
             }
 
             for (int day = 1; day <= daysInMonth; day++)
@@ -53,13 +58,14 @@ namespace Schedulist.DAL
                 }
             }
 
-            Console.WriteLine(" Please enter date to show your workmode and events (DD/MM/YYYY).");
+            Console.WriteLine("\n\nPlease enter date to show your workmode and calendar events (DD/MM/YYYY).");
 
             string inputDate = Console.ReadLine();
             DateOnly.TryParse(inputDate, out DateOnly selectedDate);
-            Console.WriteLine($"Your workmode for date  is ");
-
-            var work
+            var workModes = _csvWorkModesRepository.GetAllWorkModes();
+            var userWorkModes = workModes
+                .FirstOrDefault(c => c.UserID == CurrentUser.currentUser.Id && c.dateOfWorkmode == selectedDate);
+            Console.WriteLine($"Your workmode for date {selectedDate} is {userWorkModes.WorkModeName}");
 
 
             var calendarEvents = _csvCalendarEventRepository.GetAllCalendarEvents();
@@ -78,11 +84,12 @@ namespace Schedulist.DAL
                 foreach (var calendarEvent in userCalendarEvents)
                 {
                     Console.WriteLine(
-                        $"{calendarEvent.CalendarEventStartTime} \t\t {calendarEvent.CalendarEventEndTime} \t\t {calendarEvent.CalendarEventName}");
+                        $"{calendarEvent.CalendarEventStartTime} \t\t {calendarEvent.CalendarEventEndTime} \t\t {calendarEvent.CalendarEventName} {calendarEvent.}");
                 }
             }
             Console.WriteLine("========================================================");
-
+                        Console.WriteLine("\nType any key do return to Menu");
+            Console.ReadKey();
 
             //if ()
             // {
