@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Models;
+using Microsoft.VisualBasic;
 
 namespace Schedulist.Business
 {
@@ -77,16 +77,20 @@ namespace Schedulist.Business
         public static void MenuCalendar()
         {
             Console.Clear();
+            DateTime currentDate = DateTime.Today;
+            int year = currentDate.Year;
+            int month = currentDate.Month;
             Console.WriteLine("Choose the option:");
             Console.WriteLine("1. Show my monthly calendar");
             Console.WriteLine("===============================================================================");
             while (true)
             {
                 var option = Console.ReadKey();
-                if (option.Key == ConsoleKey.D1) new Calendar().ShowCalendar();
+                if (option.Key == ConsoleKey.D1) new Calendar().ShowCalendar(year, month);
                 break;
             }
 
         }
     }
+}
     
