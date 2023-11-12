@@ -84,7 +84,7 @@ namespace Schedulist.DAL
                 foreach (var calendarEvent in userCalendarEvents)
                 {
                     Console.WriteLine(
-                        $"{calendarEvent.CalendarEventStartTime} \t\t {calendarEvent.CalendarEventEndTime} \t\t {calendarEvent.CalendarEventName} {calendarEvent.}");
+                        $"{calendarEvent.CalendarEventStartTime} \t\t {calendarEvent.CalendarEventEndTime} \t\t {calendarEvent.CalendarEventName}");
                 }
             }
             Console.WriteLine("========================================================");
