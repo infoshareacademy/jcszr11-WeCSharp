@@ -10,14 +10,14 @@ namespace Schedulist.Business
     internal class AdminCommands
     {
         private List<User> _userlist = new CsvUserRepository("..\\..\\..\\Users.csv").GetAllUsers();
-        public User DisplayUsers()
+        public User DisplayUsers(string methodName)
         {
             Console.Clear();
-            Console.WriteLine("====== List of users ======");
+            Console.WriteLine($"====== List of users to {methodName}======");
             Console.WriteLine("ID.  Name and surname");
-            foreach (User user in _userlist)
+            for (int i = 0; i < _userlist.Count; i++)
             {
-                Console.WriteLine($"{user.Id}.    {user.Name} {user.Surname}");
+                Console.WriteLine($"{i+1}.    {_userlist[i].Name} {_userlist[i].Surname}");
             }
             Console.WriteLine("===============================================================================");
             Console.WriteLine("Choose user from the list by ID or type x to choose yourself:");
@@ -25,10 +25,12 @@ namespace Schedulist.Business
             {
                 string option = Console.ReadLine();
                 if (option == "x") return CurrentUser.currentUser;
-                else foreach (User user in _userlist)
-                    {
-                        if (user.Id.ToString() == option) return user;
-                    }
+                //else for (int i = 0; i < _userlist.Count; i++)
+                else if (int.TryParse(option, out int i))
+                {
+                    if (i <= _userlist.Count) return _userlist[i-1];
+                }
+                else Console.WriteLine("error, not a number, please try again:");
             }
         }
         //public User DisplayUsersToDelete()
