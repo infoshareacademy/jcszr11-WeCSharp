@@ -23,17 +23,10 @@ namespace Schedulist.DAL
             new CSVWorkModesRepository("..\\..\\..\\WorkModes.csv").GetAllWorkModes();
         private CSVWorkModesRepository _csvWorkModesRepository =
             new CSVWorkModesRepository("..\\..\\..\\WorkModes.csv");
-        //public void CurrentDate()
-        //{
-        //    DateTime currentDate = DateTime.Today;
-
-        //    int year = currentDate.Year;
-        //    int month = currentDate.Month;
-
-        //    ShowCalendar(year, month);
-        //}
+        
         public void ShowCalendar(int year, int month)
         {
+            Console.Clear();
             DateTime firstDayOfMonth = new DateTime(year, month, 1);
             int daysInMonth = DateTime.DaysInMonth(year, month);
             string monthName = firstDayOfMonth.ToString("MMMM");
@@ -53,10 +46,11 @@ namespace Schedulist.DAL
                     Console.WriteLine();
                 }
             }
-            Console.WriteLine("\n\nPlease enter date to show your workmode and calendar events (DD/MM/YYYY).");
+            Console.WriteLine("\n\nPlease enter date to show your workmode and calendar events (DD.MM.YYYY).");
             string inputDate = Console.ReadLine();
             DateOnly.TryParse(inputDate, out DateOnly selectedDate);
 
+            Console.Clear();
             var workModes = _csvWorkModesRepository.GetAllWorkModes();
             var userWorkModes = workModes
                 .FirstOrDefault(c => c.UserID == CurrentUser.currentUser.Id && c.dateOfWorkmode == selectedDate);
@@ -73,11 +67,15 @@ namespace Schedulist.DAL
             else
             {
                 Console.WriteLine($"\nCalendar Events on {selectedDate}:");
-                Console.WriteLine($"Start time \t End time \t Calendar Event Name");
+                Console.WriteLine(" ");
+                Console.WriteLine("========================================================");
+                Console.WriteLine(" ");
+                Console.WriteLine($"Start - End time  \t Calendar Event Name");
+                Console.WriteLine(" ");
                 foreach (var calendarEvent in userCalendarEvents)
                 {
-                    Console.WriteLine(
-                        $"{calendarEvent.CalendarEventStartTime} \t\t {calendarEvent.CalendarEventEndTime} \t\t {calendarEvent.CalendarEventName}");
+                    Console.WriteLine($"{calendarEvent.CalendarEventStartTime} -  {calendarEvent.CalendarEventEndTime} \t\t {calendarEvent.CalendarEventName}");
+                    Console.WriteLine(" ");
                 }
             }
             Console.WriteLine("========================================================");
