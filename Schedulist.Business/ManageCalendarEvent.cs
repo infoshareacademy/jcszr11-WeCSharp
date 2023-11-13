@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Channels;
 using System.Threading.Tasks;
 using CsvHelper.TypeConversion;
+using CsvHelper.Configuration.Attributes;
 
 namespace Schedulist.Business
 {
@@ -112,14 +113,13 @@ namespace Schedulist.Business
         public void DeleteYourCalendarEvent(User user)
         {
             Console.Clear();
-
             int userId = user.Id;
-            List<CalendarEvent> currentUserCalendarEvents = _calendarEvents.Where(u => u.AssignedToUser.Id == userId).ToList();
+            List<CalendarEvent> currentUserCalendarEvents = _calendarEvents.Where(u => u.AssignedToUser == userId).ToList();
 
             if (currentUserCalendarEvents.Count == 0)
             {
                 Console.WriteLine("No Calendar Events to delete.");
-                Console.WriteLine("Type any key to return to MenuOptions");
+                Console.WriteLine("Type any key to return to menu");
                 Console.ReadKey();
                 return;
             }
@@ -138,7 +138,6 @@ namespace Schedulist.Business
                 {
                     var selectedEvent = currentUserCalendarEvents[choice - 1];
                     _csvCalendarEventRepository.DeleteCalendarEventRepository(selectedEvent.CalendarEventId);
-                    Console.WriteLine($"Calendar Event from global list with ID: {selectedEvent.CalendarEventId} has been successfully deleted.");
                     Console.WriteLine($"Calendar Event from your list with ID: {choice} has been successfully deleted.");
                     break;
                 }
