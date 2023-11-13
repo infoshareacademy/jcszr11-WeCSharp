@@ -81,13 +81,13 @@ namespace Schedulist.Business
             string calendarEventDescription = Console.ReadLine();
             calendarEventDescription = CalendarEventDescriptionValidation(calendarEventDescription);
             Console.WriteLine("Date of Calendar Event using format DD/MM/YYYY");
-            var calendarEventDate = CalendarEventDateAdding(out var dateValue);
+            var calendarEventDate = CalendarEventDateAddValidation(out var dateValue);
             calendarEventDate = CalendarEventDateMinMaxValidation(calendarEventDate);
             var calendarEvents = _csvCalendarEventRepository.GetAllCalendarEvents();
             var calendarEventAvailable = calendarEvents
                 .FirstOrDefault(c => c.AssignedToUser == user.Id &&
                                      c.CalendarEventDate == calendarEventDate);
-            calendarEventAvailability(user, calendarEventAvailable, calendarEventDate);
+            CalendarEventAvailabilityCheck(user, calendarEventAvailable, calendarEventDate);
             Console.WriteLine("Start time of Calendar Event using format HH:MM");
             string startTime = Console.ReadLine();
             startTime = StartTimeEmptinessValidation(startTime);
@@ -210,27 +210,27 @@ namespace Schedulist.Business
                 {
                     Console.WriteLine(
                         "You are trying to add date that is more than 30 days in the past from today or value is incorrect, adjust the value!");
-                    calendarEventDate = CalendarEventDateAdding(out dateValue);
+                    calendarEventDate = CalendarEventDateAddValidation(out dateValue);
                 }
                 else if (calendarEventDate > currentDate.AddDays(60))
                 {
                     Console.WriteLine(
                         "You are trying to add date that is more than 60 days in the future from today or value is incorrect, adjust the value!");
-                    calendarEventDate = CalendarEventDateAdding(out dateValue);
+                    calendarEventDate = CalendarEventDateAddValidation(out dateValue);
                 }
                 else break;
             }
 
             return calendarEventDate;
         }
-        private DateOnly CalendarEventDateAdding(out string dateValue)
+        private DateOnly CalendarEventDateAddValidation(out string dateValue)
         {
             dateValue = Console.ReadLine();
             dateValue = DateValueEmptinessValidation(dateValue);
             DateOnly.TryParse(dateValue, out var calendarEventDate);
             return calendarEventDate;
         }
-        private void calendarEventAvailability(User user, CalendarEvent? calendarEventAvailable, DateOnly calendarEventDate)
+        private void CalendarEventAvailabilityCheck(User user, CalendarEvent? calendarEventAvailable, DateOnly calendarEventDate)
         {
             if (calendarEventAvailable != null)
             {
