@@ -28,14 +28,15 @@ namespace Schedulist.DAL
         {
             Console.Clear();
             DateTime firstDayOfMonth = new DateTime(year, month, 1);
+            int dayOfWeek = (int)firstDayOfMonth.DayOfWeek;
             int daysInMonth = DateTime.DaysInMonth(year, month);
             string monthName = firstDayOfMonth.ToString("MMMM");
             Console.WriteLine($"{monthName} {year}");
+            Console.WriteLine(" ");
             Console.WriteLine(" Sun  Mon Tue Wed Thu Fri Sat");
-            int dayOfWeek = (int)firstDayOfMonth.DayOfWeek;
             for (int i = 0; i < dayOfWeek; i++)
             {
-                Console.WriteLine("");
+                Console.Write("    ");
             }
             for (int day = 1; day <= daysInMonth; day++)
             {
