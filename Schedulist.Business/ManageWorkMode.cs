@@ -30,6 +30,8 @@ namespace Schedulist.Business
         public void ShowAllWorkModes()
         {
             var workModesToUser = _csvWorkModesRepository.GetAllWorkModes();
+            Console.WriteLine("Type any key to continue");
+            Console.ReadKey();
         }
 
         public void ChooseOptionsWorkMode()

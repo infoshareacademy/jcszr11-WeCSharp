@@ -27,7 +27,7 @@ namespace Schedulist.DAL
             };
             using var reader = new StreamReader(FilePath);
             using var csv = new CsvReader(reader, csvConfig);
-            ListOfWorkModes = csv.GetRecords<WorkModes>().ToList();
+            ListOfWorkModes = csv.GetRecords<WorkModesToUser>().ToList();
             return ListOfWorkModes;
         }
         public void AddWorkModes(WorkModesToUser workModes)
@@ -41,7 +41,7 @@ namespace Schedulist.DAL
 
             // Oblicza lość użytkowników w liście i na tej podstawie nowemu użytkownikowi przydziela wartosć 
             // Id o jeden większą lub 1 w przypadku pustej listy. 
-            int nextWorkmodeToUserId = ListOfWorkModes.Count > 0 ? ListOfWorkModes.Max(w => w.WorkModeToUserID) + 1 : 1;
+            int nextWorkmodeToUserId = (int)(ListOfWorkModes.Count > 0 ? ListOfWorkModes.Max(w => w.WorkModeToUserID) + 1 : 1);
 
             
             workModes.WorkModeToUserID = nextWorkmodeToUserId;
@@ -70,7 +70,7 @@ namespace Schedulist.DAL
             ListOfWorkModes = GetAllWorkModes();
             try
             {
-                ListOfWorkModes.Take(CurrentUser.currentUser.Id);
+                ListOfWorkModes.Take((int)CurrentUser.currentUser.Id);
                 using (StreamReader reader = new StreamReader(FilePath));
                 //tu nie wiem, jak zrobic odczytanie przez currentusera aktualnej daty i ID usera
             }
