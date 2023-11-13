@@ -116,7 +116,7 @@ namespace Schedulist.Business
             int year = currentDate.Year;
             int month = currentDate.Month;
             Console.WriteLine("Choose the option:");
-            Console.WriteLine("1. Show my monthly calendar");
+            Console.WriteLine($"1. Show {CurrentUser.currentUser.Name} monthly calendar");
             Console.WriteLine("===============================================================================");
             while (true)
             {
