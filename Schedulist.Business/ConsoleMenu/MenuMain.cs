@@ -28,6 +28,7 @@ namespace Schedulist.Business
                 Console.WriteLine("Backspace. Log out");
                 Console.WriteLine("===============================================================================");
                 var option = Console.ReadKey();
+                
                 if (option.Key == ConsoleKey.Backspace)
                 {
                     CurrentUser.currentUser = null;

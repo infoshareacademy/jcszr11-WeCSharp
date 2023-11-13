@@ -14,6 +14,7 @@ namespace Schedulist.Business
 
         
         public static void MenuCalendarEvents()
+        
         {
             while (true)
             {
@@ -22,19 +23,20 @@ namespace Schedulist.Business
                 Console.WriteLine("1. Create my new calendar event");
                 Console.WriteLine("2. Show my calendar events for chosen date");
                 Console.WriteLine("3. Modify existing calendar event");
-                Console.WriteLine("4. Delete existing calendar event");
+                Console.WriteLine("4. Delete your calendar events");
                 Console.WriteLine("Backspace. Go back");
                 Console.WriteLine("===============================================================================");
                 var option = Console.ReadKey();
                 if (option.Key == ConsoleKey.D1) new ManageCalendarEvent().CreateCalendarEvent(CurrentUser.currentUser);
                 else if (option.Key == ConsoleKey.D2) new ManageCalendarEvent().ShowUserCalendarEvent(CurrentUser.currentUser);
                 else if (option.Key == ConsoleKey.D3) Console.WriteLine("*****modify task*****");
-                else if (option.Key == ConsoleKey.D4) Console.WriteLine("*****delete task*****");
+                else if (option.Key == ConsoleKey.D4) new ManageCalendarEvent().DeleteYourCalendarEvent(CurrentUser.currentUser);
                 else if (option.Key == ConsoleKey.Backspace) break;
             }
 
         }
         public static void MenuAdminCalendarEvents()
+        
         {
             while (true)
             {
@@ -58,7 +60,7 @@ namespace Schedulist.Business
                     new ManageCalendarEvent().ShowUserCalendarEvent(actAsUser);
                 }
                 else if (option.Key == ConsoleKey.D3) Console.WriteLine("*****modify task*****");
-                else if (option.Key == ConsoleKey.D4) Console.WriteLine("*****delete task*****");
+                else if (option.Key == ConsoleKey.D4) new ManageCalendarEvent().DeleteCalendarEventAdmin();
                 else if (option.Key == ConsoleKey.Backspace) break;
             }
 
