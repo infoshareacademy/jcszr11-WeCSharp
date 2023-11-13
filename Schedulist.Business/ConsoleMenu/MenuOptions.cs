@@ -1,4 +1,4 @@
-﻿using Microsoft.VisualBasic.FileIO;
+using Microsoft.VisualBasic.FileIO;
 using Schedulist.DAL;
 using System;
 using System.Collections.Generic;
@@ -110,5 +110,24 @@ namespace Schedulist.Business
                 else if (option.Key == ConsoleKey.Backspace) break;
             }
         }
+
+        public static void MenuCalendar()
+        {
+            Console.Clear();
+            DateTime currentDate = DateTime.Today;
+            int year = currentDate.Year;
+            int month = currentDate.Month;
+            Console.WriteLine("Choose the option:");
+            Console.WriteLine("1. Show my monthly calendar");
+            Console.WriteLine("===============================================================================");
+            while (true)
+            {
+                var option = Console.ReadKey();
+                if (option.Key == ConsoleKey.D1) new Calendar().ShowCalendar(year, month);
+                break;
+            }
+
+        }
     }
 }
+    
