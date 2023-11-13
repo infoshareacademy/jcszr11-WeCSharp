@@ -6,9 +6,11 @@ using System.Threading.Tasks;
 
 namespace Schedulist.DAL
 {
-    internal interface IWorkModesRepository
+    public interface IWorkModesRepository
     {
-        List<WorkModes> GetAllWorkModes();
-        void AddWorkModes(WorkModes workMode);
+        List<WorkModesToUser> GetAllWorkModes();
+        void AddWorkModes(WorkModesToUser workMode);
+        void GetWorkModeByUserAndDate(WorkModesToUser workMode);
+        
     }
 }

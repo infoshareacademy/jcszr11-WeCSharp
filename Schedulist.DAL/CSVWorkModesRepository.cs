@@ -9,16 +9,16 @@ using System.Threading.Tasks;
 
 namespace Schedulist.DAL
 {
-    internal class CSVWorkModesRepository : IWorkModesRepository
+    public class CSVWorkModesRepository : IWorkModesRepository
     {
         private readonly string FilePath;
-        public List<WorkModes> ListOfWorkModes;
+        public List<WorkModesToUser> ListOfWorkModes;
         
         public CSVWorkModesRepository(string filePath)
         {
             FilePath=filePath;
         }
-        public List<WorkModes> GetAllWorkModes()
+        public List<WorkModesToUser> GetAllWorkModes()
         {
             var csvConfig = new CsvConfiguration(CultureInfo.InvariantCulture)
             {
@@ -30,7 +30,7 @@ namespace Schedulist.DAL
             ListOfWorkModes = csv.GetRecords<WorkModes>().ToList();
             return ListOfWorkModes;
         }
-        public void AddWorkModes(WorkModes workModes)
+        public void AddWorkModes(WorkModesToUser workModes)
         {
             var csvConfig = new CsvConfiguration(CultureInfo.InvariantCulture)
             {
@@ -41,10 +41,10 @@ namespace Schedulist.DAL
 
             // Oblicza lość użytkowników w liście i na tej podstawie nowemu użytkownikowi przydziela wartosć 
             // Id o jeden większą lub 1 w przypadku pustej listy. 
-            int nextWorkmodeId = ListOfWorkModes.Count > 0 ? ListOfWorkModes.Max(w => w.WorkModeID) + 1 : 1;
+            int nextWorkmodeToUserId = ListOfWorkModes.Count > 0 ? ListOfWorkModes.Max(w => w.WorkModeToUserID) + 1 : 1;
 
-            // przydzielenie Id nowego użytkownika do dobranej wartości.
-            workModes.WorkModeID = nextWorkmodeId;
+            
+            workModes.WorkModeToUserID = nextWorkmodeToUserId;
             try
             {
                 ListOfWorkModes.Add(workModes);
@@ -57,6 +57,26 @@ namespace Schedulist.DAL
             catch (Exception ex)
             {
                 Console.WriteLine("An error occurred: " + ex.Message);
+            }
+        }
+
+        public void GetWorkModeByUserAndDate (WorkModesToUser workModes)
+        {
+            var csvConfig = new CsvConfiguration(CultureInfo.InvariantCulture)
+            {
+                HasHeaderRecord = true,
+                //Delimiter = "\t",
+            };
+            ListOfWorkModes = GetAllWorkModes();
+            try
+            {
+                ListOfWorkModes.Take(CurrentUser.currentUser.Id);
+                using (StreamReader reader = new StreamReader(FilePath));
+                //tu nie wiem, jak zrobic odczytanie przez currentusera aktualnej daty i ID usera
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("An error occured: " +ex.Message);
             }
         }
     }
