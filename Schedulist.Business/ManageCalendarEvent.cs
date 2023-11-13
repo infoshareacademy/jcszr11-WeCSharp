@@ -38,7 +38,7 @@ namespace Schedulist.Business
         {
             Console.Clear();
             Console.WriteLine("==========List of Calendar Events==========");
-            Console.WriteLine("Provide date for which you want to show Calendar Events");
+            Console.WriteLine("Provide date for which you want to show Calendar Events using format DD/MM/YYYY");
             string providedDate = Console.ReadLine();
             providedDate = DateValueEmptinessValidation(providedDate);
             DateOnly.TryParse(providedDate, out var specifiedDate);
