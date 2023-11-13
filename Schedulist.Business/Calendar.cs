@@ -31,11 +31,9 @@ namespace Schedulist.DAL
             int dayOfWeek = (int)firstDayOfMonth.DayOfWeek;
             int daysInMonth = DateTime.DaysInMonth(year, month);
             string monthName = firstDayOfMonth.ToString("MMMM");
-            Console.WriteLine($"\t{monthName} {year}");
-            Console.WriteLine(" ");
-            Console.WriteLine("========================================================");
-            Console.WriteLine(" ");
-            Console.WriteLine(" Sun  Mon Tue Wed Thu Fri Sat");
+            Console.WriteLine($"\n\t{monthName} {year}");
+            Console.WriteLine($"\t\n========================================================");
+            Console.WriteLine($" \nSun  Mon Tue Wed Thu Fri Sat");
             Console.WriteLine(" ");
             for (int i = 0; i < dayOfWeek; i++)
             {
@@ -50,7 +48,8 @@ namespace Schedulist.DAL
                     Console.WriteLine();
                 }
             }
-            Console.WriteLine("\n\nPlease enter date to show your workmode and calendar events (DD.MM.YYYY).");
+            Console.WriteLine($"\n\n========================================================");
+            Console.WriteLine("\n\n\nPlease enter date to show your workmode and calendar events (DD.MM.YYYY).");
             string inputDate = Console.ReadLine();
             DateOnly.TryParse(inputDate, out DateOnly selectedDate);
 
@@ -71,18 +70,15 @@ namespace Schedulist.DAL
             else
             {
                 Console.WriteLine($"\nCalendar Events on {selectedDate}:");
-                Console.WriteLine(" ");
-                Console.WriteLine("========================================================");
-                Console.WriteLine(" ");
-                Console.WriteLine($"Start - End time  \t Calendar Event Name");
+                Console.WriteLine($"\n========================================================");
+                Console.WriteLine($"\nStart - End time  \t Calendar Event Name");
                 Console.WriteLine(" ");
                 foreach (var calendarEvent in userCalendarEvents)
                 {
                     Console.WriteLine($"{calendarEvent.CalendarEventStartTime} -  {calendarEvent.CalendarEventEndTime} \t\t {calendarEvent.CalendarEventName}");
-                    Console.WriteLine(" ");
                 }
             }
-            Console.WriteLine("========================================================");
+            Console.WriteLine("\n========================================================");
                         Console.WriteLine("\nType any key do return to Menu");
             Console.ReadKey();
         }
