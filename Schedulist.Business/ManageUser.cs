@@ -23,12 +23,12 @@ namespace Schedulist.Business
         {
             Console.Clear();
             Console.WriteLine("====== Create User Section ======");
-            string name = Method.ConsolHelper("Type User name");
-            string surname = Method.ConsolHelper("Type User surname");
-            string position = Method.ConsolHelper("Type User position");
-            string department = Method.ConsolHelper("Type User department");
-            string login = Method.ConsolHelper("Type User login");
-            string password = Method.ConsolHelper("Type User password");
+            string name = Helper.ConsolHelper("Type User name");
+            string surname = Helper.ConsolHelper("Type User surname");
+            string position = Helper.ConsolHelper("Type User position");
+            string department = Helper.ConsolHelper("Type User department");
+            string login = Helper.ConsolHelper("Type User login");
+            string password = Helper.ConsolHelper("Type User password");
             Console.WriteLine("Is created User Admin? type y/n");
             bool isAdmin = false;
             switch (Console.ReadLine())

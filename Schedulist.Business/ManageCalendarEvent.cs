@@ -7,6 +7,7 @@ using System.Threading.Channels;
 using System.Threading.Tasks;
 using CsvHelper.TypeConversion;
 using CsvHelper.Configuration.Attributes;
+using Schedulist.Business.Actions;
 
 namespace Schedulist.Business
 {
@@ -110,17 +111,14 @@ namespace Schedulist.Business
             Console.WriteLine("\nType any key do return to Menu");
             Console.ReadKey();
         }
+        
         public void DeleteYourCalendarEvent(User user)
         {
             Console.Clear();
-            int userId = user.Id;
-            List<CalendarEvent> currentUserCalendarEvents = _calendarEvents.Where(u => u.AssignedToUser == userId).ToList();
+            List<CalendarEvent> currentUserCalendarEvents = _calendarEvents.Where(u => u.AssignedToUser == user.Id).ToList();
 
-            if (currentUserCalendarEvents.Count == 0)
+            if (Helper.IsCalendarEmpty(currentUserCalendarEvents))
             {
-                Console.WriteLine("No Calendar Events to delete.");
-                Console.WriteLine("Type any key to return to menu");
-                Console.ReadKey();
                 return;
             }
 
@@ -137,7 +135,7 @@ namespace Schedulist.Business
                 if (int.TryParse(Console.ReadLine(), out int calendarEventId) && calendarEventId > 0 && calendarEventId <= currentUserCalendarEvents.Count)
                 {
                     var selectedEvent = currentUserCalendarEvents[calendarEventId - 1];
-                    _csvCalendarEventRepository.DeleteCalendarEventRepository(selectedEvent.CalendarEventId);
+                    _csvCalendarEventRepository.DeleteCalendarEvent(selectedEvent.CalendarEventId);
                     Console.WriteLine($"Calendar Event from your list with ID: {calendarEventId} has been successfully deleted.");
                     break;
                 }
@@ -159,6 +157,10 @@ namespace Schedulist.Business
         public void DeleteCalendarEventAdmin()
         {
             Console.Clear();
+            if (Helper.IsCalendarEmpty(_calendarEvents))
+            {
+                return;
+            }
             Console.WriteLine("======List of Calendar Events======");
             Console.WriteLine("ID \t| Calendar Event Name \t\t|Date");
             for (int i = 0; i < _calendarEvents.Count; i++)
@@ -170,9 +172,9 @@ namespace Schedulist.Business
             {
 
                 Console.WriteLine("\n Choose the ID from the list of Calendar Events above that you want to delete (or 0 to cancel):");
-                if (int.TryParse(Console.ReadLine(), out int calendarEventId) && calendarEventId - 1 >= 0 && calendarEventId - 1 < _calendarEvents.Count)
+                if (int.TryParse(Console.ReadLine(), out int calendarEventId) && calendarEventId - 1 > 0 && calendarEventId - 1 < _calendarEvents.Count)
                 {
-                    _csvCalendarEventRepository.DeleteCalendarEventRepository(calendarEventId);
+                    _csvCalendarEventRepository.DeleteCalendarEvent(calendarEventId);
                     Console.WriteLine($"Calendar Event with ID: {calendarEventId} has been successfully deleted.");
                     break;
                 }

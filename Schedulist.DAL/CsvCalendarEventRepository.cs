@@ -45,7 +45,7 @@ namespace Schedulist.DAL
                 Console.WriteLine("An error occurred: " + ex.Message);
             }
         }
-        public void DeleteCalendarEventRepository(int calendarEventId)
+        public void DeleteCalendarEvent(int calendarEventId)
         {
 
                 calendarEvents = GetAllCalendarEvents(); 
