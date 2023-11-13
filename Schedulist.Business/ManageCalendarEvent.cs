@@ -134,14 +134,14 @@ namespace Schedulist.Business
             while (true)
             {
                 Console.WriteLine("\n Choose the ID from the list of Calendar Events above that you want to delete (or 0 to cancel):");
-                if (int.TryParse(Console.ReadLine(), out int choice) && choice > 0 && choice <= currentUserCalendarEvents.Count)
+                if (int.TryParse(Console.ReadLine(), out int calendarEventId) && calendarEventId > 0 && calendarEventId <= currentUserCalendarEvents.Count)
                 {
-                    var selectedEvent = currentUserCalendarEvents[choice - 1];
+                    var selectedEvent = currentUserCalendarEvents[calendarEventId - 1];
                     _csvCalendarEventRepository.DeleteCalendarEventRepository(selectedEvent.CalendarEventId);
-                    Console.WriteLine($"Calendar Event from your list with ID: {choice} has been successfully deleted.");
+                    Console.WriteLine($"Calendar Event from your list with ID: {calendarEventId} has been successfully deleted.");
                     break;
                 }
-                else if (choice == 0)
+                else if (calendarEventId == 0)
                 {
                     Console.WriteLine("Canceled deletion.");
                     break;
@@ -169,11 +169,16 @@ namespace Schedulist.Business
             while (true)
             {
 
-                Console.WriteLine("\n Choose the ID from the list of Calendar Events above that you want to delete.");
+                Console.WriteLine("\n Choose the ID from the list of Calendar Events above that you want to delete (or 0 to cancel):");
                 if (int.TryParse(Console.ReadLine(), out int calendarEventId) && calendarEventId - 1 >= 0 && calendarEventId - 1 < _calendarEvents.Count)
                 {
                     _csvCalendarEventRepository.DeleteCalendarEventRepository(calendarEventId);
                     Console.WriteLine($"Calendar Event with ID: {calendarEventId} has been successfully deleted.");
+                    break;
+                }
+                else if (calendarEventId == 0)
+                {
+                    Console.WriteLine("Canceled deletion.");
                     break;
                 }
                 else
