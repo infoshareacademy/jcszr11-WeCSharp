@@ -120,13 +120,7 @@ namespace Schedulist.Business
 
             if (Helper.IsCalendarEmpty(currentUserCalendarEvents)) return;
 
-            Console.WriteLine("======List of Calendar Events======");
-            Console.WriteLine("ID \t| Calendar Event Name \t\t|Date");
-            for (int i = 0; i < currentUserCalendarEvents.Count; i++)
-            {
-                Console.WriteLine
-                ($"{i + 1} \t {currentUserCalendarEvents[i].CalendarEventName} \t\t\t {currentUserCalendarEvents[i].CalendarEventDate}");
-            }
+            DisplayCalendarEvents(currentUserCalendarEvents);
             CurrentUserCalendarEventsSelection(user);
             
             Console.WriteLine("Press any key to return to the menu.");
@@ -138,18 +132,21 @@ namespace Schedulist.Business
             Console.Clear();
             if (Helper.IsCalendarEmpty(_calendarEvents)) return;
 
-            Console.WriteLine("======List of Calendar Events======");
-            Console.WriteLine("ID \t| Calendar Event Name \t\t|Date");
-            for (int i = 0; i < _calendarEvents.Count; i++)
-            {
-                Console.WriteLine
-                ($"{i + 1} \t {_calendarEvents[i].CalendarEventName} \t\t\t {_calendarEvents[i].CalendarEventDate}");
-            }
+            DisplayCalendarEvents(_calendarEvents);
             CalendarEventsSelection();
 
             Console.WriteLine("Press any key to return to the menu.");
             Console.ReadKey();
             MenuOptions.MenuAdminCalendarEvents();
+        }
+        private void DisplayCalendarEvents(List<CalendarEvent> calendarEvents)
+        {
+            Console.WriteLine("ID \t| Calendar Event Name \t\t|Date");
+            for (int i = 0; i < calendarEvents.Count; i++)
+            {
+                Console.WriteLine
+                ($"{i + 1} \t {calendarEvents[i].CalendarEventName} \t\t\t {calendarEvents[i].CalendarEventDate}");
+            }
         }
         private void CurrentUserCalendarEventsSelection(User user)
         {
@@ -200,6 +197,7 @@ namespace Schedulist.Business
             }
         }
         #endregion
+        
         #region CalendarEvent - Validation Section
         private DateOnly CalendarEventDateMinMaxValidation(DateOnly calendarEventDate)
         {
