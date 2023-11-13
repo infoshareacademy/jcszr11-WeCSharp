@@ -94,15 +94,15 @@ namespace Schedulist.Business
         }
         public static void MenuUsers()
         {
-            Console.Clear();
-            Console.WriteLine("Choose the option:");
-            Console.WriteLine("1. Create new user");
-            Console.WriteLine("2. Modify existing user");
-            Console.WriteLine("3. Delete existing Users");
-            Console.WriteLine("Backspace. Go back");
-            Console.WriteLine("===============================================================================");
             while (true)
             {
+                Console.Clear();
+                Console.WriteLine("Choose the option:");
+                Console.WriteLine("1. Create new user");
+                Console.WriteLine("2. Modify existing user");
+                Console.WriteLine("3. Delete existing Users");
+                Console.WriteLine("Backspace. Go back");
+                Console.WriteLine("===============================================================================");
                 var option = Console.ReadKey();
                 if (option.Key == ConsoleKey.D1) new ManageUser().Create();
                 else if (option.Key == ConsoleKey.D2) ManageUser.Modify();

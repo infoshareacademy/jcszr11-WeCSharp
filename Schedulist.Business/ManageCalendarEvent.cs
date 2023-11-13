@@ -6,8 +6,6 @@ using System.Text;
 using System.Threading.Channels;
 using System.Threading.Tasks;
 using CsvHelper.TypeConversion;
-using CsvHelper.Configuration.Attributes;
-using Schedulist.Business.Actions;
 
 namespace Schedulist.Business
 {
@@ -104,7 +102,7 @@ namespace Schedulist.Business
             endTime = EndTimeEmptinessValidation(endTime);
             TimeOnly.TryParse(endTime, out var calendarEventEndTime);
             calendarEventEndTime = CalendarEventEndTimeValidation(calendarEventEndTime, calendarEventStartTime);
-            CalendarEvent calendarEvent = new CalendarEvent(calendarEventId, calendarEventName,
+            CalendarEvent calendarEvent = new(calendarEventId, calendarEventName,
                 calendarEventDescription, calendarEventDate, calendarEventStartTime, calendarEventEndTime,
                 user.Id);
             _csvCalendarEventRepository.AddCalendarEvent(calendarEvent);

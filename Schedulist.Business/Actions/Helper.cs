@@ -1,11 +1,4 @@
-﻿using CsvHelper.Configuration;
-using Schedulist.DAL;
-using System;
-using System.Collections.Generic;
-using System.Globalization;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Schedulist.DAL;
 
 namespace Schedulist.Business.Actions
 {
@@ -13,9 +6,16 @@ namespace Schedulist.Business.Actions
     {
         public static string ConsolHelper(string message)
         {
-            Console.WriteLine(message);
-            string userInput = Console.ReadLine();
-            return userInput;
+            while (true)
+            {
+                Console.WriteLine(message);
+                string userInput = Console.ReadLine();
+                if (!string.IsNullOrEmpty(userInput)) return userInput;
+                else
+                {
+                    Console.WriteLine("Error, empty variable, please try again:");
+                }
+            }
         }
         public static User CreatePassword(User user)
         {
@@ -27,7 +27,7 @@ namespace Schedulist.Business.Actions
                 while (true)
                 {
                     Console.Clear();
-                    if (!String.IsNullOrEmpty(error)) Console.WriteLine(error);
+                    if (!string.IsNullOrEmpty(error)) Console.WriteLine(error);
                     Console.WriteLine("===== Create password =====");
                     Console.WriteLine("Password should contain between 5 - 15 letters, lowercase, uppercase and number");
                     newPassword = Helper.ConsolHelper("Provide new password or type x to leave");

@@ -25,12 +25,10 @@ namespace Schedulist.DAL
                 HasHeaderRecord = true,
                 //Delimiter = "\t",
             };
-            using (var reader = new StreamReader(FilePath))
-            using (var csv = new CsvReader(reader, csvConfig))
-            {
-                ListOfWorkModes = csv.GetRecords<WorkModesToUser>().ToList();
-                return ListOfWorkModes;
-            }
+            using var reader = new StreamReader(FilePath);
+            using var csv = new CsvReader(reader, csvConfig);
+            ListOfWorkModes = csv.GetRecords<WorkModesToUser>().ToList();
+            return ListOfWorkModes;
         }
         public void AddWorkModes(WorkModesToUser workModes)
         {
@@ -43,20 +41,18 @@ namespace Schedulist.DAL
 
             // Oblicza lość użytkowników w liście i na tej podstawie nowemu użytkownikowi przydziela wartosć 
             // Id o jeden większą lub 1 w przypadku pustej listy. 
-            int nextWorkmodeToUserId = ListOfWorkModes.Count > 0 ? ListOfWorkModes.Max(w => w.WorkModeToUserID) + 1 : 1;
+            int nextWorkmodeToUserId = (int)(ListOfWorkModes.Count > 0 ? ListOfWorkModes.Max(w => w.WorkModeToUserID) + 1 : 1);
 
             
             workModes.WorkModeToUserID = nextWorkmodeToUserId;
             try
             {
                 ListOfWorkModes.Add(workModes);
-                using (StreamWriter writer = new StreamWriter(FilePath))
-                using (var csv = new CsvWriter(writer, csvConfig))
-                {
-                    csv.WriteRecords(ListOfWorkModes);
-                    Console.Clear();
-                    Console.WriteLine($" The Workmode {workModes.WorkModeToUserID}  Has been added to the list succesfully");
-                }
+                using StreamWriter writer = new(FilePath);
+                using var csv = new CsvWriter(writer, csvConfig);
+                csv.WriteRecords(ListOfWorkModes);
+                Console.Clear();
+                Console.WriteLine($" The Workmode {workModes.WorkModeName}  Has been added to the list succesfully");
             }
             catch (Exception ex)
             {
@@ -74,7 +70,7 @@ namespace Schedulist.DAL
             ListOfWorkModes = GetAllWorkModes();
             try
             {
-                ListOfWorkModes.Take(CurrentUser.currentUser.Id);
+                ListOfWorkModes.Take((int)CurrentUser.currentUser.Id);
                 using (StreamReader reader = new StreamReader(FilePath));
                 //tu nie wiem, jak zrobic odczytanie przez currentusera aktualnej daty i ID usera
             }
