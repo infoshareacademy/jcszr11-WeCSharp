@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Channels;
 using System.Threading.Tasks;
 using CsvHelper.TypeConversion;
+using Schedulist.Business.Actions;
 
 namespace Schedulist.Business
 {
@@ -16,6 +17,8 @@ namespace Schedulist.Business
 
         private CsvCalendarEventRepository _csvCalendarEventRepository =
             new("..\\..\\..\\CalendarEvents.csv");
+
+        private MenuOptions menuOptions;
         DateOnly currentDate = DateOnly.FromDateTime(DateTime.Today);
         public void ShowCalendarEvent(User user, DateOnly date)
         {
@@ -104,7 +107,7 @@ namespace Schedulist.Business
             calendarEventEndTime = CalendarEventEndTimeValidation(calendarEventEndTime, calendarEventStartTime);
             CalendarEvent calendarEvent = new(calendarEventId, calendarEventName,
                 calendarEventDescription, calendarEventDate, calendarEventStartTime, calendarEventEndTime,
-                user.Id);
+                (int)user.Id);
             _csvCalendarEventRepository.AddCalendarEvent(calendarEvent);
             Console.WriteLine("\nType any key do return to Menu");
             Console.ReadKey();
@@ -129,7 +132,7 @@ namespace Schedulist.Business
             
             Console.WriteLine("Press any key to return to the menu.");
             Console.ReadKey();
-            MenuOptions.MenuCalendarEvents();
+            menuOptions.MenuCalendarEvents();
         }
         public void DeleteCalendarEventAdmin()
         {
@@ -147,7 +150,7 @@ namespace Schedulist.Business
 
             Console.WriteLine("Press any key to return to the menu.");
             Console.ReadKey();
-            MenuOptions.MenuAdminCalendarEvents();
+            menuOptions.MenuAdminCalendarEvents();
         }
         private void CurrentUserCalendarEventsSelection(User user)
         {

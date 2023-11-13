@@ -9,6 +9,7 @@ namespace Schedulist.Business
 {
     internal class ManageWorkMode
     {
+        private MenuOptions menuOptions;
         IWorkModesRepository _workModesRepository;
         private List<WorkModesToUser> _workModesToUser = 
             new CSVWorkModesRepository("..\\..\\..\\WorkModes.csv").GetAllWorkModes();
@@ -53,7 +54,7 @@ namespace Schedulist.Business
                 else if (option.Key == ConsoleKey.D3) CreateWorkMode(3);
                 else if (option.Key == ConsoleKey.D4) CreateWorkMode(4);
                 else if (option.Key == ConsoleKey.D5) CreateWorkMode(5);
-                else if (option.Key == ConsoleKey.Backspace) MenuOptions.MenuWorkModes();
+                else if (option.Key == ConsoleKey.Backspace) menuOptions.MenuWorkModes();
                 break;
             }
         }

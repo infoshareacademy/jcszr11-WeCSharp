@@ -9,7 +9,7 @@ namespace Schedulist.Business
 {
     public class MenuMain
     {
-        public static User Run()
+        public User Run()
         {
             while (true)
             {
@@ -34,13 +34,13 @@ namespace Schedulist.Business
                     CurrentUser.currentUser = null;
                     return null;
                 }
-                else if (option.Key == ConsoleKey.D1) MenuOptions.MenuCalendar();
-                else if (option.Key == ConsoleKey.D2) MenuOptions.MenuCalendarEvents();
-                else if (option.Key == ConsoleKey.D3) MenuOptions.MenuWorkModes();
+                else if (option.Key == ConsoleKey.D1) new MenuOptions().MenuCalendar();
+                else if (option.Key == ConsoleKey.D2) new MenuOptions().MenuCalendarEvents();
+                else if (option.Key == ConsoleKey.D3) new MenuOptions().MenuWorkModes();
                 else if (CurrentUser.currentUser.AdminPrivilege) // Admin options
                 {
-                    if (option.Key == ConsoleKey.D4) MenuOptions.MenuUsers();
-                    else if (option.Key == ConsoleKey.D5) MenuOptions.MenuAdminCalendarEvents();
+                    if (option.Key == ConsoleKey.D4) new MenuOptions().MenuUsers();
+                    else if (option.Key == ConsoleKey.D5) new MenuOptions().MenuAdminCalendarEvents();
                 }
             }
         }

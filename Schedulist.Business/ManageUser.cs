@@ -13,12 +13,9 @@ using System.Threading.Tasks;
 
 namespace Schedulist.Business
 {
-    internal class ManageUser
+    public class ManageUser
     {
-        //public ManageUser(IUserRepository userRepository);
-        //{
-        //    _userRepository = userRepository;
-        //}
+        private MenuOptions menuOptions;
         internal void Create()
         {
             Console.Clear();
@@ -48,10 +45,10 @@ namespace Schedulist.Business
             new CsvUserRepository("..\\..\\..\\Users.csv").AddUser(user, null);
             Console.WriteLine("Type any key do return to MenuOptions");
             Console.ReadKey();
-            MenuOptions.MenuUsers();
+            menuOptions.MenuUsers();
         }
 
-        internal static void Modify()
+        public void Modify()
         {
             User userToModify = new AdminCommands().DisplayUsers("modify");
             System.ConsoleKeyInfo option;
@@ -101,20 +98,21 @@ namespace Schedulist.Business
                     break;
                 }
                 else if (option.Key == ConsoleKey.D7)
+                {
                     ModifyAsk(userToModify.AdminPrivilege.ToString(), "admin privilage", true, userToModify);
                     break;
                 }
                 else if (option.Key == ConsoleKey.Backspace) break;
             }
         }
-        internal static void ModifyAsk(string variableToModify, string variableName, bool variableToModify_bool, User userToModify)
+        internal void ModifyAsk(string variableToModify, string variableName, bool variableToModify_bool, User userToModify)
         {
             string userToModifyLogin = userToModify.Login;
             Console.Clear();
             if (variableToModify != null)
             {
                 Console.WriteLine($"Currnt {variableName.ToLower()} is {variableToModify} for {userToModify.Name} {userToModify.Surname}");
-                string modifiedVariable = Method.ConsolHelper($"Provide new {variableName.ToLower()}:");
+                string modifiedVariable = Helper.ConsolHelper($"Provide new {variableName.ToLower()}:");
                 if (userToModify.Name == variableToModify) userToModify.Name = modifiedVariable;
                 else if (userToModify.Surname == variableToModify) userToModify.Surname = modifiedVariable;
                 else if (userToModify.Position == variableToModify) userToModify.Position = modifiedVariable;
@@ -144,7 +142,7 @@ namespace Schedulist.Business
                 }
             }
         }
-        internal void Delete()
+        public void Delete()
         {
             {
                 while (true)
