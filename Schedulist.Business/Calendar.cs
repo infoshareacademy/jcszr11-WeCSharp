@@ -84,3 +84,4 @@ namespace Schedulist.DAL
         }
     }
 }
+//przy show my calendar żeby pokazywało unazwę użtrkownika
