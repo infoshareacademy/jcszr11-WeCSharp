@@ -38,7 +38,7 @@ namespace Schedulist.DAL
                 using var csv = new CsvWriter(writer, csvConfig);
                 csv.WriteRecords(calendarEvents);
                 Console.Clear();
-                Console.WriteLine($"The Calendar Event named: '{calendarEvent.CalendarEventName}' \nwith description: '{calendarEvent.CalendarEventDescription}' \non day {calendarEvent.CalendarEventDate} \nstarting at {calendarEvent.CalendarEventStartTime} \nending at {calendarEvent.CalendarEventEndTime} \nhas been added to the list successfully");
+                Console.WriteLine($"The Calendar Event name: '{calendarEvent.CalendarEventName}' \nwith description: '{calendarEvent.CalendarEventDescription}' \non day {calendarEvent.CalendarEventDate} \nstarting at {calendarEvent.CalendarEventStartTime} \nending at {calendarEvent.CalendarEventEndTime} \nhas been added to the list successfully");
             }
             catch (Exception ex)
             {

@@ -72,40 +72,40 @@ namespace Schedulist.Business
                 option = Console.ReadKey();
                 if (option.Key == ConsoleKey.D1)
                 {
-                    Modify_Ask(userToModify.Name, "Name", false, userToModify);
+                    ModifyAsk(userToModify.Name, "Name", false, userToModify);
                     break;
                 }
                 else if (option.Key == ConsoleKey.D2)
                 {
-                    Modify_Ask(userToModify.Surname, "Surname", false, userToModify);
+                    ModifyAsk(userToModify.Surname, "Surname", false, userToModify);
                     break;
                 }
                 else if (option.Key == ConsoleKey.D3)
                 {
-                    Modify_Ask(userToModify.Position, "Position", false, userToModify);
+                    ModifyAsk(userToModify.Position, "Position", false, userToModify);
                     break;
                 }
                 else if (option.Key == ConsoleKey.D4)
                 {
-                    Modify_Ask(userToModify.Department, "Department", false, userToModify);
+                    ModifyAsk(userToModify.Department, "Department", false, userToModify);
                     break;
                 }
                 else if (option.Key == ConsoleKey.D5)
                 {
-                    Modify_Ask(userToModify.Login, "Login", false, userToModify);
+                    ModifyAsk(userToModify.Login, "Login", false, userToModify);
                     break;
                 }
                 else if (option.Key == ConsoleKey.D6)
                 {
-                    Modify_Ask(userToModify.Password, "Password", false, userToModify);
+                    ModifyAsk(userToModify.Password, "Password", false, userToModify);
                     break;
                 }
                 else if (option.Key == ConsoleKey.D7)
-                    Modify_Ask(userToModify.AdminPrivilege.ToString(), "admin privilage", true, userToModify);
+                    ModifyAsk(userToModify.AdminPrivilege.ToString(), "admin privilage", true, userToModify);
                 else if (option.Key == ConsoleKey.Backspace) break;
             }
         }
-        internal static void Modify_Ask(string variableToModify, string variableName, bool variableToModify_bool, User userToModify)
+        internal static void ModifyAsk(string variableToModify, string variableName, bool variableToModify_bool, User userToModify)
         {
             string userToModifyLogin = userToModify.Login;
             Console.Clear();
