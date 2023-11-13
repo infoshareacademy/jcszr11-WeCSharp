@@ -30,7 +30,7 @@ namespace Schedulist.Business
                 if (option.Key == ConsoleKey.D1) new ManageCalendarEvent().CreateCalendarEvent(CurrentUser.currentUser);
                 else if (option.Key == ConsoleKey.D2) new ManageCalendarEvent().ShowUserCalendarEvent(CurrentUser.currentUser);
                 else if (option.Key == ConsoleKey.D3) Console.WriteLine("*****modify task*****");
-                else if (option.Key == ConsoleKey.D4) new ManageCalendarEvent().DeleteCalendarEvent(CurrentUser.currentUser);
+                else if (option.Key == ConsoleKey.D4) new ManageCalendarEvent().DeleteYourCalendarEvent(CurrentUser.currentUser);
                 else if (option.Key == ConsoleKey.Backspace) break;
             }
 
@@ -60,7 +60,7 @@ namespace Schedulist.Business
                     new ManageCalendarEvent().ShowUserCalendarEvent(actAsUser);
                 }
                 else if (option.Key == ConsoleKey.D3) Console.WriteLine("*****modify task*****");
-                else if (option.Key == ConsoleKey.D4) Console.WriteLine("*****delete task*****");
+                else if (option.Key == ConsoleKey.D4) new ManageCalendarEvent().DeleteCalendarEventAdmin();
                 else if (option.Key == ConsoleKey.Backspace) break;
             }
 

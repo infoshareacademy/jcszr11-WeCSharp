@@ -109,7 +109,7 @@ namespace Schedulist.Business
             Console.WriteLine("\nType any key do return to Menu");
             Console.ReadKey();
         }
-        public void DeleteCalendarEvent(User user)
+        public void DeleteYourCalendarEvent(User user)
         {
             Console.Clear();
 
@@ -171,7 +171,7 @@ namespace Schedulist.Business
             {
 
                 Console.WriteLine("\n Choose the ID from the list of Calendar Events above that you want to delete.");
-                if (int.TryParse(Console.ReadLine(), out int calendarEventId) && calendarEventId - 1 >= 1 && calendarEventId - 1 < _calendarEvents.Count)
+                if (int.TryParse(Console.ReadLine(), out int calendarEventId) && calendarEventId - 1 >= 0 && calendarEventId - 1 < _calendarEvents.Count)
                 {
                     _csvCalendarEventRepository.DeleteCalendarEventRepository(calendarEventId);
                     Console.WriteLine($"Calendar Event with ID: {calendarEventId} has been successfully deleted.");
@@ -185,7 +185,7 @@ namespace Schedulist.Business
             }
             Console.WriteLine("Press any key to return to the menu.");
             Console.ReadKey();
-            MenuOptions.MenuCalendarEvents();
+            MenuOptions.MenuAdminCalendarEvents();
         }
 
         private DateOnly CalendarEventDateMinMaxValidation(DateOnly calendarEventDate)
