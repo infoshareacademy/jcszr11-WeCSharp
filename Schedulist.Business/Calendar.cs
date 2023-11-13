@@ -31,9 +31,12 @@ namespace Schedulist.DAL
             int dayOfWeek = (int)firstDayOfMonth.DayOfWeek;
             int daysInMonth = DateTime.DaysInMonth(year, month);
             string monthName = firstDayOfMonth.ToString("MMMM");
-            Console.WriteLine($"{monthName} {year}");
+            Console.WriteLine($"\t{monthName} {year}");
+            Console.WriteLine(" ");
+            Console.WriteLine("========================================================");
             Console.WriteLine(" ");
             Console.WriteLine(" Sun  Mon Tue Wed Thu Fri Sat");
+            Console.WriteLine(" ");
             for (int i = 0; i < dayOfWeek; i++)
             {
                 Console.Write("    ");
