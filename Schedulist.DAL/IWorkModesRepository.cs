@@ -10,7 +10,8 @@ namespace Schedulist.DAL
     {
         List<WorkModesToUser> GetAllWorkModes();
         void AddWorkModes(WorkModesToUser workMode);
-        void ModifyWorkModes(WorkModesToUser workMode);
+        void ModifyWorkModes(int workModesID, WorkModesToUser workMode);
+        void DeleteWorkModes(int workModesID);
         WorkModesToUser GetWorkModeByUserAndDate(int idUser, DateOnly dateWorkMode);
         
     }
