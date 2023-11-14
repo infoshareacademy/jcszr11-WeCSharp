@@ -1,4 +1,5 @@
-﻿using System;
+﻿using CsvHelper.Configuration.Attributes;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,19 +9,25 @@ namespace Schedulist.DAL
 {
     public class WorkModesToUser
     {
-        public int WorkModeToUserID { get; set; }        
+        [Name("id")]
+        public int? WorkModeToUserID { get; set; }
+        [Name("idname")]
+        public int? WorkModeIDName { get; set; }
+        [Name("name")]
         public string WorkModeName { get; set; }
-        public int UserID { get; set; }
+        [Name("userid")]
+        public int? UserID { get; set; }
+        [Name("dow")]
         public DateOnly dateOfWorkmode { get; set; }
         
-        public WorkModesToUser(int id, string name, int userid, DateOnly dow)
+        public WorkModesToUser(int? id, int? idname, string name, int? userid, DateOnly dow)
         {
             WorkModeToUserID = id;            
             WorkModeName = name;
             UserID = userid;
             dateOfWorkmode = dow;
         }
-        public WorkModesToUser() 
+        public WorkModesToUser(int? id) 
         { 
         
         }

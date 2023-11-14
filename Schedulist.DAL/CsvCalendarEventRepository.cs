@@ -28,12 +28,9 @@ namespace Schedulist.DAL
         public void AddCalendarEvent(CalendarEvent calendarEvent)
         {
             var csvConfig = CsvConfiguration();
-            //List<CalendarEvent> calendarEvents = GetAllCalendarEvents();
             calendarEvents = GetAllCalendarEvents();
-
             int nextCalendarEventId = calendarEvents.Count > 0 ? calendarEvents.Max(u => u.CalendarEventId) + 1 : 1;
             calendarEvent.CalendarEventId = nextCalendarEventId;
-
             try
             {
                 calendarEvents.Add(calendarEvent);
@@ -41,13 +38,42 @@ namespace Schedulist.DAL
                 using var csv = new CsvWriter(writer, csvConfig);
                 csv.WriteRecords(calendarEvents);
                 Console.Clear();
-                Console.WriteLine($"The Calendar Event named: '{calendarEvent.CalendarEventName}' \nwith description: '{calendarEvent.CalendarEventDescription}' \non day {calendarEvent.CalendarEventDate} \nstarting at {calendarEvent.CalendarEventStartTime} \nending at {calendarEvent.CalendarEventEndTime} \nhas been added to the list successfully");
+                Console.WriteLine($"The Calendar Event name: '{calendarEvent.CalendarEventName}' \nwith description: '{calendarEvent.CalendarEventDescription}' \non day {calendarEvent.CalendarEventDate} \nstarting at {calendarEvent.CalendarEventStartTime} \nending at {calendarEvent.CalendarEventEndTime} \nhas been added to the list successfully");
             }
             catch (Exception ex)
             {
                 Console.WriteLine("An error occurred: " + ex.Message);
             }
         }
+        public void DeleteCalendarEvent(int calendarEventId)
+        {
+
+                calendarEvents = GetAllCalendarEvents(); 
+
+            var eventToDelete = calendarEvents.FirstOrDefault(e => e.CalendarEventId == calendarEventId);
+            if (eventToDelete != null)
+            {
+                calendarEvents.Remove(eventToDelete);
+
+                try
+                {
+                    using StreamWriter writer = new(_pathToCsvFile, append: false);
+                    var csvConfig = CsvConfiguration();
+                    using CsvWriter csv = new(writer, csvConfig);
+                    csv.WriteRecords(calendarEvents);
+                    Console.Clear();                   
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine("An error occurred: " + ex.Message);
+                    if (ex.InnerException != null)
+                    {
+                        Console.WriteLine("Inner Exception: " + ex.InnerException.Message);
+                    }
+                }
+            }
+        }
+
         private static CsvConfiguration CsvConfiguration()
         {
             var csvConfig = new CsvConfiguration(CultureInfo.InvariantCulture)

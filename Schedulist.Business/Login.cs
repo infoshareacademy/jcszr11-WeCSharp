@@ -21,7 +21,7 @@ namespace Schedulist.Business
             Console.Clear();
             while (true)
             {
-                string login = Method.ConsolHelper("Enter your login:");
+                string login = Helper.ConsolHelper("Enter your login:");
                 if (userRepository.GetAllUsers().Any(x => x.Login == login))
                 {
                     User currentUser = userRepository.GetAllUsers().First(x => x.Login == login); // Sprawdzenie czy w bazie jest użytkownik o podanym loginie
@@ -29,22 +29,22 @@ namespace Schedulist.Business
                     {
                         if (string.IsNullOrEmpty(currentUser.Password))    //Prosi o stworzenie hasła dla użytkownika jeżeli on takowego nie posiada
                         {
-                            Method.CreatePassword(currentUser);  //Metoda do tworzenia hasła
+                            Helper.CreatePassword(currentUser);  //Metoda do tworzenia hasła
                             if (!string.IsNullOrEmpty(currentUser.Password))
                             {
                                 CurrentUser.currentUser = currentUser;
-                                return null;    //Loguje użytkownika
+                                return currentUser;    //Loguje użytkownika
                             }
                             else break;
                         }
-                        string password = Method.ConsolHelper("Enter your password or type x to enter login again:");
+                        string password = Helper.ConsolHelper("Enter your password or type x to enter login again:");
                         if (password == "x") return null;
                         else
                         {
                             if (currentUser.Password == password)  //Sprawdza czy hasło jest poprawne
                             {
                                 CurrentUser.currentUser = currentUser;
-                                return null;    //Loguje użytkownika
+                                return currentUser;    //Loguje użytkownika
                             }
                             else Console.WriteLine("Wrong password, please try again");
                         }
