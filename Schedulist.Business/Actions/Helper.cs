@@ -2,7 +2,7 @@
 
 namespace Schedulist.Business.Actions
 {
-    internal class Method
+    internal class Helper
     {
         public static string ConsolHelper(string message)
         {
@@ -30,7 +30,7 @@ namespace Schedulist.Business.Actions
                     if (!string.IsNullOrEmpty(error)) Console.WriteLine(error);
                     Console.WriteLine("===== Create password =====");
                     Console.WriteLine("Password should contain between 5 - 15 letters, lowercase, uppercase and number");
-                    newPassword = Method.ConsolHelper("Provide new password or type x to leave");
+                    newPassword = Helper.ConsolHelper("Provide new password or type x to leave");
                     if (newPassword == "x") return null;
                     if (newPassword.Length >= 5)
                     {
@@ -65,6 +65,17 @@ namespace Schedulist.Business.Actions
                 }
                 else Console.WriteLine("Passwords do not match, enter your passwords again or type x to leave");
             }
+        }
+        public static bool IsCalendarEmpty(List<CalendarEvent> currentUserCalendarEvents)
+        {
+            if (currentUserCalendarEvents.Count == 0)
+            {
+                Console.WriteLine("No Calendar Events to delete.");
+                Console.WriteLine("Type any key to return to menu");
+                Console.ReadKey();
+                return true;
+            }
+            return false;
         }
     }
 }
