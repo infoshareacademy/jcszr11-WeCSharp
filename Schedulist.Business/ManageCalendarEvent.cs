@@ -112,6 +112,44 @@ namespace Schedulist.Business
             Console.ReadKey();
         }
 
+        public CalendarEvent GetCurrentCalendarEvent(User user)
+        {         
+            List<CalendarEvent> currentUserCalendarEvents = 
+            _calendarEvents.Where(c => c.AssignedToUser == user.Id).ToList();
+
+            while (true)
+            {
+                Console.Clear();
+                Console.WriteLine("====== List of Calendar Events ======");
+                Console.WriteLine("ID.  Name and surname");
+                foreach (var item in currentUserCalendarEvents)
+                {
+                    Console.WriteLine($"{item.CalendarEventId + 1} {item.CalendarEventName}");
+                }
+                Console.WriteLine("Choose the ID of Calendar Event you want to modify (or 0 to cancel):");
+                string input = Console.ReadLine();
+                if (int.TryParse(input, out int calendarEventId) && calendarEventId > 0 && calendarEventId <= currentUserCalendarEvents.Count)
+                {
+                    var selectedCalendarEvent = currentUserCalendarEvents[calendarEventId - 1];
+                    return selectedCalendarEvent;
+                }
+                else if (input.ToLower() == "0")
+                {
+                    Console.WriteLine("Operation canceled.");
+                    break;
+                }
+                else
+                {
+                    Console.WriteLine("Invalid choice");
+                    break;
+                }
+            }
+            Console.WriteLine("Press any key to return to the menu.");
+            Console.ReadKey();
+            MenuOptions.MenuCalendarEvents();
+            return null;
+        }
+
         #region CalendarEvent - Delete Section
         public void DeleteYourCalendarEvent(User user)
         {
@@ -335,5 +373,4 @@ namespace Schedulist.Business
         }
         #endregion
     }
-
 }
