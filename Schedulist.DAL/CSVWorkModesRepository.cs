@@ -36,7 +36,7 @@ namespace Schedulist.DAL
 
             // Oblicza lość użytkowników w liście i na tej podstawie nowemu użytkownikowi przydziela wartosć 
             // Id o jeden większą lub 1 w przypadku pustej listy. 
-            int nextWorkmodeToUserId = ListOfWorkModes.Count > 0 ? ListOfWorkModes.Max(w => w.WorkModeToUserID) + 1 : 1;
+            int nextWorkmodeToUserId = (int)(ListOfWorkModes.Count > 0 ? ListOfWorkModes.Max(w => w.WorkModeToUserID) + 1 : 1);
                         
             workModes.WorkModeToUserID = nextWorkmodeToUserId;
             try
