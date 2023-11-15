@@ -18,7 +18,7 @@ namespace Schedulist.DAL
             new CsvCalendarEventRepository("..\\..\\..\\CalendarEvents.csv").GetAllCalendarEvents();
         private CsvCalendarEventRepository _csvCalendarEventRepository =
             new("..\\..\\..\\CalendarEvents.csv");
-        private ManageCalendarEvent manageCalendarEvent;
+        //private ManageCalendarEvent manageCalendarEvent;
         private List<WorkModesToUser> _workModesToUser =
             new CSVWorkModesRepository("..\\..\\..\\WorkModes.csv").GetAllWorkModes();
         private CSVWorkModesRepository _csvWorkModesRepository =
@@ -54,10 +54,18 @@ namespace Schedulist.DAL
             DateOnly.TryParse(inputDate, out DateOnly selectedDate);
 
             Console.Clear();
+            Console.WriteLine($"Chosen date: {selectedDate}");
             var workModes = _csvWorkModesRepository.GetAllWorkModes();
             var userWorkModes = workModes
                 .FirstOrDefault(c => c.UserID == CurrentUser.currentUser.Id && c.dateOfWorkmode == selectedDate);
-            Console.WriteLine($"Your workmode for date {selectedDate} is {userWorkModes.WorkModeName}");
+            if (userWorkModes == null)
+            {
+                Console.WriteLine("\nThere is no Work Mode existing for chosen date!");
+            }
+            else
+            {
+                Console.WriteLine($"Your workmode is {userWorkModes.WorkModeName}");
+            }
             var calendarEvents = _csvCalendarEventRepository.GetAllCalendarEvents();
             var userCalendarEvents = calendarEvents
                 .Where(c => c.AssignedToUser == CurrentUser.currentUser.Id && c.CalendarEventDate == selectedDate)
@@ -69,7 +77,7 @@ namespace Schedulist.DAL
             }
             else
             {
-                Console.WriteLine($"\nCalendar Events on {selectedDate}:");
+                Console.WriteLine($"\nCalendar Events:");
                 Console.WriteLine($"\n========================================================");
                 Console.WriteLine($"\nStart - End time  \t Calendar Event Name");
                 Console.WriteLine(" ");

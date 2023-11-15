@@ -132,7 +132,6 @@ namespace Schedulist.Business
             
             Console.WriteLine("Press any key to return to the menu.");
             Console.ReadKey();
-            menuOptions.MenuCalendarEvents();
         }
         public void DeleteCalendarEventAdmin()
         {
@@ -150,7 +149,6 @@ namespace Schedulist.Business
 
             Console.WriteLine("Press any key to return to the menu.");
             Console.ReadKey();
-            menuOptions.MenuAdminCalendarEvents();
         }
         private void CurrentUserCalendarEventsSelection(User user)
         {
@@ -239,14 +237,13 @@ namespace Schedulist.Business
                     $"There is already at least one Calendar Event created for date {calendarEventDate}. Do you want to display it? \nProvide y - to show and n - to proceed further");
                 while (true)
                 {
-                    var keyInfo = Console.ReadKey(intercept: true);
-                    char userAnswer = keyInfo.KeyChar;
-                    if (userAnswer == 'y' || userAnswer == 'Y')
+                    var userAnswer = Console.ReadKey(intercept: true);
+                    if (userAnswer.Key == ConsoleKey.Y)
                     {
                         ShowCalendarEvent(user, calendarEventDate);
                         break;
                     }
-                    else if (userAnswer == 'n' || userAnswer == 'N')
+                    else if (userAnswer.Key == ConsoleKey.N)
                     {
                         break;
                     }

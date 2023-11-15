@@ -46,7 +46,7 @@ namespace Schedulist.DAL
 
             // Oblicza loœæ u¿ytkowników w liœcie i na tej podstawie nowemu u¿ytkownikowi przydziela wartosæ 
             // Id o jeden wiêksz¹ lub 1 w przypadku pustej listy. 
-            if (ID == null) ID = listOfUsers.Count > 0 ? listOfUsers.Max(u => u.Id) + 1 : 1;
+            if (ID == null) user.Id = listOfUsers.Count > 0 ? listOfUsers.Max(u => u.Id) + 1 : 1;
                 
             try
             {

@@ -45,7 +45,6 @@ namespace Schedulist.Business
             new CsvUserRepository("..\\..\\..\\Users.csv").AddUser(user, null);
             Console.WriteLine("Type any key do return to MenuOptions");
             Console.ReadKey();
-            menuOptions.MenuUsers();
         }
 
         public void Modify()

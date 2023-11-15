@@ -90,7 +90,9 @@ namespace Schedulist.Business
             WorkModesToUser workModesToUser = new WorkModesToUser(id: workModeToUserID, name: workModeName, userid: (int)CurrentUser.currentUser.Id , dow: dateOfWorkMode);
             _csvWorkModesRepository.AddWorkModes(workModesToUser);
             Console.Clear();
-            menuOptions.MenuWorkModes();
+            Console.WriteLine($"Work mode for {dateOfWorkMode} is created successfully");
+            Console.WriteLine("\nType any key to continue");
+            Console.ReadKey();
         }
 
         public void ChangeOptionWorkMode()
@@ -103,7 +105,7 @@ namespace Schedulist.Business
             WorkModesToUser workModeToChange = _csvWorkModesRepository.GetWorkModeByUserAndDate((int)userID, dateOfWorkMode);
             //Console.WriteLine(workModeToChange);
             Console.Clear();
-            Console.WriteLine("Datas about work mode, you want to change:");
+            Console.WriteLine("Data about work mode, you want to change:");
             Console.WriteLine($"ID work mode:   {workModeToChange.WorkModeToUserID}");
             Console.WriteLine($"Work mode name:  {workModeToChange.WorkModeName}");
             Console.WriteLine($"Your users ID:  {workModeToChange.UserID}");
@@ -132,7 +134,11 @@ namespace Schedulist.Business
                         
             WorkModesToUser workModeModified = new WorkModesToUser(workModeToUserID, workModeName, (int)userID,dateOfWorkMode);
             _csvWorkModesRepository.ModifyWorkModes(workModeToUserID,workModeModified);
-            menuOptions.MenuWorkModes();
+            Console.Clear();
+            Console.WriteLine("Work Mode has been modified successfully");
+            Console.WriteLine("\nType any key to continue");
+            Console.ReadKey();
+            
         }
 
         public void RemoveWorkMode()
@@ -143,12 +149,26 @@ namespace Schedulist.Business
             var dateOfWorkMode = DateOnly.Parse(Console.ReadLine());
             workModeToUserID = _csvWorkModesRepository.ListOfWorkModes.IndexOf(_csvWorkModesRepository.ListOfWorkModes.First(u => u.dateOfWorkmode == dateOfWorkMode && u.UserID == userID));
             WorkModesToUser workModeToDelete = _csvWorkModesRepository.GetWorkModeByUserAndDate(userID, dateOfWorkMode);
-            Console.WriteLine("Are you sure to remove this work mode?");
+            Console.WriteLine("Are you sure to remove this work mode? Type y - to remove or n - to cancel");
 
-            _csvWorkModesRepository.DeleteWorkModes(workModeToUserID);
-            
+            while (true)
+            {
+                var userAnswer = Console.ReadKey(intercept: true);
+                if (userAnswer.Key == ConsoleKey.Y)
+                {
+                    _csvWorkModesRepository.DeleteWorkModes(workModeToUserID);
+                    break;
+                }
+                else if (userAnswer.Key == ConsoleKey.N)
+                {
+                    break;
+                }
+                else Console.WriteLine("Invalid value, please provide again");
+            }
+
             Console.Clear();
-            menuOptions.MenuWorkModes();
+            Console.WriteLine("Type any key to continue");
+            Console.ReadKey();
         }
 
 
