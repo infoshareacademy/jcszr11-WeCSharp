@@ -1,4 +1,4 @@
-﻿using CsvHelper.Configuration;
+using CsvHelper.Configuration;
 using CsvHelper;
 using Microsoft.VisualBasic.FileIO;
 using Schedulist.Business.Actions;

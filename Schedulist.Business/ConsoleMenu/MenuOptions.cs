@@ -83,8 +83,8 @@ namespace Schedulist.Business
             {
                 var option = Console.ReadKey();
                 if (option.Key == ConsoleKey.D1) new ManageWorkMode().ChooseOptionsWorkMode();
-                else if (option.Key == ConsoleKey.D2) Console.WriteLine("*****modify work mode*****");
-                else if (option.Key == ConsoleKey.D3) Console.WriteLine("*****delete work mode*****");
+                else if (option.Key == ConsoleKey.D2) new ManageWorkMode().ChangeOptionWorkMode();
+                else if (option.Key == ConsoleKey.D3) new ManageWorkMode().RemoveWorkMode();
                 else if (option.Key == ConsoleKey.D4) new ManageWorkMode().ShowAllWorkModes();
                 else if (option.Key == ConsoleKey.Backspace) new MenuMain().Run();
                 break;

@@ -1,4 +1,4 @@
-ï»¿using CsvHelper;
+using CsvHelper;
 using CsvHelper.Configuration;
 using System;
 using System.Collections.Generic;
@@ -44,8 +44,8 @@ namespace Schedulist.DAL
             };
             listOfUsers = GetAllUsers();
 
-            // Oblicza loÅ›Ä‡ uÅ¼ytkownikÃ³w w liÅ›cie i na tej podstawie nowemu uÅ¼ytkownikowi przydziela wartosÄ‡ 
-            // Id o jeden wiÄ™kszÄ… lub 1 w przypadku pustej listy. 
+            // Oblicza loœæ u¿ytkowników w liœcie i na tej podstawie nowemu u¿ytkownikowi przydziela wartosæ 
+            // Id o jeden wiêksz¹ lub 1 w przypadku pustej listy. 
             if (ID == null) ID = listOfUsers.Count > 0 ? listOfUsers.Max(u => u.Id) + 1 : 1;
                 
             try

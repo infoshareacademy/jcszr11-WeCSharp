@@ -22,8 +22,7 @@ namespace Schedulist.DAL
         
         public WorkModesToUser(int? id, int? idname, string name, int? userid, DateOnly dow)
         {
-            WorkModeToUserID = id;
-            WorkModeIDName = idname;
+            WorkModeToUserID = id;            
             WorkModeName = name;
             UserID = userid;
             dateOfWorkmode = dow;
