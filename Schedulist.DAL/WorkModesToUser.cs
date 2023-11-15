@@ -11,8 +11,6 @@ namespace Schedulist.DAL
     {
         [Name("id")]
         public int WorkModeToUserID { get; set; }
-        [Name("idname")]
-        public int WorkModeIDName { get; set; }
         [Name("name")]
         public string WorkModeName { get; set; }
         [Name("userid")]

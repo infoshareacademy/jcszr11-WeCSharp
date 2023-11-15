@@ -43,8 +43,6 @@ namespace Schedulist.Business
             Console.WriteLine("Press any key to back the previous page - Menu Work Mode");
             Console.ReadKey();         
             Console.Clear();
-            menuOptions.MenuWorkModes();    
-                        
         }        
 
         public void ChooseOptionsWorkMode()
@@ -66,7 +64,7 @@ namespace Schedulist.Business
                 else if (option.Key == ConsoleKey.D3) AssignWorkMode(3);
                 else if (option.Key == ConsoleKey.D4) AssignWorkMode(4);
                 else if (option.Key == ConsoleKey.D5) AssignWorkMode(5);
-                else if (option.Key == ConsoleKey.Backspace) menuOptions.MenuWorkModes();
+                else if (option.Key == ConsoleKey.Backspace) break;
                 break;
             }
         }
@@ -130,7 +128,7 @@ namespace Schedulist.Business
                 workModeName = "Holiday leave";
             else if (option.Key == ConsoleKey.D5)
                 workModeName = "Another work mode";
-            else if (option.Key == ConsoleKey.Backspace) menuOptions.MenuWorkModes();
+            else if (option.Key == ConsoleKey.Backspace) MenuOptions.MenuWorkModes();
                         
             WorkModesToUser workModeModified = new WorkModesToUser(workModeToUserID, workModeName, (int)userID,dateOfWorkMode);
             _csvWorkModesRepository.ModifyWorkModes(workModeToUserID,workModeModified);

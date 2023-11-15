@@ -22,12 +22,10 @@ namespace Schedulist.DAL
         public List<WorkModesToUser> GetAllWorkModes()
         {
             var csvConfig = CsvConfiguration();
-            using (var reader = new StreamReader(FilePath))
-            using (var csv = new CsvReader(reader, csvConfig))
-            {
-                ListOfWorkModes = csv.GetRecords<WorkModesToUser>().ToList();
-                return ListOfWorkModes;
-            }
+            using var reader = new StreamReader(FilePath);
+            using var csv = new CsvReader(reader, csvConfig);
+            ListOfWorkModes = csv.GetRecords<WorkModesToUser>().ToList();
+            return ListOfWorkModes;
         }
         public void AddWorkModes(WorkModesToUser workModes)
         {
@@ -42,16 +40,13 @@ namespace Schedulist.DAL
             try
             {
                 ListOfWorkModes.Add(workModes);
-                using (StreamWriter writer = new StreamWriter(FilePath))
-                using (var csv = new CsvWriter(writer, csvConfig))
-                {
-                    csv.WriteHeader<WorkModesToUser>();
-                    csv.NextRecord();
-                    csv.WriteRecords(ListOfWorkModes);
-                    //Console.Clear();
-                    Console.WriteLine($" The Workmode {workModes.WorkModeName} has been added to the list succesfully at the day {workModes.dateOfWorkmode}");
-                    
-                }
+                using StreamWriter writer = new(FilePath);
+                using var csv = new CsvWriter(writer, csvConfig);
+                csv.WriteHeader<WorkModesToUser>();
+                csv.NextRecord();
+                csv.WriteRecords(ListOfWorkModes);
+                //Console.Clear();
+                Console.WriteLine($" The Workmode {workModes.WorkModeName} has been added to the list succesfully at the day {workModes.dateOfWorkmode}");
             }
             catch (Exception ex)
             {
@@ -66,7 +61,7 @@ namespace Schedulist.DAL
             
             if(ListOfWorkModes.Any(w=>w.WorkModeToUserID==workModeToUserID)) 
             { 
-                using StreamWriter writer = new StreamWriter(FilePath);
+                using StreamWriter writer = new(FilePath);
                 using var csv = new CsvWriter(writer, csvConfig);
                 WorkModesToUser workMode = ListOfWorkModes.FirstOrDefault(w=>w.WorkModeToUserID==workModeToUserID);
                 ListOfWorkModes.Remove(workMode);
@@ -86,7 +81,7 @@ namespace Schedulist.DAL
                 ListOfWorkModes.Remove(removeWorkMode);
                 try
                 {
-                    using StreamWriter writer = new StreamWriter(FilePath, append: false);
+                    using StreamWriter writer = new(FilePath, append: false);
                     
                     using CsvWriter csv = new(writer, csvConfig);
                     csv.WriteRecords(ListOfWorkModes);

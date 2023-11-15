@@ -69,7 +69,7 @@ namespace Schedulist.Business
             User actAsUser = adminCommands.DisplayUsers("display");
             return actAsUser;
         }
-        public void MenuWorkModes()
+        public static void MenuWorkModes()
         {
             Console.Clear();
             Console.WriteLine("Choose the option:");
@@ -86,11 +86,11 @@ namespace Schedulist.Business
                 else if (option.Key == ConsoleKey.D2) new ManageWorkMode().ChangeOptionWorkMode();
                 else if (option.Key == ConsoleKey.D3) new ManageWorkMode().RemoveWorkMode();
                 else if (option.Key == ConsoleKey.D4) new ManageWorkMode().ShowAllWorkModes();
-                else if (option.Key == ConsoleKey.Backspace) new MenuMain().Run();
+                else if (option.Key == ConsoleKey.Backspace) break;
                 break;
             }
         }
-        public void MenuUsers()
+        public static void MenuUsers()
         {
             while (true)
             {
@@ -109,7 +109,7 @@ namespace Schedulist.Business
             }
         }
 
-        public void MenuCalendar()
+        public static void MenuCalendar()
         {
             Console.Clear();
             DateTime currentDate = DateTime.Today;

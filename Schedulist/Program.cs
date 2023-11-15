@@ -12,7 +12,7 @@ namespace Schedulist
             while (true)
             {
                 User currentUser = new Login(new CsvUserRepository("..\\..\\..\\Users.csv")).Run();    //Metoda do logowania użytkownika
-                if (CurrentUser.currentUser != null) new MenuMain().Run();
+                if (CurrentUser.currentUser != null) MenuMain.Run();
             }
         }
     }
