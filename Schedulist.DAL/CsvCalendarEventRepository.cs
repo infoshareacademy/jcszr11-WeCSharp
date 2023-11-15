@@ -47,7 +47,6 @@ namespace Schedulist.DAL
         }
         public void DeleteCalendarEvent(int calendarEventId)
         {
-
                 calendarEvents = GetAllCalendarEvents(); 
 
             var eventToDelete = calendarEvents.FirstOrDefault(e => e.CalendarEventId == calendarEventId);
@@ -72,6 +71,14 @@ namespace Schedulist.DAL
                     }
                 }
             }
+        }
+        private void ModifyCalendarEvent(CalendarEvent calendarEventToModify)
+        {
+            if (calendarEventToModify != null)
+            {
+
+            }
+
         }
 
         private static CsvConfiguration CsvConfiguration()
