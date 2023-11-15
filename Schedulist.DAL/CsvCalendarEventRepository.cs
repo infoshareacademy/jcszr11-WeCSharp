@@ -6,6 +6,7 @@ using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Runtime.CompilerServices;
 
 namespace Schedulist.DAL
 {
@@ -72,13 +73,28 @@ namespace Schedulist.DAL
                 }
             }
         }
-        private void ModifyCalendarEvent(CalendarEvent calendarEventToModify)
+        public void ModifyCalendarEvent(CalendarEvent calendarEventToModify)
         {
-            if (calendarEventToModify != null)
-            {
+            var csvConfig = CsvConfiguration();
+            var calendarEventsList = GetAllCalendarEvents();
 
-            }
+            int indexToUpade = calendarEventToModify.CalendarEventId;
+            calendarEventsList[indexToUpade-1] = calendarEventToModify;
 
+                try
+                {
+                    using StreamWriter writer = new(_pathToCsvFile, append: false);
+                    using var csv = new CsvWriter(writer, csvConfig);
+                    csv.WriteRecords(calendarEventsList);
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine("An error occurred while writing to the CSV file: " + ex.Message);
+                    if (ex.InnerException != null)
+                    {
+                        Console.WriteLine("Inner Exception: " + ex.InnerException.Message);
+                    }
+                }
         }
 
         private static CsvConfiguration CsvConfiguration()

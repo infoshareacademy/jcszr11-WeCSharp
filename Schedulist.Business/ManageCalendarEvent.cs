@@ -124,13 +124,13 @@ namespace Schedulist.Business
                 Console.WriteLine("ID.  Name and surname");
                 foreach (var item in currentUserCalendarEvents)
                 {
-                    Console.WriteLine($"{item.CalendarEventId + 1} {item.CalendarEventName}");
+                    Console.WriteLine($"{item.CalendarEventId + 1} \t {item.CalendarEventName}");
                 }
                 Console.WriteLine("Choose the ID of Calendar Event you want to modify (or 0 to cancel):");
                 string input = Console.ReadLine();
-                if (int.TryParse(input, out int calendarEventId) && calendarEventId > 0 && calendarEventId <= currentUserCalendarEvents.Count)
+                if (int.TryParse(input, out int calendarEventId) && calendarEventId > 0 && calendarEventId <= _calendarEvents.Count)
                 {
-                    var calendarEventToModify = currentUserCalendarEvents[calendarEventId - 1];
+                    var calendarEventToModify = currentUserCalendarEvents.First(c => c.CalendarEventId == (calendarEventId - 1));
                     return calendarEventToModify;
                 }
                 else if (input.ToLower() == "0")
@@ -150,12 +150,12 @@ namespace Schedulist.Business
             return null;
         }
 
-        public void ModifyCalendarEvent(User user)
+        public void ModifyCurrentCalendarEvent(User user)
         {
             CalendarEvent calendarEventToModify = GetCurrentCalendarEvent(user);
             Console.Clear();
             Console.WriteLine("====== Modify Calendar Event ======");
-            Console.WriteLine("Choose variable of Calendar Event that you want to modify:");
+            Console.WriteLine("Choose variable ID of Calendar Event that you want to modify:");
             Console.WriteLine($"1. Name:            {calendarEventToModify.CalendarEventName}");
             Console.WriteLine($"2. Description:     {calendarEventToModify.CalendarEventDescription}");
             Console.WriteLine($"3. Date:            {calendarEventToModify.CalendarEventDate}");
@@ -165,63 +165,83 @@ namespace Schedulist.Business
             Console.WriteLine("===============================================================================");
 
             ConsoleKeyInfo option = Console.ReadKey();
-            string modifiedVariable;
+            string? modifiedVariable;
             try
             {
                 switch (option.Key)
                 {
                     case ConsoleKey.D1:
-                        Console.WriteLine($"Current Name is {calendarEventToModify.CalendarEventName}");
+                        Console.Clear();
+                        Console.WriteLine($"Current Name is: {calendarEventToModify.CalendarEventName}");
                         Console.WriteLine("Provide new Name:");
-                        modifiedVariable = Console.ReadLine() ?? throw new ArgumentException("Value was not typed."); 
+                        string? input1 = Console.ReadLine();
+                        modifiedVariable = string.IsNullOrWhiteSpace(input1) ? throw new ArgumentException("Value was not typed.") : input1;
                         calendarEventToModify.CalendarEventName = modifiedVariable;
                         break;
                     case ConsoleKey.D2:
-                        Console.WriteLine($"Current Name is {calendarEventToModify.CalendarEventDescription}");
+                        Console.Clear();
+                        Console.WriteLine($"Current Name is: {calendarEventToModify.CalendarEventDescription}");
                         Console.WriteLine("Provide new Description:");
-                        modifiedVariable = Console.ReadLine() ?? throw new ArgumentException("Value was not typed.");
+                        string? input2 = Console.ReadLine();
+                        modifiedVariable = string.IsNullOrWhiteSpace(input2) ? throw new ArgumentException("Value was not typed.") : input2;
                         calendarEventToModify.CalendarEventDescription = modifiedVariable;
                         break;
                     case ConsoleKey.D3:
-                        Console.WriteLine($"Current Name is {calendarEventToModify.CalendarEventDate}");
-                        Console.WriteLine("Provide new Date:");
-                        modifiedVariable = Console.ReadLine() ?? throw new ArgumentException("Value was not typed.");
-                        if(DateOnly.TryParse(modifiedVariable, out DateOnly newDate))
-                        calendarEventToModify.CalendarEventDate = newDate;
+                        Console.Clear();
+                        Console.WriteLine($"Current Name is: {calendarEventToModify.CalendarEventDate}");
+                        Console.WriteLine("Provide new Date (DD-MM-YYYY):");
+                        string? input3 = Console.ReadLine();
+                        modifiedVariable = string.IsNullOrWhiteSpace(input3) ? throw new ArgumentException("Value was not typed.") : input3;
+                        if (DateOnly.TryParse(modifiedVariable, out DateOnly newDate))
+                            calendarEventToModify.CalendarEventDate = newDate;
                         else
                             Console.WriteLine("Invalid format. Please enter a valid date.");
-                            break;                     
+                        break;
                     case ConsoleKey.D4:
-                        Console.WriteLine($"Current Name is {calendarEventToModify.CalendarEventStartTime}");
-                        Console.WriteLine("Provide new Start Time:");
-                        modifiedVariable = Console.ReadLine() ?? throw new ArgumentException("Value was not typed.");
-                        if(TimeOnly.TryParse(modifiedVariable, out TimeOnly newStartTime))                        
-                        calendarEventToModify.CalendarEventStartTime = newStartTime;
+                        Console.Clear();
+                        Console.WriteLine($"Current Name is: {calendarEventToModify.CalendarEventStartTime}");
+                        Console.WriteLine("Provide new Start Time (HH:mm):");
+                        string? input4 = Console.ReadLine();
+                        modifiedVariable = string.IsNullOrWhiteSpace(input4) ? throw new ArgumentException("Value was not typed.") : input4;
+                        if (TimeOnly.TryParse(modifiedVariable, out TimeOnly newStartTime))
+                            calendarEventToModify.CalendarEventStartTime = newStartTime;
                         else
                             Console.WriteLine("Invalid format. Please enter a valid date.");
                         break;
                     case ConsoleKey.D5:
-                        Console.WriteLine($"Current Name is {calendarEventToModify.CalendarEventEndTime}");
-                        Console.WriteLine("Provide new End Time:");
-                        modifiedVariable = Console.ReadLine() ?? throw new ArgumentException("Value was not typed.");
-                        if(TimeOnly.TryParse(modifiedVariable, out TimeOnly NewEndTime))                       
-                        calendarEventToModify.CalendarEventStartTime = NewEndTime;
+                        Console.Clear();
+                        Console.WriteLine($"Current Name is: {calendarEventToModify.CalendarEventEndTime}");
+                        Console.WriteLine("Provide new End Time (HH:mm):");
+                        string? input5 = Console.ReadLine();
+                        modifiedVariable = string.IsNullOrWhiteSpace(input5) ? throw new ArgumentException("Value was not typed.") : input5;
+                        if (TimeOnly.TryParse(modifiedVariable, out TimeOnly NewEndTime))
+                            calendarEventToModify.CalendarEventEndTime = NewEndTime;
                         break;
                     case ConsoleKey.Backspace:
+                        MenuOptions.MenuCalendarEvents();
                         break;
                     default:
                         Console.WriteLine("Invalid input. Please choose a valid option.");
+                        Console.WriteLine("Press any key to return to the menu.");
+                        Console.ReadKey();
+                        MenuOptions.MenuCalendarEvents();
                         break;
                 }
-                new CsvCalendarEventRepository("..\\..\\..\\CalendarEvents.csv")
-                    
-                    return;
+                Console.Clear();
+                new CsvCalendarEventRepository("..\\..\\..\\CalendarEvents.csv").ModifyCalendarEvent(calendarEventToModify);
+                Console.WriteLine($"CalendarEvent with ID:{calendarEventToModify.CalendarEventId + 1} has been succesfully modified");
+                Console.WriteLine("Type any key to return to MenuOptions");
+                Console.ReadKey();
             }
-            catch (ArgumentException)
+            catch (Exception ex)
             {
-                Console.WriteLine("Invalid option. Please choose a valid option.");
-                continue;
+                Console.WriteLine("An error occurred while writing to the CSV file: " + ex.Message);
+                if (ex.InnerException != null)
+                {
+                    Console.WriteLine("Inner Exception: " + ex.InnerException.Message);
+                }
             }
+
         }
 
 
