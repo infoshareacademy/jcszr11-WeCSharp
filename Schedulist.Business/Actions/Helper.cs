@@ -9,13 +9,21 @@ using System.Threading.Tasks;
 
 namespace Schedulist.Business.Actions
 {
-    internal class Helper
+    public class Helper
     {
         public static string ConsolHelper(string message)
         {
-            Console.WriteLine(message);
-            string userInput = Console.ReadLine();
-            return userInput;
+            while (true)
+            {
+                Console.WriteLine(message);
+                string userInput = Console.ReadLine();
+                if (!string.IsNullOrWhiteSpace(userInput)) return userInput;
+                else
+                {
+                    Console.WriteLine("Invalid input");
+                    continue;
+                }
+            }
         }
         public static User CreatePassword(User user)
         {
