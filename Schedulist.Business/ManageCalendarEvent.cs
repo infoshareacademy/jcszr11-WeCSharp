@@ -17,8 +17,6 @@ namespace Schedulist.Business
 
         private CsvCalendarEventRepository _csvCalendarEventRepository =
             new("..\\..\\..\\CalendarEvents.csv");
-
-        private MenuOptions menuOptions;
         DateOnly currentDate = DateOnly.FromDateTime(DateTime.Today);
         public void ShowCalendarEvent(User user, DateOnly date)
         {

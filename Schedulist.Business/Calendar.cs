@@ -14,20 +14,15 @@ namespace Schedulist.DAL
 
     public class Calendar
     {
-        private List<CalendarEvent> _calendarEvents =
-            new CsvCalendarEventRepository("..\\..\\..\\CalendarEvents.csv").GetAllCalendarEvents();
         private CsvCalendarEventRepository _csvCalendarEventRepository =
             new("..\\..\\..\\CalendarEvents.csv");
-        //private ManageCalendarEvent manageCalendarEvent;
-        private List<WorkModesToUser> _workModesToUser =
-            new CSVWorkModesRepository("..\\..\\..\\WorkModes.csv").GetAllWorkModes();
         private CSVWorkModesRepository _csvWorkModesRepository =
-            new CSVWorkModesRepository("..\\..\\..\\WorkModes.csv");
+            new("..\\..\\..\\WorkModes.csv");
         
         public void ShowCalendar(int year, int month)
         {
             Console.Clear();
-            DateTime firstDayOfMonth = new DateTime(year, month, 1);
+            DateTime firstDayOfMonth = new(year, month, 1);
             int dayOfWeek = (int)firstDayOfMonth.DayOfWeek;
             int daysInMonth = DateTime.DaysInMonth(year, month);
             string monthName = firstDayOfMonth.ToString("MMMM");
@@ -57,7 +52,7 @@ namespace Schedulist.DAL
             Console.WriteLine($"Chosen date: {selectedDate}");
             var workModes = _csvWorkModesRepository.GetAllWorkModes();
             var userWorkModes = workModes
-                .FirstOrDefault(c => c.UserID == CurrentUser.currentUser.Id && c.dateOfWorkmode == selectedDate);
+                .FirstOrDefault(c => c.UserID == CurrentUser.currentUser.Id && c.DateOfWorkmode == selectedDate);
             if (userWorkModes == null)
             {
                 Console.WriteLine("\nThere is no Work Mode existing for chosen date!");

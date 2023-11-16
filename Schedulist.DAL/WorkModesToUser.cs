@@ -16,18 +16,14 @@ namespace Schedulist.DAL
         [Name("userid")]
         public int UserID { get; set; }
         [Name("dow")]
-        public DateOnly dateOfWorkmode { get; set; }
+        public DateOnly DateOfWorkmode { get; set; }
         
         public WorkModesToUser(int id, string name, int userid, DateOnly dow)
         {
             WorkModeToUserID = id;            
             WorkModeName = name;
             UserID = userid;
-            dateOfWorkmode = dow;
-        }
-        public WorkModesToUser(int id) 
-        { 
-        
+            DateOfWorkmode = dow;
         }
     }
 }

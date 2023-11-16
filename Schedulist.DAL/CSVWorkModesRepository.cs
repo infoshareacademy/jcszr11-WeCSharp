@@ -46,7 +46,7 @@ namespace Schedulist.DAL
                 csv.NextRecord();
                 csv.WriteRecords(ListOfWorkModes);
                 //Console.Clear();
-                Console.WriteLine($" The Workmode {workModes.WorkModeName} has been added to the list succesfully at the day {workModes.dateOfWorkmode}");
+                Console.WriteLine($" The Workmode {workModes.WorkModeName} has been added to the list succesfully at the day {workModes.DateOfWorkmode}");
             }
             catch (Exception ex)
             {
@@ -103,7 +103,7 @@ namespace Schedulist.DAL
         
         public WorkModesToUser GetWorkModeByUserAndDate (int idUser, DateOnly dateWorkMode)
         {
-            var workModesReturn = ListOfWorkModes.First(u=>u.UserID==idUser && u.dateOfWorkmode==dateWorkMode);
+            var workModesReturn = ListOfWorkModes.First(u=>u.UserID==idUser && u.DateOfWorkmode==dateWorkMode);
             return workModesReturn;
         }
         private static CsvConfiguration CsvConfiguration()
