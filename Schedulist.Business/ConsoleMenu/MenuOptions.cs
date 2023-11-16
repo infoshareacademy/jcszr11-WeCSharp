@@ -28,7 +28,7 @@ namespace Schedulist.Business
                 if (option.Key == ConsoleKey.D1) new ManageCalendarEvent().CreateCalendarEvent(CurrentUser.currentUser);
                 else if (option.Key == ConsoleKey.D2) new ManageCalendarEvent().ShowUserCalendarEvent(CurrentUser.currentUser);
                 else if (option.Key == ConsoleKey.D3) new ManageCalendarEvent().ModifyCurrentCalendarEvent(CurrentUser.currentUser);
-                else if (option.Key == ConsoleKey.D4) new ManageCalendarEvent().DeleteYourCalendarEvent(CurrentUser.currentUser);
+                else if (option.Key == ConsoleKey.D4) new ManageCalendarEvent().DeleteCurrentCalendarEvent(CurrentUser.currentUser);
                 else if (option.Key == ConsoleKey.Backspace) break;
             }
         }

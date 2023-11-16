@@ -240,7 +240,7 @@ namespace Schedulist.Business
         #endregion
 
         #region CalendarEvent - Delete Section
-        public void DeleteYourCalendarEvent(User user)
+        public void DeleteCurrentCalendarEvent(User user)
         {
             Console.Clear();
             List<CalendarEvent> currentUserCalendarEvents = _calendarEvents.Where(u => u.AssignedToUser == user.Id).ToList();
