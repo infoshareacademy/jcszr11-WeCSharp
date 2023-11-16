@@ -148,7 +148,6 @@ namespace Schedulist.Business
             }
             Console.WriteLine("Press any key to return to the menu.");
             Console.ReadKey();
-            MenuOptions.MenuCalendarEvents();
             return null;
         }
         public void ModifyCurrentCalendarEvent(User user)
@@ -215,13 +214,11 @@ namespace Schedulist.Business
                         }
                         break;
                     case ConsoleKey.Backspace:
-                        MenuOptions.MenuCalendarEvents();
                         break;
                     default:
                         Console.WriteLine("Invalid input. Please choose a valid option.");
                         Console.WriteLine("Press any key to return to the menu.");
                         Console.ReadKey();
-                        MenuOptions.MenuCalendarEvents();
                         break;
                 }
                 Console.Clear();
