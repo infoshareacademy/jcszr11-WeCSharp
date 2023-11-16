@@ -193,7 +193,10 @@ namespace Schedulist.Business
                         string? input3 = Console.ReadLine();
                         modifiedVariable = string.IsNullOrWhiteSpace(input3) ? throw new ArgumentException("Value was not typed.") : input3;
                         if (DateOnly.TryParse(modifiedVariable, out DateOnly newDate))
+                        {
+                            CalendarEventDateMinMaxValidation(newDate);
                             calendarEventToModify.CalendarEventDate = newDate;
+                        }                          
                         else
                             Console.WriteLine("Invalid format. Please enter a valid date.");
                         break;
