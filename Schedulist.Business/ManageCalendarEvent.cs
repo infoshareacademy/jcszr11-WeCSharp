@@ -2,6 +2,7 @@ using Schedulist.DAL;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Http.Headers;
 using System.Text;
 using System.Threading.Channels;
 using System.Threading.Tasks;
@@ -39,7 +40,7 @@ namespace Schedulist.Business
         {
             Console.Clear();
             Console.WriteLine("==========List of Calendar Events==========");
-            Console.WriteLine("Provide date for which you want to show Calendar Events using format DD/MM/YYYY");
+            Console.WriteLine("Provide date for which you want to show Calendar Events using format DD.MM.YYYY");
             string providedDate = Console.ReadLine();
             providedDate = DateValueEmptinessValidation(providedDate);
             DateOnly.TryParse(providedDate, out var specifiedDate);
@@ -84,9 +85,7 @@ namespace Schedulist.Business
                                      c.CalendarEventDate == calendarEventDate);
             CalendarEventAvailabilityCheck(user, calendarEventAvailable, calendarEventDate);
             Console.WriteLine("Start time of Calendar Event using format HH:MM");
-            string startTime = Console.ReadLine();
-            startTime = StartTimeEmptinessValidation(startTime);
-            TimeOnly.TryParse(startTime, out var calendarEventStartTime);
+            var calendarEventStartTime = CalendarEventStartTimeParseValidation();
             var validatedStartTime = calendarEvents
                 .FirstOrDefault(c => c.AssignedToUser == user.Id &&
                                      c.CalendarEventDate == calendarEventDate &&
@@ -299,7 +298,7 @@ namespace Schedulist.Business
             while (calendarEventEndTime.CompareTo(calendarEventStartTime) <= 0)
             {
                 Console.WriteLine(
-                    "Calendar Event End Time cannot be earlier or at the same time as Start Time, adjust the value!");
+                    "Calendar Event End Time cannot be earlier or at the same time as Start Time, please adjust the value!");
                 endTime = Console.ReadLine();
                 endTime = EndTimeEmptinessValidation(endTime);
                 TimeOnly.TryParse(endTime, out calendarEventEndTime);
@@ -307,7 +306,23 @@ namespace Schedulist.Business
 
             return calendarEventEndTime;
         }
-    #endregion
+        private static TimeOnly CalendarEventStartTimeParseValidation()
+        {
+            while (true)
+            {
+                string startTime = Console.ReadLine();
+                startTime = StartTimeEmptinessValidation(startTime);
+                if (TimeOnly.TryParse(startTime, out var calendarEventStartTime))
+                {
+                    return calendarEventStartTime;
+                }
+                else
+                {
+                    Console.WriteLine("Invalid value, please provide again using format HH:MM");
+                }
+            }
+        }
+        #endregion
     }
 
 }
