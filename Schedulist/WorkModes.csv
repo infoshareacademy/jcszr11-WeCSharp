@@ -1,5 +1,12 @@
-WorkModeToUserID,WorkModeIDName,WorkModeName,UserID,dateOfWorkmode
-1,2,Home office,4,12/11/2023
-2,2,Home office,4,11/11/2023
-3,2,Home office,4,10/11/2023
-
+id,idname,name,userid,dow
+1,0,Sick leave,3,12/12/2023
+2,0,Office,3,12/30/2023
+3,0,Office,3,12/29/2023
+4,0,Office,3,12/28/2023
+5,0,Office,3,11/11/2023
+6,0,Office,4,11/13/2023
+7,0,Office,4,11/12/2023
+8,0,Office,4,11/14/2023
+9,0,Office,4,11/11/2023
+10,0,Home office,4,11/12/2023
+11,0,Office,4,12/12/2023

@@ -14,9 +14,9 @@ calendarEventId,calendarEventName,calendarEventDescription,calendarEventDate,cal
 13,test2,test2036,12/16/2023,08:00,16:00,3
 14,test,2107,11/19/2023,08:00,16:00,2
 15,test2,2108,11/19/2023,08:00,16:00,1
-16,Test1,1,11/11/2023,08:00,09:00,4
 17,Test2,1,11/11/2023,09:00,10:00,4
 18,Test3,1,11/11/2023,10:00,16:00,4
 19,11/11/2023,test of calendar,11/11/2023,16:00,17:00,4
 20,Test for Tomasz,test,11/11/2023,16:00,17:00,1
-
+21,Test after merging,Test,11/11/2023,18:00,19:00,4
+22,Test2,as user 4,11/11/2023,19:00,20:00,4

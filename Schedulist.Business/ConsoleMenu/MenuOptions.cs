@@ -9,12 +9,10 @@ using System.Threading.Tasks;
 namespace Schedulist.Business
 {
     
-    internal class MenuOptions
+    public class MenuOptions
     {
-
-        
-        public static void MenuCalendarEvents()
-        
+        private AdminCommands adminCommands;
+        public void MenuCalendarEvents()
         {
             while (true)
             {
@@ -33,9 +31,8 @@ namespace Schedulist.Business
                 else if (option.Key == ConsoleKey.D4) new ManageCalendarEvent().DeleteYourCalendarEvent(CurrentUser.currentUser);
                 else if (option.Key == ConsoleKey.Backspace) break;
             }
-
         }
-        public static void MenuAdminCalendarEvents()
+        public void MenuAdminCalendarEvents()
         
         {
             while (true)
@@ -66,12 +63,13 @@ namespace Schedulist.Business
 
         }
         //metoda pomocnicza, żeby nie powtarzać tej samej akcji w różnych miejscach menu
-        private static User SetActAsUser() 
+        
+        private User SetActAsUser() 
         {
-            User actAsUser = AdminCommands.DisplayUsers();
+            User actAsUser = adminCommands.DisplayUsers("display");
             return actAsUser;
         }
-        public static void MenuWorkModes()
+        public void MenuWorkModes()
         {
             Console.Clear();
             Console.WriteLine("Choose the option:");
@@ -85,40 +83,40 @@ namespace Schedulist.Business
             {
                 var option = Console.ReadKey();
                 if (option.Key == ConsoleKey.D1) new ManageWorkMode().ChooseOptionsWorkMode();
-                else if (option.Key == ConsoleKey.D2) Console.WriteLine("*****modify work mode*****");
-                else if (option.Key == ConsoleKey.D3) Console.WriteLine("*****delete work mode*****");
+                else if (option.Key == ConsoleKey.D2) new ManageWorkMode().ChangeOptionWorkMode();
+                else if (option.Key == ConsoleKey.D3) new ManageWorkMode().RemoveWorkMode();
                 else if (option.Key == ConsoleKey.D4) new ManageWorkMode().ShowAllWorkModes();
-                else if (option.Key == ConsoleKey.Backspace) MenuMain.Run();
+                else if (option.Key == ConsoleKey.Backspace) new MenuMain().Run();
                 break;
             }
         }
-        public static void MenuUsers()
+        public void MenuUsers()
         {
-            Console.Clear();
-            Console.WriteLine("Choose the option:");
-            Console.WriteLine("1. Create new user");
-            Console.WriteLine("2. Modify existing user");
-            Console.WriteLine("3. Delete existing Users");
-            Console.WriteLine("Backspace. Go back");
-            Console.WriteLine("===============================================================================");
             while (true)
             {
+                Console.Clear();
+                Console.WriteLine("Choose the option:");
+                Console.WriteLine("1. Create new user");
+                Console.WriteLine("2. Modify existing user");
+                Console.WriteLine("3. Delete existing Users");
+                Console.WriteLine("Backspace. Go back");
+                Console.WriteLine("===============================================================================");
                 var option = Console.ReadKey();
                 if (option.Key == ConsoleKey.D1) new ManageUser().Create();
-                else if (option.Key == ConsoleKey.D2) ManageUser.Modify();
+                else if (option.Key == ConsoleKey.D2) new ManageUser().Modify();
                 else if (option.Key == ConsoleKey.D3) new ManageUser().Delete();
                 else if (option.Key == ConsoleKey.Backspace) break;
             }
         }
 
-        public static void MenuCalendar()
+        public void MenuCalendar()
         {
             Console.Clear();
             DateTime currentDate = DateTime.Today;
             int year = currentDate.Year;
             int month = currentDate.Month;
             Console.WriteLine("Choose the option:");
-            Console.WriteLine("1. Show my monthly calendar");
+            Console.WriteLine($"1. Show {CurrentUser.currentUser.Name} monthly calendar");
             Console.WriteLine("===============================================================================");
             while (true)
             {

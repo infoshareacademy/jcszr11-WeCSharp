@@ -18,31 +18,26 @@ namespace Schedulist.DAL
             new CsvCalendarEventRepository("..\\..\\..\\CalendarEvents.csv").GetAllCalendarEvents();
         private CsvCalendarEventRepository _csvCalendarEventRepository =
             new("..\\..\\..\\CalendarEvents.csv");
-        private ManageCalendarEvent manageCalendarEvent;
+        //private ManageCalendarEvent manageCalendarEvent;
         private List<WorkModesToUser> _workModesToUser =
             new CSVWorkModesRepository("..\\..\\..\\WorkModes.csv").GetAllWorkModes();
         private CSVWorkModesRepository _csvWorkModesRepository =
             new CSVWorkModesRepository("..\\..\\..\\WorkModes.csv");
-        //public void CurrentDate()
-        //{
-        //    DateTime currentDate = DateTime.Today;
-
-        //    int year = currentDate.Year;
-        //    int month = currentDate.Month;
-
-        //    ShowCalendar(year, month);
-        //}
+        
         public void ShowCalendar(int year, int month)
         {
+            Console.Clear();
             DateTime firstDayOfMonth = new DateTime(year, month, 1);
+            int dayOfWeek = (int)firstDayOfMonth.DayOfWeek;
             int daysInMonth = DateTime.DaysInMonth(year, month);
             string monthName = firstDayOfMonth.ToString("MMMM");
-            Console.WriteLine($"{monthName} {year}");
-            Console.WriteLine(" Sun  Mon Tue Wed Thu Fri Sat");
-            int dayOfWeek = (int)firstDayOfMonth.DayOfWeek;
+            Console.WriteLine($"\n\t{monthName} {year}");
+            Console.WriteLine($"\t\n========================================================");
+            Console.WriteLine($" \nSun  Mon Tue Wed Thu Fri Sat");
+            Console.WriteLine(" ");
             for (int i = 0; i < dayOfWeek; i++)
             {
-                Console.WriteLine("");
+                Console.Write("    ");
             }
             for (int day = 1; day <= daysInMonth; day++)
             {
@@ -53,14 +48,24 @@ namespace Schedulist.DAL
                     Console.WriteLine();
                 }
             }
-            Console.WriteLine("\n\nPlease enter date to show your workmode and calendar events (DD/MM/YYYY).");
+            Console.WriteLine($"\n\n========================================================");
+            Console.WriteLine("\n\n\nPlease enter date to show your workmode and calendar events (DD.MM.YYYY).");
             string inputDate = Console.ReadLine();
             DateOnly.TryParse(inputDate, out DateOnly selectedDate);
 
+            Console.Clear();
+            Console.WriteLine($"Chosen date: {selectedDate}");
             var workModes = _csvWorkModesRepository.GetAllWorkModes();
             var userWorkModes = workModes
                 .FirstOrDefault(c => c.UserID == CurrentUser.currentUser.Id && c.dateOfWorkmode == selectedDate);
-            Console.WriteLine($"Your workmode for date {selectedDate} is {userWorkModes.WorkModeName}");
+            if (userWorkModes == null)
+            {
+                Console.WriteLine("\nThere is no Work Mode existing for chosen date!");
+            }
+            else
+            {
+                Console.WriteLine($"Your workmode is {userWorkModes.WorkModeName}");
+            }
             var calendarEvents = _csvCalendarEventRepository.GetAllCalendarEvents();
             var userCalendarEvents = calendarEvents
                 .Where(c => c.AssignedToUser == CurrentUser.currentUser.Id && c.CalendarEventDate == selectedDate)
@@ -72,15 +77,16 @@ namespace Schedulist.DAL
             }
             else
             {
-                Console.WriteLine($"\nCalendar Events on {selectedDate}:");
-                Console.WriteLine($"Start time \t End time \t Calendar Event Name");
+                Console.WriteLine($"\nCalendar Events:");
+                Console.WriteLine($"\n========================================================");
+                Console.WriteLine($"\nStart - End time  \t Calendar Event Name");
+                Console.WriteLine(" ");
                 foreach (var calendarEvent in userCalendarEvents)
                 {
-                    Console.WriteLine(
-                        $"{calendarEvent.CalendarEventStartTime} \t\t {calendarEvent.CalendarEventEndTime} \t\t {calendarEvent.CalendarEventName}");
+                    Console.WriteLine($"{calendarEvent.CalendarEventStartTime} -  {calendarEvent.CalendarEventEndTime} \t\t {calendarEvent.CalendarEventName}");
                 }
             }
-            Console.WriteLine("========================================================");
+            Console.WriteLine("\n========================================================");
                         Console.WriteLine("\nType any key do return to Menu");
             Console.ReadKey();
         }

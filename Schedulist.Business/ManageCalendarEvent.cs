@@ -1,4 +1,4 @@
-﻿using Schedulist.DAL;
+using Schedulist.DAL;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -6,7 +6,6 @@ using System.Text;
 using System.Threading.Channels;
 using System.Threading.Tasks;
 using CsvHelper.TypeConversion;
-using CsvHelper.Configuration.Attributes;
 using Schedulist.Business.Actions;
 
 namespace Schedulist.Business
@@ -18,6 +17,8 @@ namespace Schedulist.Business
 
         private CsvCalendarEventRepository _csvCalendarEventRepository =
             new("..\\..\\..\\CalendarEvents.csv");
+
+        private MenuOptions menuOptions;
         DateOnly currentDate = DateOnly.FromDateTime(DateTime.Today);
         public void ShowCalendarEvent(User user, DateOnly date)
         {
@@ -81,13 +82,13 @@ namespace Schedulist.Business
             string calendarEventDescription = Console.ReadLine();
             calendarEventDescription = CalendarEventDescriptionValidation(calendarEventDescription);
             Console.WriteLine("Date of Calendar Event using format DD/MM/YYYY");
-            var calendarEventDate = CalendarEventDateAdding(out var dateValue);
+            var calendarEventDate = CalendarEventDateAddValidation(out var dateValue);
             calendarEventDate = CalendarEventDateMinMaxValidation(calendarEventDate);
             var calendarEvents = _csvCalendarEventRepository.GetAllCalendarEvents();
             var calendarEventAvailable = calendarEvents
                 .FirstOrDefault(c => c.AssignedToUser == user.Id &&
                                      c.CalendarEventDate == calendarEventDate);
-            calendarEventAvailability(user, calendarEventAvailable, calendarEventDate);
+            CalendarEventAvailabilityCheck(user, calendarEventAvailable, calendarEventDate);
             Console.WriteLine("Start time of Calendar Event using format HH:MM");
             string startTime = Console.ReadLine();
             startTime = StartTimeEmptinessValidation(startTime);
@@ -104,9 +105,9 @@ namespace Schedulist.Business
             endTime = EndTimeEmptinessValidation(endTime);
             TimeOnly.TryParse(endTime, out var calendarEventEndTime);
             calendarEventEndTime = CalendarEventEndTimeValidation(calendarEventEndTime, calendarEventStartTime);
-            CalendarEvent calendarEvent = new CalendarEvent(calendarEventId, calendarEventName,
+            CalendarEvent calendarEvent = new(calendarEventId, calendarEventName,
                 calendarEventDescription, calendarEventDate, calendarEventStartTime, calendarEventEndTime,
-                user.Id);
+                (int)user.Id);
             _csvCalendarEventRepository.AddCalendarEvent(calendarEvent);
             Console.WriteLine("\nType any key do return to Menu");
             Console.ReadKey();
@@ -254,7 +255,6 @@ namespace Schedulist.Business
 
             Console.WriteLine("Press any key to return to the menu.");
             Console.ReadKey();
-            MenuOptions.MenuCalendarEvents();
         }
         public void DeleteCalendarEventAdmin()
         {
@@ -266,7 +266,6 @@ namespace Schedulist.Business
 
             Console.WriteLine("Press any key to return to the menu.");
             Console.ReadKey();
-            MenuOptions.MenuAdminCalendarEvents();
         }
         private void DisplayCalendarEvents(List<CalendarEvent> calendarEvents)
         {
@@ -337,27 +336,27 @@ namespace Schedulist.Business
                 {
                     Console.WriteLine(
                         "You are trying to add date that is more than 30 days in the past from today or value is incorrect, adjust the value!");
-                    calendarEventDate = CalendarEventDateAdding(out dateValue);
+                    calendarEventDate = CalendarEventDateAddValidation(out dateValue);
                 }
                 else if (calendarEventDate > currentDate.AddDays(60))
                 {
                     Console.WriteLine(
                         "You are trying to add date that is more than 60 days in the future from today or value is incorrect, adjust the value!");
-                    calendarEventDate = CalendarEventDateAdding(out dateValue);
+                    calendarEventDate = CalendarEventDateAddValidation(out dateValue);
                 }
                 else break;
             }
 
             return calendarEventDate;
         }
-        private DateOnly CalendarEventDateAdding(out string dateValue)
+        private DateOnly CalendarEventDateAddValidation(out string dateValue)
         {
             dateValue = Console.ReadLine();
             dateValue = DateValueEmptinessValidation(dateValue);
             DateOnly.TryParse(dateValue, out var calendarEventDate);
             return calendarEventDate;
         }
-        private void calendarEventAvailability(User user, CalendarEvent? calendarEventAvailable, DateOnly calendarEventDate)
+        private void CalendarEventAvailabilityCheck(User user, CalendarEvent? calendarEventAvailable, DateOnly calendarEventDate)
         {
             if (calendarEventAvailable != null)
             {
@@ -365,14 +364,13 @@ namespace Schedulist.Business
                     $"There is already at least one Calendar Event created for date {calendarEventDate}. Do you want to display it? \nProvide y - to show and n - to proceed further");
                 while (true)
                 {
-                    var keyInfo = Console.ReadKey(intercept: true);
-                    char userAnswer = keyInfo.KeyChar;
-                    if (userAnswer == 'y' || userAnswer == 'Y')
+                    var userAnswer = Console.ReadKey(intercept: true);
+                    if (userAnswer.Key == ConsoleKey.Y)
                     {
                         ShowCalendarEvent(user, calendarEventDate);
                         break;
                     }
-                    else if (userAnswer == 'n' || userAnswer == 'N')
+                    else if (userAnswer.Key == ConsoleKey.N)
                     {
                         break;
                     }

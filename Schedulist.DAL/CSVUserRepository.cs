@@ -1,9 +1,10 @@
-ï»¿using CsvHelper;
+using CsvHelper;
 using CsvHelper.Configuration;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
+using System.Numerics;
 using System.Reflection.PortableExecutable;
 using System.Text;
 using System.Threading.Tasks;
@@ -13,11 +14,11 @@ namespace Schedulist.DAL
 {
     public class CsvUserRepository : IUserRepository
     {
-        private readonly string _filePath;
-        public List<User> ListOfUsers;
+        private readonly string FilePath;
+        public List<User> listOfUsers;
         public CsvUserRepository(string filePath)
         {
-            this._filePath = filePath;
+            this.FilePath = filePath;
         }
 
         public CsvUserRepository()
@@ -30,31 +31,33 @@ namespace Schedulist.DAL
             {
                 HasHeaderRecord = true,
             };
-            using var reader = new StreamReader(_filePath);
+            using var reader = new StreamReader(FilePath);
             using var csv = new CsvReader(reader, csvConfig);
-            ListOfUsers = csv.GetRecords<User>().ToList();
-            return ListOfUsers;
+            listOfUsers = csv.GetRecords<User>().ToList();
+            return listOfUsers;
         }
-        public void AddUser(User user)
+        public void AddUser(User user, int? ID)
         {
             var csvConfig = new CsvConfiguration(CultureInfo.InvariantCulture)
             {
                 HasHeaderRecord = true,
             };
-            ListOfUsers = GetAllUsers();
+            listOfUsers = GetAllUsers();
 
-            // Oblicza loÅ›Ä‡ uÅ¼ytkownikÃ³w w liÅ›cie i na tej podstawie nowemu uÅ¼ytkownikowi przydziela wartosÄ‡ 
-            // Id o jeden wiÄ™kszÄ… lub 1 w przypadku pustej listy. 
-            int nextUserId = ListOfUsers.Count > 0 ? ListOfUsers.Max(u => u.Id) + 1 : 1;
-
-            // przydzielenie Id nowego uÅ¼ytkownika do dobranej wartoÅ›ci.
-            user.Id = nextUserId;
+            // Oblicza loœæ u¿ytkowników w liœcie i na tej podstawie nowemu u¿ytkownikowi przydziela wartosæ 
+            // Id o jeden wiêksz¹ lub 1 w przypadku pustej listy. 
+            if (ID == null) user.Id = listOfUsers.Count > 0 ? listOfUsers.Max(u => u.Id) + 1 : 1;
+                
             try
             {
-                ListOfUsers.Add(user);
-                using StreamWriter writer = new(_filePath);
+                listOfUsers.Add(user);
+
+                //listOfUsers = listOfUsers.OrderByDescending(q => q.listOfUsers.Id).ToList();
+                listOfUsers.Sort((p, q) => p.Id.ToString().CompareTo(q.Id.ToString()));
+
+                using StreamWriter writer = new(FilePath);
                 using var csv = new CsvWriter(writer, csvConfig);
-                csv.WriteRecords(ListOfUsers);
+                csv.WriteRecords(listOfUsers);
                 Console.Clear();
                 Console.WriteLine($"The User {user.Name} {user.Surname} Has been added to the list succesfully");
             }
@@ -72,7 +75,7 @@ namespace Schedulist.DAL
             var csvConfig = new CsvConfiguration(CultureInfo.InvariantCulture);
             try
             {
-                using StreamWriter writer = new StreamWriter(_filePath);
+                using StreamWriter writer = new StreamWriter(FilePath);
                 using var csv = new CsvWriter(writer, csvConfig);
                 csv.WriteRecords(users);
             }
@@ -87,20 +90,23 @@ namespace Schedulist.DAL
         }
         public void ModifyUser(string userToModifyLogin, User modifiedUser)
         {
-            var csvConfig = new CsvConfiguration(CultureInfo.InvariantCulture)
+            listOfUsers = GetAllUsers();
+            if (listOfUsers.Any(user => user.Login == userToModifyLogin))
             {
-                HasHeaderRecord = true,
-            };
-            ListOfUsers = GetAllUsers();
-            if (ListOfUsers.Any(user => user.Login == userToModifyLogin))
-            {
-                using StreamWriter writer = new(_filePath);
-                using var csv = new CsvWriter(writer, csvConfig);
-                User user = ListOfUsers.FirstOrDefault(user => user.Login == userToModifyLogin);
-                ListOfUsers.Remove(user);
-                csv.WriteRecords(ListOfUsers);
+                User user = listOfUsers.FirstOrDefault(user => user.Login == userToModifyLogin);
+                DeleteUser(user);
+                AddUser(modifiedUser, user.Id);
             }
-            AddUser(modifiedUser);
+        }
+        public void DeleteUser(User userToDelete)
+        {
+            var csvConfig = new CsvConfiguration(CultureInfo.InvariantCulture) { HasHeaderRecord = true, };
+            listOfUsers = GetAllUsers();
+            using StreamWriter writer = new(FilePath);
+            using var csv = new CsvWriter(writer, csvConfig);
+            User user = listOfUsers.FirstOrDefault(user => user.Login == userToDelete.Login);
+            listOfUsers.Remove(user);
+            csv.WriteRecords(listOfUsers);
         }
     }
 }
