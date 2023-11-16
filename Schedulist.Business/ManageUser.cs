@@ -109,7 +109,7 @@ namespace Schedulist.Business
             Console.Clear();
             if (variableToModify != null)
             {
-                Console.WriteLine($"Currnt {variableName.ToLower()} is {variableToModify} for {userToModify.Name} {userToModify.Surname}");
+                Console.WriteLine($"Current {variableName.ToLower()} is {variableToModify} for {userToModify.Name} {userToModify.Surname}");
                 string modifiedVariable = Helper.ConsolHelper($"Provide new {variableName.ToLower()}:");
                 if (userToModify.Name == variableToModify) userToModify.Name = modifiedVariable;
                 else if (userToModify.Surname == variableToModify) userToModify.Surname = modifiedVariable;
