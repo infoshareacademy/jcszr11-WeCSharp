@@ -32,8 +32,7 @@ namespace Schedulist.Business
                 else if (option.Key == ConsoleKey.Backspace) break;
             }
         }
-        public void MenuAdminCalendarEvents()
-        
+        public void MenuAdminCalendarEvents()     
         {
             while (true)
             {
@@ -56,14 +55,13 @@ namespace Schedulist.Business
                     var actAsUser = SetActAsUser();
                     new ManageCalendarEvent().ShowUserCalendarEvent(actAsUser);
                 }
-                else if (option.Key == ConsoleKey.D3) Console.WriteLine("*****modify task*****");
+                else if (option.Key == ConsoleKey.D3) new ManageCalendarEvent().ModifyCalendarEventsAdmin();
                 else if (option.Key == ConsoleKey.D4) new ManageCalendarEvent().DeleteCalendarEventAdmin();
                 else if (option.Key == ConsoleKey.Backspace) break;
             }
 
         }
-        //metoda pomocnicza, żeby nie powtarzać tej samej akcji w różnych miejscach menu
-        
+        //metoda pomocnicza, żeby nie powtarzać tej samej akcji w różnych miejscach menu    
         private User SetActAsUser() 
         {
             User actAsUser = adminCommands.DisplayUsers("display");
