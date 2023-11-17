@@ -35,12 +35,12 @@ namespace Schedulist.Business
         {
             //var usersList = userList.ToList();
             var workModesToUser = _csvWorkModesRepository.GetAllWorkModes().ToList();
-            Console.WriteLine();
-            Console.WriteLine("\tID User :\t name work mode :\t date");
+            Console.Clear();
+            Console.WriteLine("User ID:\tDate:\t\t Work mode name:");
             //foreach(var user in usersList)
             foreach(var workmode in workModesToUser)
-                Console.WriteLine($"\t{workmode.UserID} :\t {workmode.WorkModeName} :\t {workmode.DateOfWorkmode}");
-            Console.WriteLine("Press any key to back the previous page - Menu Work Mode");
+                Console.WriteLine($"{workmode.UserID}:\t\t{workmode.DateOfWorkmode}:\t{workmode.WorkModeName}");
+            Console.WriteLine("Press any key to continue");
             Console.ReadKey();         
             Console.Clear();
         }        

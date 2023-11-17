@@ -121,10 +121,10 @@ namespace Schedulist.Business
             {
                 Console.Clear();
                 Console.WriteLine("====== List of Calendar Events ======");
-                Console.WriteLine("ID.  Name and surname");
+                Console.WriteLine("ID:\tDate:\t\tName: ");
                 foreach (var item in currentUserCalendarEvents)
                 {
-                    Console.WriteLine($"{item.CalendarEventId + 1} \t {item.CalendarEventName}");
+                    Console.WriteLine($"{item.CalendarEventId + 1}\t{item.CalendarEventDate}\t{item.CalendarEventName}");
                 }
                 Console.WriteLine("Choose the ID of Calendar Event you want to modify (or 0 to cancel):");
                 string input = Console.ReadLine();
