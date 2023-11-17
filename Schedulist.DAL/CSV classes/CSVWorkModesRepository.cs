@@ -80,10 +80,9 @@ namespace Schedulist.DAL
                 try
                 {
                     using StreamWriter writer = new(FilePath, append: false);
-                    
                     using CsvWriter csv = new(writer, csvConfig);
                     csv.WriteRecords(ListOfWorkModes);
-
+                    Console.WriteLine("Work Mode has been succesfully deleted");
                 }
                 catch (Exception ex)
                 {
@@ -93,6 +92,8 @@ namespace Schedulist.DAL
                         Console.WriteLine("Inner Exception: " + ex.InnerException.Message);
                     }
                 }
+                Console.ReadKey();
+
             }
         }
         

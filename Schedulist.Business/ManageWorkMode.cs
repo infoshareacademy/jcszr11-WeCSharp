@@ -13,8 +13,8 @@ namespace Schedulist.Business
     {
         private MenuOptions menuOptions;
         IWorkModesRepository _workModesRepository;
-        private List<WorkModesToUser> _workModesToUser = 
-            new CSVWorkModesRepository("..\\..\\..\\WorkModes.csv").GetAllWorkModes();
+        private List<WorkModesToUser> _workModesToUser;  
+        private List<WorkModesToUser> listOfWorkModes =  new CSVWorkModesRepository("..\\..\\..\\WorkModes.csv").GetAllWorkModes();
         private List<User> userList = new CsvUserRepository("Users.csv").GetAllUsers();
         private CSVWorkModesRepository _csvWorkModesRepository = 
             new("..\\..\\..\\WorkModes.csv");
@@ -171,8 +171,8 @@ namespace Schedulist.Business
             //int userID = (int)CurrentUser.currentUser.Id;
             Console.WriteLine("Provide the date, you want to change your work mode in format DD.MM.YYYY:");
             var dateOfWorkMode = DateOnly.Parse(Console.ReadLine());
-            workModeToUserID = _csvWorkModesRepository.ListOfWorkModes.IndexOf(_csvWorkModesRepository.ListOfWorkModes.First(u => u.DateOfWorkmode == dateOfWorkMode && u.UserID == CurrentUser.currentUser.Id));
-            WorkModesToUser workModeToDelete = _csvWorkModesRepository.GetWorkModeByUserAndDate((int)CurrentUser.currentUser.Id, dateOfWorkMode);
+            var workModeToUserID = listOfWorkModes.First(u => u.DateOfWorkmode == dateOfWorkMode && u.UserID == userID);
+            //WorkModesToUser workModeToDelete = _csvWorkModesRepository.GetWorkModeByUserAndDate(userID, dateOfWorkMode);
             Console.WriteLine("Are you sure to remove this work mode? Type y - to remove or n - to cancel");
 
             while (true)
@@ -180,7 +180,7 @@ namespace Schedulist.Business
                 var userAnswer = Console.ReadKey(intercept: true);
                 if (userAnswer.Key == ConsoleKey.Y)
                 {
-                    _csvWorkModesRepository.DeleteWorkModes(workModeToUserID);
+                    _csvWorkModesRepository.DeleteWorkModes(workModeToUserID.WorkModeToUserID);
                     break;
                 }
                 else if (userAnswer.Key == ConsoleKey.N)
