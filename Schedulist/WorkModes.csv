@@ -7,7 +7,6 @@ id,name,userid,dow
 6,Office,4,11/13/2023
 7,Office,4,11/12/2023
 8,Office,4,11/14/2023
-9,Office,4,11/11/2023
 10,Home office,4,11/12/2023
 11,Office,4,12/12/2023
 12,Office,3,12/12/1212
@@ -26,5 +25,6 @@ id,name,userid,dow
 25,Office,4,11/12/2023
 26,Holiday leave,4,11/13/2023
 27,Office,4,11/14/2023
-28,Sick leave,4,11/15/2023
-29,Holiday leave,1,11/11/2023
+30,Another work mode,4,11/15/2023
+31,Another work mode,4,11/11/2023
+32,Holiday leave,4,11/11/2023
