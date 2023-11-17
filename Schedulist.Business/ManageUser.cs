@@ -15,8 +15,7 @@ namespace Schedulist.Business
 {
     public class ManageUser
     {
-        private MenuOptions menuOptions;
-        internal void Create()
+        internal static void Create()
         {
             Console.Clear();
             Console.WriteLine("====== Create User Section ======");
@@ -47,7 +46,7 @@ namespace Schedulist.Business
             Console.ReadKey();
         }
 
-        public void Modify()
+        public static void Modify()
         {
             User userToModify = new AdminCommands().DisplayUsers("modify");
             System.ConsoleKeyInfo option;
@@ -104,7 +103,7 @@ namespace Schedulist.Business
                 else if (option.Key == ConsoleKey.Backspace) break;
             }
         }
-        internal void ModifyAsk(string variableToModify, string variableName, bool variableToModify_bool, User userToModify)
+        internal static void ModifyAsk(string variableToModify, string variableName, bool variableToModify_bool, User userToModify)
         {
             string userToModifyLogin = userToModify.Login;
             Console.Clear();
@@ -141,7 +140,7 @@ namespace Schedulist.Business
                 }
             }
         }
-        public void Delete()
+        public static void Delete()
         {
             {
                 while (true)
