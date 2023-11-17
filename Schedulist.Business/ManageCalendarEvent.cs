@@ -237,6 +237,28 @@ namespace Schedulist.Business
             }
 
         }
+
+        public void ModifyCalendarEvents()
+        {
+            Console.Clear();
+            Console.WriteLine("Choose specific ID of Calendar Event that you want to modify:");
+            Console.WriteLine("====== List of Calendar Events ======");
+            Console.WriteLine("ID.  Name and surname");
+            foreach (var item in _calendarEvents)
+            {
+                Console.WriteLine($"{item.CalendarEventId}");
+            }
+
+            //Console.WriteLine("====== Modify Calendar Event ======");
+            //Console.WriteLine("Choose variable ID of Calendar Event that you want to modify:");
+            //Console.WriteLine($"1. Name:            {_calendarEvents.CalendarEventName}");
+            //Console.WriteLine($"2. Description:     {calendarEventToModify.CalendarEventDescription}");
+            //Console.WriteLine($"3. Date:            {calendarEventToModify.CalendarEventDate}");
+            //Console.WriteLine($"4. StartTIme:       {calendarEventToModify.CalendarEventStartTime}");
+            //Console.WriteLine($"5. EndTime:         {calendarEventToModify.CalendarEventEndTime}");
+            //Console.WriteLine("Backspace. Go back");
+            //Console.WriteLine("===============================================================================");
+        }
         #endregion
 
         #region CalendarEvent - Delete Section
