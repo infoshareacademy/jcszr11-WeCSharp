@@ -12,7 +12,7 @@ namespace Schedulist.Business
     public class MenuOptions
     {
         private AdminCommands adminCommands;
-        public void MenuCalendarEvents()
+        public static void MenuCalendarEvents()
         {
             while (true)
             {
@@ -69,7 +69,7 @@ namespace Schedulist.Business
             User actAsUser = adminCommands.DisplayUsers("display");
             return actAsUser;
         }
-        public void MenuWorkModes()
+        public static void MenuWorkModes()
         {
             Console.Clear();
             Console.WriteLine("Choose the option:");
@@ -86,11 +86,11 @@ namespace Schedulist.Business
                 else if (option.Key == ConsoleKey.D2) new ManageWorkMode().ChangeOptionWorkMode();
                 else if (option.Key == ConsoleKey.D3) new ManageWorkMode().RemoveWorkMode();
                 else if (option.Key == ConsoleKey.D4) new ManageWorkMode().ShowAllWorkModes();
-                else if (option.Key == ConsoleKey.Backspace) new MenuMain().Run();
+                else if (option.Key == ConsoleKey.Backspace) break;
                 break;
             }
         }
-        public void MenuUsers()
+        public static void MenuUsers()
         {
             while (true)
             {
@@ -102,14 +102,14 @@ namespace Schedulist.Business
                 Console.WriteLine("Backspace. Go back");
                 Console.WriteLine("===============================================================================");
                 var option = Console.ReadKey();
-                if (option.Key == ConsoleKey.D1) new ManageUser().Create();
-                else if (option.Key == ConsoleKey.D2) new ManageUser().Modify();
-                else if (option.Key == ConsoleKey.D3) new ManageUser().Delete();
+                if (option.Key == ConsoleKey.D1) ManageUser.Create();
+                else if (option.Key == ConsoleKey.D2) ManageUser.Modify();
+                else if (option.Key == ConsoleKey.D3) ManageUser.Delete();
                 else if (option.Key == ConsoleKey.Backspace) break;
             }
         }
 
-        public void MenuCalendar()
+        public static void MenuCalendar()
         {
             Console.Clear();
             DateTime currentDate = DateTime.Today;

@@ -75,7 +75,7 @@ namespace Schedulist.DAL
             var csvConfig = new CsvConfiguration(CultureInfo.InvariantCulture);
             try
             {
-                using StreamWriter writer = new StreamWriter(FilePath);
+                using StreamWriter writer = new(FilePath);
                 using var csv = new CsvWriter(writer, csvConfig);
                 csv.WriteRecords(users);
             }
