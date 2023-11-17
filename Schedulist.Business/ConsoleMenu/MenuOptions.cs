@@ -69,25 +69,40 @@ namespace Schedulist.Business
             User actAsUser = new AdminCommands().DisplayUsers("display");
             return actAsUser;
         }
-        public static void MenuWorkModes()
+        public void MenuWorkModes()
         {
-            Console.Clear();
-            Console.WriteLine("Choose the option:");
-            Console.WriteLine("1. Create new work mode");
-            Console.WriteLine("2. Modify existing work mode");
-            Console.WriteLine("3. Delete existing work mode");
-            Console.WriteLine("4. Show all work modes");
-            Console.WriteLine("Backspace. Go back");
-            Console.WriteLine("===============================================================================");
             while (true)
             {
+                Console.Clear();
+                Console.WriteLine("Choose the option:");
+                Console.WriteLine("1. Create new work mode");
+                Console.WriteLine("2. Modify existing work mode");
+                Console.WriteLine("3. Delete existing work mode");
+                Console.WriteLine("4. Show all work modes");
+                if (CurrentUser.currentUser.AdminPrivilege == true)
+                {
+                    Console.WriteLine("5. Create new work mode for chosen user");
+                    Console.WriteLine("6. Delete existing work mode for chosen user");
+                }
+                Console.WriteLine("Backspace. Go back");
+                Console.WriteLine("===============================================================================");
                 var option = Console.ReadKey();
                 if (option.Key == ConsoleKey.D1) new ManageWorkMode().ChooseOptionsWorkMode();
                 else if (option.Key == ConsoleKey.D2) new ManageWorkMode().ChangeOptionWorkMode();
                 else if (option.Key == ConsoleKey.D3) new ManageWorkMode().RemoveCurrentWorkMode();
                 else if (option.Key == ConsoleKey.D4) new ManageWorkMode().ShowAllWorkModes();
+                else if (option.Key == ConsoleKey.D5)
+                {
+                    var actAsUser = SetActAsUser();
+                    int workModeOption = 1;
+                    new ManageWorkMode().AssignWorkModeAdmin(workModeOption, actAsUser);
+                } 
+                else if (option.Key == ConsoleKey.D6)
+                {
+                    var actAsUser = SetActAsUser();
+                    new ManageWorkMode().RemoveCurrentWorkModeAdmin(actAsUser);
+                }
                 else if (option.Key == ConsoleKey.Backspace) break;
-                break;
             }
         }
         public static void MenuUsers()
@@ -108,7 +123,6 @@ namespace Schedulist.Business
                 else if (option.Key == ConsoleKey.Backspace) break;
             }
         }
-
         public void MenuCalendar()
         {
             Console.Clear();
@@ -121,6 +135,7 @@ namespace Schedulist.Business
             {
                 Console.WriteLine($"2. Show monthly calendar for chosen user");
             }
+            Console.WriteLine("Backspace. Go back");
             Console.WriteLine("===============================================================================");
             while (true)
             {
@@ -131,7 +146,7 @@ namespace Schedulist.Business
                     var actAsUser = SetActAsUser();
                     new Calendar().ShowUserCalendarAdmin(actAsUser);
                 }
-                break;
+                else if (option.Key == ConsoleKey.Backspace) break;
             }
 
         }
