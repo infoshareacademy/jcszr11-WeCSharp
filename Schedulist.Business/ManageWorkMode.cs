@@ -1,4 +1,5 @@
-﻿using Schedulist.DAL;
+﻿using Schedulist.Business.Actions;
+using Schedulist.DAL;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,8 +13,8 @@ namespace Schedulist.Business
     {
         private MenuOptions menuOptions;
         IWorkModesRepository _workModesRepository;
-        private List<WorkModesToUser> _workModesToUser = 
-            new CSVWorkModesRepository("..\\..\\..\\WorkModes.csv").GetAllWorkModes();
+        private List<WorkModesToUser> _workModesToUser;  
+        private List<WorkModesToUser> listOfWorkModes =  new CSVWorkModesRepository("..\\..\\..\\WorkModes.csv").GetAllWorkModes();
         private List<User> userList = new CsvUserRepository("Users.csv").GetAllUsers();
         private CSVWorkModesRepository _csvWorkModesRepository = 
             new("..\\..\\..\\WorkModes.csv");
@@ -35,12 +36,12 @@ namespace Schedulist.Business
         {
             //var usersList = userList.ToList();
             var workModesToUser = _csvWorkModesRepository.GetAllWorkModes().ToList();
-            Console.WriteLine();
-            Console.WriteLine("\tID User :\t name work mode :\t date");
+            Console.Clear();
+            Console.WriteLine("User ID:\tDate:\t\t Work mode name:");
             //foreach(var user in usersList)
             foreach(var workmode in workModesToUser)
-                Console.WriteLine($"\t{workmode.UserID} :\t {workmode.WorkModeName} :\t {workmode.DateOfWorkmode}");
-            Console.WriteLine("Press any key to back the previous page - Menu Work Mode");
+                Console.WriteLine($"{workmode.UserID}:\t\t{workmode.DateOfWorkmode}:\t{workmode.WorkModeName}");
+            Console.WriteLine("Press any key to continue");
             Console.ReadKey();         
             Console.Clear();
         }        
@@ -81,14 +82,13 @@ namespace Schedulist.Business
                 workModeName = "Holiday leave";            
             else if(workModeOption==5)            
                 workModeName = "Another work mode";
-            
+
             //workModeToUserID = _csvWorkModesRepository.ListOfWorkModes.OrderBy(x => x.WorkModeToUserID).Last().WorkModeToUserID + 1;
-            Console.WriteLine("\nEnter the date of your work day: ");
-            var dateOfWorkMode = DateOnly.Parse(Console.ReadLine());
+            var dateOfWorkMode = DateOfWorkModeValidation();
             WorkModesToUser workModesToUser = new(id: workModeToUserID, name: workModeName, userid: (int)CurrentUser.currentUser.Id , dow: dateOfWorkMode);
             _csvWorkModesRepository.AddWorkModes(workModesToUser);
             Console.Clear();
-            Console.WriteLine($"Work mode for {dateOfWorkMode} is created successfully");
+            Console.WriteLine($"Work mode for {dateOfWorkMode} has been created successfully");
             Console.WriteLine("\nType any key to continue");
             Console.ReadKey();
         }
@@ -97,16 +97,25 @@ namespace Schedulist.Business
         {
             Console.Clear();
             int? userID = (int)CurrentUser.currentUser.Id;
-            Console.WriteLine("Provide the date, you want to change your work mode:");
-            var dateOfWorkMode = DateOnly.Parse(Console.ReadLine());
-            workModeToUserID = _csvWorkModesRepository.ListOfWorkModes.IndexOf(_csvWorkModesRepository.ListOfWorkModes.First(u=>u.DateOfWorkmode==dateOfWorkMode && u.UserID==userID));
+            var dateOfWorkMode = DateOfWorkModeValidation();
+
             WorkModesToUser workModeToChange = _csvWorkModesRepository.GetWorkModeByUserAndDate((int)userID, dateOfWorkMode);
+
+            workModeToUserID = _csvWorkModesRepository.ListOfWorkModes.IndexOf(_csvWorkModesRepository.ListOfWorkModes.First(u=>u.DateOfWorkmode==dateOfWorkMode && u.UserID==userID));
+            //int workModeToUserID;
+            //var workModeUser =
+            //    _workModesToUser.First(u => u.DateOfWorkmode == dateOfWorkMode && u.UserID == userID).ToString();
+            //if (workModeUser != null && int.TryParse(workModeUser.ToString(), out workModeToUserID))
+            //{
+
+            //}
+            
             //Console.WriteLine(workModeToChange);
             Console.Clear();
             Console.WriteLine("Data about work mode, you want to change:");
             Console.WriteLine($"ID work mode:   {workModeToChange.WorkModeToUserID}");
             Console.WriteLine($"Work mode name:  {workModeToChange.WorkModeName}");
-            Console.WriteLine($"Your users ID:  {workModeToChange.UserID}");
+            Console.WriteLine($"Your user ID:  {workModeToChange.UserID}");
             Console.WriteLine($"Date of work day:   {workModeToChange.DateOfWorkmode}");            
             Console.WriteLine("===========================================");
             Console.WriteLine("Choose the new work mode option: ");
@@ -131,7 +140,7 @@ namespace Schedulist.Business
             else if (option.Key == ConsoleKey.Backspace) MenuOptions.MenuWorkModes();
                         
             WorkModesToUser workModeModified = new(workModeToUserID, workModeName, (int)userID,dateOfWorkMode);
-            _csvWorkModesRepository.ModifyWorkModes(workModeToUserID,workModeModified);
+            _csvWorkModesRepository.ModifyWorkModes(workModeToUserID, workModeModified);
             Console.Clear();
             Console.WriteLine("Work Mode has been modified successfully");
             Console.WriteLine("\nType any key to continue");
@@ -139,14 +148,31 @@ namespace Schedulist.Business
             
         }
 
-        public void RemoveWorkMode()
+        private static DateOnly DateOfWorkModeValidation()
+        {
+            DateOnly dateOfWorkMode;
+            while (true)
+            {
+                string dateOfWorkModeInput =
+                    Helper.ConsolHelper("\nProvide the date, you want to change your work mode in format DD.MM.YYYY:");
+                if (DateOnly.TryParse(dateOfWorkModeInput, out dateOfWorkMode))
+                {
+                    break;
+                }
+                else Console.WriteLine("\nInvalid date format, please provide again in format DD.MM.YYYY!");
+            }
+
+            return dateOfWorkMode;
+        }
+
+        public void RemoveCurrentWorkMode()
         {
             Console.Clear();
             int userID = (int)CurrentUser.currentUser.Id;
-            Console.WriteLine("Provide the date, you want to change your work mode:");
+            Console.WriteLine("Provide the date, you want to change your work mode in format DD.MM.YYYY:");
             var dateOfWorkMode = DateOnly.Parse(Console.ReadLine());
-            workModeToUserID = _csvWorkModesRepository.ListOfWorkModes.IndexOf(_csvWorkModesRepository.ListOfWorkModes.First(u => u.DateOfWorkmode == dateOfWorkMode && u.UserID == userID));
-            WorkModesToUser workModeToDelete = _csvWorkModesRepository.GetWorkModeByUserAndDate(userID, dateOfWorkMode);
+            var workModeToUserID = listOfWorkModes.First(u => u.DateOfWorkmode == dateOfWorkMode && u.UserID == userID);
+            //WorkModesToUser workModeToDelete = _csvWorkModesRepository.GetWorkModeByUserAndDate(userID, dateOfWorkMode);
             Console.WriteLine("Are you sure to remove this work mode? Type y - to remove or n - to cancel");
 
             while (true)
@@ -154,7 +180,7 @@ namespace Schedulist.Business
                 var userAnswer = Console.ReadKey(intercept: true);
                 if (userAnswer.Key == ConsoleKey.Y)
                 {
-                    _csvWorkModesRepository.DeleteWorkModes(workModeToUserID);
+                    _csvWorkModesRepository.DeleteWorkModes(workModeToUserID.WorkModeToUserID);
                     break;
                 }
                 else if (userAnswer.Key == ConsoleKey.N)
@@ -163,9 +189,9 @@ namespace Schedulist.Business
                 }
                 else Console.WriteLine("Invalid value, please provide again");
             }
-
             Console.Clear();
-            Console.WriteLine("Type any key to continue");
+            Console.WriteLine("Work Mode has been successfully deleted");
+            Console.WriteLine("\nType any key to continue");
             Console.ReadKey();
         }
 
