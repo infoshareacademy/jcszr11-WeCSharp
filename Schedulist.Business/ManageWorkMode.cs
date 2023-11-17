@@ -165,10 +165,10 @@ namespace Schedulist.Business
             return dateOfWorkMode;
         }
 
-        public void RemoveWorkMode()
+        public void RemoveCurrentWorkMode()
         {
             Console.Clear();
-            //int userID = (int)CurrentUser.currentUser.Id;
+            int userID = (int)CurrentUser.currentUser.Id;
             Console.WriteLine("Provide the date, you want to change your work mode in format DD.MM.YYYY:");
             var dateOfWorkMode = DateOnly.Parse(Console.ReadLine());
             var workModeToUserID = listOfWorkModes.First(u => u.DateOfWorkmode == dateOfWorkMode && u.UserID == userID);
