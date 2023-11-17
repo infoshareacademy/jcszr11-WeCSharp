@@ -8,6 +8,7 @@ using System.Threading.Channels;
 using System.Threading.Tasks;
 using CsvHelper.TypeConversion;
 using Schedulist.Business;
+using System.Globalization;
 
 namespace Schedulist.DAL
 {
@@ -28,6 +29,8 @@ namespace Schedulist.DAL
             DateTime firstDayOfMonth = new(year, month, 1);
             int dayOfWeek = (int)firstDayOfMonth.DayOfWeek;
             int daysInMonth = DateTime.DaysInMonth(year, month);
+            CultureInfo englishCulture = new CultureInfo("en-GB");
+            CultureInfo.DefaultThreadCurrentCulture = englishCulture;
             string monthName = firstDayOfMonth.ToString("MMMM");
             Console.WriteLine($"\n\t{monthName} {year}");
             Console.WriteLine($"\t\n========================================================");
