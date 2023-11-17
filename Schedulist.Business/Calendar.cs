@@ -40,7 +40,6 @@ namespace Schedulist.DAL
             {
                 Console.Write("    ");
             }
-
             for (int day = 1; day <= daysInMonth; day++)
             {
                 Console.Write(day.ToString().PadLeft(4));
@@ -56,7 +55,7 @@ namespace Schedulist.DAL
         {
             ShowCalendar();
         Console.WriteLine($"\n\n========================================================");
-            Console.WriteLine("\n\n\nPlease enter date to show your work mode and calendar events (DD.MM.YYYY).");
+            Console.WriteLine("\n\n\nPlease enter date to show your work mode and calendar events (DD/MM/YYYY).");
             string inputDate = Console.ReadLine();
             DateOnly.TryParse(inputDate, out DateOnly selectedDate);
 
@@ -84,7 +83,7 @@ namespace Schedulist.DAL
             }
             else
             {
-                Console.WriteLine($"\nCalendar Events:");
+                Console.WriteLine($"\nYour Calendar Events:");
                 Console.WriteLine($"\n========================================================");
                 Console.WriteLine($"\nStart - End time  \t Calendar Event Name");
                 Console.WriteLine(" ");
@@ -102,12 +101,15 @@ namespace Schedulist.DAL
         {
             ShowCalendar();
             Console.WriteLine($"\n\n========================================================");
-            Console.WriteLine("\n\nPlease enter date to show work mode and calendar events (DD.MM.YYYY).");
+            Console.WriteLine($"\n\nShowing information for {user.Name} {user.Surname}");
+            Console.WriteLine("\nPlease enter date to show work mode and calendar events in format DD/MM/YYYY.");
             string inputDate = Console.ReadLine();
             DateOnly.TryParse(inputDate, out DateOnly selectedDate);
 
             Console.Clear();
-            Console.WriteLine($"Chosen date: {selectedDate}");
+
+            Console.WriteLine($"Showing information for {user.Name} {user.Surname}"); 
+            Console.WriteLine($"\n\nChosen date: {selectedDate}");
             var workModes = _csvWorkModesRepository.GetAllWorkModes();
             var userWorkModes = workModes
                 .FirstOrDefault(c => c.UserID == user.Id && c.DateOfWorkmode == selectedDate);
@@ -117,7 +119,7 @@ namespace Schedulist.DAL
             }
             else
             {
-                Console.WriteLine($"Your work mode is {userWorkModes.WorkModeName}");
+                Console.WriteLine($"Work mode is {userWorkModes.WorkModeName}");
             }
             var calendarEvents = _csvCalendarEventRepository.GetAllCalendarEvents();
             var userCalendarEvents = calendarEvents
