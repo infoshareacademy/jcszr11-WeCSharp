@@ -54,46 +54,50 @@ namespace Schedulist.DAL
         public void ShowUserCalendar(User user)
         {
             ShowCalendar();
-        Console.WriteLine($"\n\n========================================================");
+            Console.WriteLine($"\n\n========================================================");
             Console.WriteLine("\n\n\nPlease enter date to show your work mode and calendar events (DD/MM/YYYY).");
             string inputDate = Console.ReadLine();
-            DateOnly.TryParse(inputDate, out DateOnly selectedDate);
-
-            Console.Clear();
-            Console.WriteLine($"Chosen date: {selectedDate}");
-            var workModes = _csvWorkModesRepository.GetAllWorkModes();
-            var userWorkModes = workModes
-                .FirstOrDefault(c => c.UserID == CurrentUser.currentUser.Id && c.DateOfWorkmode == selectedDate);
-            if (userWorkModes == null)
+            if (DateOnly.TryParse(inputDate, out DateOnly selectedDate))
             {
-                Console.WriteLine("\nThere is no work mode existing for chosen date!");
-            }
-            else
-            {
-                Console.WriteLine($"Your work mode is {userWorkModes.WorkModeName}");
-            }
-            var calendarEvents = _csvCalendarEventRepository.GetAllCalendarEvents();
-            var userCalendarEvents = calendarEvents
-                .Where(c => c.AssignedToUser == CurrentUser.currentUser.Id && c.CalendarEventDate == selectedDate)
-                .OrderBy(c => c.CalendarEventStartTime)
-                .ToList();
-            if (userCalendarEvents.Count == 0)
-            {
-                Console.WriteLine("There is no Calendar Event existing for chosen date!");
-            }
-            else
-            {
-                Console.WriteLine($"\nYour Calendar Events:");
-                Console.WriteLine($"\n========================================================");
-                Console.WriteLine($"\nStart - End time  \t Calendar Event Name");
-                Console.WriteLine(" ");
-                foreach (var calendarEvent in userCalendarEvents)
+                Console.Clear();
+                Console.WriteLine($"Chosen date: {selectedDate}");
+                var workModes = _csvWorkModesRepository.GetAllWorkModes();
+                var userWorkModes = workModes.FirstOrDefault(c => c.UserID == CurrentUser.currentUser.Id && c.DateOfWorkmode == selectedDate);
+                if (userWorkModes == null)
                 {
-                    Console.WriteLine($"{calendarEvent.CalendarEventStartTime} -  {calendarEvent.CalendarEventEndTime} \t\t {calendarEvent.CalendarEventName}");
+                    Console.WriteLine("\nThere is no work mode existing for chosen date!");
                 }
+                else
+                {
+                    Console.WriteLine($"Your work mode is {userWorkModes.WorkModeName}");
+                }
+                var calendarEvents = _csvCalendarEventRepository.GetAllCalendarEvents();
+                var userCalendarEvents = calendarEvents
+                    .Where(c => c.AssignedToUser == CurrentUser.currentUser.Id && c.CalendarEventDate == selectedDate)
+                    .OrderBy(c => c.CalendarEventStartTime)
+                    .ToList();
+                if (userCalendarEvents.Count == 0)
+                {
+                    Console.WriteLine("There is no Calendar Event existing for chosen date!");
+                }
+                else
+                {
+                    Console.WriteLine($"\nYour Calendar Events:");
+                    Console.WriteLine($"\n========================================================");
+                    Console.WriteLine($"\nStart - End time  \t Calendar Event Name");
+                    Console.WriteLine(" ");
+                    foreach (var calendarEvent in userCalendarEvents)
+                    {
+                        Console.WriteLine($"{calendarEvent.CalendarEventStartTime} -  {calendarEvent.CalendarEventEndTime} \t\t {calendarEvent.CalendarEventName}");
+                    }
+                }
+                Console.WriteLine("\n========================================================");
+                Console.WriteLine("\nType any key do return to Menu");
             }
-            Console.WriteLine("\n========================================================");
-                        Console.WriteLine("\nType any key do return to Menu");
+            else
+            {
+                Console.WriteLine("The date is incorrect. Please try again.");
+            }
             Console.ReadKey();
         }
 
@@ -104,45 +108,50 @@ namespace Schedulist.DAL
             Console.WriteLine($"\n\nShowing information for {user.Name} {user.Surname}");
             Console.WriteLine("\nPlease enter date to show work mode and calendar events in format DD/MM/YYYY.");
             string inputDate = Console.ReadLine();
-            DateOnly.TryParse(inputDate, out DateOnly selectedDate);
-
-            Console.Clear();
-
-            Console.WriteLine($"Showing information for {user.Name} {user.Surname}"); 
-            Console.WriteLine($"\n\nChosen date: {selectedDate}");
-            var workModes = _csvWorkModesRepository.GetAllWorkModes();
-            var userWorkModes = workModes
-                .FirstOrDefault(c => c.UserID == user.Id && c.DateOfWorkmode == selectedDate);
-            if (userWorkModes == null)
+            if (DateOnly.TryParse(inputDate, out DateOnly selectedDate))
             {
-                Console.WriteLine("\nThere is no work mode existing for chosen date!");
-            }
-            else
-            {
-                Console.WriteLine($"Work mode is {userWorkModes.WorkModeName}");
-            }
-            var calendarEvents = _csvCalendarEventRepository.GetAllCalendarEvents();
-            var userCalendarEvents = calendarEvents
-                .Where(c => c.AssignedToUser == user.Id && c.CalendarEventDate == selectedDate)
-                .OrderBy(c => c.CalendarEventStartTime)
-                .ToList();
-            if (userCalendarEvents.Count == 0)
-            {
-                Console.WriteLine("There is no Calendar Event existing for chosen date!");
-            }
-            else
-            {
-                Console.WriteLine($"\nCalendar Events:");
-                Console.WriteLine($"\n========================================================");
-                Console.WriteLine($"\nStart - End time  \t Calendar Event Name");
-                Console.WriteLine(" ");
-                foreach (var calendarEvent in userCalendarEvents)
+                Console.Clear();
+                Console.WriteLine($"Showing information for {user.Name} {user.Surname}");
+                Console.WriteLine($"\n\nChosen date: {selectedDate}");
+                var workModes = _csvWorkModesRepository.GetAllWorkModes();
+                var userWorkModes = workModes.FirstOrDefault(c => c.UserID == user.Id && c.DateOfWorkmode == selectedDate);
+                if (userWorkModes == null)
                 {
-                    Console.WriteLine($"{calendarEvent.CalendarEventStartTime} -  {calendarEvent.CalendarEventEndTime} \t\t {calendarEvent.CalendarEventName}");
+                    Console.WriteLine("\nThere is no work mode existing for chosen date!");
                 }
+                else
+                {
+                    Console.WriteLine($"Work mode is {userWorkModes.WorkModeName}");
+                }
+                var calendarEvents = _csvCalendarEventRepository.GetAllCalendarEvents();
+                var userCalendarEvents = calendarEvents
+                    .Where(c => c.AssignedToUser == user.Id && c.CalendarEventDate == selectedDate)
+                    .OrderBy(c => c.CalendarEventStartTime)
+                    .ToList();
+                if (userCalendarEvents.Count == 0)
+                {
+                    Console.WriteLine("There is no Calendar Event existing for chosen date!");
+                }
+                else
+                {
+                    Console.WriteLine($"\nCalendar Events:");
+                    Console.WriteLine($"\n========================================================");
+                    Console.WriteLine($"\nStart - End time  \t Calendar Event Name");
+                    Console.WriteLine(" ");
+
+                    foreach (var calendarEvent in userCalendarEvents)
+                    {
+                        Console.WriteLine($"{calendarEvent.CalendarEventStartTime} -  {calendarEvent.CalendarEventEndTime} \t\t {calendarEvent.CalendarEventName}");
+                    }
+                }
+
+                Console.WriteLine("\n========================================================");
+                Console.WriteLine("\nType any key to return to Menu");
             }
-            Console.WriteLine("\n========================================================");
-            Console.WriteLine("\nType any key do return to Menu");
+            else
+            {
+                Console.WriteLine("The date is incorrect. Please try again.");
+            }
             Console.ReadKey();
         }
     }
