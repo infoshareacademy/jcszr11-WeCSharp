@@ -11,7 +11,7 @@ namespace Schedulist.Business
     
     public class MenuOptions
     {
-        private AdminCommands adminCommands;
+        //private AdminCommands adminCommands;
         public static void MenuCalendarEvents()
         {
             while (true)
@@ -66,7 +66,7 @@ namespace Schedulist.Business
         
         private User SetActAsUser() 
         {
-            User actAsUser = adminCommands.DisplayUsers("display");
+            User actAsUser = new AdminCommands().DisplayUsers("display");
             return actAsUser;
         }
         public static void MenuWorkModes()
@@ -109,7 +109,7 @@ namespace Schedulist.Business
             }
         }
 
-        public static void MenuCalendar()
+        public void MenuCalendar()
         {
             Console.Clear();
             DateTime currentDate = DateTime.Today;
@@ -117,11 +117,17 @@ namespace Schedulist.Business
             int month = currentDate.Month;
             Console.WriteLine("Choose the option:");
             Console.WriteLine($"1. Show {CurrentUser.currentUser.Name} monthly calendar");
+            Console.WriteLine($"2. Show monthly calendar for chosen user");
             Console.WriteLine("===============================================================================");
             while (true)
             {
                 var option = Console.ReadKey();
-                if (option.Key == ConsoleKey.D1) new Calendar().ShowCalendar(year, month);
+                if (option.Key == ConsoleKey.D1) new Calendar().ShowUserCalendar(CurrentUser.currentUser);
+                else if (option.Key == ConsoleKey.D2)
+                {
+                    var actAsUser = SetActAsUser();
+                    new Calendar().ShowUserCalendarAdmin(actAsUser);
+                }
                 break;
             }
 
