@@ -106,23 +106,165 @@ namespace Schedulist.Business
             Console.ReadKey();
         }
 
+        #region CalendarEvent - Modify Section
+        public CalendarEvent GetCurrentCalendarEvent(User user)
+        {
+            List<CalendarEvent> currentUserCalendarEvents =
+            _calendarEvents.Where(c => c.AssignedToUser == user.Id).ToList();
+
+            while (true)
+            {
+                Console.Clear();
+                Console.WriteLine("====== List of Calendar Events ======");
+                Console.WriteLine("ID.  Name and surname");
+                foreach (var item in currentUserCalendarEvents)
+                {
+                    Console.WriteLine($"{item.CalendarEventId + 1} \t {item.CalendarEventName}");
+                }
+                Console.WriteLine("Choose the ID of Calendar Event you want to modify (or 0 to cancel):");
+                string input = Console.ReadLine();
+                if (int.TryParse(input, out int calendarEventId) && calendarEventId > 0 && calendarEventId <= _calendarEvents.Count)
+                {
+                    var calendarEventToModify = currentUserCalendarEvents.First(c => c.CalendarEventId == (calendarEventId - 1));
+                    return calendarEventToModify;
+                }
+                else if (input.ToLower() == "0")
+                {
+                    Console.WriteLine("Operation canceled.");
+                    break;
+                }
+                else
+                {
+                    Console.WriteLine("Invalid choice");
+                    break;
+                }
+            }
+            Console.WriteLine("Press any key to return to the menu.");
+            Console.ReadKey();
+            return null;
+        }
+        public void ModifyCurrentCalendarEvent(User user)
+        {
+            CalendarEvent calendarEventToModify = GetCurrentCalendarEvent(user);
+            Console.Clear();
+            Console.WriteLine("====== Modify Calendar Event ======");
+            Console.WriteLine("Choose variable ID of Calendar Event that you want to modify:");
+            Console.WriteLine($"1. Name:            {calendarEventToModify.CalendarEventName}");
+            Console.WriteLine($"2. Description:     {calendarEventToModify.CalendarEventDescription}");
+            Console.WriteLine($"3. Date:            {calendarEventToModify.CalendarEventDate}");
+            Console.WriteLine($"4. StartTIme:       {calendarEventToModify.CalendarEventStartTime}");
+            Console.WriteLine($"5. EndTime:         {calendarEventToModify.CalendarEventEndTime}");
+            Console.WriteLine("Backspace. Go back");
+            Console.WriteLine("===============================================================================");
+
+            ConsoleKeyInfo option = Console.ReadKey();
+            string modifiedVariable;
+            try
+            {
+                switch (option.Key)
+                {
+                    case ConsoleKey.D1:
+                        Console.Clear();
+                        Console.WriteLine($"Current Name is: {calendarEventToModify.CalendarEventName}");
+                        modifiedVariable = Helper.ConsolHelper("Provide new Name:");
+                        calendarEventToModify.CalendarEventName = modifiedVariable;
+                        break;
+                    case ConsoleKey.D2:
+                        Console.Clear();
+                        Console.WriteLine($"Current Name is: {calendarEventToModify.CalendarEventDescription}");
+                        modifiedVariable = Helper.ConsolHelper("Provide new Description:");
+                        calendarEventToModify.CalendarEventDescription = modifiedVariable;
+                        break;
+                    case ConsoleKey.D3:
+                        Console.Clear();
+                        Console.WriteLine($"Current Name is: {calendarEventToModify.CalendarEventDate}");
+                        modifiedVariable = Helper.ConsolHelper("Provide new Date (DD-MM-YYYY):");
+                        if (DateOnly.TryParse(modifiedVariable, out DateOnly newDate))
+                        {
+                            CalendarEventDateMinMaxValidation(newDate);
+                            calendarEventToModify.CalendarEventDate = newDate;
+                        }
+                        else
+                            Console.WriteLine("Invalid format. Please enter a valid date.");
+                        break;
+                    case ConsoleKey.D4:
+                        Console.Clear();
+                        Console.WriteLine($"Current Name is: {calendarEventToModify.CalendarEventStartTime}");
+                        modifiedVariable = Helper.ConsolHelper("Provide new Start Time (HH:mm):");
+                        if (TimeOnly.TryParse(modifiedVariable, out TimeOnly newStartTime))
+                            calendarEventToModify.CalendarEventStartTime = newStartTime;
+                        else
+                            Console.WriteLine("Invalid format. Please enter a valid date.");
+                        break;
+                    case ConsoleKey.D5:
+                        Console.Clear();
+                        Console.WriteLine($"Current Name is: {calendarEventToModify.CalendarEventEndTime}");
+                        modifiedVariable = Helper.ConsolHelper("Provide new End Time (HH:mm):");
+                        if (TimeOnly.TryParse(modifiedVariable, out TimeOnly NewEndTime))
+                        {
+                            NewEndTime = CalendarEventEndTimeValidation(NewEndTime, calendarEventToModify.CalendarEventStartTime);
+                            calendarEventToModify.CalendarEventEndTime = NewEndTime;
+                        }
+                        break;
+                    case ConsoleKey.Backspace:
+                        break;
+                    default:
+                        Console.WriteLine("Invalid input. Please choose a valid option.");
+                        Console.WriteLine("Press any key to return to the menu.");
+                        Console.ReadKey();
+                        break;
+                }
+                Console.Clear();
+                new CsvCalendarEventRepository("..\\..\\..\\CalendarEvents.csv").ModifyCalendarEvent(calendarEventToModify);
+                Console.WriteLine($"CalendarEvent with ID:{calendarEventToModify.CalendarEventId + 1} has been succesfully modified");
+                Console.WriteLine("Type any key to return to MenuOptions");
+                Console.ReadKey();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("An error occurred while writing to the CSV file: " + ex.Message);
+                if (ex.InnerException != null)
+                {
+                    Console.WriteLine("Inner Exception: " + ex.InnerException.Message);
+                }
+            }
+
+        }
+
+        public void ModifyCalendarEvents()
+        {
+            Console.Clear();
+            Console.WriteLine("Choose specific ID of Calendar Event that you want to modify:");
+            Console.WriteLine("====== List of Calendar Events ======");
+            Console.WriteLine("ID.  Name and surname");
+            foreach (var item in _calendarEvents)
+            {
+                Console.WriteLine($"{item.CalendarEventId}");
+            }
+
+            //Console.WriteLine("====== Modify Calendar Event ======");
+            //Console.WriteLine("Choose variable ID of Calendar Event that you want to modify:");
+            //Console.WriteLine($"1. Name:            {_calendarEvents.CalendarEventName}");
+            //Console.WriteLine($"2. Description:     {calendarEventToModify.CalendarEventDescription}");
+            //Console.WriteLine($"3. Date:            {calendarEventToModify.CalendarEventDate}");
+            //Console.WriteLine($"4. StartTIme:       {calendarEventToModify.CalendarEventStartTime}");
+            //Console.WriteLine($"5. EndTime:         {calendarEventToModify.CalendarEventEndTime}");
+            //Console.WriteLine("Backspace. Go back");
+            //Console.WriteLine("===============================================================================");
+        }
+        #endregion
+
         #region CalendarEvent - Delete Section
-        public void DeleteYourCalendarEvent(User user)
+        public void DeleteCurrentCalendarEvent(User user)
         {
             Console.Clear();
             List<CalendarEvent> currentUserCalendarEvents = _calendarEvents.Where(u => u.AssignedToUser == user.Id).ToList();
 
             if (Helper.IsCalendarEmpty(currentUserCalendarEvents)) return;
 
-            Console.WriteLine("======List of Calendar Events======");
-            Console.WriteLine("ID \t| Calendar Event Name \t\t|Date");
-            for (int i = 0; i < currentUserCalendarEvents.Count; i++)
-            {
-                Console.WriteLine
-                ($"{i + 1} \t {currentUserCalendarEvents[i].CalendarEventName} \t\t\t {currentUserCalendarEvents[i].CalendarEventDate}");
-            }
+            DisplayCalendarEvents(currentUserCalendarEvents);
             CurrentUserCalendarEventsSelection(user);
-            
+
             Console.WriteLine("Press any key to return to the menu.");
             Console.ReadKey();
         }
@@ -131,17 +273,20 @@ namespace Schedulist.Business
             Console.Clear();
             if (Helper.IsCalendarEmpty(_calendarEvents)) return;
 
-            Console.WriteLine("======List of Calendar Events======");
-            Console.WriteLine("ID \t| Calendar Event Name \t\t|Date");
-            for (int i = 0; i < _calendarEvents.Count; i++)
-            {
-                Console.WriteLine
-                ($"{i + 1} \t {_calendarEvents[i].CalendarEventName} \t\t\t {_calendarEvents[i].CalendarEventDate}");
-            }
+            DisplayCalendarEvents(_calendarEvents);
             CalendarEventsSelection();
 
             Console.WriteLine("Press any key to return to the menu.");
             Console.ReadKey();
+        }
+        private void DisplayCalendarEvents(List<CalendarEvent> calendarEvents)
+        {
+            Console.WriteLine("ID \t| Calendar Event Name \t\t|Date");
+            for (int i = 0; i < calendarEvents.Count; i++)
+            {
+                Console.WriteLine
+                ($"{i + 1} \t {calendarEvents[i].CalendarEventName} \t\t\t {calendarEvents[i].CalendarEventDate}");
+            }
         }
         private void CurrentUserCalendarEventsSelection(User user)
         {
@@ -192,6 +337,7 @@ namespace Schedulist.Business
             }
         }
         #endregion
+
         #region CalendarEvent - Validation Section
         private DateOnly CalendarEventDateMinMaxValidation(DateOnly calendarEventDate)
         {
@@ -324,5 +470,4 @@ namespace Schedulist.Business
         }
         #endregion
     }
-
 }

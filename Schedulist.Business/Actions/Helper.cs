@@ -2,7 +2,7 @@
 
 namespace Schedulist.Business.Actions
 {
-    internal class Helper
+    public class Helper
     {
         public static string ConsolHelper(string message)
         {
@@ -10,10 +10,11 @@ namespace Schedulist.Business.Actions
             {
                 Console.WriteLine(message);
                 string userInput = Console.ReadLine();
-                if (!string.IsNullOrEmpty(userInput)) return userInput;
+                if (!string.IsNullOrWhiteSpace(userInput)) return userInput;
                 else
                 {
-                    Console.WriteLine("Error, empty variable, please try again:");
+                    Console.WriteLine("Invalid input");
+                    continue;
                 }
             }
         }
