@@ -178,7 +178,7 @@ namespace Schedulist.Business
             while (true)
             {
                 string dateOfWorkModeInput =
-                    Helper.ConsolHelper("Provide the date of work mode in format DD.MM.YYYY:");
+                    Helper.ConsolHelper("\nProvide the date of work mode in format DD.MM.YYYY:");
                 if (DateOnly.TryParse(dateOfWorkModeInput, out dateOfWorkMode))
                 {
                     break;
