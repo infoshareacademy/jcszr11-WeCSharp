@@ -31,6 +31,8 @@ namespace Schedulist.DAL
             DateTime firstDayOfMonth = new DateTime(year, month, 1);
             int dayOfWeek = (int)firstDayOfMonth.DayOfWeek;
             int daysInMonth = DateTime.DaysInMonth(year, month);
+            CultureInfo englishCulture = new CultureInfo("en-GB");
+            CultureInfo.DefaultThreadCurrentCulture = englishCulture;
             string monthName = firstDayOfMonth.ToString("MMMM");
             Console.WriteLine($"\n\t{monthName} {year}");
             Console.WriteLine($"\t\n========================================================");
@@ -50,7 +52,7 @@ namespace Schedulist.DAL
                 }
             }
             Console.WriteLine($"\n\n========================================================");
-            Console.WriteLine("\n\n\nPlease enter date to show your workmode and calendar events (DD.MM.YYYY).");
+            Console.WriteLine("\n\n\nPlease enter date to show your workmode and calendar events (DD/MM/YYYY).");
             string inputDate = Console.ReadLine();
             DateOnly.TryParse(inputDate, out DateOnly selectedDate);
 
