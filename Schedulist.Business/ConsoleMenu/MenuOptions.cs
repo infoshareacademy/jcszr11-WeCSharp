@@ -117,7 +117,10 @@ namespace Schedulist.Business
             int month = currentDate.Month;
             Console.WriteLine("Choose the option:");
             Console.WriteLine($"1. Show {CurrentUser.currentUser.Name} monthly calendar");
-            Console.WriteLine($"2. Show monthly calendar for chosen user");
+            if (CurrentUser.currentUser.AdminPrivilege == true)
+            {
+                Console.WriteLine($"2. Show monthly calendar for chosen user");
+            }
             Console.WriteLine("===============================================================================");
             while (true)
             {

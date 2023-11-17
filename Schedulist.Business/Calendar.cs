@@ -99,7 +99,7 @@ namespace Schedulist.DAL
         {
             ShowCalendar();
             Console.WriteLine($"\n\n========================================================");
-            Console.WriteLine("\n\n\nPlease enter date to show your work mode and calendar events (DD.MM.YYYY).");
+            Console.WriteLine("\n\nPlease enter date to show work mode and calendar events (DD.MM.YYYY).");
             string inputDate = Console.ReadLine();
             DateOnly.TryParse(inputDate, out DateOnly selectedDate);
 
