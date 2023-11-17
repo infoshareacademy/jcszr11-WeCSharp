@@ -189,9 +189,9 @@ namespace Schedulist.Business
                 }
                 else Console.WriteLine("Invalid value, please provide again");
             }
-
             Console.Clear();
-            Console.WriteLine("Type any key to continue");
+            Console.WriteLine("Work Mode has been successfully deleted");
+            Console.WriteLine("\nType any key to continue");
             Console.ReadKey();
         }
 
