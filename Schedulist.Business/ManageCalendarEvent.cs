@@ -15,9 +15,10 @@ namespace Schedulist.Business
     {
         private List<CalendarEvent> _calendarEvents =
             new CsvCalendarEventRepository("..\\..\\..\\CalendarEvents.csv").GetAllCalendarEvents();
-
         private CsvCalendarEventRepository _csvCalendarEventRepository =
             new("..\\..\\..\\CalendarEvents.csv");
+        private CSVWorkModesRepository _csvWorkModesRepository =
+            new("..\\..\\..\\WorkModes.csv");
         DateOnly currentDate = DateOnly.FromDateTime(DateTime.Today);
         public void ShowCalendarEvent(User user, DateOnly date)
         {
@@ -81,6 +82,18 @@ namespace Schedulist.Business
             var calendarEventDate = CalendarEventDateAddValidation(out dateValue);
             calendarEventDate = CalendarEventDateMinMaxValidation(calendarEventDate);
             calendarEventDate = CalendarEventDateWeekendValidation(calendarEventDate);
+            //Showing Work mode for chosen date
+            var workModes = _csvWorkModesRepository.GetAllWorkModes();
+            var userWorkModes = workModes.FirstOrDefault(c => c.UserID == user.Id && c.DateOfWorkmode == calendarEventDate);
+            if (userWorkModes.WorkModeName.Equals("Sick leave") || userWorkModes.WorkModeName.Equals("Holiday leave"))
+            {
+                Console.WriteLine($"\nWork mode for {calendarEventDate} equals sick or holiday leave - you cannot create Calendar Event for that date!");
+                Console.WriteLine($"Please provide other date using format DD.MM.YYYY");
+                calendarEventDate = CalendarEventDateAddValidation(out dateValue);
+                calendarEventDate = CalendarEventDateMinMaxValidation(calendarEventDate);
+                calendarEventDate = CalendarEventDateWeekendValidation(calendarEventDate);
+            }
+
             var calendarEvents = _csvCalendarEventRepository.GetAllCalendarEvents();
             var calendarEventAvailable = calendarEvents
                 .FirstOrDefault(c => c.AssignedToUser == user.Id &&
@@ -454,7 +467,7 @@ namespace Schedulist.Business
                 }
                 else
                 {
-                    Console.WriteLine("Invalid value, please provide again using format DD/MM/YYYY");
+                    Console.WriteLine("Invalid value, please provide again using format DD.MM.YYYY");
                 }
             }
         }
