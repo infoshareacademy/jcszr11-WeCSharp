@@ -17,6 +17,7 @@ namespace Schedulist.Business
             while (true)
             {
                 Console.Clear();
+                Console.WriteLine("====== Calendar Events ======");
                 Console.WriteLine("Choose the option:");
                 Console.WriteLine("1. Create my new calendar event");
                 Console.WriteLine("2. Show my calendar events for chosen date");
@@ -38,7 +39,8 @@ namespace Schedulist.Business
             while (true)
             {
                 Console.Clear();
-                Console.WriteLine("Admin menu - Choose the option:");
+                Console.WriteLine("====== Calendar Events for other Users ======");
+                Console.WriteLine("Choose the option:");
                 Console.WriteLine("1. Create new calendar event for chosen user");
                 Console.WriteLine("2. Show user and date related calendar events");
                 Console.WriteLine("3. Modify existing calendar event");
@@ -72,6 +74,7 @@ namespace Schedulist.Business
         public static void MenuWorkModes()
         {
             Console.Clear();
+            Console.WriteLine("====== Work Modes ======");
             Console.WriteLine("Choose the option:");
             Console.WriteLine("1. Create new work mode");
             Console.WriteLine("2. Modify existing work mode");
@@ -95,6 +98,7 @@ namespace Schedulist.Business
             while (true)
             {
                 Console.Clear();
+                Console.WriteLine("====== Users ======");
                 Console.WriteLine("Choose the option:");
                 Console.WriteLine("1. Create new user");
                 Console.WriteLine("2. Modify existing user");
@@ -115,6 +119,7 @@ namespace Schedulist.Business
             DateTime currentDate = DateTime.Today;
             int year = currentDate.Year;
             int month = currentDate.Month;
+            Console.WriteLine("====== Calendar ======");
             Console.WriteLine("Choose the option:");
             Console.WriteLine($"1. Show {CurrentUser.currentUser.Name} monthly calendar");
             if (CurrentUser.currentUser.AdminPrivilege == true)
