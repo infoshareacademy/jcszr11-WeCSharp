@@ -60,17 +60,17 @@ namespace Schedulist.Business
             while (true)
             {                          
                 var option = Console.ReadKey();
-                if (option.Key == ConsoleKey.D1) AssignWorkMode(1);
-                else if (option.Key == ConsoleKey.D2) AssignWorkMode(2);
-                else if (option.Key == ConsoleKey.D3) AssignWorkMode(3);
-                else if (option.Key == ConsoleKey.D4) AssignWorkMode(4);
-                else if (option.Key == ConsoleKey.D5) AssignWorkMode(5);
+                if (option.Key == ConsoleKey.D1) AssignWorkMode(1, CurrentUser.currentUser);
+                else if (option.Key == ConsoleKey.D2) AssignWorkMode(2, CurrentUser.currentUser);
+                else if (option.Key == ConsoleKey.D3) AssignWorkMode(3, CurrentUser.currentUser);
+                else if (option.Key == ConsoleKey.D4) AssignWorkMode(4, CurrentUser.currentUser);
+                else if (option.Key == ConsoleKey.D5) AssignWorkMode(5, CurrentUser.currentUser);
                 else if (option.Key == ConsoleKey.Backspace) break;
                 break;
             }
         }
 
-        public void AssignWorkMode(int workModeOption)
+        public void AssignWorkMode(int workModeOption, User user)
         {
             if (workModeOption==1)            
                 workModeName = "Office";        
@@ -82,10 +82,12 @@ namespace Schedulist.Business
                 workModeName = "Holiday leave";            
             else if(workModeOption==5)            
                 workModeName = "Another work mode";
+            
+            var userID = (int)user.Id;
 
             //workModeToUserID = _csvWorkModesRepository.ListOfWorkModes.OrderBy(x => x.WorkModeToUserID).Last().WorkModeToUserID + 1;
             var dateOfWorkMode = DateOfWorkModeValidation();
-            WorkModesToUser workModesToUser = new(id: workModeToUserID, name: workModeName, userid: (int)CurrentUser.currentUser.Id, dow: dateOfWorkMode);
+            WorkModesToUser workModesToUser = new(id: workModeToUserID, name: workModeName, userid: (int)user.Id, dow: dateOfWorkMode);
             _csvWorkModesRepository.AddWorkModes(workModesToUser);
             Console.Clear();
             Console.WriteLine($"Work mode for {dateOfWorkMode} has been created successfully");
@@ -93,7 +95,7 @@ namespace Schedulist.Business
             Console.ReadKey();
         }
 
-        public void ChooseOptionsWorkModeAdmin(int workModeOption, User user)
+        public void ChooseOptionsWorkModeAdmin(User user)
         {
             Console.Clear();
             Console.WriteLine("Choose workmode option: ");
@@ -107,11 +109,11 @@ namespace Schedulist.Business
             while (true)
             {
                 var option = Console.ReadKey();
-                if (option.Key == ConsoleKey.D1) AssignWorkMode(1);
-                else if (option.Key == ConsoleKey.D2) AssignWorkMode(2);
-                else if (option.Key == ConsoleKey.D3) AssignWorkMode(3);
-                else if (option.Key == ConsoleKey.D4) AssignWorkMode(4);
-                else if (option.Key == ConsoleKey.D5) AssignWorkMode(5);
+                if (option.Key == ConsoleKey.D1) AssignWorkMode(1, user);
+                else if (option.Key == ConsoleKey.D2) AssignWorkMode(2, user);
+                else if (option.Key == ConsoleKey.D3) AssignWorkMode(3, user);
+                else if (option.Key == ConsoleKey.D4) AssignWorkMode(4, user);
+                else if (option.Key == ConsoleKey.D5) AssignWorkMode(5, user);
                 else if (option.Key == ConsoleKey.Backspace) break;
                 break;
             }

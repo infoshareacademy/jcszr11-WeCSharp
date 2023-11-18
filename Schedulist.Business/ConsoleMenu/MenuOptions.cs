@@ -95,7 +95,7 @@ namespace Schedulist.Business
                 {
                     var actAsUser = SetActAsUser();
                     int workModeOption = 1;
-                    new ManageWorkMode().ChooseOptionsWorkModeAdmin(workModeOption, actAsUser);
+                    new ManageWorkMode().ChooseOptionsWorkModeAdmin(actAsUser);
                 } 
                 else if (option.Key == ConsoleKey.D6)
                 {
