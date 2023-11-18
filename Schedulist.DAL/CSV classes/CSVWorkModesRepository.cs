@@ -58,14 +58,29 @@ namespace Schedulist.DAL
             ListOfWorkModes = GetAllWorkModes();
             
             if(ListOfWorkModes.Any(w=>w.WorkModeToUserID==workModeToUserID)) 
-            { 
-                using StreamWriter writer = new(FilePath);
-                using var csv = new CsvWriter(writer, csvConfig);
-                WorkModesToUser workMode = ListOfWorkModes.FirstOrDefault(w=>w.WorkModeToUserID==workModeToUserID);
-                ListOfWorkModes.Remove(workMode);
-                csv.WriteRecords(ListOfWorkModes);
-            }
-            AddWorkModes(workModesToModify);
+            {                
+                workModeToUserID = workModesToModify.WorkModeToUserID;
+                int indexToUpdate = workModeToUserID - 1;
+                ListOfWorkModes[indexToUpdate]=workModesToModify;
+                try
+                {
+                    using StreamWriter writer = new(FilePath);
+                    using var csv = new CsvWriter(writer, csvConfig);
+                    csv.WriteRecords(ListOfWorkModes);
+                }
+                catch (Exception exc)
+                {
+
+                    Console.WriteLine("An error occurred while writing to the CSV file: " + exc.Message);
+                    if (exc.InnerException != null)
+                    {
+                        Console.WriteLine("Inner Exception: " + exc.InnerException.Message);
+                    }
+                }
+            }                
+                //WorkModesToUser workMode = ListOfWorkModes.FirstOrDefault(w=>w.WorkModeToUserID==workModeToUserID);
+                //ListOfWorkModes.Remove(workMode);            
+                //AddWorkModes(workModesToModify);
         }
 
         public void DeleteWorkModes(int workModesToDeleteID)
@@ -94,10 +109,10 @@ namespace Schedulist.DAL
             }
         }
         
-        public WorkModesToUser GetWorkModeByUserAndDate (int idUser, DateOnly dateWorkMode)
+        public WorkModesToUser? GetWorkModeByUserAndDate (int? idUser, DateOnly dateWorkMode)
         {
-            
-            var workModesReturn = ListOfWorkModes.First(u=>u.UserID==idUser && u.DateOfWorkmode==dateWorkMode);
+            ListOfWorkModes = GetAllWorkModes();
+            var workModesReturn = ListOfWorkModes.FirstOrDefault(u=>u.UserID==idUser && u.DateOfWorkmode==dateWorkMode);
             return workModesReturn;
         }
         private static CsvConfiguration CsvConfiguration()
