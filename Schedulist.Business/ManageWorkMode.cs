@@ -49,12 +49,13 @@ namespace Schedulist.Business
         public void ChooseOptionsWorkMode()
         {
             Console.Clear();
-            Console.WriteLine("Choose workmode option: ");
+            Console.WriteLine("====== Create work mode Section ======");
+            Console.WriteLine("Choose work mode option: ");
             Console.WriteLine("1. At office");
             Console.WriteLine("2. Home office");
             Console.WriteLine("3. Sick leave");
             Console.WriteLine("4. Holiday leave");
-            Console.WriteLine("5. Other workmode");
+            Console.WriteLine("5. Other work mode");
             Console.WriteLine("Backspace. Go back");
             Console.WriteLine("=========================================");
             while (true)
@@ -98,12 +99,13 @@ namespace Schedulist.Business
         public void ChooseOptionsWorkModeAdmin(User user)
         {
             Console.Clear();
-            Console.WriteLine("Choose workmode option: ");
+            Console.WriteLine("====== Create work mode Section ======");
+            Console.WriteLine("Choose work mode option: ");
             Console.WriteLine("1. At office");
             Console.WriteLine("2. Home office");
             Console.WriteLine("3. Sick leave");
             Console.WriteLine("4. Holiday leave");
-            Console.WriteLine("5. Other workmode");
+            Console.WriteLine("5. Other work mode");
             Console.WriteLine("Backspace. Go back");
             Console.WriteLine("=========================================");
             while (true)
