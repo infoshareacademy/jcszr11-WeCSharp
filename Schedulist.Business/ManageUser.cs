@@ -24,20 +24,23 @@ namespace Schedulist.Business
             string position = Helper.ConsolHelper("Type User position");
             string department = Helper.ConsolHelper("Type User department");
             string login = Helper.ConsolHelper("Type User login");
-            string password = Helper.ConsolHelper("Type User password");
+            Console.WriteLine("Type User password");
+            string password = Helper.CreatePassword();
             Console.WriteLine("Is created User Admin? type y/n");
+            System.ConsoleKeyInfo option = Console.ReadKey();
             bool isAdmin = false;
-            switch (Console.ReadLine())
+            while (true)
             {
-                case "y":
+                if (option.Key == ConsoleKey.Y)
+                {
                     isAdmin = true;
                     break;
-                case "n":
+                }
+                else if (option.Key == ConsoleKey.N)
+                {
                     isAdmin = false;
                     break;
-                default:
-                    Console.WriteLine("Invalid Admin access");
-                    break;
+                }
             }
             User user = new(name, surname, position, department, login, password)
             { AdminPrivilege = isAdmin };

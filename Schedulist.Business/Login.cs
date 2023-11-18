@@ -28,10 +28,13 @@ namespace Schedulist.Business
                     User currentUser = userRepository.GetAllUsers().First(x => x.Login == login); // Sprawdzenie czy w bazie jest użytkownik o podanym loginie
                     while (true)
                     {
-                        if (string.IsNullOrEmpty(currentUser.Password))//Prosi o stworzenie hasła dla użytkownika jeżeli on takowego nie posiada
+                        if (string.IsNullOrWhiteSpace(currentUser.Password))//Prosi o stworzenie hasła dla użytkownika jeżeli on takowego nie posiada
                         {
-                            Helper.CreatePassword(currentUser);//Metoda do tworzenia hasła
-                            if (!string.IsNullOrEmpty(currentUser.Password))
+                            Console.Clear();
+                            currentUser.Password = Helper.CreatePassword();//Metoda do tworzenia hasła
+                            new CsvUserRepository("..\\..\\..\\Users.csv").ModifyUser(currentUser.Login, currentUser);
+                            Console.WriteLine("Password has been created");
+                            if (!string.IsNullOrWhiteSpace(currentUser.Password))
                             {
                                 CurrentUser.currentUser = currentUser;
                                 return currentUser;//Loguje użytkownika
