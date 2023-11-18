@@ -32,8 +32,6 @@ namespace Schedulist.DAL
             var csvConfig = CsvConfiguration();
             ListOfWorkModes = GetAllWorkModes();
 
-            // Oblicza lość użytkowników w liście i na tej podstawie nowemu użytkownikowi przydziela wartosć 
-            // Id o jeden większą lub 1 w przypadku pustej listy. 
             int nextWorkmodeToUserId = (int)(ListOfWorkModes.Count > 0 ? ListOfWorkModes.Max(w => w.WorkModeToUserID) + 1 : 1);
                         
             workModes.WorkModeToUserID = nextWorkmodeToUserId;
@@ -46,7 +44,7 @@ namespace Schedulist.DAL
                 csv.NextRecord();
                 csv.WriteRecords(ListOfWorkModes);
                 //Console.Clear();
-                Console.WriteLine($" The Workmode {workModes.WorkModeName} has been added to the list succesfully at the day {workModes.DateOfWorkmode}");
+                Console.WriteLine($" The Workmode {workModes.WorkModeName} has been added to the list successfully at the day {workModes.DateOfWorkmode}");
             }
             catch (Exception ex)
             {
@@ -84,7 +82,6 @@ namespace Schedulist.DAL
                     using StreamWriter writer = new(FilePath, append: false);
                     using CsvWriter csv = new(writer, csvConfig);
                     csv.WriteRecords(ListOfWorkModes);
-                    Console.WriteLine("Work Mode has been succesfully deleted");
                 }
                 catch (Exception ex)
                 {
@@ -94,15 +91,12 @@ namespace Schedulist.DAL
                         Console.WriteLine("Inner Exception: " + ex.InnerException.Message);
                     }
                 }
-                Console.ReadKey();
-
             }
-
-
         }
         
         public WorkModesToUser GetWorkModeByUserAndDate (int idUser, DateOnly dateWorkMode)
         {
+            
             var workModesReturn = ListOfWorkModes.First(u=>u.UserID==idUser && u.DateOfWorkmode==dateWorkMode);
             return workModesReturn;
         }

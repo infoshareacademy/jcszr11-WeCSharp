@@ -46,11 +46,11 @@ namespace Schedulist.Business.Actions
                                     {
                                         break;
                                     }
-                                    else error = "Password doesnt contain uppercase character";
+                                    else error = "Password doesn't contain uppercase character";
                                 }
-                                else error = "Password doesnt contain lowercase character";
+                                else error = "Password doesn't contain lowercase character";
                             }
-                            else error = "Password doesnt contain number";
+                            else error = "Password doesn't contain a number";
                         }
                         else error = "Password too long";
                     }

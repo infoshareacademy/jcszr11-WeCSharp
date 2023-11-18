@@ -2,6 +2,7 @@ using Schedulist.DAL;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Http.Headers;
 using System.Text;
 using System.Threading.Channels;
 using System.Threading.Tasks;
@@ -39,7 +40,7 @@ namespace Schedulist.Business
         {
             Console.Clear();
             Console.WriteLine("==========List of Calendar Events==========");
-            Console.WriteLine("Provide date for which you want to show Calendar Events using format DD/MM/YYYY");
+            Console.WriteLine("Provide date for which you want to show Calendar Events using format DD.MM.YYYY");
             string providedDate = Console.ReadLine();
             providedDate = DateValueEmptinessValidation(providedDate);
             DateOnly.TryParse(providedDate, out var specifiedDate);
@@ -73,13 +74,9 @@ namespace Schedulist.Business
             Console.WriteLine("==========Creating new Calendar Event==========");
             Console.WriteLine("You are creating new Calendar Event, please provide data as following:");
             int calendarEventId = 1;
-            Console.WriteLine("Name of Calendar Event:");
-            string calendarEventName = Console.ReadLine();
-            calendarEventName = CalendarEventNameValidation(calendarEventName);
-            Console.WriteLine("Description of the Calendar Event:");
-            string calendarEventDescription = Console.ReadLine();
-            calendarEventDescription = CalendarEventDescriptionValidation(calendarEventDescription);
-            Console.WriteLine("Date of Calendar Event using format DD/MM/YYYY");
+            string calendarEventName = Helper.ConsolHelper("Name of Calendar Event:");
+            string calendarEventDescription = Helper.ConsolHelper("Description of the Calendar Event:");
+            Console.WriteLine("Date of Calendar Event using format DD.MM.YYYY");
             var calendarEventDate = CalendarEventDateAddValidation(out var dateValue);
             calendarEventDate = CalendarEventDateMinMaxValidation(calendarEventDate);
             var calendarEvents = _csvCalendarEventRepository.GetAllCalendarEvents();
@@ -88,9 +85,7 @@ namespace Schedulist.Business
                                      c.CalendarEventDate == calendarEventDate);
             CalendarEventAvailabilityCheck(user, calendarEventAvailable, calendarEventDate);
             Console.WriteLine("Start time of Calendar Event using format HH:MM");
-            string startTime = Console.ReadLine();
-            startTime = StartTimeEmptinessValidation(startTime);
-            TimeOnly.TryParse(startTime, out var calendarEventStartTime);
+            var calendarEventStartTime = CalendarEventStartTimeParseValidation();
             var validatedStartTime = calendarEvents
                 .FirstOrDefault(c => c.AssignedToUser == user.Id &&
                                      c.CalendarEventDate == calendarEventDate &&
@@ -516,7 +511,7 @@ namespace Schedulist.Business
             while (calendarEventEndTime.CompareTo(calendarEventStartTime) <= 0)
             {
                 Console.WriteLine(
-                    "Calendar Event End Time cannot be earlier or at the same time as Start Time, adjust the value!");
+                    "Calendar Event End Time cannot be earlier or at the same time as Start Time, please adjust the value!");
                 endTime = Console.ReadLine();
                 endTime = EndTimeEmptinessValidation(endTime);
                 TimeOnly.TryParse(endTime, out calendarEventEndTime);
@@ -524,25 +519,21 @@ namespace Schedulist.Business
 
             return calendarEventEndTime;
         }
-        private static string CalendarEventDescriptionValidation(string? calendarEventDescription)
+        private static TimeOnly CalendarEventStartTimeParseValidation()
         {
-            while (string.IsNullOrWhiteSpace(calendarEventDescription))
+            while (true)
             {
-                Console.WriteLine("Calendar Event Description cannot be empty, please provide value!");
-                calendarEventDescription = Console.ReadLine();
+                string startTime = Console.ReadLine();
+                startTime = StartTimeEmptinessValidation(startTime);
+                if (TimeOnly.TryParse(startTime, out var calendarEventStartTime))
+                {
+                    return calendarEventStartTime;
+                }
+                else
+                {
+                    Console.WriteLine("Invalid value, please provide again using format HH:MM");
+                }
             }
-
-            return calendarEventDescription;
-        }
-        private static string CalendarEventNameValidation(string? calendarEventName)
-        {
-            while (string.IsNullOrWhiteSpace(calendarEventName))
-            {
-                Console.WriteLine("Calendar Event Name cannot be empty, please provide value!");
-                calendarEventName = Console.ReadLine();
-            }
-
-            return calendarEventName;
         }
         #endregion
     }
