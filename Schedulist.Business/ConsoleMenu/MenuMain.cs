@@ -21,8 +21,8 @@ namespace Schedulist.Business
                 Console.WriteLine("3. Manage calendar events");
                 if (CurrentUser.currentUser.AdminPrivilege == true)
                 {
-                    Console.WriteLine("4. Manage calendar events for other users");
-                    Console.WriteLine("5. Manage users");
+                    Console.WriteLine("4. Manage calendar events for chosen User [Admin]");
+                    Console.WriteLine("5. Manage Users [Admin]");
                 }
                 Console.WriteLine("Backspace. Log out");
                 Console.WriteLine("===============================================================================");

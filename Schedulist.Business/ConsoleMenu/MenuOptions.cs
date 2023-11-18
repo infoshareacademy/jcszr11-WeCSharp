@@ -37,12 +37,12 @@ namespace Schedulist.Business
             while (true)
             {
                 Console.Clear();
-                Console.WriteLine("====== Calendar Events for other Users ======");
+                Console.WriteLine("====== Calendar Events for chosen User ======");
                 Console.WriteLine("Choose the option:");
-                Console.WriteLine("1. Create new calendar event for chosen user");
-                Console.WriteLine("2. Show user and date related calendar events");
-                Console.WriteLine("3. Modify existing calendar event for chosen user");
-                Console.WriteLine("4. Delete existing calendar event for chosen user");
+                Console.WriteLine("1. Create new calendar event for chosen User");
+                Console.WriteLine("2. Show calendar events for chosen User and date ");
+                Console.WriteLine("3. Modify existing calendar event for chosen User");
+                Console.WriteLine("4. Delete existing calendar event for chosen User");
                 Console.WriteLine("Backspace. Go back");
                 Console.WriteLine("===============================================================================");
                 var option = Console.ReadKey();
@@ -81,8 +81,8 @@ namespace Schedulist.Business
                 Console.WriteLine("4. Show all work modes");
                 if (CurrentUser.currentUser.AdminPrivilege == true)
                 {
-                    Console.WriteLine("5. Create new work mode for chosen user");
-                    Console.WriteLine("6. Delete existing work mode for chosen user");
+                    Console.WriteLine("5. Create new work mode for chosen User [Admin]");
+                    Console.WriteLine("6. Delete existing work mode for chosen User [Admin]");
                 }
                 Console.WriteLine("Backspace. Go back");
                 Console.WriteLine("===============================================================================");
@@ -112,9 +112,9 @@ namespace Schedulist.Business
                 Console.Clear();
                 Console.WriteLine("====== Users ======");
                 Console.WriteLine("Choose the option:");
-                Console.WriteLine("1. Create new user");
-                Console.WriteLine("2. Modify existing user");
-                Console.WriteLine("3. Delete existing user");
+                Console.WriteLine("1. Create new User");
+                Console.WriteLine("2. Modify existing User");
+                Console.WriteLine("3. Delete existing User");
                 Console.WriteLine("Backspace. Go back");
                 Console.WriteLine("===============================================================================");
                 var option = Console.ReadKey();
@@ -138,7 +138,7 @@ namespace Schedulist.Business
                 Console.WriteLine($"1. Show {CurrentUser.currentUser.Name} monthly calendar");
                 if (CurrentUser.currentUser.AdminPrivilege == true)
                 {
-                    Console.WriteLine($"2. Show monthly calendar for chosen user");
+                    Console.WriteLine($"2. Show monthly calendar for chosen User [Admin]");
                 }
                 Console.WriteLine("Backspace. Go back");
                 Console.WriteLine("===============================================================================");

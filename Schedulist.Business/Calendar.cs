@@ -69,7 +69,7 @@ namespace Schedulist.DAL
                 }
                 else
                 {
-                    Console.WriteLine($"Your work mode is {userWorkModes.WorkModeName}");
+                    Console.WriteLine($"Your work mode is: {userWorkModes.WorkModeName}");
                 }
                 var calendarEvents = _csvCalendarEventRepository.GetAllCalendarEvents();
                 var userCalendarEvents = calendarEvents
@@ -92,13 +92,13 @@ namespace Schedulist.DAL
                     }
                 }
                 Console.WriteLine("\n========================================================");
-                Console.WriteLine("\nType any key do return to Menu");
+                Console.WriteLine("\nType any key do return to Menu.");
                 Console.ReadKey();
             }
             else
             {
                 Console.WriteLine("The date is incorrect.");
-                Console.WriteLine("\nType any key do return to Menu");
+                Console.WriteLine("\nType any key do return to Menu.");
                 Console.ReadKey();
             }
             

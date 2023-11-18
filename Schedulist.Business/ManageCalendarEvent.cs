@@ -221,7 +221,7 @@ namespace Schedulist.Business
                 }
                 Console.Clear();
                 new CsvCalendarEventRepository("..\\..\\..\\CalendarEvents.csv").ModifyCalendarEvent(calendarEventToModify);
-                Console.WriteLine($"CalendarEvent with ID:{calendarEventToModify.CalendarEventId + 1} has been succesfully modified");
+                Console.WriteLine($"CalendarEvent with ID:{calendarEventToModify.CalendarEventId + 1} has been successfully modified");
                 Console.WriteLine("Press any key to return to the menu.");
                 Console.ReadKey();
                 MenuOptions.MenuCalendarEvents();
