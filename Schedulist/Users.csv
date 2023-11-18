@@ -2,7 +2,6 @@ Id,Name,Surname,Position,Department,Login,Password,AdminPrivilege
 1,Tomasz,Tomaszewicz,Driver,Logistics,LogU1,PassU1,False
 2,Andrzej,Janowicz,Sales Manager,Global Services,AndJan,Tr00$@22,False
 3,Romek,Romanowicz,Delivery Manager,Logistics,LogA1,PassA1,True
-4,Mar,Mar,Mar,Mar,Mar,Mar,True
+4,Zbigniew,Zero,CEO,Head,ZbiZer,Tuwre33,True
 5,Jordan,Michael,Tester,IT,JorMic,Test223%,True
 6,Marta,Debowska,Supporter,IT,MarDeb,Random123#,True
-7,Zbigniew,Zero,CEO,Head,ZbiZer,Tuwre33,True
