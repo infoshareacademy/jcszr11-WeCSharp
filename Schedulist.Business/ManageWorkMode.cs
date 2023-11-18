@@ -128,17 +128,16 @@ namespace Schedulist.Business
             var dateOfWorkMode = DateOfWorkModeValidation();
 
             WorkModesToUser workModeToChange = _csvWorkModesRepository.GetWorkModeByUserAndDate((int)userID, dateOfWorkMode);
-
-            workModeToUserID = _csvWorkModesRepository.ListOfWorkModes.IndexOf(_csvWorkModesRepository.ListOfWorkModes.First(u => u.DateOfWorkmode == dateOfWorkMode && u.UserID == userID));
+            //workModeToUserID = listOfWorkModes.FirstOrDefault(u => u.DateOfWorkmode == dateOfWorkMode && u.UserID == userID);
+            workModeToUserID = workModeToChange.WorkModeToUserID;
             //int workModeToUserID;
             //var workModeUser =
             //    _workModesToUser.First(u => u.DateOfWorkmode == dateOfWorkMode && u.UserID == userID).ToString();
             //if (workModeUser != null && int.TryParse(workModeUser.ToString(), out workModeToUserID))
             //{
-
             //}
-
             //Console.WriteLine(workModeToChange);
+
             Console.Clear();
             Console.WriteLine("Data about work mode, you want to change:");
             Console.WriteLine($"ID work mode:   {workModeToChange.WorkModeToUserID}");
@@ -171,8 +170,14 @@ namespace Schedulist.Business
             _csvWorkModesRepository.ModifyWorkModes(workModeToUserID, workModeModified);
             Console.Clear();
             Console.WriteLine("Work Mode has been modified successfully");
+            Console.WriteLine($"ID work mode:   {workModeModified.WorkModeToUserID}");
+            Console.WriteLine($"Work mode name:  {workModeModified.WorkModeName}");
+            Console.WriteLine($"Your user ID:  {workModeModified.UserID}");
+            Console.WriteLine($"Date of work day:   {workModeModified.DateOfWorkmode}");
             Console.WriteLine("\nType any key to continue");
             Console.ReadKey();
+            new MenuOptions().MenuWorkModes();
+
 
         }
 
