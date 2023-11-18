@@ -30,7 +30,7 @@ namespace Schedulist.Business
                     {
                         if (string.IsNullOrEmpty(currentUser.Password))//Prosi o stworzenie hasła dla użytkownika jeżeli on takowego nie posiada
                         {
-                            CreatePassword(currentUser);//Metoda do tworzenia hasła
+                            Helper.CreatePassword(currentUser);//Metoda do tworzenia hasła
                             if (!string.IsNullOrEmpty(currentUser.Password))
                             {
                                 CurrentUser.currentUser = currentUser;
@@ -39,7 +39,7 @@ namespace Schedulist.Business
                             else break;
                         }
 
-                        string password = ReadPassword("Enter your password or type x to enter login again:");
+                        string password = ReadPassword("Enter your password or type x to enter login again:\n");
 
                         if (password == "x")
                         {
@@ -77,7 +77,7 @@ namespace Schedulist.Business
             user.Password = ReadPassword(" ");
         }
 
-        private string ReadPassword(string prompt)
+        private string ReadPassword(string prompt) // odczytuje pojedyńcze znaki i zamienia je na chary "*"
         {
             Console.Write(prompt);
             StringBuilder password = new StringBuilder();
