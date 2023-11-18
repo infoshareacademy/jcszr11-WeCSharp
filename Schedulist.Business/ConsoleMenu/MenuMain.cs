@@ -34,7 +34,7 @@ namespace Schedulist.Business
                     return null;
                 }
                 else if (option.Key == ConsoleKey.D1) new MenuOptions().MenuCalendar();
-                else if (option.Key == ConsoleKey.D2) MenuOptions.MenuWorkModes();
+                else if (option.Key == ConsoleKey.D2) new MenuOptions().MenuWorkModes();
                 else if (option.Key == ConsoleKey.D3) MenuOptions.MenuCalendarEvents();
                 else if (CurrentUser.currentUser.AdminPrivilege) // Admin options
                 {

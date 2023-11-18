@@ -12,7 +12,7 @@ namespace Schedulist.DAL
         void AddWorkModes(WorkModesToUser workMode);
         void ModifyWorkModes(int workModesID, WorkModesToUser workMode);
         void DeleteWorkModes(int workModesID);
-        WorkModesToUser GetWorkModeByUserAndDate(int idUser, DateOnly dateWorkMode);
+        //WorkModesToUser GetWorkModeByUserAndDate(int idUser, DateOnly dateWorkMode);
         
     }
 }

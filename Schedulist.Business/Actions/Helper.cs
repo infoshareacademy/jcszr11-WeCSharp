@@ -14,7 +14,7 @@ namespace Schedulist.Business.Actions
                 if (!string.IsNullOrWhiteSpace(userInput)) return userInput;
                 else
                 {
-                    Console.WriteLine("Invalid input");
+                    Console.WriteLine("Invalid input - empty or incorrect value!");
                     continue;
                 }
             }
