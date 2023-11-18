@@ -11,7 +11,6 @@ namespace Schedulist.Business
     
     public class MenuOptions
     {
-        //private AdminCommands adminCommands;
         public static void MenuCalendarEvents()
         {
             while (true)
@@ -19,10 +18,10 @@ namespace Schedulist.Business
                 Console.Clear();
                 Console.WriteLine("====== Calendar Events ======");
                 Console.WriteLine("Choose the option:");
-                Console.WriteLine("1. Create my new calendar event");
-                Console.WriteLine("2. Show my calendar events for chosen date");
-                Console.WriteLine("3. Modify your calendar event");
-                Console.WriteLine("4. Delete your calendar event");
+                Console.WriteLine("1. Create new calendar event");
+                Console.WriteLine("2. Show calendar events for chosen date");
+                Console.WriteLine("3. Modify calendar event");
+                Console.WriteLine("4. Delete calendar event");
                 Console.WriteLine("Backspace. Go back");
                 Console.WriteLine("===============================================================================");
                 var option = Console.ReadKey();
@@ -42,8 +41,8 @@ namespace Schedulist.Business
                 Console.WriteLine("Choose the option:");
                 Console.WriteLine("1. Create new calendar event for chosen user");
                 Console.WriteLine("2. Show user and date related calendar events");
-                Console.WriteLine("3. Modify existing calendar event");
-                Console.WriteLine("4. Delete existing calendar event");
+                Console.WriteLine("3. Modify existing calendar event for chosen user");
+                Console.WriteLine("4. Delete existing calendar event for chosen user");
                 Console.WriteLine("Backspace. Go back");
                 Console.WriteLine("===============================================================================");
                 var option = Console.ReadKey();
@@ -74,6 +73,7 @@ namespace Schedulist.Business
             while (true)
             {
                 Console.Clear();
+                Console.WriteLine("====== Work Modes ======");
                 Console.WriteLine("Choose the option:");
                 Console.WriteLine("1. Create new work mode");
                 Console.WriteLine("2. Modify existing work mode");
@@ -114,7 +114,7 @@ namespace Schedulist.Business
                 Console.WriteLine("Choose the option:");
                 Console.WriteLine("1. Create new user");
                 Console.WriteLine("2. Modify existing user");
-                Console.WriteLine("3. Delete existing Users");
+                Console.WriteLine("3. Delete existing user");
                 Console.WriteLine("Backspace. Go back");
                 Console.WriteLine("===============================================================================");
                 var option = Console.ReadKey();
