@@ -126,21 +126,22 @@ namespace Schedulist.Business
         }
         public void MenuCalendar()
         {
-            Console.Clear();
-            DateTime currentDate = DateTime.Today;
-            int year = currentDate.Year;
-            int month = currentDate.Month;
-            Console.WriteLine("====== Calendar ======");
-            Console.WriteLine("Choose the option:");
-            Console.WriteLine($"1. Show {CurrentUser.currentUser.Name} monthly calendar");
-            if (CurrentUser.currentUser.AdminPrivilege == true)
-            {
-                Console.WriteLine($"2. Show monthly calendar for chosen user");
-            }
-            Console.WriteLine("Backspace. Go back");
-            Console.WriteLine("===============================================================================");
+            
             while (true)
             {
+                Console.Clear();
+                DateTime currentDate = DateTime.Today;
+                int year = currentDate.Year;
+                int month = currentDate.Month;
+                Console.WriteLine("====== Calendar ======");
+                Console.WriteLine("Choose the option:");
+                Console.WriteLine($"1. Show {CurrentUser.currentUser.Name} monthly calendar");
+                if (CurrentUser.currentUser.AdminPrivilege == true)
+                {
+                    Console.WriteLine($"2. Show monthly calendar for chosen user");
+                }
+                Console.WriteLine("Backspace. Go back");
+                Console.WriteLine("===============================================================================");
                 var option = Console.ReadKey();
                 if (option.Key == ConsoleKey.D1) new Calendar().ShowUserCalendar(CurrentUser.currentUser);
                 else if (option.Key == ConsoleKey.D2)

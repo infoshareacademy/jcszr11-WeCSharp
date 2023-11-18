@@ -93,12 +93,13 @@ namespace Schedulist.DAL
                 }
                 Console.WriteLine("\n========================================================");
                 Console.WriteLine("\nType any key do return to Menu");
+                Console.ReadKey();
             }
             else
             {
                 Console.WriteLine("The date is incorrect. Please try again.");
             }
-            Console.ReadKey();
+            
         }
 
         public void ShowUserCalendarAdmin(User user)
@@ -147,12 +148,12 @@ namespace Schedulist.DAL
 
                 Console.WriteLine("\n========================================================");
                 Console.WriteLine("\nType any key to return to Menu");
+                Console.ReadKey();
             }
             else
             {
                 Console.WriteLine("The date is incorrect. Please try again.");
             }
-            Console.ReadKey();
         }
     }
 }
