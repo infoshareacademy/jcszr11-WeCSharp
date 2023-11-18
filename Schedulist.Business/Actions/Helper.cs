@@ -19,20 +19,19 @@ namespace Schedulist.Business.Actions
                 }
             }
         }
-        public static User CreatePassword(User user)
+        public static string CreatePassword()
         {
             while (true)
             {
-                Console.Clear();
                 string newPassword;
                 string error = "";
+                Console.WriteLine("===== Create password =====");
+                Console.WriteLine("Password should contain between 5 - 15 letters, lowercase, uppercase and number");
+                Console.WriteLine("Provide new password or type x to leave empty");
                 while (true)
                 {
-                    Console.Clear();
                     if (!string.IsNullOrEmpty(error)) Console.WriteLine(error);
-                    Console.WriteLine("===== Create password =====");
-                    Console.WriteLine("Password should contain between 5 - 15 letters, lowercase, uppercase and number");
-                    newPassword = Helper.ConsolHelper("Provide new password or type x to leave");
+                    newPassword = Console.ReadLine();
                     if (newPassword == "x") return null;
                     if (newPassword.Length >= 5)
                     {
@@ -60,10 +59,7 @@ namespace Schedulist.Business.Actions
                 if (repeatedNewPassoword == "x") return null;
                 if (newPassword == repeatedNewPassoword && newPassword != null)
                 {
-                    user.Password = newPassword;
-                    new CsvUserRepository("..\\..\\..\\Users.csv").ModifyUser(user.Login, user);
-                    Console.WriteLine("Password has been created");
-                    return user;
+                    return newPassword;
                 }
                 else Console.WriteLine("Passwords do not match, enter your passwords again or type x to leave");
             }
