@@ -8,7 +8,7 @@ namespace Schedulist
     {
         static void Main()
         {
-            Console.WriteLine("Hello. This is Schedulist!");
+            
             while (true)
             {
                 new Login(new CsvUserRepository("..\\..\\..\\Users.csv")).Run();    //Metoda do logowania użytkownika

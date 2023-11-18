@@ -11,18 +11,17 @@ namespace Schedulist.Business
     public class Login
     {
         private readonly IUserRepository userRepository;
-
         public Login(IUserRepository userRepository)
         {
             this.userRepository = userRepository;
         }
-
         public User Run()
         {
             Console.Clear();
             while (true)
             {
-                string login = Helper.ConsolHelper("Enter your login:");
+                Console.WriteLine("Hello. This is Schedulist!");
+                string login = Helper.ConsolHelper("\nEnter your login:");
                 if (userRepository.GetAllUsers().Any(x => x.Login == login))
                 {
                     User currentUser = userRepository.GetAllUsers().First(x => x.Login == login); // Sprawdzenie czy w bazie jest użytkownik o podanym loginie
@@ -41,7 +40,6 @@ namespace Schedulist.Business
                             }
                             else break;
                         }
-
                         string password = ReadPassword("Enter your password or type x to enter login again:\n");
 
                         if (password == "x")
@@ -68,18 +66,6 @@ namespace Schedulist.Business
                 }
             }
         }
-
-        private string ConsoleHelper(string prompt)
-        {
-            Console.Write(prompt);
-            return Console.ReadLine();
-        }
-
-        private void CreatePassword(User user)
-        {
-            user.Password = ReadPassword(" ");
-        }
-
         private string ReadPassword(string prompt) // odczytuje pojedyńcze znaki i zamienia je na chary "*"
         {
             Console.Write(prompt);
