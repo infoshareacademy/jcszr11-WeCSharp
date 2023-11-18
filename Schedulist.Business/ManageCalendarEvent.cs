@@ -74,11 +74,13 @@ namespace Schedulist.Business
             Console.WriteLine("==========Creating new Calendar Event==========");
             Console.WriteLine("You are creating new Calendar Event, please provide data as following:");
             int calendarEventId = 1;
+            var dateValue = "";
             string calendarEventName = Helper.ConsolHelper("Name of Calendar Event:");
             string calendarEventDescription = Helper.ConsolHelper("Description of the Calendar Event:");
             Console.WriteLine("Date of Calendar Event using format DD.MM.YYYY");
-            var calendarEventDate = CalendarEventDateAddValidation(out var dateValue);
+            var calendarEventDate = CalendarEventDateAddValidation(out dateValue);
             calendarEventDate = CalendarEventDateMinMaxValidation(calendarEventDate);
+            calendarEventDate = CalendarEventDateWeekendValidation(calendarEventDate);
             var calendarEvents = _csvCalendarEventRepository.GetAllCalendarEvents();
             var calendarEventAvailable = calendarEvents
                 .FirstOrDefault(c => c.AssignedToUser == user.Id &&
@@ -308,7 +310,7 @@ namespace Schedulist.Business
                 Console.WriteLine($"CalendarEvent with ID:{calendarEventToModify.CalendarEventId + 1} has been succesfully modified");
                 Console.WriteLine("Press any key to return to the menu.");
                 Console.ReadKey();
-                new MenuOptions(); 
+                new MenuOptions();
             }
             catch (Exception ex)
             {
@@ -406,6 +408,18 @@ namespace Schedulist.Business
         #endregion
 
         #region CalendarEvent - Validation Section
+        private DateOnly CalendarEventDateWeekendValidation(DateOnly calendarEventDate)
+        {
+            string dateValue;
+            if (calendarEventDate.DayOfWeek == DayOfWeek.Saturday || calendarEventDate.DayOfWeek == DayOfWeek.Sunday)
+            {
+                Console.WriteLine(
+                    "You are trying to add calendar event for Saturday or Sunday, which is incorrect, please adjust the value (DD/MM/YYYY)!");
+                calendarEventDate = CalendarEventDateAddValidation(out dateValue);
+                calendarEventDate = CalendarEventDateMinMaxValidation(calendarEventDate);
+            }
+            return calendarEventDate;
+        }
         private DateOnly CalendarEventDateMinMaxValidation(DateOnly calendarEventDate)
         {
             string dateValue;
@@ -430,10 +444,19 @@ namespace Schedulist.Business
         }
         private DateOnly CalendarEventDateAddValidation(out string dateValue)
         {
-            dateValue = Console.ReadLine();
-            dateValue = DateValueEmptinessValidation(dateValue);
-            DateOnly.TryParse(dateValue, out var calendarEventDate);
-            return calendarEventDate;
+            while (true)
+            {
+                dateValue = Console.ReadLine();
+                dateValue = DateValueEmptinessValidation(dateValue);
+                if (DateOnly.TryParse(dateValue, out var calendarEventDate))
+                {
+                    return calendarEventDate;
+                }
+                else
+                {
+                    Console.WriteLine("Invalid value, please provide again using format DD/MM/YYYY");
+                }
+            }
         }
         private void CalendarEventAvailabilityCheck(User user, CalendarEvent? calendarEventAvailable, DateOnly calendarEventDate)
         {
