@@ -56,8 +56,14 @@ namespace Schedulist.Business
                     var actAsUser = SetActAsUser();
                     new ManageCalendarEvent().ShowUserCalendarEvent(actAsUser);
                 }
-                else if (option.Key == ConsoleKey.D3) new ManageCalendarEvent().ModifyCalendarEventsAdmin();
-                else if (option.Key == ConsoleKey.D4) new ManageCalendarEvent().DeleteCalendarEventAdmin();
+                else if (option.Key == ConsoleKey.D3)
+                {
+                    new ManageCalendarEvent().ModifyCalendarEventsAdmin();
+                }
+                else if (option.Key == ConsoleKey.D4) 
+                {
+                    new ManageCalendarEvent().DeleteCalendarEventAdmin();
+                }
                 else if (option.Key == ConsoleKey.Backspace) break;
             }
 

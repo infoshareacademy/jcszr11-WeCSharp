@@ -78,10 +78,10 @@ namespace Schedulist.Business.Actions
         public static CalendarEvent GetCalendarEvent(List<CalendarEvent> UserCalendarEvents)
         {
             Console.WriteLine("====== List of Calendar Events ======");
-            Console.WriteLine("ID:\tDate:\t\tName: ");
+            Console.WriteLine("ID:\tUserID:\tDate:\t\tName: ");
             foreach (var item in UserCalendarEvents)
             {
-                Console.WriteLine($"{item.CalendarEventId + 1}\t{item.CalendarEventDate}\t{item.CalendarEventName}");
+                Console.WriteLine($"{item.CalendarEventId + 1}\t{item.AssignedToUser}\t{item.CalendarEventDate}\t{item.CalendarEventName}");
             }
             string input = Helper.ConsolHelper("Choose the ID of Calendar Event you want to modify (or 0 to cancel):");
             if (int.TryParse(input, out int calendarEventId) && calendarEventId > 0 && calendarEventId <= UserCalendarEvents.Count)
@@ -94,7 +94,7 @@ namespace Schedulist.Business.Actions
                 Console.WriteLine("Operation canceled.");
                 Console.WriteLine("Press any key to return to the menu.");
                 Console.ReadKey();
-                new MenuOptions();
+                new MenuOptions().MenuAdminCalendarEvents();
                 return null;
             }
             else
@@ -103,7 +103,7 @@ namespace Schedulist.Business.Actions
                 Console.WriteLine("Invalid choice");
                 Console.WriteLine("Press any key to return to the menu.");
                 Console.ReadKey();
-                new MenuOptions();
+                new MenuOptions().MenuAdminCalendarEvents();
                 return null;
             }
         }

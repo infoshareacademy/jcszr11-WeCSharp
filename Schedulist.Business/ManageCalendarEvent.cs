@@ -119,10 +119,10 @@ namespace Schedulist.Business
             {
                 Console.Clear();
                 Console.WriteLine("====== List of Calendar Events ======");
-                Console.WriteLine("ID:\tDate:\t\tName: ");
+                Console.WriteLine("ID:\tUserID:\tDate:\t\tName:\t ");
                 foreach (var item in currentUserCalendarEvents)
                 {
-                    Console.WriteLine($"{item.CalendarEventId + 1}\t{item.CalendarEventDate}\t{item.CalendarEventName}");
+                    Console.WriteLine($"{item.CalendarEventId + 1}\t{item.AssignedToUser}\t{item.CalendarEventDate}\t{item.CalendarEventName}");
                 }
                 string input = Helper.ConsolHelper("Choose the ID of Calendar Event you want to modify (or 0 to cancel):");
                 if (int.TryParse(input, out int calendarEventId) && calendarEventId > 0 && calendarEventId <= _calendarEvents.Count)
@@ -156,8 +156,8 @@ namespace Schedulist.Business
             Console.WriteLine($"1. Name:            {calendarEventToModify.CalendarEventName}");
             Console.WriteLine($"2. Description:     {calendarEventToModify.CalendarEventDescription}");
             Console.WriteLine($"3. Date:            {calendarEventToModify.CalendarEventDate}");
-            Console.WriteLine($"4. StartTIme:       {calendarEventToModify.CalendarEventStartTime}");
-            Console.WriteLine($"5. EndTime:         {calendarEventToModify.CalendarEventEndTime}");
+            Console.WriteLine($"4. Start time:       {calendarEventToModify.CalendarEventStartTime}");
+            Console.WriteLine($"5. End time:         {calendarEventToModify.CalendarEventEndTime}");
             Console.WriteLine("Backspace. Go back");
             Console.WriteLine("===============================================================================");
 
@@ -239,6 +239,7 @@ namespace Schedulist.Business
         {
             Console.Clear();
             var calendarEventToModify = Helper.GetCalendarEvent(_calendarEvents);
+            Console.Clear();
             Console.WriteLine("====== Modify Calendar Event ======");
             Console.WriteLine("Choose variable ID of Calendar Event that you want to modify:");
             Console.WriteLine($"1. Name:            {calendarEventToModify.CalendarEventName}");
@@ -252,6 +253,7 @@ namespace Schedulist.Business
             string modifiedVariable;
             try
             {
+                Console.Clear();
                 switch (option.Key)
                 {
                     case ConsoleKey.D1:
@@ -298,12 +300,13 @@ namespace Schedulist.Business
                         }
                         break;
                     case ConsoleKey.Backspace:
+                        new MenuOptions().MenuAdminCalendarEvents();
                         break;
                     default:
                         Console.WriteLine("Invalid input. Please choose a valid option.");
                         Console.WriteLine("Press any key to return to the menu.");
                         Console.ReadKey();
-                        new MenuOptions();
+                        new MenuOptions().MenuAdminCalendarEvents();
                         break;
                 }
                 Console.Clear();
@@ -351,11 +354,12 @@ namespace Schedulist.Business
         }
         private void DisplayCalendarEvents(List<CalendarEvent> calendarEvents)
         {
-            Console.WriteLine("ID \t| Calendar Event Name \t\t|Date");
+            Console.WriteLine("====== List of Calendar Events ======");
+            Console.WriteLine("ID:\tUserID:\t\tDate:\t\tCalendar Event Name:");
             for (int i = 0; i < calendarEvents.Count; i++)
             {
                 Console.WriteLine
-                ($"{i + 1} \t {calendarEvents[i].CalendarEventName} \t\t\t {calendarEvents[i].CalendarEventDate}");
+                ($"{i + 1}\t{calendarEvents[i].AssignedToUser}\t\t{calendarEvents[i].CalendarEventDate}\t\t{calendarEvents[i].CalendarEventName}");
             }
         }
         private void CurrentUserCalendarEventsSelection(User user)
