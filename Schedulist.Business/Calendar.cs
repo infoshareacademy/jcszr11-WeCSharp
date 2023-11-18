@@ -97,7 +97,9 @@ namespace Schedulist.DAL
             }
             else
             {
-                Console.WriteLine("The date is incorrect. Please try again.");
+                Console.WriteLine("The date is incorrect.");
+                Console.WriteLine("\nType any key do return to Menu");
+                Console.ReadKey();
             }
             
         }
@@ -152,7 +154,9 @@ namespace Schedulist.DAL
             }
             else
             {
-                Console.WriteLine("The date is incorrect. Please try again.");
+                Console.WriteLine("The date is incorrect.");
+                Console.WriteLine("\nType any key do return to Menu");
+                Console.ReadKey();
             }
         }
     }
