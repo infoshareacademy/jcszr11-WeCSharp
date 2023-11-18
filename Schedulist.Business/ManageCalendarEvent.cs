@@ -1,6 +1,7 @@
 using Schedulist.DAL;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.Design;
 using System.Linq;
 using System.Net.Http.Headers;
 using System.Text;
@@ -36,7 +37,6 @@ namespace Schedulist.Business
             }
             Console.WriteLine("========================================================");
         }
-
         public void ShowUserCalendarEvent(User user)
         {
             Console.Clear();
@@ -68,7 +68,6 @@ namespace Schedulist.Business
             Console.WriteLine("\nType any key do return to Menu");
             Console.ReadKey();
         }
-
         public void CreateCalendarEvent(User user)
         {
             Console.Clear();
@@ -82,18 +81,7 @@ namespace Schedulist.Business
             var calendarEventDate = CalendarEventDateAddValidation(out dateValue);
             calendarEventDate = CalendarEventDateMinMaxValidation(calendarEventDate);
             calendarEventDate = CalendarEventDateWeekendValidation(calendarEventDate);
-            //Showing Work mode for chosen date
-            var workModes = _csvWorkModesRepository.GetAllWorkModes();
-            var userWorkModes = workModes.FirstOrDefault(c => c.UserID == user.Id && c.DateOfWorkmode == calendarEventDate);
-            if (userWorkModes.WorkModeName.Equals("Sick leave") || userWorkModes.WorkModeName.Equals("Holiday leave"))
-            {
-                Console.WriteLine($"\nWork mode for {calendarEventDate} equals sick or holiday leave - you cannot create Calendar Event for that date!");
-                Console.WriteLine($"Please provide other date using format DD.MM.YYYY");
-                calendarEventDate = CalendarEventDateAddValidation(out dateValue);
-                calendarEventDate = CalendarEventDateMinMaxValidation(calendarEventDate);
-                calendarEventDate = CalendarEventDateWeekendValidation(calendarEventDate);
-            }
-
+            calendarEventDate = CalendarEventDateRelatedToWorkModeValidation(user, calendarEventDate);
             var calendarEvents = _csvCalendarEventRepository.GetAllCalendarEvents();
             var calendarEventAvailable = calendarEvents
                 .FirstOrDefault(c => c.AssignedToUser == user.Id &&
@@ -120,7 +108,7 @@ namespace Schedulist.Business
             Console.WriteLine("\nType any key do return to Menu");
             Console.ReadKey();
         }
-
+        
         #region CalendarEvent - Modify Section
         public CalendarEvent GetCurrentCalendarEvent(User user)
         {
@@ -421,13 +409,48 @@ namespace Schedulist.Business
         #endregion
 
         #region CalendarEvent - Validation Section
+        private WorkModesToUser? GetWorkModesToUserForDate(User user, DateOnly calendarEventDate)
+        {
+            var workModes = _csvWorkModesRepository.GetAllWorkModes();
+            var userWorkModes = workModes.FirstOrDefault(c => c.UserID == user.Id && c.DateOfWorkmode == calendarEventDate);
+            return userWorkModes;
+        }
+        private DateOnly CalendarEventDateRelatedToWorkModeValidation(User user, DateOnly calendarEventDate)
+        {
+            string dateValue;
+            while (true)
+            {
+                var userWorkModes = GetWorkModesToUserForDate(user, calendarEventDate);
+                if (userWorkModes == null)
+                {
+                    Console.WriteLine($"Work mode for {calendarEventDate} is empty");
+                    break;
+                }
+                else if (userWorkModes.WorkModeName.Equals("Sick leave") ||
+                         userWorkModes.WorkModeName.Equals("Holiday leave"))
+                {
+                    Console.WriteLine(
+                        $"\nWork mode for {calendarEventDate} equals sick or holiday leave - you cannot create Calendar Event for that date!");
+                    Console.WriteLine($"Please provide other date using format DD.MM.YYYY");
+                    calendarEventDate = CalendarEventDateAddValidation(out dateValue);
+                    calendarEventDate = CalendarEventDateMinMaxValidation(calendarEventDate);
+                    calendarEventDate = CalendarEventDateWeekendValidation(calendarEventDate);
+                }
+                else
+                {
+                    Console.WriteLine($"Work mode is {userWorkModes.WorkModeName}");
+                    break;
+                }
+            }
+            return calendarEventDate;
+        }
         private DateOnly CalendarEventDateWeekendValidation(DateOnly calendarEventDate)
         {
             string dateValue;
             if (calendarEventDate.DayOfWeek == DayOfWeek.Saturday || calendarEventDate.DayOfWeek == DayOfWeek.Sunday)
             {
                 Console.WriteLine(
-                    "You are trying to add calendar event for Saturday or Sunday, which is incorrect, please adjust the value (DD/MM/YYYY)!");
+                    "You are trying to add calendar event for Saturday or Sunday, which is incorrect, please adjust the value in format DD.MM.YYYY!");
                 calendarEventDate = CalendarEventDateAddValidation(out dateValue);
                 calendarEventDate = CalendarEventDateMinMaxValidation(calendarEventDate);
             }
@@ -441,13 +464,13 @@ namespace Schedulist.Business
                 if (calendarEventDate < currentDate.AddDays(-30))
                 {
                     Console.WriteLine(
-                        "You are trying to add date that is more than 30 days in the past from today or value is incorrect, adjust the value!");
+                        "You are trying to add date that is more than 30 days in the past from today or value is incorrect, adjust the value using format DD.MM.YYYY!");
                     calendarEventDate = CalendarEventDateAddValidation(out dateValue);
                 }
                 else if (calendarEventDate > currentDate.AddDays(60))
                 {
                     Console.WriteLine(
-                        "You are trying to add date that is more than 60 days in the future from today or value is incorrect, adjust the value!");
+                        "You are trying to add date that is more than 60 days in the future from today or value is incorrect, adjust the value using format DD.MM.YYYY!");
                     calendarEventDate = CalendarEventDateAddValidation(out dateValue);
                 }
                 else break;
@@ -497,7 +520,7 @@ namespace Schedulist.Business
         {
             while (string.IsNullOrWhiteSpace(endTime))
             {
-                Console.WriteLine("Calendar Event Start Time cannot be empty, please provide value!");
+                Console.WriteLine("Calendar Event Start Time cannot be empty, please provide value in format HH:MM!");
                 endTime = Console.ReadLine();
             }
             return endTime;
@@ -506,7 +529,7 @@ namespace Schedulist.Business
         {
             while (string.IsNullOrWhiteSpace(startTime))
             {
-                Console.WriteLine("Calendar Event Start Time cannot be empty, please provide value!");
+                Console.WriteLine("Calendar Event Start Time cannot be empty, please provide value in format HH:MM!");
                 startTime = Console.ReadLine();
             }
             return startTime;
@@ -519,7 +542,7 @@ namespace Schedulist.Business
             while (validatedStartTime != null)
             {
                 Console.WriteLine(
-                    "There is already a Calendar Event with provided Start time or that takes place on the same time, please provide different value!");
+                    "There is already a Calendar Event with provided Start time or that takes place on the same time, please provide different value in format HH:MM!");
                 startTime = Console.ReadLine();
                 startTime = StartTimeEmptinessValidation(startTime);
                 TimeOnly.TryParse(startTime, out calendarEventStartTime);
@@ -535,7 +558,7 @@ namespace Schedulist.Business
         {
             while (string.IsNullOrWhiteSpace(dateValue))
             {
-                Console.WriteLine("Calendar Event Date cannot be empty, please provide value!");
+                Console.WriteLine("Calendar Event Date cannot be empty, please provide value using format DD.MM.YYYY!");
                 dateValue = Console.ReadLine();
             }
             return dateValue;
@@ -547,7 +570,7 @@ namespace Schedulist.Business
             while (calendarEventEndTime.CompareTo(calendarEventStartTime) <= 0)
             {
                 Console.WriteLine(
-                    "Calendar Event End Time cannot be earlier or at the same time as Start Time, please adjust the value!");
+                    "Calendar Event End Time cannot be earlier or at the same time as Start Time, please adjust the value using format HH:MM!");
                 endTime = Console.ReadLine();
                 endTime = EndTimeEmptinessValidation(endTime);
                 TimeOnly.TryParse(endTime, out calendarEventEndTime);
