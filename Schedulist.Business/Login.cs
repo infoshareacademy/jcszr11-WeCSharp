@@ -16,6 +16,7 @@ namespace Schedulist.Business
         {
             this.userRepository = userRepository;
         }
+
         public User Run()
         {
             Console.Clear();
@@ -27,31 +28,83 @@ namespace Schedulist.Business
                     User currentUser = userRepository.GetAllUsers().First(x => x.Login == login); // Sprawdzenie czy w bazie jest użytkownik o podanym loginie
                     while (true)
                     {
-                        if (string.IsNullOrEmpty(currentUser.Password))    //Prosi o stworzenie hasła dla użytkownika jeżeli on takowego nie posiada
+                        if (string.IsNullOrEmpty(currentUser.Password))//Prosi o stworzenie hasła dla użytkownika jeżeli on takowego nie posiada
                         {
-                            Helper.CreatePassword(currentUser);  //Metoda do tworzenia hasła
+                            CreatePassword(currentUser);//Metoda do tworzenia hasła
                             if (!string.IsNullOrEmpty(currentUser.Password))
                             {
                                 CurrentUser.currentUser = currentUser;
-                                return currentUser;    //Loguje użytkownika
+                                return currentUser;//Loguje użytkownika
                             }
                             else break;
                         }
-                        string password = Helper.ConsolHelper("Enter your password or type x to enter login again:");
-                        if (password == "x") return null;
+
+                        string password = ReadPassword("Enter your password or type x to enter login again:");
+
+                        if (password == "x")
+                        {
+                            return null;
+                        }
                         else
                         {
-                            if (currentUser.Password == password)  //Sprawdza czy hasło jest poprawne
+                            if (currentUser.Password == password)//Sprawdza czy hasło jest poprawne
                             {
                                 CurrentUser.currentUser = currentUser;
-                                return currentUser;    //Loguje użytkownika
+                                return currentUser; //Loguje użytkownika
                             }
-                            else Console.WriteLine("Wrong password, please try again");
+                            else
+                            {
+                                Console.WriteLine("Wrong password, please try again");
+                            }
                         }
                     }
                 }
-                else Console.WriteLine("Login not found, please try again.");
+                else
+                {
+                    Console.WriteLine("Login not found, please try again.");
+                }
             }
+        }
+
+        private string ConsoleHelper(string prompt)
+        {
+            Console.Write(prompt);
+            return Console.ReadLine();
+        }
+
+        private void CreatePassword(User user)
+        {
+            user.Password = ReadPassword(" ");
+        }
+
+        private string ReadPassword(string prompt)
+        {
+            Console.Write(prompt);
+            StringBuilder password = new StringBuilder();
+            ConsoleKeyInfo key;
+
+            while (true)
+            {
+                key = Console.ReadKey(true);
+
+                if (key.Key == ConsoleKey.Enter)
+                {
+                    Console.WriteLine();
+                    break;
+                }
+                else if (key.Key == ConsoleKey.Backspace && password.Length > 0)
+                {
+                    password.Remove(password.Length - 1, 1);
+                    Console.Write("\b \b");
+                }
+                else if (key.KeyChar != '\u0000' && !char.IsControl(key.KeyChar))
+                {
+                    password.Append(key.KeyChar);
+                    Console.Write("*");
+                }
+            }
+
+            return password.ToString();
         }
     }
 }
