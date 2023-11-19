@@ -238,8 +238,40 @@ namespace Schedulist.Business
         public void ModifyCalendarEventsAdmin()
         {
             Console.Clear();
-            var calendarEventToModify = Helper.GetCalendarEvent(_calendarEvents);
-            Console.Clear();
+            CalendarEvent calendarEventToModify;
+            while (true)
+            {
+                Console.WriteLine("====== List of Calendar Events ======");
+                Console.WriteLine("ID:\tUserID:\tDate:\t\tName: ");
+                foreach (var item in _calendarEvents)
+                {
+                    Console.WriteLine($"{item.CalendarEventId + 1}\t{item.AssignedToUser}\t{item.CalendarEventDate}\t{item.CalendarEventName}");
+                }
+                string input = Helper.ConsolHelper("Choose the ID of Calendar Event you want to modify (or 0 to cancel):");
+                if (int.TryParse(input, out int calendarEventId) && calendarEventId > 0 && calendarEventId <= _calendarEvents.Count)
+                {
+                    calendarEventToModify = _calendarEvents.First(c => c.CalendarEventId == (calendarEventId - 1));
+                    //return calendarEventToModify;
+                }
+                else if (input.ToLower() == "0")
+                {
+                    Console.WriteLine("Operation canceled.");
+                    Console.WriteLine("Press any key to return to the menu.");
+                    Console.ReadKey();
+                    new MenuOptions().MenuAdminCalendarEvents();
+                    break;
+                }
+                else
+                {
+                    Console.Clear();
+                    Console.WriteLine("Invalid choice");
+                    Console.WriteLine("Press any key to return to the menu.");
+                    Console.ReadKey();
+                    new MenuOptions().MenuAdminCalendarEvents();
+                    break;
+                }
+            }
+                Console.Clear();
             Console.WriteLine("====== Modify Calendar Event ======");
             Console.WriteLine("Choose variable ID of Calendar Event that you want to modify:");
             Console.WriteLine($"1. Name:            {calendarEventToModify.CalendarEventName}");
