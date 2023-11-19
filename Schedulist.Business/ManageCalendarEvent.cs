@@ -252,23 +252,24 @@ namespace Schedulist.Business
                 {
                     calendarEventToModify = _calendarEvents.First(c => c.CalendarEventId == (calendarEventId - 1));
                     //return calendarEventToModify;
+                    break;
                 }
                 else if (input.ToLower() == "0")
                 {
                     Console.WriteLine("Operation canceled.");
-                    Console.WriteLine("Press any key to return to the menu.");
+                    Console.WriteLine("Press any key to return to continue.");
                     Console.ReadKey();
                     new MenuOptions().MenuAdminCalendarEvents();
-                    break;
+                    //break;
                 }
                 else
                 {
                     Console.Clear();
                     Console.WriteLine("Invalid choice");
-                    Console.WriteLine("Press any key to return to the menu.");
+                    Console.WriteLine("Press any key to return to continue.");
                     Console.ReadKey();
-                    new MenuOptions().MenuAdminCalendarEvents();
-                    break;
+                    //new MenuOptions().MenuAdminCalendarEvents();
+                    //break;
                 }
             }
                 Console.Clear();
