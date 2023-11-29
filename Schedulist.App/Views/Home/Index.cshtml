@@ -4,14 +4,14 @@
 <style>
     .calendarHeader {
         background-color: lightgray;
-        outline :2px solid gray;
+        outline: 2px solid gray;
         min-width: 70px;
-        outline-offset: -1px;
+        outline-offset: -2px;
     }
     .calendarBlock {
         background-color: rgb(225, 225, 225);
-        outline :2px solid gray;
-        outline-offset: -1px;
+        outline: 2px solid gray;
+        outline-offset: -2px;
         min-width: 70px;
         min-height: 70px;
     }
@@ -36,7 +36,7 @@
     var numberOfDays = Convert.ToInt16(lastDayOfTheMonth.ToString("dd"));
     DateTime startDate = firstDayOfTheMonth.AddDays(-(int)firstDayOfTheMonth.DayOfWeek + 1);
     }
-    <div class="container">
+    <div class="container" style="outline: 2px solid gray;">
         <div class="row flex-nowrap">
         <div class="col calendarHeader">Monday</div>
         <div class="col calendarHeader">Tuesday</div>
