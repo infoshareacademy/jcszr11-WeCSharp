@@ -1,7 +1,33 @@
 ﻿@{
-    ViewData["Title"] = "Home Page";
+    ViewData["Title"] = "Calendar";
 }
-
+<style>
+    .calendarHeader {
+        background-color: lightgray;
+        outline :2px solid gray;
+        min-width: 70px;
+        outline-offset: -1px;
+    }
+    .calendarBlock {
+        background-color: rgb(225, 225, 225);
+        outline :2px solid gray;
+        outline-offset: -1px;
+        min-width: 70px;
+        min-height: 70px;
+    }
+    .calendarBlock:before{
+        content: "";
+        display: block;
+        padding-top: 100%;
+    }
+    .today {
+        outline-color: red;
+        z-index: 1;
+    }
+    .thisMonth {
+        background-color: rgb(240, 240, 240);
+    }
+</style>
 <div class="text-center">
     @{
     var currentDate = DateTime.Now;
@@ -10,42 +36,40 @@
     var numberOfDays = Convert.ToInt16(lastDayOfTheMonth.ToString("dd"));
     DateTime startDate = firstDayOfTheMonth.AddDays(-(int)firstDayOfTheMonth.DayOfWeek + 1);
     }
-    <table>
-    <tbody>
-        <tr>
-        <th>Monday</th>
-        <th>Tuesday</th>
-        <th>Wednesday</th>
-        <th>Thursday</th>
-        <th>Friday</th>
-        <th>Saturday</th>
-        <th>Sunday</th>
-    </tr>
-        <tr>
+    <div class="container">
+        <div class="row flex-nowrap">
+        <div class="col calendarHeader">Monday</div>
+        <div class="col calendarHeader">Tuesday</div>
+        <div class="col calendarHeader">Wednesday</div>
+        <div class="col calendarHeader">Thursday</div>
+        <div class="col calendarHeader">Friday</div>
+        <div class="col calendarHeader">Saturday</div>
+        <div class="col calendarHeader">Sunday</div>
+        </div>
+        <div class="row flex-nowrap">
             @for (int i = 0; i < 42; i++)
             {
                 DateTime drawDate = startDate.AddDays(i);
                 if (i % 7 == 0 && i > 0)
                 {
-                    @:</tr><tr>
+                    @:</div><div class="row flex-nowrap">
                 }
                 if (drawDate.Month == currentDate.Month)
                 {
                     if (drawDate.Day == currentDate.Day)
                     {
-                        <td><font color="red">@drawDate.Day</font></td>
+                        <div class="col calendarBlock thisMonth today" style="color:red">@drawDate.Day</div>
                     }
                     else
                     {
-                        <td><font color="black">@drawDate.Day</font></td>
+                        <div class="col calendarBlock thisMonth">@drawDate.Day</div>
                     }
                 }
                 else
                 {
-                    <td><font color="grey">@drawDate.Day</font></td>
+                    <div class="col calendarBlock" style="color:grey">@drawDate.Day</div>
                 }
             }
-        </tr>
-    </tbody>
-</table>
+        </div>
+    </div>
 </div>
