@@ -3,6 +3,49 @@
 }
 
 <div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+    @{
+    var currentDate = DateTime.Now;
+    var firstDayOfTheMonth = new DateTime(currentDate.Year, currentDate.Month, 1);
+    var lastDayOfTheMonth = firstDayOfTheMonth.AddMonths(1).AddDays(-1);
+    var numberOfDays = Convert.ToInt16(lastDayOfTheMonth.ToString("dd"));
+    DateTime startDate = firstDayOfTheMonth.AddDays(-(int)firstDayOfTheMonth.DayOfWeek + 1);
+    }
+    <table>
+    <tbody>
+        <tr>
+        <th>Monday</th>
+        <th>Tuesday</th>
+        <th>Wednesday</th>
+        <th>Thursday</th>
+        <th>Friday</th>
+        <th>Saturday</th>
+        <th>Sunday</th>
+    </tr>
+        <tr>
+            @for (int i = 0; i < 42; i++)
+            {
+                DateTime drawDate = startDate.AddDays(i);
+                if (i % 7 == 0 && i > 0)
+                {
+                    @:</tr><tr>
+                }
+                if (drawDate.Month == currentDate.Month)
+                {
+                    if (drawDate.Day == currentDate.Day)
+                    {
+                        <td><font color="red">@drawDate.Day</font></td>
+                    }
+                    else
+                    {
+                        <td><font color="black">@drawDate.Day</font></td>
+                    }
+                }
+                else
+                {
+                    <td><font color="grey">@drawDate.Day</font></td>
+                }
+            }
+        </tr>
+    </tbody>
+</table>
 </div>
