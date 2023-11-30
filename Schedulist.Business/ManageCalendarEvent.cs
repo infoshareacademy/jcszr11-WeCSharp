@@ -12,7 +12,7 @@ using Schedulist.Business.Actions;
 
 namespace Schedulist.Business
 {
-    public class ManageCalendarEvent
+    public class ManageCalendarEvent : IManageCalendarEvent
     {
         private List<CalendarEvent> _calendarEvents =
             new CsvCalendarEventRepository("..\\..\\..\\CalendarEvents.csv").GetAllCalendarEvents();
