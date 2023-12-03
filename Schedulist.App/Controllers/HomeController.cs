@@ -9,7 +9,6 @@ namespace Schedulist.App.Controllers
         private CalendarParams _calendarParams;
         public HomeController(ILogger<HomeController> logger) : base(logger) { }
 
-        [HttpGet]
         public IActionResult Index()
         {
             _calendarParams = new CalendarParams();
@@ -17,21 +16,18 @@ namespace Schedulist.App.Controllers
             var calendarParams = new CalendarParams();
             return View(_calendarParams);
         }
-        [HttpPost]
-        public IActionResult NextMonth(int id)
+        public IActionResult PreviousMonth(DateTime date)
         {
-            _calendarParams.CurrentDate.AddMonths(1);
-            logger.LogInformation($"Current date: {_calendarParams.CurrentDate}");
-            return View();
+            _calendarParams = new CalendarParams(date.AddMonths(-1));
+            logger.LogInformation($"Current date to draw: {date}");
+            return View("Index", _calendarParams);
         }
-        //[HttpPost]
-        //public IActionResult Index(int monthsToAdd)
-        //{
-        //    _calendarParams.CurrentDate.AddMonths(monthsToAdd);
-        //    logger.LogInformation($"Current date: {_calendarParams.CurrentDate}");
-        //    return View(_calendarParams);
-        //}
-
+        public IActionResult NextMonth(DateTime date)
+        {
+            _calendarParams = new CalendarParams(date.AddMonths(1));
+            logger.LogInformation($"Current date to draw: {date}");
+            return View("Index", _calendarParams);
+        }
         public IActionResult Privacy()
         {
             return View();

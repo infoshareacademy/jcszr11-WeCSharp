@@ -11,7 +11,16 @@
             if (LastDayOfTheMonth.DayOfWeek == DayOfWeek.Sunday) DaysToDraw -= 7;
             StartDate = FirstDayOfTheMonth.AddDays(-(int)FirstDayOfTheMonth.DayOfWeek + 1);
         }
-
+        public CalendarParams(DateTime date)
+        {
+            CurrentDate = date;
+            FirstDayOfTheMonth = new DateTime(CurrentDate.Year, CurrentDate.Month, 1);
+            LastDayOfTheMonth = FirstDayOfTheMonth.AddMonths(1).AddDays(-1);
+            if (LastDayOfTheMonth.DayOfWeek == DayOfWeek.Sunday || FirstDayOfTheMonth.DayOfWeek == DayOfWeek.Monday) DaysToDraw -= 7;
+            if (FirstDayOfTheMonth.DayOfWeek != DayOfWeek.Sunday)
+                StartDate = FirstDayOfTheMonth.AddDays(-(int)FirstDayOfTheMonth.DayOfWeek + 1);
+            else StartDate = FirstDayOfTheMonth.AddDays(-(int)FirstDayOfTheMonth.DayOfWeek - 6);
+        }
         public DateTime CurrentDate { get; set; }
         public DateTime FirstDayOfTheMonth { get; private set; }
         public DateTime LastDayOfTheMonth { get; private set; }
