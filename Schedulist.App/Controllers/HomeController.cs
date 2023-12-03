@@ -4,19 +4,33 @@ using System.Diagnostics;
 
 namespace Schedulist.App.Controllers
 {
-    public class HomeController : Controller
+    public class HomeController : ControlerBase
     {
-        private readonly ILogger<HomeController> _logger;
+        private CalendarParams _calendarParams;
+        public HomeController(ILogger<HomeController> logger) : base(logger) { }
 
-        public HomeController(ILogger<HomeController> logger)
-        {
-            _logger = logger;
-        }
-
+        [HttpGet]
         public IActionResult Index()
         {
+            _calendarParams = new CalendarParams();
+            logger.LogInformation("Drawing calendar");
+            var calendarParams = new CalendarParams();
+            return View(_calendarParams);
+        }
+        [HttpPost]
+        public IActionResult NextMonth(int id)
+        {
+            _calendarParams.CurrentDate.AddMonths(1);
+            logger.LogInformation($"Current date: {_calendarParams.CurrentDate}");
             return View();
         }
+        //[HttpPost]
+        //public IActionResult Index(int monthsToAdd)
+        //{
+        //    _calendarParams.CurrentDate.AddMonths(monthsToAdd);
+        //    logger.LogInformation($"Current date: {_calendarParams.CurrentDate}");
+        //    return View(_calendarParams);
+        //}
 
         public IActionResult Privacy()
         {

@@ -1,23 +1,29 @@
-﻿@{
+﻿@model CalendarParams
+@{
     ViewData["Title"] = "Calendar";
-    var cultureInfo = new System.Globalization.CultureInfo("en-GB");
-    Thread.CurrentThread.CurrentCulture = cultureInfo;
-    var currentDate = DateTime.Now;
-    var firstDayOfTheMonth = new DateTime(currentDate.Year, currentDate.Month, 1);
-    var lastDayOfTheMonth = firstDayOfTheMonth.AddMonths(1).AddDays(-1);
-    var daysToDraw = 42;
-    if (lastDayOfTheMonth.DayOfWeek == DayOfWeek.Sunday) daysToDraw -= 7;
-    DateTime startDate = firstDayOfTheMonth.AddDays(-(int)firstDayOfTheMonth.DayOfWeek + 1);
+    // TODO: gdzie mam umieścić logikę? 
+    //      zakładam że w viewsach ma być jej jak najmniej więc chciałbym:
+    //          stworzyć model calendar
+    //          przekazywać viewsowi dane do wyrysowania go za pomocą controlera
+    // TODO: jak automatycznie odświeżyć stronę/fragment po zmianie danych?
+    //      np po zmianie miesiąca 
+    // TODO: jak najlepiej generować views na podstawie podanej daty
+    //      np po kliknięciu w kafelek z daną datą
 }
 
 <style>
+    .monthName{
+        min-width: 490px;
+        font-size:calc(30px + 3.5vw);
+        justify-content: center;
+    }
     .calendarHeader {
         background-color: rgb(245, 245, 245);
         border-top: 1px solid lightgrey;
         border-bottom: 1px solid lightgrey;
         border-right: 1px solid lightgrey;
         min-width: 70px;
-        font-size: 1.5vw;
+        font-size:calc(12px + 0.7vw);
     }
     .calendarBlock {
         background-color: rgb(235, 235, 235);
@@ -25,11 +31,9 @@
         border-right: 1px solid lightgrey;
         min-width: 70px;
         min-height: 70px;
-    }
-    .calendarBlock:before{
-        content: "";
-        display: block;
-        padding-top: 100%;
+        color:grey;
+        text-decoration: none;
+        padding: 0;
     }
     .today {
         border: 1px solid red;
@@ -38,45 +42,57 @@
     }
     .thisMonth {
         background-color: rgb(245, 245, 245);
-    }
-    .monthName{
-        font-size: 5vw;
-        justify-content: center;
+        color: black;
     }
 </style>
 
-<div class="text-center">
-    <div class="container">
-        <div class="row flex-nowrap monthName">@firstDayOfTheMonth.ToString("MMMM")</div>
+<div class="text-center" style="height: calc(100vh - 140px);">
+    <div class="container-fluid d-flex h-100 flex-column">
+            <div class="row flex-nowrap monthName">
+                <div class="col">
+                    <button type="button" class="btn btn-primary"><</button>
+                </div>
+                @Model.FirstDayOfTheMonth.ToString("MMMM")
+                <div class="col">
+                    @* <a asp-controller="Home" asp-action="Index" asp-route-id="@Model.CurrentDate"><button type="button" class="btn btn-primary">></button></a> *@
+                    <a data-path = "@Url.Action("NextMonth", "Home", new {id = 1})">
+                        <button type="button" class="btn btn-primary">></button>
+                    </a>
+                    <form asp-action="NextMonth" method="post">
+                        <button type="submit" class="btn btn-primary">X</button>
+                    </form>
+                </div>
+            </div>
         <div class="row flex-nowrap" style="border-left: 1px solid lightgrey;">
             @for (int i = 0; i < 7; i++)
             {
-                DateTime drawDate = startDate.AddDays(i);
+                DateTime drawDate = @Model.StartDate.AddDays(i);
                 <div class="col calendarHeader">@drawDate.DayOfWeek</div>
             }
         </div>
-        <div class="row flex-nowrap" style="border-left: 1px solid lightgrey;">
-            @for (int i = 0; i < daysToDraw; i++)
+        <div class="row flex-nowrap flex-grow-1" style="border-left: 1px solid lightgrey;">
+            @for (int i = 0; i < @Model.DaysToDraw; i++)
             {
-                DateTime drawDate = startDate.AddDays(i);
+                DateTime drawDate = @Model.StartDate.AddDays(i);
                 if (i % 7 == 0 && i > 0)
                 {
-                    @:</div><div class="row flex-nowrap" style="border-left: 1px solid lightgrey;">
+                    @:</div><div class="row flex-nowrap flex-grow-1" style="border-left: 1px solid lightgrey;">
                 }
-                if (drawDate.Month == currentDate.Month)
+                if (drawDate.Month == @Model.CurrentDate.Month)
                 {
-                    if (drawDate.Day == currentDate.Day)
+                    if (drawDate.Day == @Model.CurrentDate.Day)
                     {
-                        <div class="col calendarBlock thisMonth today">@drawDate.Day</div>
+                        <a class="col calendarBlock thisMonth today" asp-area="" asp-controller="Home" asp-action="Privacy">@drawDate.Day</a>
+                        
                     }
                     else
                     {
-                        <div class="col calendarBlock thisMonth">@drawDate.Day</div>
+                        <a class="col calendarBlock thisMonth" asp-area="" asp-controller="Home" asp-action="Privacy">@drawDate.Day</a>
                     }
                 }
                 else
                 {
-                    <div class="col calendarBlock" style="color:grey">@drawDate.Day</div>
+                    <a class="col calendarBlock" asp-area="" asp-controller="Home" asp-action="Privacy">@drawDate.Day</a>
                 }
             }
         </div>

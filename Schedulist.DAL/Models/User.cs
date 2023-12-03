@@ -25,6 +25,7 @@ namespace Schedulist.DAL
         {
             
         }
+        // TODO: nullable? czy zmienić na poleganie jeżeli jest puste (żeby nie korzystać z nulla)
         //[Index(0)]
         public int? Id { get;  set; }
         //[Index(1)]

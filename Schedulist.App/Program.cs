@@ -4,6 +4,9 @@ namespace Schedulist.App
     {
         public static void Main(string[] args)
         {
+            var cultureInfo = new System.Globalization.CultureInfo("en-GB");
+            Thread.CurrentThread.CurrentCulture = cultureInfo;
+
             var builder = WebApplication.CreateBuilder(args);
 
             // Add services to the container.

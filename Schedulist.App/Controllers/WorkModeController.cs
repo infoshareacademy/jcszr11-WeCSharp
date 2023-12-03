@@ -3,8 +3,9 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Schedulist.App.Controllers
 {
-    public class WorkModeController : Controller
+    public class WorkModeController : ControlerBase
     {
+        public WorkModeController(ILogger<WorkModeController> logger) : base(logger) { }
         // GET: WorkModeController
         public ActionResult Index()
         {
