@@ -352,7 +352,7 @@ namespace Schedulist.Business
             Console.WriteLine("Press any key to return to the menu.");
             Console.ReadKey();
         }
-        private void DisplayCalendarEvents(List<CalendarEvent> calendarEvents)
+        public void DisplayCalendarEvents(List<CalendarEvent> calendarEvents)
         {
             Console.WriteLine("====== List of Calendar Events ======");
             Console.WriteLine("ID:\tUserID:\t\tDate:\t\tCalendar Event Name:");
@@ -362,7 +362,7 @@ namespace Schedulist.Business
                 ($"{i + 1}\t{calendarEvents[i].AssignedToUser}\t\t{calendarEvents[i].CalendarEventDate}\t\t{calendarEvents[i].CalendarEventName}");
             }
         }
-        private void CurrentUserCalendarEventsSelection(User user)
+        public void CurrentUserCalendarEventsSelection(User user)
         {
             List<CalendarEvent> currentUserCalendarEvents = _calendarEvents.Where(u => u.AssignedToUser == user.Id).ToList();
 
@@ -387,7 +387,7 @@ namespace Schedulist.Business
                     ($"Invalid choice. Please enter a valid Calendar Event ID or 0 to cancel.");
             }
         }
-        private void CalendarEventsSelection()
+        public void CalendarEventsSelection()
         {
             while (true)
             {
@@ -413,13 +413,13 @@ namespace Schedulist.Business
         #endregion
 
         #region CalendarEvent - Validation Section
-        private WorkModesToUser? GetWorkModesToUserForDate(User user, DateOnly calendarEventDate)
+        public WorkModesToUser? GetWorkModesToUserForDate(User user, DateOnly calendarEventDate)
         {
             var workModes = _csvWorkModesRepository.GetAllWorkModes();
             var userWorkModes = workModes.FirstOrDefault(c => c.UserID == user.Id && c.DateOfWorkmode == calendarEventDate);
             return userWorkModes;
         }
-        private DateOnly CalendarEventDateRelatedToWorkModeValidation(User user, DateOnly calendarEventDate)
+        public DateOnly CalendarEventDateRelatedToWorkModeValidation(User user, DateOnly calendarEventDate)
         {
             string dateValue;
             while (true)
@@ -448,7 +448,7 @@ namespace Schedulist.Business
             }
             return calendarEventDate;
         }
-        private DateOnly CalendarEventDateWeekendValidation(DateOnly calendarEventDate)
+        public DateOnly CalendarEventDateWeekendValidation(DateOnly calendarEventDate)
         {
             string dateValue;
             if (calendarEventDate.DayOfWeek == DayOfWeek.Saturday || calendarEventDate.DayOfWeek == DayOfWeek.Sunday)
@@ -460,7 +460,7 @@ namespace Schedulist.Business
             }
             return calendarEventDate;
         }
-        private DateOnly CalendarEventDateMinMaxValidation(DateOnly calendarEventDate)
+        public DateOnly CalendarEventDateMinMaxValidation(DateOnly calendarEventDate)
         {
             string dateValue;
             while (true)
@@ -482,7 +482,7 @@ namespace Schedulist.Business
 
             return calendarEventDate;
         }
-        private DateOnly CalendarEventDateAddValidation(out string dateValue)
+        public DateOnly CalendarEventDateAddValidation(out string dateValue)
         {
             while (true)
             {
@@ -498,7 +498,7 @@ namespace Schedulist.Business
                 }
             }
         }
-        private void CalendarEventAvailabilityCheck(User user, CalendarEvent? calendarEventAvailable, DateOnly calendarEventDate)
+        public void CalendarEventAvailabilityCheck(User user, CalendarEvent? calendarEventAvailable, DateOnly calendarEventDate)
         {
             if (calendarEventAvailable != null)
             {
@@ -520,7 +520,7 @@ namespace Schedulist.Business
                 }
             }
         }
-        private static string EndTimeEmptinessValidation(string? endTime)
+        public string EndTimeEmptinessValidation(string? endTime)
         {
             while (string.IsNullOrWhiteSpace(endTime))
             {
@@ -529,7 +529,7 @@ namespace Schedulist.Business
             }
             return endTime;
         }
-        private static string StartTimeEmptinessValidation(string? startTime)
+        public string StartTimeEmptinessValidation(string? startTime)
         {
             while (string.IsNullOrWhiteSpace(startTime))
             {
@@ -538,7 +538,7 @@ namespace Schedulist.Business
             }
             return startTime;
         }
-        private static TimeOnly CalendarEventStartTimeOverlappingValidation(CalendarEvent? validatedStartTime,
+        public TimeOnly CalendarEventStartTimeOverlappingValidation(CalendarEvent? validatedStartTime,
             TimeOnly calendarEventStartTime, List<CalendarEvent> calendarEvents, DateOnly calendarEventDate,
             User user)
         {
@@ -558,7 +558,7 @@ namespace Schedulist.Business
             }
             return calendarEventStartTime;
         }
-        private static string DateValueEmptinessValidation(string? dateValue)
+        public string DateValueEmptinessValidation(string? dateValue)
         {
             while (string.IsNullOrWhiteSpace(dateValue))
             {
@@ -567,7 +567,7 @@ namespace Schedulist.Business
             }
             return dateValue;
         }
-        private static TimeOnly CalendarEventEndTimeValidation(TimeOnly calendarEventEndTime,
+        public TimeOnly CalendarEventEndTimeValidation(TimeOnly calendarEventEndTime,
             TimeOnly calendarEventStartTime)
         {
             string? endTime;
@@ -582,7 +582,7 @@ namespace Schedulist.Business
 
             return calendarEventEndTime;
         }
-        private static TimeOnly CalendarEventStartTimeParseValidation()
+        public  TimeOnly CalendarEventStartTimeParseValidation()
         {
             while (true)
             {

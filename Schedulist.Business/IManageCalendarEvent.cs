@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Schedulist.Business
 {
-    internal interface IManageCalendarEvent
+    public interface IManageCalendarEvent
     {
         void ShowCalendarEvent(User user, DateOnly date);
         void ShowUserCalendarEvent(User user);
@@ -53,6 +53,6 @@ namespace Schedulist.Business
 
         TimeOnly CalendarEventStartTimeParseValidation();
 
-#endregion
+
     }
 }

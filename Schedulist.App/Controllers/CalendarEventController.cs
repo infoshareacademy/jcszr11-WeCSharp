@@ -1,20 +1,26 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Schedulist.DAL;
 
 namespace Schedulist.App.Controllers
 {
     public class CalendarEventController : Controller
     {
+        public List<CalendarEvent> _calendarEvents = new CsvCalendarEventRepository("..\\Schedulist\\CalendarEvents.csv").GetAllCalendarEvents();
+       
+
         // GET: CalendarEventController
-        public ActionResult Index()
+        public IActionResult Index()
         {
-            return View();
+            var model = _calendarEvents;
+            return View(model);
         }
 
         // GET: CalendarEventController/Details/5
         public ActionResult Details(int id)
         {
-            return View();
+            var calendarEvent = _calendarEvents[id];
+            return View(calendarEvent);
         }
 
         // GET: CalendarEventController/Create
