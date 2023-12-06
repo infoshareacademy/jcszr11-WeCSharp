@@ -4,10 +4,10 @@ using System.Diagnostics;
 
 namespace Schedulist.App.Controllers
 {
-    public class HomeController : ControlerBase
+    public class CalendarController : ControlerBase
     {
         private CalendarParams _calendarParams;
-        public HomeController(ILogger<HomeController> logger) : base(logger) { }
+        public CalendarController(ILogger<CalendarController> logger) : base(logger) { }
 
         public IActionResult Index()
         {

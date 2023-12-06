@@ -47,10 +47,10 @@
             <div class="row flex-nowrap monthName">
                 <div class="buttonField"></div>
                 <div class="buttonField">
-                    <button type="button" class="btn btn-light" onclick="location.href='@Url.Action("PreviousMonth", "Home", Model.CurrentDate)'"><</button>
+                    <button type="button" class="btn btn-light" onclick="location.href='@Url.Action("PreviousMonth", "Calendar", Model.CurrentDate)'"><</button>
                 </div>
                 <div class="buttonField">
-                    <button type="button" class="btn btn-light" onclick="location.href='@Url.Action("NextMonth", "Home", Model.CurrentDate)'">></button>
+                    <button type="button" class="btn btn-light" onclick="location.href='@Url.Action("NextMonth", "Calendar", Model.CurrentDate)'">></button>
                 </div>
                 <div class="col">
                     @Model.FirstDayOfTheMonth.ToString("MMMM yyyy")
@@ -88,17 +88,17 @@
                     {
                         if (drawDate == DateTime.Today)
                         {
-                            <a class="col calendarBlock thisMonth today" asp-area="" asp-controller="Home" asp-action="Privacy">@drawDate.Day</a>
+                            <a class="col calendarBlock thisMonth today" asp-area="" asp-controller="Calendar" asp-action="Privacy">@drawDate.Day</a>
                         
                         }
                         else
                         {
-                            <a class="col calendarBlock thisMonth" asp-area="" asp-controller="Home" asp-action="Privacy">@drawDate.Day</a>
+                            <a class="col calendarBlock thisMonth" asp-area="" asp-controller="Calendar" asp-action="Privacy">@drawDate.Day</a>
                         }
                     }
                     else
                     {
-                        <a class="col calendarBlock" asp-area="" asp-controller="Home" asp-action="Privacy">@drawDate.Day</a>
+                        <a class="col calendarBlock" asp-area="" asp-controller="Calendar" asp-action="Privacy">@drawDate.Day</a>
                     }
                     k += 1;
                     }
