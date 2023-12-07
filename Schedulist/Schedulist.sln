@@ -9,9 +9,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Schedulist.Business", "..\S
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Schedulist.DAL", "..\Schedulist.DAL\Schedulist.DAL.csproj", "{B0D716B9-A579-403D-8078-1A5F399D4253}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Schedulist.App", "..\Schedulist.App\Schedulist.App.csproj", "{81CA8627-44CB-4D2D-BD3E-7636C23C3D3F}"
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SchedulistMVP", "SchedulistMVP", "{2C76F19C-05D0-45F0-A6A8-BEC8D1BBBF81}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Schedulist.App", "..\Schedulist.App1\Schedulist.App.csproj", "{E8C72B75-0AAE-4015-BA70-215969F2501E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -31,10 +29,10 @@ Global
 		{B0D716B9-A579-403D-8078-1A5F399D4253}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B0D716B9-A579-403D-8078-1A5F399D4253}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B0D716B9-A579-403D-8078-1A5F399D4253}.Release|Any CPU.Build.0 = Release|Any CPU
-		{81CA8627-44CB-4D2D-BD3E-7636C23C3D3F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{81CA8627-44CB-4D2D-BD3E-7636C23C3D3F}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{81CA8627-44CB-4D2D-BD3E-7636C23C3D3F}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{81CA8627-44CB-4D2D-BD3E-7636C23C3D3F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E8C72B75-0AAE-4015-BA70-215969F2501E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E8C72B75-0AAE-4015-BA70-215969F2501E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E8C72B75-0AAE-4015-BA70-215969F2501E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E8C72B75-0AAE-4015-BA70-215969F2501E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

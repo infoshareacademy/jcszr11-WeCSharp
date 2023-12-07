@@ -4,8 +4,9 @@ using Schedulist.DAL;
 
 namespace Schedulist.App.Controllers
 {
-    public class CalendarEventController : Controller
+    public class CalendarEventController : ControlerBase
     {
+        public CalendarEventController(ILogger<CalendarEventController> logger) : base(logger) { }
         public List<CalendarEvent> _calendarEvents = new CsvCalendarEventRepository("..\\Schedulist\\CalendarEvents.csv").GetAllCalendarEvents();
        
 

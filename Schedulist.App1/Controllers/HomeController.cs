@@ -1,8 +1,8 @@
 using Microsoft.AspNetCore.Mvc;
-using Schedulist.App.Models;
+using Schedulist.App1.Models;
 using System.Diagnostics;
 
-namespace Schedulist.App.Controllers
+namespace Schedulist.App1.Controllers
 {
     public class HomeController : Controller
     {
