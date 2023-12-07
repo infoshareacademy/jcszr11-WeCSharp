@@ -1,3 +1,7 @@
+using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
+using Schedulist.DAL;
+
 namespace Schedulist.App
 {
     public class Program
@@ -10,6 +14,13 @@ namespace Schedulist.App
             var builder = WebApplication.CreateBuilder(args);
 
             // Add services to the container.
+            var connectionString = builder.Configuration.GetConnectionString("DefaultConnection") ?? throw new InvalidOperationException("Connection string 'DefaultConnection' not found.");
+            builder.Services.AddDbContext<DbContext>(options =>
+                options.UseSqlServer(connectionString));
+            builder.Services.AddDatabaseDeveloperPageExceptionFilter();
+
+            builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
+                .AddEntityFrameworkStores<DbContext>();
             builder.Services.AddControllersWithViews();
 
             var app = builder.Build();
@@ -33,6 +44,7 @@ namespace Schedulist.App
                 name: "default",
                 pattern: "{controller=Calendar}/{action=Index}/{id?}");
 
+            app.MapRazorPages();
             app.Run();
         }
     }
