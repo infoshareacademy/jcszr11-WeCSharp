@@ -3,8 +3,9 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Schedulist.App.Controllers
 {
-    public class CalendarEventController : Controller
+    public class CalendarEventController : ControlerBase
     {
+        public CalendarEventController(ILogger<CalendarEventController> logger) : base(logger) { }
         // GET: CalendarEventController
         public ActionResult Index()
         {
