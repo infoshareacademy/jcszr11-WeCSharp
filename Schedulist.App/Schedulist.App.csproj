@@ -19,4 +19,30 @@
     <ProjectReference Include="..\Schedulist.DAL\Schedulist.DAL.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Compile Remove="Views\CalendarEvent\**" />
+    <Content Remove="Views\CalendarEvent\**" />
+    <EmbeddedResource Remove="Views\CalendarEvent\**" />
+    <None Remove="Views\CalendarEvent\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="Views\CalendarEvent\Details.cshtml" />
+    <None Include="Views\CalendarEvent\Index.cshtml" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.Components.QuickGrid.EntityFrameworkAdapter" Version="8.0.0" />
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="8.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Schedulist.Business\Schedulist.Business.csproj" />
+    <ProjectReference Include="..\Schedulist.DAL\Schedulist.DAL.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Services\" />
+  </ItemGroup>
+
 </Project>

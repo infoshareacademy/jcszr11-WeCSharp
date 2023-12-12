@@ -22,6 +22,7 @@ namespace Schedulist.App
             builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
                 .AddEntityFrameworkStores<DbContext>();
             builder.Services.AddControllersWithViews();
+            builder.Services.AddSingleton<CsvCalendarEventRepository>(_ => new CsvCalendarEventRepository("..\\Schedulist\\CalendarEvents.csv"));
 
             var app = builder.Build();
 

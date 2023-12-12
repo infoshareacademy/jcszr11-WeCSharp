@@ -9,6 +9,7 @@ namespace Schedulist.App.Controllers
         private CalendarParams _calendarParams;
         public CalendarController(ILogger<CalendarController> logger) : base(logger) { }
 
+
         public IActionResult Index()
         {
             _calendarParams = new CalendarParams();
@@ -16,6 +17,7 @@ namespace Schedulist.App.Controllers
             var calendarParams = new CalendarParams();
             return View(_calendarParams);
         }
+       
         public IActionResult PreviousMonth(DateTime date)
         {
             _calendarParams = new CalendarParams(date.AddMonths(-1));
