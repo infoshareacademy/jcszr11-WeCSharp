@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Schedulist.DAL;
+using System.Linq;
 
 namespace Schedulist.App.Controllers
 {
@@ -8,17 +9,21 @@ namespace Schedulist.App.Controllers
     {
         public CalendarEventController(ILogger<CalendarEventController> logger) : base(logger) { }
         public List<CalendarEvent> _calendarEvents = new CsvCalendarEventRepository("..\\Schedulist\\CalendarEvents.csv").GetAllCalendarEvents();
-       
+        //private readonly CalendarEventService _service;
+        public IList<CalendarEvent> Events { get; set; } = default!;
+        //public CalendarEventController()
 
         // GET: CalendarEventController
+        [Route("CalendarEvent")]
         public IActionResult Index()
         {
             var model = _calendarEvents;
+            //var model = Events;
             return View(model);
         }
 
         // GET: CalendarEventController/Details/5
-        public ActionResult Details(int id)
+        public IActionResult Details(int id)
         {
             var calendarEvent = _calendarEvents[id];
             return View(calendarEvent);

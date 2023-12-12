@@ -596,7 +596,7 @@ namespace Schedulist.Business
             while (string.IsNullOrWhiteSpace(dateValue))
             {
                 Console.WriteLine("Calendar Event Date cannot be empty, please provide value using format DD.MM.YYYY!");
-                dateValue = Console.ReadLine();
+               // dateValue = Console.ReadLine();
             }
             return dateValue;
         }

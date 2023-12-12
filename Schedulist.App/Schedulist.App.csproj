@@ -27,6 +27,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Include="Views\CalendarEvent\Details.cshtml" />
     <None Include="Views\CalendarEvent\Index.cshtml" />
   </ItemGroup>
 
@@ -38,6 +39,10 @@
   <ItemGroup>
     <ProjectReference Include="..\Schedulist.Business\Schedulist.Business.csproj" />
     <ProjectReference Include="..\Schedulist.DAL\Schedulist.DAL.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Services\" />
   </ItemGroup>
 
 </Project>
