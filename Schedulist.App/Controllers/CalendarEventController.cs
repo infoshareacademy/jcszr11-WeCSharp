@@ -7,8 +7,13 @@ namespace Schedulist.App.Controllers
 {
     public class CalendarEventController : ControlerBase
     {
-        public CalendarEventController(ILogger<CalendarEventController> logger) : base(logger) { }
-        public List<CalendarEvent> _calendarEvents = new CsvCalendarEventRepository("..\\Schedulist\\CalendarEvents.csv").GetAllCalendarEvents();
+        public CalendarEventController(ILogger<CalendarEventController> logger, CsvCalendarEventRepository repository) : base(logger) 
+        {
+            this.repository = repository;
+        }
+       // public List<CalendarEvent> _calendarEvents = new CsvCalendarEventRepository("..\\Schedulist\\CalendarEvents.csv").GetAllCalendarEvents();
+        private readonly CsvCalendarEventRepository repository;
+
         //private readonly CalendarEventService _service;
         public IList<CalendarEvent> Events { get; set; } = default!;
         //public CalendarEventController()
@@ -17,7 +22,7 @@ namespace Schedulist.App.Controllers
         [Route("CalendarEvent")]
         public IActionResult Index()
         {
-            var model = _calendarEvents;
+            var model = repository.GetAllCalendarEvents();
             //var model = Events;
             return View(model);
         }
@@ -25,7 +30,7 @@ namespace Schedulist.App.Controllers
         // GET: CalendarEventController/Details/5
         public IActionResult Details(int id)
         {
-            var calendarEvent = _calendarEvents[id];
+            var calendarEvent = repository.GetAllCalendarEvents()[id];
             return View(calendarEvent);
         }
 
