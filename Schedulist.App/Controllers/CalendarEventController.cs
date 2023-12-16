@@ -14,8 +14,8 @@ namespace Schedulist.App.Controllers
        // public List<CalendarEvent> _calendarEvents = new CsvCalendarEventRepository("..\\Schedulist\\CalendarEvents.csv").GetAllCalendarEvents();
         private readonly CsvCalendarEventRepository repository;
 
-        //private readonly CalendarEventService _service;
-        public IList<CalendarEvent> Events { get; set; } = default!;
+        
+        //public IList<CalendarEvent> Events { get; set; } = default!;
         //public CalendarEventController()
 
         // GET: CalendarEventController
@@ -25,6 +25,7 @@ namespace Schedulist.App.Controllers
             var model = repository.GetAllCalendarEvents();
             //var model = Events;
             return View(model);
+         
         }
 
         // GET: CalendarEventController/Details/5
