@@ -25,22 +25,14 @@ namespace Schedulist.DAL
         {
             
         }
-        // TODO: nullable? czy zmienić na poleganie jeżeli jest puste (żeby nie korzystać z nulla)
-        //[Index(0)]
+
         public int? Id { get;  set; }
-        //[Index(1)]
         public string Name { get;  set; }
-        //[Index(2)]
         public string Surname { get; set; }
-        //[Index(3)]
         public string Position { get; set; }
-        //[Index(4)]
         public string Department { get; set; }
-        //[Index(5)]
-        public string Login { get; set; }
-        //[Index(6)]
-        public string Password { get; set; }
-        //[Index(7)]
+        public string Login { get; set; } = "usr1";
+        public string Password { get; set; } = "usr1";
         public bool AdminPrivilege { get; set; }
 
         public override string ToString()

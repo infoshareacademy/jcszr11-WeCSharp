@@ -1,14 +1,18 @@
 using Microsoft.AspNetCore.Mvc;
 using Schedulist.App.Models;
+using Schedulist.DAL;
 using System.Diagnostics;
 
 namespace Schedulist.App.Controllers
 {
     public class CalendarController : ControlerBase
     {
+        private User _user;
         private CalendarParams _calendarParams;
-        public CalendarController(ILogger<CalendarController> logger) : base(logger) { }
-
+        public CalendarController(ILogger<CalendarController> logger, User user) : base(logger)
+        {
+            _user = user;
+        }
 
         public IActionResult Index()
         {
@@ -36,8 +40,9 @@ namespace Schedulist.App.Controllers
 
         public IActionResult Day(DateTime date)
         {
-            var vm = new DayViewModel(date);
-            Debug.WriteLine($"Drawing calendar day for: {date:d}");
+            DateOnly dateOnly = DateOnly.FromDateTime(date);
+            var vm = new DayViewModel(dateOnly, _user);
+            Debug.WriteLine($"Drawing calendar day for: {dateOnly}");
             return View(vm);
         }
 
