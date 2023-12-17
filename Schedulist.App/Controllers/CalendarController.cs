@@ -1,7 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 using Schedulist.App.Models;
 using System.Diagnostics;
-using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace Schedulist.App.Controllers
 {
@@ -14,21 +13,20 @@ namespace Schedulist.App.Controllers
         public IActionResult Index()
         {
             _calendarParams = new CalendarParams();
-            logger.LogInformation($"Drawing calendar for: {_calendarParams.CurrentDate.ToString("y")}");
-            var calendarParams = new CalendarParams();
+            Debug.WriteLine($"Drawing calendar for: {_calendarParams.CurrentDate:y}");
             return View(_calendarParams);
         }
-       
+
         public IActionResult PreviousMonth(DateTime date)
         {
             _calendarParams = new CalendarParams(date.AddMonths(-1));
-            logger.LogInformation($"Drawing calendar for: {_calendarParams.CurrentDate.ToString("y")}");
+            Debug.WriteLine($"Drawing calendar for: {_calendarParams.CurrentDate:y}");
             return View("Index", _calendarParams);
         }
         public IActionResult NextMonth(DateTime date)
         {
             _calendarParams = new CalendarParams(date.AddMonths(1));
-            logger.LogInformation($"Drawing calendar for: {_calendarParams.CurrentDate.ToString("y")}");
+            Debug.WriteLine($"Drawing calendar for: {_calendarParams.CurrentDate:y}");
             return View("Index", _calendarParams);
         }
         public IActionResult Privacy()
@@ -39,7 +37,7 @@ namespace Schedulist.App.Controllers
         public IActionResult Day(DateTime date)
         {
             var vm = new DayViewModel(date);
-            logger.LogInformation($"Drawing calendar day for: {date.ToString("d")}");
+            Debug.WriteLine($"Drawing calendar day for: {date:d}");
             return View(vm);
         }
 
