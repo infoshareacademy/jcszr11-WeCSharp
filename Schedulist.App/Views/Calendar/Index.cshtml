@@ -19,6 +19,7 @@
     }
     .calendarBlock {
         background-color: rgb(235, 235, 235);
+        border: 0px;
         border-bottom: 1px solid lightgrey;
         border-right: 1px solid lightgrey;
         min-width: 70px;
@@ -67,7 +68,6 @@
             }
         </div>
         <div class="row flex-nowrap flex-grow-1" style="border-left: 1px solid lightgrey;">
-            @* @for (int i = 0; i < @Model.DaysToDraw; i++) *@
             @{
                 int k = 0;
                 DateTime drawDate = @Model.StartDate;
@@ -80,27 +80,26 @@
                     else
                     {
                         drawDate = @Model.StartDate.AddDays(k);
-                    if (k % 7 == 0 && k > 0)
-                    {
-                        @:</div><div class="row flex-nowrap flex-grow-1" style="border-left: 1px solid lightgrey;">
-                    }
-                    if (drawDate.Month == @Model.CurrentDate.Month)
-                    {
-                        if (drawDate == DateTime.Today)
+                        if (k % 7 == 0 && k > 0)
                         {
-                            <a class="col calendarBlock thisMonth today" asp-area="" asp-controller="Calendar" asp-action="Privacy">@drawDate.Day</a>
-                        
+                            @:</div><div class="row flex-nowrap flex-grow-1" style="border-left: 1px solid lightgrey;">
+                        }
+                        if (drawDate.Month == @Model.CurrentDate.Month)
+                        {
+                            if (drawDate == DateTime.Today)
+                            {
+                                <button type="button" class="col calendarBlock thisMonth today" onclick="location.href='@Url.Action("Day", "Calendar", drawDate)'">@drawDate.Day</button>
+                            }
+                            else
+                            {
+                                <button type="button" class="col calendarBlock thisMonth" onclick="location.href='@Url.Action("Day", "Calendar", drawDate)'">@drawDate.Day</button>
+                            }
                         }
                         else
                         {
-                            <a class="col calendarBlock thisMonth" asp-area="" asp-controller="Calendar" asp-action="Privacy">@drawDate.Day</a>
+                            <button type="button" class="col calendarBlock" onclick="location.href='@Url.Action("Day", "Calendar", drawDate)'">@drawDate.Day</button>
                         }
-                    }
-                    else
-                    {
-                        <a class="col calendarBlock" asp-area="" asp-controller="Calendar" asp-action="Privacy">@drawDate.Day</a>
-                    }
-                    k += 1;
+                        k += 1;
                     }
                 }
             }
