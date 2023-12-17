@@ -31,8 +31,8 @@ namespace Schedulist.DAL
         public string Surname { get; set; }
         public string Position { get; set; }
         public string Department { get; set; }
-        public string Login { get; set; } = "usr1";
-        public string Password { get; set; } = "usr1";
+        public string Login { get; set; }
+        public string Password { get; set; }
         public bool AdminPrivilege { get; set; }
 
         public override string ToString()

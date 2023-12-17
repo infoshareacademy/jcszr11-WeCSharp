@@ -25,8 +25,11 @@ namespace Schedulist.App
             builder.Services.AddControllersWithViews();
             builder.Services.AddSingleton<CsvCalendarEventRepository>(_ => new CsvCalendarEventRepository("..\\Schedulist\\CalendarEvents.csv"));
 
-            //todo user
-            builder.Services.AddSingleton<User> ();
+            // todo user
+            List<User> users = new CsvUserRepository("..\\Schedulist\\Users.csv").GetAllUsers();
+            User user = users[2];
+            builder.Services.AddSingleton<User>(user);
+            // todo user
 
             var app = builder.Build();
 
