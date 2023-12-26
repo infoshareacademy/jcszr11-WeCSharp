@@ -6,35 +6,41 @@
 
 <h1>@Model.Date</h1>
 <h1>@Model.User.Login - @Model.WorkMode</h1>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                Date
-            </th>
-            <th>
-                Name
-            </th>
-            <th>
-                Descreption
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (CalendarEvent calendarEvent in @Model.CalendarEvents)
-        {
+@if (@Model.CalendarEvents.Count > 0)
+{
+    <table class="table">
+        <thead>
             <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => calendarEvent.CalendarEventDate)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => calendarEvent.CalendarEventName)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => calendarEvent.CalendarEventDescription)
-                </td>
+                <th>
+                    Date
+                </th>
+                <th>
+                    Name
+                </th>
+                <th>
+                    Descreption
+                </th>
+                <th></th>
             </tr>
-        }
-    </tbody>
-</table>
+        </thead>
+        <tbody>
+            @foreach (CalendarEvent calendarEvent in @Model.CalendarEvents)
+            {
+                if (calendarEvent.AssignedToUser == @Model.User.Id && calendarEvent.CalendarEventDate == @Model.Date)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => calendarEvent.CalendarEventDate)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => calendarEvent.CalendarEventName)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => calendarEvent.CalendarEventDescription)
+                        </td>
+                    </tr>
+                }
+            }
+        </tbody>
+    </table>
+}

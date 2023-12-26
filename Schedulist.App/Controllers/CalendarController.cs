@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Schedulist.App.Models;
 using Schedulist.DAL;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.Drawing.Drawing2D;
 
@@ -47,8 +48,13 @@ namespace Schedulist.App.Controllers
             string workModeString;
             if (workMode != null) workModeString = workMode.WorkModeName;
             else workModeString = "No work mode";
-            List<CalendarEvent> calendarEvents = new CsvCalendarEventRepository("..\\Schedulist\\CalendarEvents.csv").GetAllCalendarEvents();
-            var vm = new DayViewModel(dateOnly, _user, workModeString, calendarEvents);
+            List<CalendarEvent> allCalendarEvents = new CsvCalendarEventRepository("..\\Schedulist\\CalendarEvents.csv").GetAllCalendarEvents();
+            List<CalendarEvent> calendarEventsToDraw = new List<CalendarEvent>();
+            foreach (CalendarEvent calendarEvent in allCalendarEvents)
+            {
+                if (calendarEvent.AssignedToUser == _user.Id && calendarEvent.CalendarEventDate == dateOnly) calendarEventsToDraw.Add(calendarEvent);
+            }
+            var vm = new DayViewModel(dateOnly, _user, workModeString, calendarEventsToDraw);
             Debug.WriteLine($"Drawing calendar day for: {dateOnly}");
             return View(vm);
         }
