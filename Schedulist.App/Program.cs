@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Schedulist.DAL;
 
+
 namespace Schedulist.App
 {
     public class Program
@@ -23,6 +24,12 @@ namespace Schedulist.App
                 .AddEntityFrameworkStores<DbContext>();
             builder.Services.AddControllersWithViews();
             builder.Services.AddSingleton<CsvCalendarEventRepository>(_ => new CsvCalendarEventRepository("..\\Schedulist\\CalendarEvents.csv"));
+
+            // todo user
+            List<User> users = new CsvUserRepository("..\\Schedulist\\Users.csv").GetAllUsers();
+            User user = users[2];
+            builder.Services.AddSingleton<User>(user);
+            // todo user
 
             var app = builder.Build();
 
