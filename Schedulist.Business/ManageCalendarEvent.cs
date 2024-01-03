@@ -12,7 +12,7 @@ using Schedulist.Business.Actions;
 
 namespace Schedulist.Business
 {
-    public class ManageCalendarEvent : IManageCalendarEvent
+    public class ManageCalendarEvent  //IManageCalendarEvent
     {
         private List<CalendarEvent> _calendarEvents =
             new CsvCalendarEventRepository("..\\..\\..\\CalendarEvents.csv").GetAllCalendarEvents();
@@ -37,17 +37,17 @@ namespace Schedulist.Business
             }
             Console.WriteLine("========================================================");
         }
-        public void ShowUserCalendarEvent(User user)
+        public List<CalendarEvent> ShowUserCalendarEvent(User user, DateOnly providedDate)
         {
             Console.Clear();
             Console.WriteLine("==========List of Calendar Events==========");
             Console.WriteLine("Provide date for which you want to show Calendar Events using format DD.MM.YYYY");
-            string providedDate = Console.ReadLine();
-            providedDate = DateValueEmptinessValidation(providedDate);
-            DateOnly.TryParse(providedDate, out var specifiedDate);
+            //string providedDate = Console.ReadLine();
+            //providedDate = DateValueEmptinessValidation(providedDate);
+            //DateOnly.TryParse(providedDate, out var specifiedDate);
             var calendarEvents = _csvCalendarEventRepository.GetAllCalendarEvents();
             var userCalendarEvents = calendarEvents
-                .Where(c => c.AssignedToUser == user.Id && c.CalendarEventDate == specifiedDate)
+                .Where(c => c.AssignedToUser == user.Id && c.CalendarEventDate == providedDate)
                 .OrderBy(c => c.CalendarEventStartTime)
                 .ToList();
             if (userCalendarEvents.Count == 0)
@@ -56,7 +56,7 @@ namespace Schedulist.Business
             }
             else
             {
-                Console.WriteLine($"\nCalendar Events on {specifiedDate}:");
+                Console.WriteLine($"\nCalendar Events on {providedDate}:");
                 Console.WriteLine($"Start time \t End time \t Calendar Event Name");
                 foreach (var calendarEvent in userCalendarEvents)
                 {
@@ -66,7 +66,8 @@ namespace Schedulist.Business
             }
             Console.WriteLine("========================================================");
             Console.WriteLine("\nType any key do return to Menu");
-            Console.ReadKey();
+            return userCalendarEvents;
+            //Console.ReadKey();
         }
         public void CreateCalendarEvent(User user)
         {

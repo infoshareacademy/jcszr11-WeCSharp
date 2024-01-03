@@ -1,8 +1,14 @@
 ﻿@model DayViewModel
+
 @{
     ViewData["Title"] = "Day";
 }
 
 <h1>[@Model.Date]</h1>
 <h1>[@Model.User.Login] - [work mode]</h1>
-<h1>[lista tasków]</h1>
+<h1>[List of calendar events]</h1>
+
+<a asp-controller="CalendarController" asp-action="ChosenDateEventDetails" asp-route-id="14"
+    asp-route-user="@Model.User" asp-route-date="@Model.Date">
+    View Event Details
+</a>

@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Schedulist.Business;
 using Schedulist.DAL;
 using System.Linq;
 
@@ -10,9 +11,11 @@ namespace Schedulist.App.Controllers
         public CalendarEventController(ILogger<CalendarEventController> logger, CsvCalendarEventRepository repository) : base(logger) 
         {
             this.repository = repository;
+
         }
        // public List<CalendarEvent> _calendarEvents = new CsvCalendarEventRepository("..\\Schedulist\\CalendarEvents.csv").GetAllCalendarEvents();
         private readonly CsvCalendarEventRepository repository;
+       private ManageCalendarEvent manageCalendarEvent;
 
         // GET: CalendarEventController
         [Route("CalendarEvent")]
@@ -28,6 +31,12 @@ namespace Schedulist.App.Controllers
         public IActionResult Details(int id)
         {
             var calendarEvent = repository.GetAllCalendarEvents()[id];
+            return View(calendarEvent);
+        }
+
+        public IActionResult ChosenDateEventDetails(int id, User user, DateOnly date)
+        {
+            var calendarEvent = manageCalendarEvent.ShowUserCalendarEvent(user, date)[id];
             return View(calendarEvent);
         }
 

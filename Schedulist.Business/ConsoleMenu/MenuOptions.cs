@@ -26,7 +26,7 @@ namespace Schedulist.Business
                 Console.WriteLine("===============================================================================");
                 var option = Console.ReadKey();
                 if (option.Key == ConsoleKey.D1) new ManageCalendarEvent().CreateCalendarEvent(CurrentUser.currentUser);
-                else if (option.Key == ConsoleKey.D2) new ManageCalendarEvent().ShowUserCalendarEvent(CurrentUser.currentUser);
+               // else if (option.Key == ConsoleKey.D2) new ManageCalendarEvent().ShowUserCalendarEvent(CurrentUser.currentUser);
                 else if (option.Key == ConsoleKey.D3) new ManageCalendarEvent().ModifyCurrentCalendarEvent(CurrentUser.currentUser);
                 else if (option.Key == ConsoleKey.D4) new ManageCalendarEvent().DeleteCurrentCalendarEvent(CurrentUser.currentUser);
                 else if (option.Key == ConsoleKey.Backspace) break;
@@ -51,11 +51,11 @@ namespace Schedulist.Business
                     var actAsUser = SetActAsUser();
                     new ManageCalendarEvent().CreateCalendarEvent(actAsUser);
                 }
-                else if (option.Key == ConsoleKey.D2)
-                {
-                    var actAsUser = SetActAsUser();
-                    new ManageCalendarEvent().ShowUserCalendarEvent(actAsUser);
-                }
+                //else if (option.Key == ConsoleKey.D2)
+                //{
+                //    var actAsUser = SetActAsUser();
+                //    new ManageCalendarEvent().ShowUserCalendarEvent(actAsUser);
+                //}
                 else if (option.Key == ConsoleKey.D3)
                 {
                     new ManageCalendarEvent().ModifyCalendarEventsAdmin();
