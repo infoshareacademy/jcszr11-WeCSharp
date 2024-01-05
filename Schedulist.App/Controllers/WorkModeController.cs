@@ -1,21 +1,29 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Schedulist.DAL;
 
 namespace Schedulist.App.Controllers
 {
     public class WorkModeController : ControlerBase
     {
-        public WorkModeController(ILogger<WorkModeController> logger) : base(logger) { }
-        // GET: WorkModeController
-        public ActionResult Index()
+        public WorkModeController(ILogger<WorkModeController> logger, CSVWorkModesRepository repository) : base(logger) 
         {
-            return View();
+            this.repository = repository;
+        }
+        private readonly CSVWorkModesRepository repository;
+        // GET: WorkModeController
+        [Route("WorkModesToUser")]
+        public IActionResult Index()
+        {
+            var model = repository.GetAllWorkModes();
+            return View(model);
         }
 
         // GET: WorkModeController/Details/5
-        public ActionResult Details(int id)
+        public IActionResult Details(int id)
         {
-            return View();
+            var workmode = repository.GetAllWorkModes()[id];
+            return View(workmode);
         }
 
         // GET: WorkModeController/Create

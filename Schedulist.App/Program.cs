@@ -24,6 +24,7 @@ namespace Schedulist.App
                 .AddEntityFrameworkStores<DbContext>();
             builder.Services.AddControllersWithViews();
             builder.Services.AddSingleton<CsvCalendarEventRepository>(_ => new CsvCalendarEventRepository("..\\Schedulist\\CalendarEvents.csv"));
+            builder.Services.AddSingleton<CSVWorkModesRepository>(_ => new CSVWorkModesRepository("..\\Schedulist\\WorkModes.csv"));
 
             // todo user
             List<User> users = new CsvUserRepository("..\\Schedulist\\Users.csv").GetAllUsers();
