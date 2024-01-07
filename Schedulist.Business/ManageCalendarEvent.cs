@@ -39,7 +39,7 @@ namespace Schedulist.Business
         }
         public List<CalendarEvent> ShowUserCalendarEvent(User user, DateOnly providedDate)
         {
-            Console.Clear();
+            //Console.Clear();
             Console.WriteLine("==========List of Calendar Events==========");
             Console.WriteLine("Provide date for which you want to show Calendar Events using format DD.MM.YYYY");
             //string providedDate = Console.ReadLine();
@@ -69,17 +69,17 @@ namespace Schedulist.Business
             return userCalendarEvents;
             //Console.ReadKey();
         }
-        public void CreateCalendarEvent(User user)
+        public void CreateCalendarEvent(User user, DateOnly calendarEventDate)
         {
-            Console.Clear();
+            //Console.Clear();
             Console.WriteLine("==========Creating new Calendar Event==========");
-            Console.WriteLine("You are creating new Calendar Event, please provide data as following:");
+            //Console.WriteLine("You are creating new Calendar Event, please provide data as following:");
             int calendarEventId = 1;
             var dateValue = "";
             string calendarEventName = Helper.ConsolHelper("Name of Calendar Event:");
-            string calendarEventDescription = Helper.ConsolHelper("Description of the Calendar Event:");
-            Console.WriteLine("Date of Calendar Event using format DD.MM.YYYY");
-            var calendarEventDate = CalendarEventDateAddValidation(out dateValue);
+           string calendarEventDescription = Helper.ConsolHelper("Description of the Calendar Event:");
+           //Console.WriteLine("Date of Calendar Event using format DD.MM.YYYY");
+            //var calendarEventDate = CalendarEventDateAddValidation(out dateValue);
             calendarEventDate = CalendarEventDateMinMaxValidation(calendarEventDate);
             calendarEventDate = CalendarEventDateWeekendValidation(calendarEventDate);
             calendarEventDate = CalendarEventDateRelatedToWorkModeValidation(user, calendarEventDate);
@@ -106,8 +106,8 @@ namespace Schedulist.Business
                 calendarEventDescription, calendarEventDate, calendarEventStartTime, calendarEventEndTime,
                 (int)user.Id);
             _csvCalendarEventRepository.AddCalendarEvent(calendarEvent);
-            Console.WriteLine("\nType any key do return to Menu");
-            Console.ReadKey();
+            //Console.WriteLine("\nType any key do return to Menu");
+            //Console.ReadKey();
         }
         
         #region CalendarEvent - Modify Section
@@ -260,7 +260,7 @@ namespace Schedulist.Business
                     Console.WriteLine("Operation canceled.");
                     Console.WriteLine("Press any key to return to continue.");
                     Console.ReadKey();
-                    new MenuOptions().MenuAdminCalendarEvents();
+                   // new MenuOptions().MenuAdminCalendarEvents();
                     //break;
                 }
                 else
@@ -334,13 +334,13 @@ namespace Schedulist.Business
                         }
                         break;
                     case ConsoleKey.Backspace:
-                        new MenuOptions().MenuAdminCalendarEvents();
+                       // new MenuOptions().MenuAdminCalendarEvents();
                         break;
                     default:
                         Console.WriteLine("Invalid input. Please choose a valid option.");
                         Console.WriteLine("Press any key to return to the menu.");
                         Console.ReadKey();
-                        new MenuOptions().MenuAdminCalendarEvents();
+                      //  new MenuOptions().MenuAdminCalendarEvents();
                         break;
                 }
                 Console.Clear();

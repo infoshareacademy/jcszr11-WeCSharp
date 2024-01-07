@@ -27,17 +27,25 @@ namespace Schedulist.App.Controllers
          
         }
 
-        // GET: CalendarEventController/Details/5
-        public IActionResult Details(int id)
-        {
-            var calendarEvent = repository.GetAllCalendarEvents()[id];
-            return View(calendarEvent);
-        }
+        //// GET: CalendarEventController/Details/5
+        //public IActionResult Details(int id)
+        //{
+        //    var calendarEvent = repository.GetAllCalendarEvents()[id];
+        //    return View(calendarEvent);
+        //}
 
+        // GET: CalendarEventController/ChosenDateEventDetails
         public IActionResult ChosenDateEventDetails(int id, User user, DateOnly date)
         {
             var calendarEvent = manageCalendarEvent.ShowUserCalendarEvent(user, date)[id];
             return View(calendarEvent);
+            //var calendarEvents = repository.GetAllCalendarEvents();
+            //var model2 = calendarEvents
+            //    .Where(c => c.AssignedToUser == user.Id && c.CalendarEventDate == date)
+            //    .OrderBy(c => c.CalendarEventStartTime)
+            //    .ToList();
+            //var model = Events;
+            //return View(model2);
         }
 
         // GET: CalendarEventController/Create

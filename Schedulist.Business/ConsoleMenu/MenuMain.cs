@@ -36,11 +36,11 @@ namespace Schedulist.Business
                 else if (option.Key == ConsoleKey.D1) new MenuOptions().MenuCalendar();
                 else if (option.Key == ConsoleKey.D2) new MenuOptions().MenuWorkModes();
                 else if (option.Key == ConsoleKey.D3) MenuOptions.MenuCalendarEvents();
-                else if (CurrentUser.currentUser.AdminPrivilege) // Admin options
-                {
-                    if (option.Key == ConsoleKey.D4) new MenuOptions().MenuAdminCalendarEvents();
-                    else if (option.Key == ConsoleKey.D5) MenuOptions.MenuUsers();
-                }
+                //else if (CurrentUser.currentUser.AdminPrivilege) // Admin options
+                //{
+                //   // if (option.Key == ConsoleKey.D4) new MenuOptions().MenuAdminCalendarEvents();
+                //    else if (option.Key == ConsoleKey.D5) MenuOptions.MenuUsers();
+                //}
             }
         }
     }

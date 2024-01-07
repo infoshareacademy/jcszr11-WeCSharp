@@ -94,7 +94,7 @@ namespace Schedulist.Business.Actions
                 Console.WriteLine("Operation canceled.");
                 Console.WriteLine("Press any key to return to the menu.");
                 Console.ReadKey();
-                new MenuOptions().MenuAdminCalendarEvents();
+               // new MenuOptions().MenuAdminCalendarEvents();
                 return null;
             }
             else
@@ -103,7 +103,7 @@ namespace Schedulist.Business.Actions
                 Console.WriteLine("Invalid choice");
                 Console.WriteLine("Press any key to return to the menu.");
                 Console.ReadKey();
-                new MenuOptions().MenuAdminCalendarEvents();
+               // new MenuOptions().MenuAdminCalendarEvents();
                 return null;
             }
         }
