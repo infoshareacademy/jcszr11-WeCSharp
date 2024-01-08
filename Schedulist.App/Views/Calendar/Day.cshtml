@@ -37,32 +37,38 @@
 
     .row {
         width: calc(100% - 40px);
+        margin-left: 7%;
+        margin-right: 7%;
     }
 
     .btn-edit {
         width: 30px;
         height: 30px;
         position: absolute;
-        left: calc(100% - 40px);
+        left: calc(100% - 6%);
     }
 </style>
 
-<h1>@Model.Date</h1>
-<h1>@Model.User.Name @Model.User.Surname - @Model.WorkMode</h1>
+<div class="row">
+    <h1>@Model.Date</h1>
+    <h1>@Model.User.Name @Model.User.Surname - @Model.WorkMode</h1>
+</div>
 @if (@Model.CalendarEvents.Count > 0)
 {
-    <div class="row flex-nowrap ">
-        <div class="col-3 row-title">
-            Name
-        </div>
-        <div class="col  row-title">
-            Descreption
-        </div>
-        <div class="col-1  row-title hour">
-            Start hour
-        </div>
-        <div class="col-1  row-title hour">
-            Finish hour
+    <div style="display: flex;">
+        <div class="row flex-nowrap">
+            <div class="col-3 row-title">
+                Name
+            </div>
+            <div class="col  row-title">
+                Descreption
+            </div>
+            <div class="col-1  row-title hour">
+                Start hour
+            </div>
+            <div class="col-1  row-title hour">
+                Finish hour
+            </div>
         </div>
     </div>
     @foreach (CalendarEvent calendarEvent in @Model.CalendarEvents)
@@ -70,7 +76,7 @@
         if (calendarEvent.AssignedToUser == @Model.User.Id && calendarEvent.CalendarEventDate == @Model.Date)
         {
             <div style="display: flex;">
-                <div class="row flex-nowrap ">
+                <div class="row flex-nowrap">
                     <div class="col-3 row-text">
                         @Html.DisplayFor(modelItem => calendarEvent.CalendarEventName)
                     </div>
