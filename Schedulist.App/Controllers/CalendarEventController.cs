@@ -18,7 +18,6 @@ namespace Schedulist.App.Controllers
        private ManageCalendarEvent manageCalendarEvent;
 
         // GET: CalendarEventController
-        [Route("CalendarEvent")]
         public IActionResult Index()
         {
             var model = repository.GetAllCalendarEvents();
