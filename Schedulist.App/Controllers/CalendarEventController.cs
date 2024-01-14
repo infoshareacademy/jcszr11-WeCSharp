@@ -41,11 +41,11 @@ namespace Schedulist.App.Controllers
         }
 
         // GET: CalendarEventController/Create
-        public ActionResult Create()
-        {
-            var calendarEvent = manageCalendarEvent.CreateCalendarEvent();
-            return View(calendarEvent);
-        }
+        //public ActionResult Create()
+        //{
+        //    var calendarEvent = manageCalendarEvent.CreateCalendarEvent();
+        //    return View(calendarEvent);
+        //}
 
         // POST: CalendarEventController/Create
         [HttpPost]
