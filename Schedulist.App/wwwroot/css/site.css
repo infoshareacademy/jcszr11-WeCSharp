@@ -55,8 +55,7 @@ body {
 
 .row {
     width: 90%;
-    margin-left: 7%;
-    margin-right: 7%;
+    margin: 0 auto;
 }
 
 .btn-edit-delete {
