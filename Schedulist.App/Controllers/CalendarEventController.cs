@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using Schedulist.Business;
 using Schedulist.DAL;
 using System.Linq;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace Schedulist.App.Controllers
 {
@@ -42,7 +43,8 @@ namespace Schedulist.App.Controllers
         // GET: CalendarEventController/Create
         public ActionResult Create()
         {
-            return View();
+            var calendarEvent = manageCalendarEvent.CreateCalendarEvent();
+            return View(calendarEvent);
         }
 
         // POST: CalendarEventController/Create
