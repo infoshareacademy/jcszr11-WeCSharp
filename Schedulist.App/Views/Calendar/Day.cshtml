@@ -1,8 +1,113 @@
-﻿@model DayViewModel
+﻿@using Schedulist.DAL
+@model DayViewModel
 @{
     ViewData["Title"] = "Day";
 }
 
-<h1>[@Model.Date]</h1>
-<h1>[@Model.User.Login] - [work mode]</h1>
-<h1>[lista tasków]</h1>
+<style>
+    .row-title {
+        border: 1px solid lightgrey;
+        font-weight: bold;
+        padding-top: 3px;
+        padding-bottom: 3px;
+        font-size: 20px;
+        margin-top: 10px;
+    }
+
+    .row-text {
+        border: 1px solid lightgrey;
+        padding-top: 3px;
+        padding-bottom: 3px;
+    }
+
+    .hour {
+        text-align: center;
+    }
+
+    .no-events {
+        font-size: 20px;
+        text-align: center;
+        padding: 10px;
+    }
+
+    .add-event {
+        text-align: center;
+        padding: 10px;
+    }
+
+    .row {
+        width: 90%;
+        margin-left: 7%;
+        margin-right: 7%;
+    }
+
+    .btn-edit-delete {
+        width: 30px;
+        height: 30px;
+        margin-left: 10px;
+    }
+</style>
+
+<div class="row">
+    <h1>@Model.Date</h1>
+    <h1>@Model.User.Name @Model.User.Surname - @Model.WorkMode</h1>
+</div>
+@if (@Model.CalendarEvents.Count > 0)
+{
+    <div style="display: flex;">
+        <div class="row flex-nowrap">
+            <div class="col-3 row-title">
+                Name
+            </div>
+            <div class="col  row-title">
+                Descreption
+            </div>
+            <div class="col-1  row-title hour">
+                Start hour
+            </div>
+            <div class="col-1  row-title hour">
+                Finish hour
+            </div>
+            <div style="width: 80px;"></div>
+        </div>
+    </div>
+    @foreach (CalendarEvent calendarEvent in @Model.CalendarEvents)
+    {
+        if (calendarEvent.AssignedToUser == @Model.User.Id && calendarEvent.CalendarEventDate == @Model.Date)
+        {
+            <div style="display: flex;">
+                <div class="row flex-nowrap">
+                    <div class="col-3 row-text">
+                        @Html.DisplayFor(modelItem => calendarEvent.CalendarEventName)
+                    </div>
+                    <div class="col row-text">
+                        @Html.DisplayFor(modelItem => calendarEvent.CalendarEventDescription)
+                    </div>
+                    <div class="col-1 row-text hour">
+                        @Html.DisplayFor(modelItem => calendarEvent.CalendarEventStartTime)
+                    </div>
+                    <div class="col-1 row-text hour">
+                        @Html.DisplayFor(modelItem => calendarEvent.CalendarEventEndTime)
+                    </div>
+                    <button class="btn btn-primary btn-edit-delete">
+                        e
+                    </button>
+                    <button class="btn btn-danger btn-edit-delete">
+                        d
+                    </button>
+                </div>
+            </div>
+        }
+    }
+}
+else
+{
+    <div class="no-events">
+        No events for that day
+    </div>
+}
+<div class="add-event">
+    <button class="btn btn-primary">
+        Add new event
+    </button>
+</div>
