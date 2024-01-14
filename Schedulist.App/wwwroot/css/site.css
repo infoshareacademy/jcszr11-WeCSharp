@@ -1,22 +1,110 @@
 html {
-  font-size: 14px;
+    font-size: 14px;
 }
 
 @media (min-width: 768px) {
-  html {
-    font-size: 16px;
-  }
+    html {
+        font-size: 16px;
+    }
 }
 
+/*shared*/
+
+.text-center {
+    text-align: center;
+}
+
+.standard-border {
+    border: 1px solid lightgrey;
+}
+
+/*calendar day*/
+
 .btn:focus, .btn:active:focus, .btn-link.nav-link:focus, .form-control:focus, .form-check-input:focus {
-  box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
+    box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
 }
 
 html {
-  position: relative;
-  min-height: 100%;
+    position: relative;
+    min-height: 100%;
 }
 
 body {
-  margin-bottom: 60px;
+    margin-bottom: 60px;
+}
+
+.row-title {
+    font-weight: bold;
+    font-size: 20px;
+    margin-top: 10px;
+}
+
+.row-text {
+    padding-top: 3px;
+    padding-bottom: 3px;
+}
+
+.no-events {
+    font-size: 20px;
+    padding: 10px;
+}
+
+.add-event {
+    padding: 10px;
+}
+
+.row {
+    width: 90%;
+    margin: 0 auto;
+}
+
+.btn-edit-delete {
+    width: 30px;
+    height: 30px;
+    margin-left: 10px;
+}
+
+/*calendar*/
+
+.monthName {
+    min-width: 490px;
+    font-size: calc(30px + 3.5vw);
+    justify-content: center;
+}
+
+.calendarHeader {
+    background-color: rgb(245, 245, 245);
+    border-top: 1px solid lightgrey;
+    border-bottom: 1px solid lightgrey;
+    border-right: 1px solid lightgrey;
+    min-width: 70px;
+    font-size: calc(12px + 0.7vw);
+}
+
+.calendarBlock {
+    background-color: rgb(235, 235, 235);
+    border: 0px;
+    border-bottom: 1px solid lightgrey;
+    border-right: 1px solid lightgrey;
+    min-width: 70px;
+    min-height: 70px;
+    color: grey;
+    text-decoration: none;
+    padding: 0;
+}
+
+.today {
+    border: 1px solid red;
+    z-index: 1;
+    color: red;
+}
+
+.thisMonth {
+    background-color: rgb(245, 245, 245);
+    color: black;
+}
+
+.buttonField {
+    width: 5vh;
+    justify-content: center;
 }

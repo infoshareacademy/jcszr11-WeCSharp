@@ -23,10 +23,16 @@
                             <a class="nav-link text-dark" asp-area="" asp-controller="Calendar" asp-action="Index">Calendar</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Calendar" asp-action="Privacy">Privacy</a>
+                            <a class="nav-link text-dark" asp-area="" asp-controller="CalendarEvent" asp-action="Index">Calendar Events</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="CalendarEvent" asp-action="Index">Calendar Events</a>
+                            <a class="nav-link text-dark" asp-area="" asp-controller="CalendarEvent" asp-action="Details">Calendar Events - Details</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="WorkModesToUser" asp-action="Index">Work Modes</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="WorkModesToUser" asp-action="Details">Work Modes - Details</a>
                         </li>
                     </ul>
                 </div>
@@ -37,12 +43,6 @@
         <main role="main" style="padding: 0">
             @RenderBody()
         </main>
-
-    <footer class="border-top footer text-muted">
-        <div class="container">
-            &copy; 2023 - Schedulist.App - <a asp-area="" asp-controller="Calendar" asp-action="Privacy">Privacy</a>
-        </div>
-    </footer>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
