@@ -36,16 +36,15 @@
     }
 
     .row {
-        width: calc(100% - 40px);
+        width: 90%;
         margin-left: 7%;
         margin-right: 7%;
     }
 
-    .btn-edit {
+    .btn-edit-delete {
         width: 30px;
         height: 30px;
-        position: absolute;
-        left: calc(100% - 6%);
+        margin-left: 10px;
     }
 </style>
 
@@ -69,6 +68,7 @@
             <div class="col-1  row-title hour">
                 Finish hour
             </div>
+            <div style="width: 80px;"></div>
         </div>
     </div>
     @foreach (CalendarEvent calendarEvent in @Model.CalendarEvents)
@@ -89,10 +89,13 @@
                     <div class="col-1 row-text hour">
                         @Html.DisplayFor(modelItem => calendarEvent.CalendarEventEndTime)
                     </div>
+                    <button class="btn btn-primary btn-edit-delete">
+                        e
+                    </button>
+                    <button class="btn btn-danger btn-edit-delete">
+                        d
+                    </button>
                 </div>
-                <button class="btn btn-primary btn-edit">
-                    e
-                </button>
             </div>
         }
     }
