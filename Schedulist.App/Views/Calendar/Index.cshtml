@@ -3,46 +3,6 @@
     ViewData["Title"] = "Calendar";
 }
 
-<style>
-    .monthName{
-        min-width: 490px;
-        font-size:calc(30px + 3.5vw);
-        justify-content: center;
-    }
-    .calendarHeader {
-        background-color: rgb(245, 245, 245);
-        border-top: 1px solid lightgrey;
-        border-bottom: 1px solid lightgrey;
-        border-right: 1px solid lightgrey;
-        min-width: 70px;
-        font-size:calc(12px + 0.7vw);
-    }
-    .calendarBlock {
-        background-color: rgb(235, 235, 235);
-        border: 0px;
-        border-bottom: 1px solid lightgrey;
-        border-right: 1px solid lightgrey;
-        min-width: 70px;
-        min-height: 70px;
-        color:grey;
-        text-decoration: none;
-        padding: 0;
-    }
-    .today {
-        border: 1px solid red;
-        z-index: 1;
-        color:red;
-    }
-    .thisMonth {
-        background-color: rgb(245, 245, 245);
-        color: black;
-    }
-    .buttonField{
-        width: 5vh;
-        justify-content: center;
-    }
-</style>
-
 <div class="text-center" style="height: calc(100vh - 140px);">
     <div class="container-fluid d-flex h-100 flex-column">
             <div class="row flex-nowrap monthName">
