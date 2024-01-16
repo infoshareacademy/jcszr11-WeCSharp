@@ -38,6 +38,10 @@
         </nav>
     </header>
         <main role="main" style="padding: 0">
+        @if (TempData.ContainsKey("Success"))
+        {
+            <p class="alert alert-success">@TempData["Success"]</p>
+        }
             @RenderBody()
         </main>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>

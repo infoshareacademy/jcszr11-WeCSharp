@@ -11,7 +11,7 @@ namespace Schedulist.App.Services
             var calendarEvents = _repository.GetAllCalendarEvents();
             var userCalendarEvents = calendarEvents
                 .Where(c => c.AssignedToUser == user.Id && c.CalendarEventDate == specifiedDate)
-                .OrderBy(c => c.CalendarEventStartTime)
+                .OrderByDescending(c => c.CalendarEventDate)
                 .ToList();
             return userCalendarEvents;
         }

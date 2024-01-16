@@ -23,7 +23,7 @@ namespace Schedulist.DAL
             var csvConfig = CsvConfiguration();
             using var reader = new StreamReader(_pathToCsvFile);
             using var csv = new CsvReader(reader, csvConfig);
-            calendarEvents = csv.GetRecords<CalendarEvent>().ToList();
+            calendarEvents = csv.GetRecords<CalendarEvent>().OrderByDescending(c => c.CalendarEventDate).ToList();
             return calendarEvents;
         }
         public void AddCalendarEvent(CalendarEvent calendarEvent)

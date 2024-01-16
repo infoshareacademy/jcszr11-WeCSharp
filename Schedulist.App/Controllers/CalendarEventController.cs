@@ -67,7 +67,7 @@ namespace Schedulist.App.Controllers
 
                 calendarEventService.Create(calendarEvent);
                 Debug.WriteLine($"Creating Calendar Event");
-
+                TempData["Success"] = "Calendar Event has been created successfully";
                 //return RedirectToAction("Day", "Calendar");
                 return RedirectToAction(nameof(Index));
             }
