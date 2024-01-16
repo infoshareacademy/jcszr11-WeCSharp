@@ -24,12 +24,12 @@ namespace Schedulist.Business
                 Console.WriteLine("4. Delete calendar event");
                 Console.WriteLine("Backspace. Go back");
                 Console.WriteLine("===============================================================================");
-                var option = Console.ReadKey();
-                if (option.Key == ConsoleKey.D1) new ManageCalendarEvent().CreateCalendarEvent(CurrentUser.currentUser);
+               // var option = Console.ReadKey();
+              //  if (option.Key == ConsoleKey.D1) new ManageCalendarEvent().CreateCalendarEvent(CurrentUser.currentUser);
                // else if (option.Key == ConsoleKey.D2) new ManageCalendarEvent().ShowUserCalendarEvent(CurrentUser.currentUser);
-                else if (option.Key == ConsoleKey.D3) new ManageCalendarEvent().ModifyCurrentCalendarEvent(CurrentUser.currentUser);
-                else if (option.Key == ConsoleKey.D4) new ManageCalendarEvent().DeleteCurrentCalendarEvent(CurrentUser.currentUser);
-                else if (option.Key == ConsoleKey.Backspace) break;
+                //else if (option.Key == ConsoleKey.D3) new ManageCalendarEvent().ModifyCurrentCalendarEvent(CurrentUser.currentUser);
+                //else if (option.Key == ConsoleKey.D4) new ManageCalendarEvent().DeleteCurrentCalendarEvent(CurrentUser.currentUser);
+                //else if (option.Key == ConsoleKey.Backspace) break;
             }
         }
         public void MenuAdminCalendarEvents()     
@@ -45,26 +45,26 @@ namespace Schedulist.Business
                 Console.WriteLine("4. Delete existing calendar event for chosen User");
                 Console.WriteLine("Backspace. Go back");
                 Console.WriteLine("===============================================================================");
-                var option = Console.ReadKey();
-                if (option.Key == ConsoleKey.D1)
-                {
-                    var actAsUser = SetActAsUser();
-                    new ManageCalendarEvent().CreateCalendarEvent(actAsUser);
-                }
+                //var option = Console.ReadKey();
+                //if (option.Key == ConsoleKey.D1)
+                //{
+                //    var actAsUser = SetActAsUser();
+                //    new ManageCalendarEvent().CreateCalendarEvent(actAsUser);
+                //}
                 //else if (option.Key == ConsoleKey.D2)
                 //{
                 //    var actAsUser = SetActAsUser();
                 //    new ManageCalendarEvent().ShowUserCalendarEvent(actAsUser);
                 //}
-                else if (option.Key == ConsoleKey.D3)
-                {
-                    new ManageCalendarEvent().ModifyCalendarEventsAdmin();
-                }
-                else if (option.Key == ConsoleKey.D4) 
-                {
-                    new ManageCalendarEvent().DeleteCalendarEventAdmin();
-                }
-                else if (option.Key == ConsoleKey.Backspace) break;
+                //else if (option.Key == ConsoleKey.D3)
+                //{
+                //    new ManageCalendarEvent().ModifyCalendarEventsAdmin();
+                //}
+                //else if (option.Key == ConsoleKey.D4) 
+                //{
+                //    new ManageCalendarEvent().DeleteCalendarEventAdmin();
+                //}
+                //else if (option.Key == ConsoleKey.Backspace) break;
             }
 
         }

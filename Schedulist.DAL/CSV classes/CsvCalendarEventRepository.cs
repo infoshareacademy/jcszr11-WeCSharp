@@ -38,7 +38,7 @@ namespace Schedulist.DAL
                 using StreamWriter writer = new(_pathToCsvFile, append: false);
                 using var csv = new CsvWriter(writer, csvConfig);
                 csv.WriteRecords(calendarEvents);
-                Console.Clear();
+                //Console.Clear();
                 Console.WriteLine($"The Calendar Event name: '{calendarEvent.CalendarEventName}' \nwith description: '{calendarEvent.CalendarEventDescription}' \non day {calendarEvent.CalendarEventDate} \nstarting at {calendarEvent.CalendarEventStartTime} \nending at {calendarEvent.CalendarEventEndTime} \nhas been added to the list successfully");
             }
             catch (Exception ex)
@@ -96,7 +96,6 @@ namespace Schedulist.DAL
                     }
                 }
         }
-
         private static CsvConfiguration CsvConfiguration()
         {
             var csvConfig = new CsvConfiguration(CultureInfo.InvariantCulture)

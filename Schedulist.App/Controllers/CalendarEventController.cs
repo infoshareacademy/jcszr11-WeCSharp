@@ -1,7 +1,10 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Schedulist.App.Models;
+using Schedulist.App.Services;
 using Schedulist.Business;
 using Schedulist.DAL;
+using System.Diagnostics;
 using System.Linq;
 using static System.Runtime.InteropServices.JavaScript.JSType;
 
@@ -9,19 +12,21 @@ namespace Schedulist.App.Controllers
 {
     public class CalendarEventController : ControlerBase
     {
+        private readonly CsvCalendarEventRepository _repository;
+        private CalendarEventService calendarEventService;
         public CalendarEventController(ILogger<CalendarEventController> logger, CsvCalendarEventRepository repository) : base(logger) 
         {
-            this.repository = repository;
+            _repository = repository;
 
         }
        // public List<CalendarEvent> _calendarEvents = new CsvCalendarEventRepository("..\\Schedulist\\CalendarEvents.csv").GetAllCalendarEvents();
-        private readonly CsvCalendarEventRepository repository;
-       private ManageCalendarEvent manageCalendarEvent;
+        
+       
 
         // GET: CalendarEventController
         public IActionResult Index()
         {
-            var model = repository.GetAllCalendarEvents();
+            var model = _repository.GetAllCalendarEvents();
             //var model = Events;
             return View(model);
          
@@ -30,30 +35,37 @@ namespace Schedulist.App.Controllers
         // GET: CalendarEventController/Details/5
         public IActionResult Details(int id)
         {
-            var calendarEvent = repository.GetAllCalendarEvents()[id];
+            var calendarEvent = _repository.GetAllCalendarEvents()[id];
             return View(calendarEvent);
         }
 
-        public IActionResult ChosenDateEventDetails(int id, User user, DateOnly date)
-        {
-            var calendarEvent = manageCalendarEvent.ShowUserCalendarEvent(user, date)[id];
-            return View(calendarEvent);
-        }
-
-        // GET: CalendarEventController/Create
-        //public ActionResult Create()
+        //public IActionResult ChosenDateEventDetails(int id, User user, DateOnly date)
         //{
-        //    var calendarEvent = manageCalendarEvent.CreateCalendarEvent();
+        //    var calendarEvent = manageCalendarEvent.ShowUserCalendarEvent(user, date)[id];
         //    return View(calendarEvent);
         //}
+
+        //GET: CalendarEventController/Create
+        public ActionResult Create()
+        {
+            Debug.WriteLine($"Creating Calendar Event");
+            return View();
+        }
 
         // POST: CalendarEventController/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(IFormCollection collection)
+        public ActionResult Create(CalendarEvent calendarEvent)
         {
             try
             {
+                if (!ModelState.IsValid)
+                {
+                    return View(calendarEvent);
+                }
+                calendarEventService.Create(calendarEvent);
+                Debug.WriteLine($"Creating Calendar Event");
+
                 return RedirectToAction(nameof(Index));
             }
             catch
