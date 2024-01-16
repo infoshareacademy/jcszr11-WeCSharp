@@ -13,7 +13,7 @@ namespace Schedulist.App.Controllers
     public class CalendarEventController : ControlerBase
     {
         private readonly CsvCalendarEventRepository _repository;
-        private CalendarEventService calendarEventService;
+        private CalendarEventService _calendarEventService;
         public CalendarEventController(ILogger<CalendarEventController> logger, CsvCalendarEventRepository repository) : base(logger) 
         {
             _repository = repository;
@@ -63,13 +63,17 @@ namespace Schedulist.App.Controllers
                 {
                     return View(calendarEvent);
                 }
+                CalendarEventService calendarEventService = new CalendarEventService();
+
                 calendarEventService.Create(calendarEvent);
                 Debug.WriteLine($"Creating Calendar Event");
 
+                //return RedirectToAction("Day", "Calendar");
                 return RedirectToAction(nameof(Index));
             }
             catch
             {
+                Debug.WriteLine($"Exception occurred");
                 return View();
             }
         }

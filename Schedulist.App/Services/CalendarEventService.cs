@@ -19,7 +19,8 @@ namespace Schedulist.App.Services
         public CalendarEvent Create(CalendarEvent calendarEvent)
         {
             //var calendarEvents = _repository.GetAllCalendarEvents();
-            _repository.AddCalendarEvent(calendarEvent);
+            CsvCalendarEventRepository repository = new CsvCalendarEventRepository("..\\Schedulist\\CalendarEvents.csv");
+            repository.AddCalendarEvent(calendarEvent);
             return calendarEvent;
         }
     }

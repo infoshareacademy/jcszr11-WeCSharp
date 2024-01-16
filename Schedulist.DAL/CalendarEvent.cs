@@ -41,8 +41,12 @@ namespace Schedulist.DAL
         public TimeOnly CalendarEventEndTime { get; set; }
         [Name("userID")]
         [Display(Name = "Assigned to user with ID")]
-        public int AssignedToUser { get; set; } 
+        public int AssignedToUser { get; set; }
 
+        public CalendarEvent()
+        {
+
+        }
         public CalendarEvent(int calendarEventId, string calendarEventName, string calendarEventDescription, DateOnly calendarEventDate,
             TimeOnly calendarEventStartTime, TimeOnly calendarEventEndTime, int userID)
         {
