@@ -37,13 +37,21 @@
             <partial name="_LoginPartial"></partial>
         </nav>
     </header>
-        <main role="main" style="padding: 0">
+    <main role="main" style="padding: 0">
         @if (TempData.ContainsKey("Success"))
         {
             <p class="alert alert-success">@TempData["Success"]</p>
         }
-            @RenderBody()
-        </main>
+        @if (TempData.ContainsKey("Deleted"))
+        {
+            <p class="alert alert-danger ">@TempData["Deleted"]</p>
+        }
+        @if (TempData.ContainsKey("Modified"))
+        {
+            <p class="alert alert-info ">@TempData["Modified"]</p>
+        }
+        @RenderBody()
+    </main>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>

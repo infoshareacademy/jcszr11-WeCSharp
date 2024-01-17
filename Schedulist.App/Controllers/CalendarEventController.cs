@@ -13,15 +13,11 @@ namespace Schedulist.App.Controllers
     public class CalendarEventController : ControlerBase
     {
         private readonly CsvCalendarEventRepository _repository;
-        private CalendarEventService _calendarEventService;
+        public CalendarEventService _calendarEventService;
         public CalendarEventController(ILogger<CalendarEventController> logger, CsvCalendarEventRepository repository) : base(logger) 
         {
             _repository = repository;
-
         }
-       // public List<CalendarEvent> _calendarEvents = new CsvCalendarEventRepository("..\\Schedulist\\CalendarEvents.csv").GetAllCalendarEvents();
-        
-       
 
         // GET: CalendarEventController
         public IActionResult Index()
@@ -29,7 +25,6 @@ namespace Schedulist.App.Controllers
             var model = _repository.GetAllCalendarEvents();
             //var model = Events;
             return View(model);
-         
         }
 
         // GET: CalendarEventController/Details/5
@@ -39,16 +34,10 @@ namespace Schedulist.App.Controllers
             return View(calendarEvent);
         }
 
-        //public IActionResult ChosenDateEventDetails(int id, User user, DateOnly date)
-        //{
-        //    var calendarEvent = manageCalendarEvent.ShowUserCalendarEvent(user, date)[id];
-        //    return View(calendarEvent);
-        //}
-
         //GET: CalendarEventController/Create
         public ActionResult Create()
         {
-            Debug.WriteLine($"Creating Calendar Event");
+            Debug.WriteLine($"Creating Calendar Event started.");
             return View();
         }
 
@@ -64,16 +53,15 @@ namespace Schedulist.App.Controllers
                     return View(calendarEvent);
                 }
                 CalendarEventService calendarEventService = new CalendarEventService();
-
                 calendarEventService.Create(calendarEvent);
-                Debug.WriteLine($"Creating Calendar Event");
+                Debug.WriteLine($"Created Calendar Event.");
                 TempData["Success"] = "Calendar Event has been created successfully";
                 //return RedirectToAction("Day", "Calendar");
                 return RedirectToAction(nameof(Index));
             }
-            catch
+            catch (Exception ex)
             {
-                Debug.WriteLine($"Exception occurred");
+                Debug.WriteLine($"Exception occurred: {ex.Message}");
                 return View();
             }
         }
@@ -81,16 +69,27 @@ namespace Schedulist.App.Controllers
         // GET: CalendarEventController/Edit/5
         public ActionResult Edit(int id)
         {
-            return View();
+            CalendarEventService calendarEventService = new CalendarEventService();
+            var model = calendarEventService.GetCalendarEventById(id);
+            Debug.WriteLine($"Deleting Calendar Event started.");
+            return View(model);
         }
 
         // POST: CalendarEventController/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, IFormCollection collection)
+        public ActionResult Edit(int id, CalendarEvent calendarEvent)
         {
             try
             {
+                if (!ModelState.IsValid)
+                {
+                    return View(id);
+                }
+                CalendarEventService calendarEventService = new CalendarEventService();
+                calendarEventService.Edit(calendarEvent);
+                Debug.WriteLine($"Modified Calendar Event.");
+                TempData["Modified"] = "Calendar Event has been modified";
                 return RedirectToAction(nameof(Index));
             }
             catch
@@ -102,7 +101,10 @@ namespace Schedulist.App.Controllers
         // GET: CalendarEventController/Delete/5
         public ActionResult Delete(int id)
         {
-            return View();
+            CalendarEventService calendarEventService = new CalendarEventService();
+            var model = calendarEventService.GetCalendarEventById(id);
+            Debug.WriteLine($"Deleting Calendar Event started.");
+            return View(model);
         }
 
         // POST: CalendarEventController/Delete/5
@@ -112,10 +114,19 @@ namespace Schedulist.App.Controllers
         {
             try
             {
+                if (!ModelState.IsValid)
+                {
+                    return View(id);
+                }
+                CalendarEventService calendarEventService = new CalendarEventService();
+                calendarEventService.Delete(id);
+                Debug.WriteLine($"Deleted Calendar Event.");
+                TempData["Deleted"] = "Calendar Event has been deleted";
                 return RedirectToAction(nameof(Index));
             }
-            catch
+            catch (Exception ex)
             {
+                Debug.WriteLine($"Exception occurred: {ex.Message}");
                 return View();
             }
         }

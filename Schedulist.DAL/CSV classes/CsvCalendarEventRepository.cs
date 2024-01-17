@@ -61,7 +61,7 @@ namespace Schedulist.DAL
                     var csvConfig = CsvConfiguration();
                     using CsvWriter csv = new(writer, csvConfig);
                     csv.WriteRecords(calendarEvents);
-                    Console.Clear();                   
+                    //Console.Clear();                   
                 }
                 catch (Exception ex)
                 {
