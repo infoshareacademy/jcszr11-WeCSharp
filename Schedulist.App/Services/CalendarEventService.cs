@@ -33,11 +33,12 @@ namespace Schedulist.App.Services
 
             var newCalendarEvent = GetCalendarEventById(calendarEvent.CalendarEventId);
 
-            //calendarEvent.CalendarEventDate = newCalendarEvent.CalendarEventDate;
-            //newCalendarEvent.CalendarEventDescription = calendarEvent.CalendarEventDescription;
-            //newCalendarEvent.CalendarEventName = calendarEvent.CalendarEventName;
-            //newCalendarEvent.CalendarEventStartTime = calendarEvent.CalendarEventStartTime;
-            //newCalendarEvent.CalendarEventEndTime = calendarEvent.CalendarEventEndTime;
+            newCalendarEvent.CalendarEventDate = calendarEvent.CalendarEventDate;
+            newCalendarEvent.CalendarEventDescription = calendarEvent.CalendarEventDescription;
+            newCalendarEvent.CalendarEventName = calendarEvent.CalendarEventName;
+            newCalendarEvent.CalendarEventStartTime = calendarEvent.CalendarEventStartTime;
+            newCalendarEvent.CalendarEventEndTime = calendarEvent.CalendarEventEndTime;
+
             repository.ModifyCalendarEvent(newCalendarEvent);
             return calendarEvent;
         }

@@ -1,5 +1,4 @@
 calendarEventId,calendarEventName,calendarEventDescription,calendarEventDate,calendarEventStartTime,calendarEventEndTime,userID
-40,test 1,test,01/17/2024,09:00,10:00,3
 41,test create without id,test,01/17/2024,10:00,11:00,3
 33,Test from web 2,Test,01/16/2024,09:00,10:00,3
 36,Test from web 5,Test,01/16/2024,09:00,10:00,3
