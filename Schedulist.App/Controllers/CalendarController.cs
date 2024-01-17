@@ -1,16 +1,14 @@
 using Microsoft.AspNetCore.Mvc;
 using Schedulist.App.Models;
 using Schedulist.DAL;
-using System.Collections.Generic;
 using System.Diagnostics;
-using System.Drawing.Drawing2D;
 
 namespace Schedulist.App.Controllers
 {
     public class CalendarController : ControlerBase
     {
         private User _user;
-        private CalendarParams _calendarParams;
+        private MonthViewModel _calendarParams;
         public CalendarController(ILogger<CalendarController> logger, User user) : base(logger)
         {
             _user = user;
@@ -18,20 +16,38 @@ namespace Schedulist.App.Controllers
 
         public IActionResult Index()
         {
-            _calendarParams = new CalendarParams();
+            List<CalendarEvent> allCalendarEvents = new CsvCalendarEventRepository("..\\Schedulist\\CalendarEvents.csv").GetAllCalendarEvents();
+            List<CalendarEvent> calendarEventsToDraw = new List<CalendarEvent>();
+            foreach (CalendarEvent calendarEvent in allCalendarEvents)
+            {
+                if (calendarEvent.AssignedToUser == _user.Id && calendarEvent.CalendarEventDate.Month == DateTime.Now.Month) calendarEventsToDraw.Add(calendarEvent);
+            }
+            _calendarParams = new MonthViewModel(calendarEventsToDraw);
             Debug.WriteLine($"Drawing calendar for: {_calendarParams.CurrentDate:y}");
             return View(_calendarParams);
         }
 
         public IActionResult PreviousMonth(DateTime date)
         {
-            _calendarParams = new CalendarParams(date.AddMonths(-1));
+            List<CalendarEvent> allCalendarEvents = new CsvCalendarEventRepository("..\\Schedulist\\CalendarEvents.csv").GetAllCalendarEvents();
+            List<CalendarEvent> calendarEventsToDraw = new List<CalendarEvent>();
+            foreach (CalendarEvent calendarEvent in allCalendarEvents)
+            {
+                if (calendarEvent.AssignedToUser == _user.Id && calendarEvent.CalendarEventDate.Month == date.AddMonths(-1).Month) calendarEventsToDraw.Add(calendarEvent);
+            }
+            _calendarParams = new MonthViewModel(date.AddMonths(-1), calendarEventsToDraw);
             Debug.WriteLine($"Drawing calendar for: {_calendarParams.CurrentDate:y}");
             return View("Index", _calendarParams);
         }
         public IActionResult NextMonth(DateTime date)
         {
-            _calendarParams = new CalendarParams(date.AddMonths(1));
+            List<CalendarEvent> allCalendarEvents = new CsvCalendarEventRepository("..\\Schedulist\\CalendarEvents.csv").GetAllCalendarEvents();
+            List<CalendarEvent> calendarEventsToDraw = new List<CalendarEvent>();
+            foreach (CalendarEvent calendarEvent in allCalendarEvents)
+            {
+                if (calendarEvent.AssignedToUser == _user.Id && calendarEvent.CalendarEventDate.Month == date.AddMonths(1).Month) calendarEventsToDraw.Add(calendarEvent);
+            }
+            _calendarParams = new MonthViewModel(date.AddMonths(1), calendarEventsToDraw);
             Debug.WriteLine($"Drawing calendar for: {_calendarParams.CurrentDate:y}");
             return View("Index", _calendarParams);
         }
