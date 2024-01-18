@@ -5,14 +5,14 @@
     ViewData["Title"] = "Day";
 }
 
-<div class="row">
+<div class="row-margin">
     <h1>@Model.Date</h1>
     <h1>@Model.User.Name @Model.User.Surname - @Model.WorkMode</h1>
 </div>
 @if (@Model.CalendarEvents.Count > 0)
 {
     <div style="display: flex;">
-        <div class="row flex-nowrap">
+        <div class="row flex-nowrap row-margin">
             <div class="col-3 row-title row-text standard-border">
                 @Html.DisplayNameFor(model => model.CalendarEvents.FirstOrDefault().CalendarEventName)
             </div>
@@ -33,7 +33,7 @@
         if (calendarEvent.AssignedToUser == @Model.User.Id && calendarEvent.CalendarEventDate == @Model.Date)
         {
             <div style="display: flex;">
-                <div class="row flex-nowrap">
+                <div class="row flex-nowrap row-margin">
                     <div class="col-3 row-text standard-border">
                         @Html.DisplayFor(modelItem => calendarEvent.CalendarEventName)
                     </div>
