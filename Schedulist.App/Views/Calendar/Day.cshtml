@@ -14,16 +14,16 @@
     <div style="display: flex;">
         <div class="row flex-nowrap">
             <div class="col-3 row-title row-text standard-border">
-                Name
+                @Html.DisplayNameFor(model => model.CalendarEvents.FirstOrDefault().CalendarEventName)
             </div>
             <div class="col  row-title row-text standard-border">
-                Descreption
+                @Html.DisplayNameFor(model => model.CalendarEvents.FirstOrDefault().CalendarEventDescription)
             </div>
             <div class="col-1  row-title row-text text-center standard-border">
-                Start hour
+                @Html.DisplayNameFor(model => model.CalendarEvents.FirstOrDefault().CalendarEventStartTime)
             </div>
             <div class="col-1  row-title row-text text-center standard-border">
-                Finish hour
+                @Html.DisplayNameFor(model => model.CalendarEvents.FirstOrDefault().CalendarEventEndTime)
             </div>
             <div style="width: 80px;"></div>
         </div>
