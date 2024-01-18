@@ -3,45 +3,6 @@
     ViewData["Title"] = "Calendar";
 }
 
-<style>
-    .monthName{
-        min-width: 490px;
-        font-size:calc(30px + 3.5vw);
-        justify-content: center;
-    }
-    .calendarHeader {
-        background-color: rgb(245, 245, 245);
-        border-top: 1px solid lightgrey;
-        border-bottom: 1px solid lightgrey;
-        border-right: 1px solid lightgrey;
-        min-width: 70px;
-        font-size:calc(12px + 0.7vw);
-    }
-    .calendarBlock {
-        background-color: rgb(235, 235, 235);
-        border-bottom: 1px solid lightgrey;
-        border-right: 1px solid lightgrey;
-        min-width: 70px;
-        min-height: 70px;
-        color:grey;
-        text-decoration: none;
-        padding: 0;
-    }
-    .today {
-        border: 1px solid red;
-        z-index: 1;
-        color:red;
-    }
-    .thisMonth {
-        background-color: rgb(245, 245, 245);
-        color: black;
-    }
-    .buttonField{
-        width: 5vh;
-        justify-content: center;
-    }
-</style>
-
 <div class="text-center" style="height: calc(100vh - 140px);">
     <div class="container-fluid d-flex h-100 flex-column">
             <div class="row flex-nowrap monthName">
@@ -67,7 +28,6 @@
             }
         </div>
         <div class="row flex-nowrap flex-grow-1" style="border-left: 1px solid lightgrey;">
-            @* @for (int i = 0; i < @Model.DaysToDraw; i++) *@
             @{
                 int k = 0;
                 DateTime drawDate = @Model.StartDate;
@@ -80,27 +40,26 @@
                     else
                     {
                         drawDate = @Model.StartDate.AddDays(k);
-                    if (k % 7 == 0 && k > 0)
-                    {
-                        @:</div><div class="row flex-nowrap flex-grow-1" style="border-left: 1px solid lightgrey;">
-                    }
-                    if (drawDate.Month == @Model.CurrentDate.Month)
-                    {
-                        if (drawDate == DateTime.Today)
+                        if (k % 7 == 0 && k > 0)
                         {
-                            <a class="col calendarBlock thisMonth today" asp-area="" asp-controller="Calendar" asp-action="Privacy">@drawDate.Day</a>
-                        
+                            @:</div><div class="row flex-nowrap flex-grow-1" style="border-left: 1px solid lightgrey;">
+                        }
+                        if (drawDate.Month == @Model.CurrentDate.Month)
+                        {
+                            if (drawDate == DateTime.Today)
+                            {
+                                <button type="button" class="col calendarBlock thisMonth today" onclick="location.href='@Url.Action("Day", "Calendar", drawDate)'">@drawDate.Day</button>
+                            }
+                            else
+                            {
+                                <button type="button" class="col calendarBlock thisMonth" onclick="location.href='@Url.Action("Day", "Calendar", drawDate)'">@drawDate.Day</button>
+                            }
                         }
                         else
                         {
-                            <a class="col calendarBlock thisMonth" asp-area="" asp-controller="Calendar" asp-action="Privacy">@drawDate.Day</a>
+                            <button type="button" class="col calendarBlock" onclick="location.href='@Url.Action("Day", "Calendar", drawDate)'">@drawDate.Day</button>
                         }
-                    }
-                    else
-                    {
-                        <a class="col calendarBlock" asp-area="" asp-controller="Calendar" asp-action="Privacy">@drawDate.Day</a>
-                    }
-                    k += 1;
+                        k += 1;
                     }
                 }
             }

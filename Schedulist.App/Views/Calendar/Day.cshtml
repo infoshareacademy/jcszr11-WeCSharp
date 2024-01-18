@@ -1,0 +1,69 @@
+﻿@using Schedulist.DAL
+@model DayViewModel
+@{
+    ViewData["Title"] = "Day";
+}
+
+<div class="row">
+    <h1>@Model.Date</h1>
+    <h1>@Model.User.Name @Model.User.Surname - @Model.WorkMode</h1>
+</div>
+@if (@Model.CalendarEvents.Count > 0)
+{
+    <div style="display: flex;">
+        <div class="row flex-nowrap">
+            <div class="col-3 row-title row-text standard-border">
+                Name
+            </div>
+            <div class="col  row-title row-text standard-border">
+                Descreption
+            </div>
+            <div class="col-1  row-title row-text text-center standard-border">
+                Start hour
+            </div>
+            <div class="col-1  row-title row-text text-center standard-border">
+                Finish hour
+            </div>
+            <div style="width: 80px;"></div>
+        </div>
+    </div>
+    @foreach (CalendarEvent calendarEvent in @Model.CalendarEvents)
+    {
+        if (calendarEvent.AssignedToUser == @Model.User.Id && calendarEvent.CalendarEventDate == @Model.Date)
+        {
+            <div style="display: flex;">
+                <div class="row flex-nowrap">
+                    <div class="col-3 row-text standard-border">
+                        @Html.DisplayFor(modelItem => calendarEvent.CalendarEventName)
+                    </div>
+                    <div class="col row-text standard-border">
+                        @Html.DisplayFor(modelItem => calendarEvent.CalendarEventDescription)
+                    </div>
+                    <div class="col-1 row-text text-center standard-border">
+                        @Html.DisplayFor(modelItem => calendarEvent.CalendarEventStartTime)
+                    </div>
+                    <div class="col-1 row-text text-center standard-border">
+                        @Html.DisplayFor(modelItem => calendarEvent.CalendarEventEndTime)
+                    </div>
+                    <button class="btn btn-primary btn-edit-delete">
+                        e
+                    </button>
+                    <button class="btn btn-danger btn-edit-delete">
+                        d
+                    </button>
+                </div>
+            </div>
+        }
+    }
+}
+else
+{
+    <div class="no-events text-center">
+        No events for that day
+    </div>
+}
+<div class="add-event text-center">
+    <button class="btn btn-primary">
+        Add new event
+    </button>
+</div>
