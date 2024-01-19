@@ -35,7 +35,7 @@ namespace Schedulist.App.Controllers
         }
 
         //GET: CalendarEventController/Create
-        public ActionResult Create()
+        public IActionResult Create()
         {
             Debug.WriteLine($"Creating Calendar Event started.");
             return View();
@@ -44,7 +44,7 @@ namespace Schedulist.App.Controllers
         // POST: CalendarEventController/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(CalendarEvent calendarEvent)
+        public IActionResult Create(CalendarEvent calendarEvent)
         {
             try
             {
@@ -56,8 +56,10 @@ namespace Schedulist.App.Controllers
                 calendarEventService.Create(calendarEvent);
                 Debug.WriteLine($"Created Calendar Event.");
                 TempData["Success"] = "Calendar Event has been created successfully";
-                //return RedirectToAction("Day", "Calendar");
-                return RedirectToAction(nameof(Index));
+                TempData["ReturnToAction"] = "Day";
+                TempData["ReturnToController"] = "Calendar";
+                return RedirectToAction("Day", "Calendar");
+               // return RedirectToAction(nameof(Index));
             }
             catch (Exception ex)
             {

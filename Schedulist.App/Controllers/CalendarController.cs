@@ -58,6 +58,10 @@ namespace Schedulist.App.Controllers
 
         public IActionResult Day(DateTime date)
         {
+            var successMessage = TempData["Success"] as string;
+            var returnToAction = TempData["ReturnToAction"] as string;
+            var returnToController = TempData["ReturnToController"] as string;
+
             DateOnly dateOnly = DateOnly.FromDateTime(date);
             CSVWorkModesRepository _csvWorkModesRepository = new("..\\Schedulist\\WorkModes.csv");
             WorkModesToUser workMode = _csvWorkModesRepository.GetWorkModeByUserAndDate(_user.Id, dateOnly);
