@@ -16,6 +16,12 @@
                 @Html.DisplayNameFor(model => model.CalendarEventDate)
             </th>
             <th>
+                @Html.DisplayNameFor(model => model.CalendarEventStartTime)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CalendarEventEndTime)
+            </th>
+            <th>
                 @Html.DisplayNameFor(model => model.CalendarEventName)
             </th>
             <th>
@@ -28,26 +34,45 @@
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
                     @Html.DisplayFor(modelItem => item.CalendarEventDate)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.CalendarEventName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.CalendarEventDescription)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.AssignedToUser)
-            </td>
-            <td>
-                @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
-                @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
-                @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
-            </td>
-        </tr>
-}
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CalendarEventStartTime)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CalendarEventEndTime)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CalendarEventName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CalendarEventDescription)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.AssignedToUser)
+                </td>
+                <td>
+                    <div class="button-container">
+                        <button type="button">@Html.ActionLink("Edit", "Edit", new { id = item.CalendarEventId })</button>
+                        <button type="button">@Html.ActionLink("Details", "Details", new { id = item.CalendarEventId })</button>
+                        <button type="button">@Html.ActionLink("Delete", "Delete", new { id = item.CalendarEventId })</button>
+                        <button type="button" onclick="DeleteCalendarEvent('@Url.Action("Delete", "CalendarEvent")?id=@item.CalendarEventId','@item.CalendarEventName','@item.CalendarEventDescription','@item.CalendarEventDate','@item.CalendarEventStartTime','@item.CalendarEventEndTime','@item.AssignedToUser')">Delete</button>
+                    </div>
+                </td>
+            </tr>
+        }
     </tbody>
 </table>
+
+<script>
+    var calendarEventDeletedMessage = localStorage.getItem('calendarEventDeletedMessage');
+
+    if (calendarEventDeletedMessage) {
+        toastr.success(calendarEventDeletedMessage);
+        localStorage.removeItem('calendarEventDeletedMessage');
+    }
+</script>

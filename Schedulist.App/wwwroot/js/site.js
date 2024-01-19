@@ -1,13 +1,19 @@
-﻿// Please see documentation at https://learn.microsoft.com/aspnet/core/client-side/bundling-and-minification
-// for details on configuring this project to bundle and minify static web assets.
-
-// Write your JavaScript code.
-
-
-function DeleteCalendarEvent(actionUrl) {
+﻿
+function DeleteCalendarEvent(actionUrl, CalendarEventName, CalendarEventDescription, CalendarEventDate,
+    CalendarEventStartTime, CalendarEventEndTime, AssignedToUser)
+{
     Swal.fire({
         title: 'Confirm Deletion',
-        text: 'Are you sure you want to delete your calendar event?',
+        html: `
+            <h4 style="color: red;"">Are you sure you want to delete the calendar event?</h4>
+            <h2>Calendar Event Details:</h2>
+            <strong>Name:</strong> ${CalendarEventName}<br>
+            <strong>Description:</strong> ${CalendarEventDescription}<br>
+            <strong>Date:</strong> ${CalendarEventDate}<br>
+            <strong>StartTime:</strong> ${CalendarEventStartTime}<br>
+            <strong>EventEndTime:</strong> ${CalendarEventEndTime}<br>
+            <strong>AssignedToUser:</strong> ${AssignedToUser}
+        `,
         icon: 'question',
         showCancelButton: true
     }).then(result => {
@@ -25,7 +31,7 @@ function DeleteCalendarEvent(actionUrl) {
             });
 
         } else if (result.dismiss === Swal.DismissReason.cancel) {
-            Swal.fire('Cancelled', 'operation has been canceled', 'info');
+            Swal.fire('Cancelled', 'Your calendar even is save :)', 'info');
         }
     });
 }

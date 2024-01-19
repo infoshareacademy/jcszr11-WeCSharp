@@ -1,4 +1,5 @@
-﻿@model CalendarParams
+﻿@using Schedulist.DAL
+@model MonthViewModel
 @{
     ViewData["Title"] = "Calendar";
 }
@@ -29,8 +30,8 @@
         </div>
         <div class="row flex-nowrap flex-grow-1" style="border-left: 1px solid lightgrey;">
             @{
-                int k = 0;
                 DateTime drawDate = @Model.StartDate;
+                int k = 0;
                 while (true)
                 {
                     if (drawDate >= Model.LastDayOfTheMonth && drawDate.DayOfWeek == DayOfWeek.Sunday)
@@ -46,18 +47,66 @@
                         }
                         if (drawDate.Month == @Model.CurrentDate.Month)
                         {
+                            int numberOfCalendarEvents = 0;
+                            int daysToRemove = 2;
+                            List<CalendarEvent> calendarEventForDay = new List<CalendarEvent>();
+                            @foreach (CalendarEvent calendarEvent in Model.CalendarEvents)
+                            {
+                                if (calendarEvent.CalendarEventDate.Day == drawDate.Day)
+                                {
+                                    numberOfCalendarEvents += 1;
+                                    calendarEventForDay.Add(calendarEvent);
+                                }
+                            }
                             if (drawDate == DateTime.Today)
                             {
-                                <button type="button" class="col calendarBlock thisMonth today" onclick="location.href='@Url.Action("Day", "Calendar", drawDate)'">@drawDate.Day</button>
+                                <button type="button" class="col calendarBlock thisMonth today" onclick="location.href='@Url.Action("Day", "Calendar", drawDate)'">
+                                    <div class="calendarDayDate">
+                                        @drawDate.Day
+                                    </div>
+                                </button>
                             }
                             else
                             {
-                                <button type="button" class="col calendarBlock thisMonth" onclick="location.href='@Url.Action("Day", "Calendar", drawDate)'">@drawDate.Day</button>
+                                <button type="button" class="col calendarBlock thisMonth" onclick="location.href='@Url.Action("Day", "Calendar", drawDate)'">
+                                    <div class="calendarDayDate">
+                                        @drawDate.Day
+                                    </div>
+                                    <div style="height: 100%">
+                                    @foreach (CalendarEvent calendarEvent in calendarEventForDay)
+                                    {
+                                        if (daysToRemove > 0)
+                                        {
+                                            <div class="calendarEventForDay">@calendarEvent.CalendarEventName</div>
+                                            daysToRemove -= 1;
+                                            numberOfCalendarEvents -= 1;
+                                        }
+                                        else
+                                        {
+                                            if (numberOfCalendarEvents == 1)
+                                            {
+                                                <div class="calendarEventForDay">@calendarEvent.CalendarEventName</div>
+                                                daysToRemove -= 1;
+                                                numberOfCalendarEvents -= 1;
+                                            }
+                                            else
+                                            {
+                                                <div class="calendarEventForDay">+@numberOfCalendarEvents</div>
+                                                break;
+                                            }
+                                        }
+                                    }
+                                    </div>
+                                </button>
                             }
                         }
                         else
                         {
-                            <button type="button" class="col calendarBlock" onclick="location.href='@Url.Action("Day", "Calendar", drawDate)'">@drawDate.Day</button>
+                            <button type="button" class="col calendarBlock" onclick="location.href='@Url.Action("Day", "Calendar", drawDate)'">
+                                <div class="calendarDayDate">
+                                    @drawDate.Day
+                                </div>
+                             </button>
                         }
                         k += 1;
                     }
@@ -66,3 +115,4 @@
         </div>
     </div>
 </div>
+

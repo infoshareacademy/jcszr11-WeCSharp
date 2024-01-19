@@ -7,7 +7,7 @@
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/Schedulist.App.styles.css" asp-append-version="true" />
-    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css"/>
 </head>
 <body>
     <header>
@@ -27,9 +27,6 @@
                             <a class="nav-link text-dark" asp-area="" asp-controller="CalendarEvent" asp-action="Index">Calendar Events</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="CalendarEvent" asp-action="Details">Calendar Events - Details</a>
-                        </li>
-                        <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="WorkModesToUser" asp-action="Index">Work Modes</a>
                         </li>
                         <li class="nav-item">
@@ -41,16 +38,33 @@
             <partial name="_LoginPartial"></partial>
         </nav>
     </header>
+@*     <main role="main" style="padding: 0">
+        @if (TempData.ContainsKey("Success"))
+        {
+            <p class="alert alert-success">@TempData["Success"]</p>
+        }
+        @if (TempData.ContainsKey("Deleted"))
+        {
+            <p class="alert alert-danger ">@TempData["Deleted"]</p>
+        }
+        @if (TempData.ContainsKey("Modified"))
+        {
+            <p class="alert alert-info ">@TempData["Modified"]</p>
+        }
+        @RenderBody()
+    </main> *@
         <main role="main" style="padding: 0">
             @RenderBody()
         </main>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js" asp-append-version="true"></script>
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
-    <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
-    @await Html.PartialAsync("_notificationPartial")
+    <script src="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js" asp-append-version="true"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+
+    @await Html.PartialAsync("_NotificationPartial")
     @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>

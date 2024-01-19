@@ -53,7 +53,7 @@ body {
     padding: 10px;
 }
 
-.row {
+.row-margin {
     width: 90%;
     margin: 0 auto;
 }
@@ -91,6 +91,7 @@ body {
     color: grey;
     text-decoration: none;
     padding: 0;
+    display:grid ;
 }
 
 .today {
@@ -107,4 +108,33 @@ body {
 .buttonField {
     width: 5vh;
     justify-content: center;
+}
+
+.calendarEventForDay {
+    color: #fff;
+    background-color: #007bff;
+    border: 1px solid transparent;
+    border-radius: 0.25rem;
+    margin: 2px;
+    padding: 2px;
+}
+
+.calendarDayDate {
+    position:relative;
+    left: calc(50% - 15px);
+}
+/*---------- Calendar Event list section ----------*/
+.button-container {
+    display: flex;
+    justify-content: center;
+    gap: 5px;
+    cursor: pointer;
+}
+.button {
+    font-family: 'Arial Narrow';
+}
+/*---------- Notification section ----------*/
+#toast-container > .toast-success {
+    background-color: green;
+    color: white;
 }

@@ -1,20 +1,20 @@
 ﻿@model Schedulist.DAL.CalendarEvent
 
 @{
-    ViewData["Title"] = "Details";
+    ViewData["Title"] = "ChosenDateEventDetails";
 }
 
-<h1>Details</h1>
+<h1>ChosenDateEventDetails</h1>
 
 <div>
     <h4>CalendarEvent</h4>
     <hr />
     <dl class="row">
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.CalendarEventDate)
+            @Html.DisplayNameFor(model => model.CalendarEventId)
         </dt>
         <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.CalendarEventDate)
+            @Html.DisplayFor(model => model.CalendarEventId)
         </dd>
         <dt class = "col-sm-2">
             @Html.DisplayNameFor(model => model.CalendarEventName)
