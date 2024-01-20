@@ -61,8 +61,7 @@ namespace Schedulist.App.Controllers
         public IActionResult Day(DateTime date)
         {
             var successMessage = TempData["Success"] as string;
-            var returnToAction = TempData["ReturnToAction"] as string;
-            var returnToController = TempData["ReturnToController"] as string;
+            TempData["ReturnUrl"] = HttpContext.Request.Path + HttpContext.Request.QueryString;
 
             DateOnly dateOnly = DateOnly.FromDateTime(date);
             CSVWorkModesRepository _csvWorkModesRepository = new("..\\Schedulist\\WorkModes.csv");
@@ -110,11 +109,9 @@ namespace Schedulist.App.Controllers
                 calendarEventService.Create(calendarEvent);
                 Debug.WriteLine($"Created Calendar Event.");
                 TempData["Success"] = "Calendar Event has been created successfully";
-                TempData["ReturnToAction"] = "Day";
-                TempData["ReturnToController"] = "Calendar";
-                return View(vm);
-                //return RedirectToAction(nameof(Day));
-            }
+                var returnUrl = TempData["ReturnUrl"] as string;
+                return Redirect(returnUrl);
+
             catch (Exception ex)
             {
                 Debug.WriteLine($"Exception occurred: {ex.Message}");
