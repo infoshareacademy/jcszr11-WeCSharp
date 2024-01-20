@@ -111,13 +111,12 @@ namespace Schedulist.App.Controllers
                 TempData["Success"] = "Calendar Event has been created successfully";
                 var returnUrl = TempData["ReturnUrl"] as string;
                 return Redirect(returnUrl);
-
+            }
             catch (Exception ex)
             {
                 Debug.WriteLine($"Exception occurred: {ex.Message}");
                 return View();
             }
         }
-
     }
 }
