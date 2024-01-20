@@ -1,7 +1,9 @@
 using Microsoft.AspNetCore.Mvc;
 using Schedulist.App.Models;
+using Schedulist.App.Services;
 using Schedulist.DAL;
 using System.Diagnostics;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace Schedulist.App.Controllers
 {
@@ -84,5 +86,41 @@ namespace Schedulist.App.Controllers
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
+
+
+        //GET: CalendarController/Create
+        public IActionResult Create()
+        {
+            Debug.WriteLine($"Creating Calendar Event started.");
+            return View();
+        }
+
+        // POST: CalendarController/Create
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult Create(CalendarEvent calendarEvent)
+        {
+            try
+            {
+                if (!ModelState.IsValid)
+                {
+                    return View(calendarEvent);
+                }
+                CalendarEventService calendarEventService = new CalendarEventService();
+                calendarEventService.Create(calendarEvent);
+                Debug.WriteLine($"Created Calendar Event.");
+                TempData["Success"] = "Calendar Event has been created successfully";
+                TempData["ReturnToAction"] = "Day";
+                TempData["ReturnToController"] = "Calendar";
+                return View(vm);
+                //return RedirectToAction(nameof(Day));
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine($"Exception occurred: {ex.Message}");
+                return View();
+            }
+        }
+
     }
 }

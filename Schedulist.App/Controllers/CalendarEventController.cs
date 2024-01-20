@@ -35,38 +35,38 @@ namespace Schedulist.App.Controllers
         }
 
         //GET: CalendarEventController/Create
-        public IActionResult Create()
-        {
-            Debug.WriteLine($"Creating Calendar Event started.");
-            return View();
-        }
+        //public IActionResult Create()
+        //{
+        //    Debug.WriteLine($"Creating Calendar Event started.");
+        //    return View();
+        //}
 
-        // POST: CalendarEventController/Create
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public IActionResult Create(CalendarEvent calendarEvent)
-        {
-            try
-            {
-                if (!ModelState.IsValid)
-                {
-                    return View(calendarEvent);
-                }
-                CalendarEventService calendarEventService = new CalendarEventService();
-                calendarEventService.Create(calendarEvent);
-                Debug.WriteLine($"Created Calendar Event.");
-                TempData["Success"] = "Calendar Event has been created successfully";
-                TempData["ReturnToAction"] = "Day";
-                TempData["ReturnToController"] = "Calendar";
-                return RedirectToAction("Day", "Calendar");
-               // return RedirectToAction(nameof(Index));
-            }
-            catch (Exception ex)
-            {
-                Debug.WriteLine($"Exception occurred: {ex.Message}");
-                return View();
-            }
-        }
+        //// POST: CalendarEventController/Create
+        //[HttpPost]
+        //[ValidateAntiForgeryToken]
+        //public IActionResult Create(CalendarEvent calendarEvent)
+        //{
+        //    try
+        //    {
+        //        if (!ModelState.IsValid)
+        //        {
+        //            return View(calendarEvent);
+        //        }
+        //        CalendarEventService calendarEventService = new CalendarEventService();
+        //        calendarEventService.Create(calendarEvent);
+        //        Debug.WriteLine($"Created Calendar Event.");
+        //        TempData["Success"] = "Calendar Event has been created successfully";
+        //        TempData["ReturnToAction"] = "Day";
+        //        TempData["ReturnToController"] = "Calendar";
+        //        return RedirectToAction("Day", "Calendar");
+        //       // return RedirectToAction(nameof(Index));
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        Debug.WriteLine($"Exception occurred: {ex.Message}");
+        //        return View();
+        //    }
+        //}
 
         // GET: CalendarEventController/Edit/5
         public ActionResult Edit(int id)
