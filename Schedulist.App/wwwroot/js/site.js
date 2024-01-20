@@ -6,6 +6,7 @@ function DeleteCalendarEvent(actionUrl, CalendarEventName, CalendarEventDescript
         title: 'Confirm Deletion',
         html: `
             <h4 style="color: red;"">Are you sure you want to delete the calendar event?</h4>
+            <div style="border: 2px solid black; border-radius: 25px; background-color: silver">
             <h2>Calendar Event Details:</h2>
             <strong>Name:</strong> ${CalendarEventName}<br>
             <strong>Description:</strong> ${CalendarEventDescription}<br>
@@ -13,6 +14,7 @@ function DeleteCalendarEvent(actionUrl, CalendarEventName, CalendarEventDescript
             <strong>StartTime:</strong> ${CalendarEventStartTime}<br>
             <strong>EventEndTime:</strong> ${CalendarEventEndTime}<br>
             <strong>AssignedToUser:</strong> ${AssignedToUser}
+            </div>
         `,
         icon: 'question',
         showCancelButton: true
@@ -23,6 +25,7 @@ function DeleteCalendarEvent(actionUrl, CalendarEventName, CalendarEventDescript
                 type: 'POST',
                 success: function (result) {
                     localStorage.setItem('calendarEventDeletedMessage', 'Your calendar event has been deleted successfully');
+                    console.log(calendarEventDeletedMessage)
                     location.reload();
                 },
                 error: function (error) {

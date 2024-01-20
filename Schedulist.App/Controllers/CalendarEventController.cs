@@ -59,14 +59,13 @@ namespace Schedulist.App.Controllers
                 CalendarEventService calendarEventService = new CalendarEventService();
                 calendarEventService.Create(calendarEvent);
                 Debug.WriteLine($"Created Calendar Event.");
-                //TempData["Success"] = "Calendar Event has been created successfully";
-                Notify("Calendar event has been created successfully");
+                PopupNotification("Calendar event has been created successfully");
                 //return RedirectToAction("Day", "Calendar");
                 return RedirectToAction(nameof(Index));
             }
             catch (Exception ex)
             {
-                Notify("Error occurred while deleting calendar event", notificationType: NotificationType.error);
+                PopupNotification("Error occurred while deleting calendar event", notificationType: NotificationType.error);
                 Debug.WriteLine($"Exception occurred: {ex.Message}");
                 //return View();
                 return Ok();
@@ -80,6 +79,7 @@ namespace Schedulist.App.Controllers
             CalendarEventService calendarEventService = new CalendarEventService();
             var model = calendarEventService.GetCalendarEventById(id);
             Debug.WriteLine($"Deleting Calendar Event started.");
+            PopupNotification("Calendar event has been updated successfully");
             return View(model);
         }
 
@@ -117,7 +117,6 @@ namespace Schedulist.App.Controllers
 
         // POST: CalendarEventController/Delete/5
         [HttpPost]
-        //[ValidateAntiForgeryToken]
         public IActionResult Delete(int id)
         {
             try
@@ -129,14 +128,12 @@ namespace Schedulist.App.Controllers
                 CalendarEventService calendarEventService = new CalendarEventService();
                 calendarEventService.Delete(id);
                 Debug.WriteLine($"Deleted Calendar Event.");
-                Notify("Calendar event has been deleted successfully");
-                //TempData["Deleted"] = "Calendar Event has been deleted";
                 return RedirectToAction(nameof(Index));
             }
             catch (Exception ex)
             {
                 Debug.WriteLine($"Exception occurred: {ex.Message}");
-                Notify("Error occurred while deleting calendar event", notificationType: NotificationType.error);
+                PopupNotification("Error occurred while deleting calendar event", notificationType: NotificationType.error);
                 return View();
             }
         }
