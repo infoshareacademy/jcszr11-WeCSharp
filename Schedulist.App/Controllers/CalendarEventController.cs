@@ -23,7 +23,7 @@ namespace Schedulist.App.Controllers
         // GET: CalendarEventController
         [HttpGet]
         public IActionResult Index()
-        {
+        {           
             var model = _repository.GetAllCalendarEvents();
             //var model = Events;
             return View(model);
@@ -78,8 +78,7 @@ namespace Schedulist.App.Controllers
         {
             CalendarEventService calendarEventService = new CalendarEventService();
             var model = calendarEventService.GetCalendarEventById(id);
-            Debug.WriteLine($"Deleting Calendar Event started.");
-            PopupNotification("Calendar event has been updated successfully");
+            Debug.WriteLine($"Deleting Calendar Event started.");          
             return View(model);
         }
 
@@ -97,7 +96,7 @@ namespace Schedulist.App.Controllers
                 CalendarEventService calendarEventService = new CalendarEventService();
                 calendarEventService.Edit(calendarEvent);
                 Debug.WriteLine($"Modified Calendar Event.");
-                TempData["Modified"] = "Calendar Event has been modified";
+                PopupNotification("Calendar event has been updated successfully");
                 return RedirectToAction(nameof(Index));
             }
             catch
@@ -105,26 +104,12 @@ namespace Schedulist.App.Controllers
                 return View();
             }
         }
-
-        // GET: CalendarEventController/Delete/5
-        //public ActionResult Delete(int id)
-        //{
-        //    CalendarEventService calendarEventService = new CalendarEventService();
-        //    var model = calendarEventService.GetCalendarEventById(id);
-        //    Debug.WriteLine($"Deleting Calendar Event started.");
-        //    return View(model);
-        //}
-
         // POST: CalendarEventController/Delete/5
         [HttpPost]
         public IActionResult Delete(int id)
         {
             try
             {
-                //if (!ModelState.IsValid)
-                //{
-                //    return View(id);
-                //}
                 CalendarEventService calendarEventService = new CalendarEventService();
                 calendarEventService.Delete(id);
                 Debug.WriteLine($"Deleted Calendar Event.");

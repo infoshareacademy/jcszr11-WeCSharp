@@ -35,7 +35,7 @@ function DeleteCalendarEvent(actionUrl, CalendarEventName, CalendarEventDescript
             });
 
         } else if (result.dismiss === Swal.DismissReason.cancel) {
-            Swal.fire('Cancelled', 'Your calendar even is save :)', 'info');
+            Swal.fire('Cancelled', 'Your calendar event is safe :)', 'info');
         }
     });
 }

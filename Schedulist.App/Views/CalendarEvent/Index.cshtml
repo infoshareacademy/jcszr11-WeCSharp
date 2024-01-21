@@ -59,8 +59,8 @@
                     <div class="button-container">
                         <button type="button">@Html.ActionLink("Edit", "Edit", new { id = item.CalendarEventId })</button>
                         <button type="button">@Html.ActionLink("Details", "Details", new { id = item.CalendarEventId })</button>
-                        <button type="button">@Html.ActionLink("Delete", "Delete", new { id = item.CalendarEventId })</button>
-                        <button type="button" onclick="DeleteCalendarEvent('@Url.Action("Delete", "CalendarEvent")?id=@item.CalendarEventId','@item.CalendarEventName','@item.CalendarEventDescription','@item.CalendarEventDate','@item.CalendarEventStartTime','@item.CalendarEventEndTime','@item.AssignedToUser')">Delete</button>
+                        <button type="button" onclick="DeleteCalendarEvent('@Url.Action("Delete", "CalendarEvent")?id=@item.CalendarEventId','@item.CalendarEventName','@item.CalendarEventDescription',
+                        '@item.CalendarEventDate','@item.CalendarEventStartTime','@item.CalendarEventEndTime','@item.AssignedToUser')">Delete</button>
                     </div>
                 </td>
             </tr>
