@@ -60,7 +60,9 @@ namespace Schedulist.App.Controllers
                 calendarEventService.Create(calendarEvent);
                 Debug.WriteLine($"Created Calendar Event.");
                 PopupNotification("Calendar event has been created successfully");
+
                 //return RedirectToAction("Day", "Calendar");
+
                 return RedirectToAction(nameof(Index));
             }
             catch (Exception ex)

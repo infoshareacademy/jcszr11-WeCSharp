@@ -39,3 +39,4 @@ function DeleteCalendarEvent(actionUrl, CalendarEventName, CalendarEventDescript
         }
     });
 }
+

@@ -48,9 +48,11 @@
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
 
-@*     @await Html.PartialAsync("_NotificationPartial") *@
+
+    @await Html.PartialAsync("_NotificationPartial")
 
     @await RenderSectionAsync("Scripts", required: false)
+
 
 </body>
 </html>
