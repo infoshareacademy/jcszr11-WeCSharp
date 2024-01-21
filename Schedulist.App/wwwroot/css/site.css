@@ -138,3 +138,8 @@ body {
     background-color: green;
     color: white;
 }
+.horizontal-line {
+    height: 3px;
+    border: 1px solid gray;
+    margin: 10px 0;
+}

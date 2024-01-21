@@ -6,7 +6,8 @@ function DeleteCalendarEvent(actionUrl, CalendarEventName, CalendarEventDescript
         title: 'Confirm Deletion',
         html: `
             <h4 style="color: red;"">Are you sure you want to delete the calendar event?</h4>
-            <div style="border: 2px solid black; border-radius: 25px; background-color: silver">
+            <div>
+            <hr class="horizontal-line">
             <h2>Calendar Event Details:</h2>
             <strong>Name:</strong> ${CalendarEventName}<br>
             <strong>Description:</strong> ${CalendarEventDescription}<br>
