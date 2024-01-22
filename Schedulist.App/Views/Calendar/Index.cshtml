@@ -64,6 +64,22 @@
                                     <div class="calendarDayDate">
                                         @drawDate.Day
                                     </div>
+                                    <div style="height: 100%">
+                                    @foreach (CalendarEvent calendarEvent in calendarEventForDay)
+                                    {
+                                        if (daysToRemove > 0)
+                                        {
+                                                <div class="calendarEventForDay">@calendarEvent.CalendarEventName</div>
+                                                daysToRemove -= 1;
+                                                numberOfCalendarEvents -= 1;
+                                            }
+                                        else
+                                        {
+                                            <div class="calendarEventForDay">+@numberOfCalendarEvents</div>
+                                            break;
+                                        }
+                                    }
+                                    </div>
                                 </button>
                             }
                             else
