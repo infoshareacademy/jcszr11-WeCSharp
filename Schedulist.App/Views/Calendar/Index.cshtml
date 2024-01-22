@@ -93,14 +93,23 @@
                                     {
                                         if (daysToRemove > 0)
                                         {
+                                            <div class="calendarEventForDay">@calendarEvent.CalendarEventName</div>
+                                            daysToRemove -= 1;
+                                            numberOfCalendarEvents -= 1;
+                                        }
+                                        else
+                                        {
+                                            if (numberOfCalendarEvents == 1)
+                                            {
                                                 <div class="calendarEventForDay">@calendarEvent.CalendarEventName</div>
                                                 daysToRemove -= 1;
                                                 numberOfCalendarEvents -= 1;
                                             }
-                                        else
-                                        {
-                                            <div class="calendarEventForDay">+@numberOfCalendarEvents</div>
-                                            break;
+                                            else
+                                            {
+                                                <div class="calendarEventForDay">+@numberOfCalendarEvents</div>
+                                                break;
+                                            }
                                         }
                                     }
                                     </div>

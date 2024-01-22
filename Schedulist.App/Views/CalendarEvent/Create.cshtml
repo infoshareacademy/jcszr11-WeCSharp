@@ -4,18 +4,31 @@
     ViewData["Title"] = "Create";
 }
 
-<h1>Create</h1>
-
-<h4>CalendarEvent</h4>
+<h4>Calendar Event creation</h4>
 <hr />
 <div class="row">
     <div class="col-md-4">
         <form asp-action="Create">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
+            @* <div class="form-group">
                 <label asp-for="CalendarEventId" class="control-label"></label>
                 <input asp-for="CalendarEventId" class="form-control" />
                 <span asp-validation-for="CalendarEventId" class="text-danger"></span>
+            </div> *@
+            <div class="form-group">
+                <label asp-for="CalendarEventDate" class="control-label"></label>
+                <input asp-for="CalendarEventDate" class="form-control" />
+                <span asp-validation-for="CalendarEventDate" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="CalendarEventStartTime" class="control-label"></label>
+                <input asp-for="CalendarEventStartTime" class="form-control" />
+                <span asp-validation-for="CalendarEventStartTime" class="text-danger"></span>
+            </div>            
+            <div class="form-group">
+                <label asp-for="CalendarEventEndTime" class="control-label"></label>
+                <input asp-for="CalendarEventEndTime" class="form-control" />
+                <span asp-validation-for="CalendarEventEndTime" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="CalendarEventName" class="control-label"></label>

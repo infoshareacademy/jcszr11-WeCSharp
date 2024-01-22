@@ -26,9 +26,6 @@
                             <a class="nav-link text-dark" asp-area="" asp-controller="CalendarEvent" asp-action="Index">Calendar Events</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="CalendarEvent" asp-action="Details">Calendar Events - Details</a>
-                        </li>
-                        <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="WorkModesToUser" asp-action="Index">Work Modes</a>
                         </li>
                         <li class="nav-item">
@@ -40,9 +37,21 @@
             <partial name="_LoginPartial"></partial>
         </nav>
     </header>
-        <main role="main" style="padding: 0">
-            @RenderBody()
-        </main>
+    <main role="main" style="padding: 0">
+        @if (TempData.ContainsKey("Success"))
+        {
+            <p class="alert alert-success">@TempData["Success"]</p>
+        }
+        @if (TempData.ContainsKey("Deleted"))
+        {
+            <p class="alert alert-danger ">@TempData["Deleted"]</p>
+        }
+        @if (TempData.ContainsKey("Modified"))
+        {
+            <p class="alert alert-info ">@TempData["Modified"]</p>
+        }
+        @RenderBody()
+    </main>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
