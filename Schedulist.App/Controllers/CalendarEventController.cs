@@ -22,6 +22,7 @@ namespace Schedulist.App.Controllers
 
         // GET: CalendarEventController
         [HttpGet]
+        [ResponseCache(Duration = 30, NoStore = true)]
         public IActionResult Index()
         {           
             var model = _repository.GetAllCalendarEvents();
@@ -31,6 +32,7 @@ namespace Schedulist.App.Controllers
 
         // GET: CalendarEventController/Details/5
         [HttpGet]
+        [ResponseCache(Duration = 30, NoStore = true)]
         public IActionResult Details(int id)
         {
             var calendarEvent = _repository.GetAllCalendarEvents()[id];
@@ -39,6 +41,7 @@ namespace Schedulist.App.Controllers
 
         //GET: CalendarEventController/Create
         [HttpGet]
+        [ResponseCache(Duration = 30, NoStore = true)]
         public ActionResult Create()
         {
             Debug.WriteLine($"Creating Calendar Event started.");
@@ -76,6 +79,7 @@ namespace Schedulist.App.Controllers
 
         // GET: CalendarEventController/Edit/5
         [HttpGet]
+        [ResponseCache(Duration = 30, NoStore = true)]
         public ActionResult Edit(int id)
         {
             CalendarEventService calendarEventService = new CalendarEventService();
@@ -108,13 +112,14 @@ namespace Schedulist.App.Controllers
         }
         // POST: CalendarEventController/Delete/5
         [HttpPost]
-        public IActionResult Delete(int id)
+        public ActionResult Delete(int id)
         {
             try
             {
                 CalendarEventService calendarEventService = new CalendarEventService();
                 calendarEventService.Delete(id);
                 Debug.WriteLine($"Deleted Calendar Event.");
+                PopupNotification("calendar event has been successfully deleted");
                 return RedirectToAction(nameof(Index));
             }
             catch (Exception ex)
