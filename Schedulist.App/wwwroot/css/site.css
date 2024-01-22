@@ -133,13 +133,25 @@ body {
 .button {
     font-family: 'Arial Narrow';
 }
+
+/*---------- Calendar event Create/Update ----------*/
+.form-button {
+    width: 90px;
+    height: 40px;
+    border-radius: 5px;
+    transition: box-shadow 0.5s;
+    font-family: 'Open Sans';
+    font-size: 18px;
+}
+.form-button:hover {
+    box-shadow: 0px 0px 3px 3px green;
+ }
 /*---------- Notification section ----------*/
 #toast-container > .toast-success {
     background-color: green;
     color: white;
 }
-.horizontal-line {
-    height: 3px;
-    border: 1px solid gray;
-    margin: 10px 0;
+#toast-container > .toast-error {
+    background-color: darkred;
+    color: white;
 }
