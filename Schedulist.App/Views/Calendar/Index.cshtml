@@ -6,20 +6,31 @@
 
 <div class="text-center" style="height: calc(100vh - 140px);">
     <div class="container-fluid d-flex h-100 flex-column">
-            <div class="row flex-nowrap monthName">
-                <div class="buttonField"></div>
-                <div class="buttonField">
-                    <button type="button" class="btn btn-light" onclick="location.href='@Url.Action("PreviousMonth", "Calendar", Model.CurrentDate)'"><</button>
-                </div>
-                <div class="buttonField">
-                    <button type="button" class="btn btn-light" onclick="location.href='@Url.Action("NextMonth", "Calendar", Model.CurrentDate)'">></button>
+        <div class="row flex-nowrap monthName">
+            <div class="buttonField">
+                <button type="button" class="btn btn-light" onclick="location.href='@Url.Action("PreviousMonth", "Calendar", Model.CurrentDate)'"><</button>
+            </div>
+            <div class="buttonField">
+                <button type="button" class="btn btn-light" onclick="location.href='@Url.Action("NextMonth", "Calendar", Model.CurrentDate)'">></button>
+            </div>
+            <div class="calendarDropdown">
+                <div class="dropdown">
+                    <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Choose User
+                    </button>
+                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                        @foreach (KeyValuePair <string, int> DropdownUser in Model.UserDict)
+                        {
+                            <a class="dropdown-item" href="#">@DropdownUser.Key</a>
+                        }
+                        </div>
+                    </div>
                 </div>
                 <div class="col">
                     @Model.FirstDayOfTheMonth.ToString("MMMM yyyy")
                 </div>
-                <div class="buttonField"></div>
-                <div class="buttonField"></div>
-                <div class="buttonField"></div>
+                <div class="calendarDropdown"></div>
+                <div class="calendarDropdown"></div>
             </div>
         <div class="row flex-nowrap" style="border-left: 1px solid lightgrey;">
             @for (int i = 0; i < 7; i++)

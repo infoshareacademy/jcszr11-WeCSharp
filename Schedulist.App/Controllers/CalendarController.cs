@@ -8,10 +8,16 @@ namespace Schedulist.App.Controllers
     public class CalendarController : ControlerBase
     {
         private User _user;
+        private List<User> _users;
         private MonthViewModel _calendarParams;
-        public CalendarController(ILogger<CalendarController> logger, User user) : base(logger)
+        private Dictionary<string, int> _userDict = new Dictionary<string, int>();
+        public CalendarController(ILogger<CalendarController> logger, User user, List<User> users) : base(logger)
         {
             _user = user;
+            _users = users;
+            foreach (User userToAdd in _users) {
+                _userDict.Add($"{userToAdd.Name} {userToAdd.Surname}", userToAdd.Id ?? default(int));
+            }
         }
 
         public IActionResult Index()
@@ -22,7 +28,7 @@ namespace Schedulist.App.Controllers
             {
                 if (calendarEvent.AssignedToUser == _user.Id && calendarEvent.CalendarEventDate.Month == DateTime.Now.Month) calendarEventsToDraw.Add(calendarEvent);
             }
-            _calendarParams = new MonthViewModel(calendarEventsToDraw);
+            _calendarParams = new MonthViewModel(calendarEventsToDraw, _userDict);
             Debug.WriteLine($"Drawing calendar for: {_calendarParams.CurrentDate:y}");
             return View(_calendarParams);
         }
@@ -35,7 +41,7 @@ namespace Schedulist.App.Controllers
             {
                 if (calendarEvent.AssignedToUser == _user.Id && calendarEvent.CalendarEventDate.Month == date.AddMonths(-1).Month) calendarEventsToDraw.Add(calendarEvent);
             }
-            _calendarParams = new MonthViewModel(date.AddMonths(-1), calendarEventsToDraw);
+            _calendarParams = new MonthViewModel(date.AddMonths(-1), calendarEventsToDraw, _userDict);
             Debug.WriteLine($"Drawing calendar for: {_calendarParams.CurrentDate:y}");
             return View("Index", _calendarParams);
         }
@@ -47,7 +53,7 @@ namespace Schedulist.App.Controllers
             {
                 if (calendarEvent.AssignedToUser == _user.Id && calendarEvent.CalendarEventDate.Month == date.AddMonths(1).Month) calendarEventsToDraw.Add(calendarEvent);
             }
-            _calendarParams = new MonthViewModel(date.AddMonths(1), calendarEventsToDraw);
+            _calendarParams = new MonthViewModel(date.AddMonths(1), calendarEventsToDraw, _userDict);
             Debug.WriteLine($"Drawing calendar for: {_calendarParams.CurrentDate:y}");
             return View("Index", _calendarParams);
         }

@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Schedulist.DAL;
+using System.Collections.Generic;
 
 
 namespace Schedulist.App
@@ -28,6 +29,7 @@ namespace Schedulist.App
 
             // todo user
             List<User> users = new CsvUserRepository("..\\Schedulist\\Users.csv").GetAllUsers();
+            builder.Services.AddSingleton<List<User>>(users);
             User user = users[2];
             builder.Services.AddSingleton<User>(user);
             // todo user
