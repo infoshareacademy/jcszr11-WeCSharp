@@ -1,7 +1,9 @@
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Schedulist.App.Models;
 using Schedulist.App.Services;
 using Schedulist.DAL;
+using System.ComponentModel.DataAnnotations;
 using System.Diagnostics;
 using static System.Runtime.InteropServices.JavaScript.JSType;
 
@@ -105,7 +107,15 @@ namespace Schedulist.App.Controllers
                 {
                     return View(calendarEvent);
                 }
+                
+                
                 CalendarEventService calendarEventService = new CalendarEventService();
+                var validationResult = calendarEventService.CalendarEventStartTimeOverlappingValidation(calendarEvent.CalendarEventDate, calendarEvent.CalendarEventStartTime, calendarEvent.CalendarEventEndTime, calendarEvent.AssignedToUser);
+                if (validationResult != ValidationResult.Success)
+                {
+                    ModelState.AddModelError(nameof(calendarEvent.CalendarEventStartTime), validationResult.ErrorMessage);
+                    return View(calendarEvent);
+                }
                 calendarEventService.Create(calendarEvent);
                 Debug.WriteLine($"Created Calendar Event.");
                 TempData["Success"] = "Calendar Event has been created successfully";
