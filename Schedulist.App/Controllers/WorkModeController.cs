@@ -1,48 +1,70 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
+using Schedulist.App.Models;
+using Schedulist.App.Services;
 using Schedulist.DAL;
+using System.Diagnostics;
 
 namespace Schedulist.App.Controllers
 {
     public class WorkModeController : ControlerBase
     {
+        private readonly CSVWorkModesRepository _repository;
+        public WorkModeService _workModeService;
         public WorkModeController(ILogger<WorkModeController> logger, CSVWorkModesRepository repository) : base(logger) 
         {
-            this.repository = repository;
+            _repository = repository;
         }
-        private readonly CSVWorkModesRepository repository;
+        
         // GET: WorkModeController
-        [Route("WorkModesToUser")]
-        public IActionResult Index()
+        [Route("WorkModeViewModel")]
+        public ActionResult Index()
         {
-            var model = repository.GetAllWorkModes();
-            return View(model);
+            List<string> workmodesnames = new List<string>()
+            {
+                "Office","Home office","Sick leave","Holiday leave","Another work mode"
+            };
+
+            ViewBag.WorkModesName = new SelectList(workmodesnames);
+
+            return View();
         }
 
         // GET: WorkModeController/Details/5
         public IActionResult Details(int id)
         {
-            var workmode = repository.GetAllWorkModes()[id];
+            var workmode = _repository.GetAllWorkModes()[id];
             return View(workmode);
         }
 
         // GET: WorkModeController/Create
         public ActionResult Create()
         {
+            Debug.WriteLine($"Creating Work Mode started!");
             return View();
         }
 
         // POST: WorkModeController/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(IFormCollection collection)
+        public ActionResult Create(WorkModesToUser workModes)
         {
             try
             {
+                if (!ModelState.IsValid)
+                {
+                    return View(workModes);
+                }
+                WorkModeService workModeService = new WorkModeService();
+                workModeService.Create(workModes);
+                Debug.WriteLine("Created Work Mode!");
+                TempData["Success"] = "Work Mode has been created successfully!";
                 return RedirectToAction(nameof(Index));
             }
-            catch
+            catch (Exception exc)
             {
+                Debug.WriteLine($"Exception occured {exc.Message}");
                 return View();
             }
         }
@@ -50,19 +72,30 @@ namespace Schedulist.App.Controllers
         // GET: WorkModeController/Edit/5
         public ActionResult Edit(int id)
         {
-            return View();
+            //WorkModeService workModeService = new WorkModeService();
+            var model = _workModeService.GetWorkModeById(id);
+            Debug.WriteLine($"Deleting Work Mode started!");
+            return View(model);
         }
 
         // POST: WorkModeController/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, IFormCollection collection)
+        public ActionResult Edit(int id, WorkModesToUser workModes)
         {
             try
             {
-                return RedirectToAction(nameof(Index));
+                if (!ModelState.IsValid)
+                {
+                    return View(id);
+                }
+                //WorkModeService workModeService = new WorkModeService();
+                _workModeService.Edit(workModes);
+                Debug.WriteLine("Modified Work Mode!");
+                TempData["Success"] = "Work Mode has been modified successfully!";
+                return RedirectToAction(nameof(Index));                
             }
-            catch
+            catch 
             {
                 return View();
             }
@@ -71,7 +104,10 @@ namespace Schedulist.App.Controllers
         // GET: WorkModeController/Delete/5
         public ActionResult Delete(int id)
         {
-            return View();
+            //WorkModeService workModeService = new WorkModeService();
+            var model = _workModeService.GetWorkModeById(id);
+            Debug.WriteLine($"Removing Work Mode started!");
+            return View(model);
         }
 
         // POST: WorkModeController/Delete/5
@@ -81,6 +117,14 @@ namespace Schedulist.App.Controllers
         {
             try
             {
+                if (!ModelState.IsValid)
+                {
+                    return View(id);
+                }
+                //WorkModeService workModeService = new WorkModeService();
+                _workModeService.Delete(id);
+                Debug.WriteLine("Removed Work Mode!");
+                TempData["Success"] = "Work Mode has been removed successfully!";
                 return RedirectToAction(nameof(Index));
             }
             catch
