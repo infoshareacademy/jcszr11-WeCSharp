@@ -123,3 +123,35 @@ body {
     position:relative;
     left: calc(50% - 15px);
 }
+/*---------- Calendar Event list section ----------*/
+.button-container {
+    display: flex;
+    justify-content: center;
+    gap: 5px;
+    cursor: pointer;
+}
+.button {
+    font-family: 'Arial Narrow';
+}
+
+/*---------- Calendar event Create/Update ----------*/
+.form-button {
+    width: 90px;
+    height: 40px;
+    border-radius: 5px;
+    transition: box-shadow 0.5s;
+    font-family: 'Open Sans';
+    font-size: 18px;
+}
+.form-button:hover {
+    box-shadow: 0px 0px 3px 3px green;
+ }
+/*---------- Notification section ----------*/
+#toast-container > .toast-success {
+    background-color: green;
+    color: white;
+}
+#toast-container > .toast-error {
+    background-color: darkred;
+    color: white;
+}
