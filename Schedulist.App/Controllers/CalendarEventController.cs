@@ -64,15 +64,12 @@ namespace Schedulist.App.Controllers
                 Debug.WriteLine($"Created Calendar Event.");
                 PopupNotification("Calendar event has been created successfully");
 
-                //return RedirectToAction("Day", "Calendar");
-
                 return RedirectToAction(nameof(Index));
             }
             catch (Exception ex)
             {
                 PopupNotification("Error occurred while deleting calendar event", notificationType: NotificationType.error);
                 Debug.WriteLine($"Exception occurred: {ex.Message}");
-                //return View();
                 return Ok();
             }
         }

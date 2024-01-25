@@ -90,7 +90,7 @@ namespace Schedulist.App.Controllers
 
 
         //GET: CalendarController/Create
-        public IActionResult Create()
+        public ActionResult Create()
         {
             Debug.WriteLine($"Creating Calendar Event started.");
             return View();
@@ -99,7 +99,7 @@ namespace Schedulist.App.Controllers
         // POST: CalendarController/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Create(CalendarEvent calendarEvent)
+        public ActionResult Create(CalendarEvent calendarEvent)
         {
             try
             {
