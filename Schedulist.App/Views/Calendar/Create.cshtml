@@ -2,6 +2,8 @@
 
 <h4 class="text-center" style="display:flex; justify-content:center; font-size: 30px">@(Model == null ? "Calendar Event creation" : "Calendar Event update")</h4>
 <hr />
+
+@Html.ValidationSummary(true, "", new { @class = "text-danger" })
 <div class="row">
     <div class="col-md-12" style="text-align: center; display: flex; justify-content: center; gap: 10px">
         <form asp-action="Create">
@@ -54,9 +56,9 @@
         </form>
     </div>
 </div>
-
+<script>
+    $.validator.unobtrusive.parse("form");
+</script>
 @section Scripts {
-    @{
-        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
     }
-}

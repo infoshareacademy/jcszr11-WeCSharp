@@ -1,7 +1,11 @@
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Schedulist.App.Models;
+using Schedulist.App.Services;
 using Schedulist.DAL;
+using System.ComponentModel.DataAnnotations;
 using System.Diagnostics;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace Schedulist.App.Controllers
 {
@@ -58,6 +62,9 @@ namespace Schedulist.App.Controllers
 
         public IActionResult Day(DateTime date)
         {
+            var successMessage = TempData["Success"] as string;
+            TempData["ReturnUrl"] = HttpContext.Request.Path + HttpContext.Request.QueryString;
+
             DateOnly dateOnly = DateOnly.FromDateTime(date);
             CSVWorkModesRepository _csvWorkModesRepository = new("..\\Schedulist\\WorkModes.csv");
             WorkModesToUser workMode = _csvWorkModesRepository.GetWorkModeByUserAndDate(_user.Id, dateOnly);
@@ -79,6 +86,47 @@ namespace Schedulist.App.Controllers
         public IActionResult Error()
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+        }
+
+
+        //GET: CalendarController/Create
+        public IActionResult Create()
+        {
+            Debug.WriteLine($"Creating Calendar Event started.");
+            return View();
+        }
+
+        // POST: CalendarController/Create
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult Create(CalendarEvent calendarEvent)
+        {
+            try
+            {
+                if (!ModelState.IsValid)
+                {
+                    return View(calendarEvent);
+                }
+                
+                
+                CalendarEventService calendarEventService = new CalendarEventService();
+                var validationResult = calendarEventService.CalendarEventStartTimeOverlappingValidation(calendarEvent.CalendarEventDate, calendarEvent.CalendarEventStartTime, calendarEvent.CalendarEventEndTime, calendarEvent.AssignedToUser);
+                if (validationResult != ValidationResult.Success)
+                {
+                    ModelState.AddModelError(nameof(calendarEvent.CalendarEventStartTime), validationResult.ErrorMessage);
+                    return View(calendarEvent);
+                }
+                calendarEventService.Create(calendarEvent);
+                Debug.WriteLine($"Created Calendar Event.");
+                TempData["Success"] = "Calendar Event has been created successfully";
+                var returnUrl = TempData["ReturnUrl"] as string;
+                return Redirect(returnUrl);
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine($"Exception occurred: {ex.Message}");
+                return View();
+            }
         }
     }
 }
