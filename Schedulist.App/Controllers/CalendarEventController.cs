@@ -85,7 +85,7 @@ namespace Schedulist.App.Controllers
             CalendarEventService calendarEventService = new CalendarEventService();
             var model = calendarEventService.GetCalendarEventById(id);
             Debug.WriteLine($"Deleting Calendar Event started.");          
-            return View(model);
+            return View("Create", model);
         }
 
         // POST: CalendarEventController/Edit/5
