@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Schedulist.App.Models;
+using Schedulist.App.Models.Enum;
 using Schedulist.App.Services;
 using Schedulist.Business;
 using Schedulist.DAL;
@@ -20,14 +21,18 @@ namespace Schedulist.App.Controllers
         }
 
         // GET: CalendarEventController
+        [HttpGet]
+        [ResponseCache(Duration = 30, NoStore = true)]
         public IActionResult Index()
-        {
+        {           
             var model = _repository.GetAllCalendarEvents();
             //var model = Events;
             return View(model);
         }
 
         // GET: CalendarEventController/Details/5
+        [HttpGet]
+        [ResponseCache(Duration = 30, NoStore = true)]
         public IActionResult Details(int id)
         {
             var calendarEvent = _repository.GetAllCalendarEvents()[id];
@@ -35,46 +40,52 @@ namespace Schedulist.App.Controllers
         }
 
         //GET: CalendarEventController/Create
-        //public IActionResult Create()
-        //{
-        //    Debug.WriteLine($"Creating Calendar Event started.");
-        //    return View();
-        //}
+        [HttpGet]
+        [ResponseCache(Duration = 30, NoStore = true)]
+        public ActionResult Create()
+        {
+            Debug.WriteLine($"Creating Calendar Event started.");
+            return View();
+        }
 
-        //// POST: CalendarEventController/Create
-        //[HttpPost]
-        //[ValidateAntiForgeryToken]
-        //public IActionResult Create(CalendarEvent calendarEvent)
-        //{
-        //    try
-        //    {
-        //        if (!ModelState.IsValid)
-        //        {
-        //            return View(calendarEvent);
-        //        }
-        //        CalendarEventService calendarEventService = new CalendarEventService();
-        //        calendarEventService.Create(calendarEvent);
-        //        Debug.WriteLine($"Created Calendar Event.");
-        //        TempData["Success"] = "Calendar Event has been created successfully";
-        //        TempData["ReturnToAction"] = "Day";
-        //        TempData["ReturnToController"] = "Calendar";
-        //        return RedirectToAction("Day", "Calendar");
-        //       // return RedirectToAction(nameof(Index));
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        Debug.WriteLine($"Exception occurred: {ex.Message}");
-        //        return View();
-        //    }
-        //}
+        // POST: CalendarEventController/Create
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Create(CalendarEvent calendarEvent)
+        {
+            try
+            {
+                if (!ModelState.IsValid)
+                {
+                    return View(calendarEvent);
+                }
+                CalendarEventService calendarEventService = new CalendarEventService();
+                calendarEventService.Create(calendarEvent);
+                Debug.WriteLine($"Created Calendar Event.");
+                PopupNotification("Calendar event has been created successfully");
+
+                //return RedirectToAction("Day", "Calendar");
+
+                return RedirectToAction(nameof(Index));
+            }
+            catch (Exception ex)
+            {
+                PopupNotification("Error occurred while deleting calendar event", notificationType: NotificationType.error);
+                Debug.WriteLine($"Exception occurred: {ex.Message}");
+                //return View();
+                return Ok();
+            }
+        }
 
         // GET: CalendarEventController/Edit/5
+        [HttpGet]
+        [ResponseCache(Duration = 30, NoStore = true)]
         public ActionResult Edit(int id)
         {
             CalendarEventService calendarEventService = new CalendarEventService();
             var model = calendarEventService.GetCalendarEventById(id);
-            Debug.WriteLine($"Deleting Calendar Event started.");
-            return View(model);
+            Debug.WriteLine($"Deleting Calendar Event started.");          
+            return View("Create", model);
         }
 
         // POST: CalendarEventController/Edit/5
@@ -91,7 +102,7 @@ namespace Schedulist.App.Controllers
                 CalendarEventService calendarEventService = new CalendarEventService();
                 calendarEventService.Edit(calendarEvent);
                 Debug.WriteLine($"Modified Calendar Event.");
-                TempData["Modified"] = "Calendar Event has been modified";
+                PopupNotification("Calendar event has been updated successfully");
                 return RedirectToAction(nameof(Index));
             }
             catch
@@ -99,36 +110,22 @@ namespace Schedulist.App.Controllers
                 return View();
             }
         }
-
-        // GET: CalendarEventController/Delete/5
-        public ActionResult Delete(int id)
-        {
-            CalendarEventService calendarEventService = new CalendarEventService();
-            var model = calendarEventService.GetCalendarEventById(id);
-            Debug.WriteLine($"Deleting Calendar Event started.");
-            return View(model);
-        }
-
         // POST: CalendarEventController/Delete/5
         [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Delete(int id, IFormCollection collection)
+        public ActionResult Delete(int id)
         {
             try
             {
-                if (!ModelState.IsValid)
-                {
-                    return View(id);
-                }
                 CalendarEventService calendarEventService = new CalendarEventService();
                 calendarEventService.Delete(id);
                 Debug.WriteLine($"Deleted Calendar Event.");
-                TempData["Deleted"] = "Calendar Event has been deleted";
+                PopupNotification("calendar event has been successfully deleted");
                 return RedirectToAction(nameof(Index));
             }
             catch (Exception ex)
             {
                 Debug.WriteLine($"Exception occurred: {ex.Message}");
+                PopupNotification("Error occurred while deleting calendar event", notificationType: NotificationType.error);
                 return View();
             }
         }

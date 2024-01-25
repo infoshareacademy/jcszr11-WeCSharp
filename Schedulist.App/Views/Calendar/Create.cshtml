@@ -1,22 +1,18 @@
 ﻿@model Schedulist.DAL.CalendarEvent
 
-@{
-    ViewData["Title"] = "Create";
-}
-
-<h4>Calendar Event creation</h4>
+<h4 class="text-center" style="display:flex; justify-content:center; font-size: 30px">@(Model == null ? "Calendar Event creation" : "Calendar Event update")</h4>
 <hr />
 
 @Html.ValidationSummary(true, "", new { @class = "text-danger" })
 <div class="row">
-    <div class="col-md-4">
+    <div class="col-md-12" style="text-align: center; display: flex; justify-content: center; gap: 10px">
         <form asp-action="Create">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            @* <div class="form-group">
+            <div class="form-group" hidden>
                 <label asp-for="CalendarEventId" class="control-label"></label>
                 <input asp-for="CalendarEventId" class="form-control" />
                 <span asp-validation-for="CalendarEventId" class="text-danger"></span>
-            </div> *@
+            </div>
             <div class="form-group">
                 <label asp-for="CalendarEventDate" class="control-label"></label>
                 <input asp-for="CalendarEventDate" class="form-control" />
@@ -26,7 +22,7 @@
                 <label asp-for="CalendarEventStartTime" class="control-label"></label>
                 <input asp-for="CalendarEventStartTime" class="form-control" />
                 <span asp-validation-for="CalendarEventStartTime" class="text-danger"></span>
-            </div>            
+            </div>
             <div class="form-group">
                 <label asp-for="CalendarEventEndTime" class="control-label"></label>
                 <input asp-for="CalendarEventEndTime" class="form-control" />
@@ -47,15 +43,18 @@
                 <input asp-for="AssignedToUser" class="form-control" />
                 <span asp-validation-for="AssignedToUser" class="text-danger"></span>
             </div>
-            <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
+            @{
+                var buttonStyle = (Model == null ? "background-color: green;" : "background-color: rgb(224, 157, 49);");
+                var buttonText = (Model == null ? "Create" : "Update");
+            }
+            <div style="padding-top: 10px;">
+                <button class="form-button" type="submit" style='@(buttonStyle)'><span>@(buttonText)</span></button>
             </div>
+            @*             <div class="form-button">
+            <a asp-action="Index"><button type="button">Back to List</button></a>
+            </div> *@
         </form>
     </div>
-</div>
-
-<div>
-    <a asp-action="Index">Back to List</a>
 </div>
 <script>
     $.validator.unobtrusive.parse("form");
