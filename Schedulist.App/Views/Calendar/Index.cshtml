@@ -7,6 +7,7 @@
 <div class="text-center" style="height: calc(100vh - 140px);">
     <div class="container-fluid d-flex h-100 flex-column">
         <div class="row flex-nowrap monthName">
+            <div class="buttonField"></div>
             <div class="buttonField">
                 <button type="button" class="btn btn-light" onclick="location.href='@Url.Action("PreviousMonth", "Calendar", Model.CurrentDate)'"><</button>
             </div>
@@ -21,7 +22,8 @@
                     <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                         @foreach (KeyValuePair <string, int> DropdownUser in Model.UserDict)
                         {
-                            <a class="dropdown-item" href="#">@DropdownUser.Key</a>
+                            @* <a class="dropdown-item" href="#">@DropdownUser.Key</a> *@
+                            <a class="dropdown-item" onclick="location.href='@Url.Action("ChangeUser", "Calendar", new {@date = Model.CurrentDate, @id = DropdownUser.Value})'">@DropdownUser.Key</a>
                         }
                         </div>
                     </div>

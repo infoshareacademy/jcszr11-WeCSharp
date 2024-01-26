@@ -29,7 +29,6 @@ namespace Schedulist.App.Controllers
                 if (calendarEvent.AssignedToUser == _user.Id && calendarEvent.CalendarEventDate.Month == DateTime.Now.Month) calendarEventsToDraw.Add(calendarEvent);
             }
             _calendarParams = new MonthViewModel(calendarEventsToDraw, _userDict);
-            Debug.WriteLine($"Drawing calendar for: {_calendarParams.CurrentDate:y}");
             return View(_calendarParams);
         }
 
@@ -42,7 +41,6 @@ namespace Schedulist.App.Controllers
                 if (calendarEvent.AssignedToUser == _user.Id && calendarEvent.CalendarEventDate.Month == date.AddMonths(-1).Month) calendarEventsToDraw.Add(calendarEvent);
             }
             _calendarParams = new MonthViewModel(date.AddMonths(-1), calendarEventsToDraw, _userDict);
-            Debug.WriteLine($"Drawing calendar for: {_calendarParams.CurrentDate:y}");
             return View("Index", _calendarParams);
         }
         public IActionResult NextMonth(DateTime date)
@@ -54,12 +52,19 @@ namespace Schedulist.App.Controllers
                 if (calendarEvent.AssignedToUser == _user.Id && calendarEvent.CalendarEventDate.Month == date.AddMonths(1).Month) calendarEventsToDraw.Add(calendarEvent);
             }
             _calendarParams = new MonthViewModel(date.AddMonths(1), calendarEventsToDraw, _userDict);
-            Debug.WriteLine($"Drawing calendar for: {_calendarParams.CurrentDate:y}");
             return View("Index", _calendarParams);
         }
-        public IActionResult Privacy()
+
+        public IActionResult ChangeUser(DateTime date, int userId)
         {
-            return View();
+            _user = _users.First(obj => obj.Id == userId);
+            List<CalendarEvent> allCalendarEvents = new CsvCalendarEventRepository("..\\Schedulist\\CalendarEvents.csv").GetAllCalendarEvents();
+            List<CalendarEvent> calendarEventsToDraw = new List<CalendarEvent>(); foreach (CalendarEvent calendarEvent in allCalendarEvents)
+            {
+                if (calendarEvent.AssignedToUser == _user.Id && calendarEvent.CalendarEventDate.Month == date.Month) calendarEventsToDraw.Add(calendarEvent);
+            }
+            _calendarParams = new MonthViewModel(date, calendarEventsToDraw, _userDict);
+            return View("Index", _calendarParams);
         }
 
         public IActionResult Day(DateTime date)
@@ -76,10 +81,10 @@ namespace Schedulist.App.Controllers
             {
                 if (calendarEvent.AssignedToUser == _user.Id && calendarEvent.CalendarEventDate == dateOnly) calendarEventsToDraw.Add(calendarEvent);
             }
-            var vm = new DayViewModel(dateOnly, _user, workModeString, calendarEventsToDraw);
-            Debug.WriteLine($"Drawing calendar day for: {dateOnly}");
-            return View(vm);
+            var viewModel = new DayViewModel(dateOnly, _user, workModeString, calendarEventsToDraw);
+            return View(viewModel);
         }
+
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
