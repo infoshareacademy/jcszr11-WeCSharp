@@ -1,0 +1,11 @@
+﻿<script>
+
+    var msg = @(TempData["Message"] != null ? Html.Raw(TempData["Message"]) : Html.Raw("undefined"));
+
+    toastr.options = {
+        "timeOut": "6000"
+    }
+    toastr[msg.type](msg.message, msg.title);
+
+</script>
+
