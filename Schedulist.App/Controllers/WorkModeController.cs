@@ -21,12 +21,7 @@ namespace Schedulist.App.Controllers
         [Route("WorkModeViewModel")]
         public ActionResult Index()
         {
-            List<string> workmodesnames = new List<string>()
-            {
-                "Office","Home office","Sick leave","Holiday leave","Another work mode"
-            };
-
-            ViewBag.WorkModesName = new SelectList(workmodesnames);
+           
 
             return View();
         }

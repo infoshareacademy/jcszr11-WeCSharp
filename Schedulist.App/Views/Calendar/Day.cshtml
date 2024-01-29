@@ -7,7 +7,13 @@
 
 <div class="row-margin">
     <h1>@Model.Date</h1>
-    <h1>@Model.User.Name @Model.User.Surname - @Model.WorkMode</h1>
+    <h1>
+        @Model.User.Name @Model.User.Surname - @Model.WorkMode <button class="btn btn-primary" onclick="location.href='@Url.Action("Create", "WorkMode")'">
+            Choose work mode
+        </button>
+    </h1>
+    
+    
 </div>
 @if (@Model.CalendarEvents.Count > 0)
 {

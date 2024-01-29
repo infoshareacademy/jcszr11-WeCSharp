@@ -11,12 +11,7 @@ namespace Schedulist.App.Models
         public List<SelectListItem> GetAllWorkModeNames { get;set; }
         
 
-        public WorkModeViewModel(DateOnly date, int UID, string nameWorkMode ) 
-        {
-            Date = date;
-            WorkModeName = nameWorkMode;
-            UserID = UID;
-        }       
+             
 
         
     }
