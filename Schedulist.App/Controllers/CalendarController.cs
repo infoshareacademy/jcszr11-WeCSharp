@@ -97,19 +97,21 @@ namespace Schedulist.App.Controllers
         // POST: CalendarController/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Create(CalendarEvent calendarEvent, string chosenDate)
+        public IActionResult Create(CalendarEvent calendarEvent, DateTime date)
         {
-            //DateOnly chosenDate = new DateOnly(2024, 1, 29); 
+            //DateOnly chosenDate = new DateOnly(2024, 1, 30); 
+            DateOnly dateOnly = DateOnly.FromDateTime(date);
             try
             {
                 if (!ModelState.IsValid)
                 {
                     return View(calendarEvent);
                 }
-                DateOnly parsedChosenDate = DateOnly.FromDateTime(DateTime.Parse(chosenDate));
+                //DateOnly parsedChosenDate = DateOnly.FromDateTime(DateTime.Parse(chosenDate));
                 CalendarEventService calendarEventService = new CalendarEventService();
                 calendarEvent.AssignedToUser = (int)_user.Id;
-                calendarEvent.CalendarEventDate = parsedChosenDate;
+                //calendarEvent.CalendarEventDate = parsedChosenDate;
+                calendarEvent.CalendarEventDate = dateOnly;
                 calendarEventService.Create(calendarEvent);
                 Debug.WriteLine($"Created Calendar Event.");
                 TempData["Success"] = "Calendar Event has been created successfully";
