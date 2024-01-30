@@ -1,4 +1,5 @@
-﻿@model Schedulist.DAL.WorkModesToUser
+﻿@using Schedulist.App.Models
+@model Schedulist.DAL.WorkModesToUser
 
 
 @{
@@ -19,10 +20,7 @@
                 <span asp-validation-for="WorkModeToUserID" class="text-danger"></span>
             </div>*@
             <div class="form-group">
-                @*@<label asp-for="WorkModeName" class="control-label"></label>
-                <input asp-for="WorkModeName" class="form-control" />
-                <span asp-validation-for="WorkModeName" class="text-danger"></span>*@
-                @Html.DropDownListFor(x=>x.WorkModeName,(SelectList)ViewBag.WorkModeName);
+                @Html.DropDownListFor(x => x.WorkModeName, WorkModeViewModel.Select(s => new SelectListItem { Text = s.ToString()}, "Names", null))
             </div>
             <div class="form-group">
                 <label asp-for="UserID" class="control-label"></label>

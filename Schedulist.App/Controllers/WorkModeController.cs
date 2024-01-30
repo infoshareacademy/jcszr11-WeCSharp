@@ -1,7 +1,9 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Schedulist.App.Helper;
 using Schedulist.App.Models;
+using Schedulist.App.Models.Domain_Models;
 using Schedulist.App.Services;
 using Schedulist.DAL;
 using System.Diagnostics;
@@ -21,9 +23,16 @@ namespace Schedulist.App.Controllers
         [Route("WorkModeViewModel")]
         public ActionResult Index()
         {
-           
+            var workmodename = WorkModeNamesList.GetAll();
+            var model = new WorkModeViewModel();
+            model.GetAllWorkModeNames = new List<SelectListItem>();
 
-            return View();
+            foreach(var name in workmodename)
+            {
+                model.GetAllWorkModeNames.Add(new SelectListItem { Text = name.Name });
+            }
+
+            return View(model);
         }
 
         // GET: WorkModeController/Details/5
