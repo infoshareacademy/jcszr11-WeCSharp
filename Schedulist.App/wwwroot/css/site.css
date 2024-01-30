@@ -144,12 +144,13 @@ body {
     width: 90px;
     height: 40px;
     border-radius: 5px;
-    transition: box-shadow 0.5s;
+    transition: transform 0.2s;
     font-family: 'Open Sans';
     font-size: 18px;
 }
+
 .form-button:hover {
-    box-shadow: 0px 0px 3px 3px green;
+    transform: scale(1.04);
  }
 /*---------- Notification section ----------*/
 #toast-container > .toast-success {
