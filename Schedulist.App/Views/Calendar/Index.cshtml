@@ -22,8 +22,7 @@
                     <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                         @foreach (KeyValuePair <string, int> DropdownUser in Model.UserDict)
                         {
-                            @* <a class="dropdown-item" href="#">@DropdownUser.Key</a> *@
-                            <a class="dropdown-item" onclick="location.href='@Url.Action("ChangeUser", "Calendar", new {@date = Model.CurrentDate, @id = DropdownUser.Value})'">@DropdownUser.Key</a>
+                            <a class="dropdown-item" onclick="location.href='@Url.Action("ChangeUser", "Calendar", new {@date = Model.CurrentDate, @userId = DropdownUser.Value})'">@DropdownUser.Key</a>
                         }
                         </div>
                     </div>
