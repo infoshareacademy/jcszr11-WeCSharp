@@ -64,6 +64,7 @@ namespace Schedulist.App.Controllers
             TempData["ReturnUrl"] = HttpContext.Request.Path + HttpContext.Request.QueryString;
 
             DateOnly dateOnly = DateOnly.FromDateTime(date);
+            
             CSVWorkModesRepository _csvWorkModesRepository = new("..\\Schedulist\\WorkModes.csv");
             WorkModesToUser workMode = _csvWorkModesRepository.GetWorkModeByUserAndDate(_user.Id, dateOnly);
             string workModeString;
@@ -76,8 +77,11 @@ namespace Schedulist.App.Controllers
                 if (calendarEvent.AssignedToUser == _user.Id && calendarEvent.CalendarEventDate == dateOnly) calendarEventsToDraw.Add(calendarEvent);
             }
             var vm = new DayViewModel(dateOnly, _user, workModeString, calendarEventsToDraw);
+            
             Debug.WriteLine($"Drawing calendar day for: {dateOnly}");
+            TempData["SelectedDate"] = date;
             return View(vm);
+
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
@@ -100,7 +104,8 @@ namespace Schedulist.App.Controllers
         public IActionResult Create(CalendarEvent calendarEvent, DateTime date)
         {
             //DateOnly chosenDate = new DateOnly(2024, 1, 30); 
-            DateOnly dateOnly = DateOnly.FromDateTime(date);
+            DateTime selectedDate = (DateTime)TempData["SelectedDate"];
+            DateOnly dateOnly = DateOnly.FromDateTime(selectedDate);
             try
             {
                 if (!ModelState.IsValid)
