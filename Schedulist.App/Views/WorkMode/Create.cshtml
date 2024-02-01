@@ -1,6 +1,4 @@
-﻿@using Schedulist.App.Models
-@model Schedulist.DAL.WorkModesToUser
-
+﻿@model Schedulist.App.Models.WorkModeViewModel
 
 @{
     ViewData["Title"] = "Create";
@@ -8,19 +6,16 @@
 
 <h1>Create</h1>
 
-<h4>WorkModesToUser</h4>
+<h4>WorkModeViewModel</h4>
 <hr />
 <div class="row">
     <div class="col-md-4">
         <form asp-action="Create">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            @*@<div class="form-group">
-                <label asp-for="WorkModeToUserID" class="control-label"></label>
-                <input asp-for="WorkModeToUserID" class="form-control" />
-                <span asp-validation-for="WorkModeToUserID" class="text-danger"></span>
-            </div>*@
             <div class="form-group">
-                @Html.DropDownListFor(x => x.WorkModeName, WorkModeViewModel.Select(s => new SelectListItem { Text = s.ToString()}, "Names", null))
+                <label asp-for="WorkModeName" class="control-label"></label>
+                <input asp-for="WorkModeName" class="form-control" />
+                <span asp-validation-for="WorkModeName" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="UserID" class="control-label"></label>

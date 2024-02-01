@@ -8,11 +8,11 @@ namespace Schedulist.App.Helper
         {
             return new List<WorkModeName> 
             {
-                new WorkModeName() {Name = "Office" },
-                new WorkModeName() {Name = "Home office"},
-                new WorkModeName() {Name = "Sick leave"},
-                new WorkModeName() {Name = "Holiday leave"},
-                new WorkModeName() {Name = "Another work mode"}
+                new WorkModeName() {Name = "Office" ,   Id=1},
+                new WorkModeName() {Name = "Home office",   Id=2},
+                new WorkModeName() {Name = "Sick leave",    Id=3},
+                new WorkModeName() {Name = "Holiday leave", Id=4},
+                new WorkModeName() {Name = "Another work mode", Id=5}
             };
         }
     }
