@@ -11,7 +11,8 @@ namespace Schedulist.App.Models
         public DateTime StartDate { get; private set; }
         public List<CalendarEvent> CalendarEvents { get; set; }
         public Dictionary<string, int> UserDict { get; set; }
-        public MonthViewModel(List<CalendarEvent> calendarEvents, Dictionary<string, int> userDict)
+        public int UserToEdit;
+        public MonthViewModel(List<CalendarEvent> calendarEvents, Dictionary<string, int> userDict, int userToEdit)
         {
             CurrentDate = DateTime.Now;
             FirstDayOfTheMonth = new DateTime(CurrentDate.Year, CurrentDate.Month, 1);
@@ -21,8 +22,9 @@ namespace Schedulist.App.Models
             StartDate = FirstDayOfTheMonth.AddDays(-(int)FirstDayOfTheMonth.DayOfWeek + 1);
             CalendarEvents = calendarEvents;
             UserDict = userDict;
+            UserToEdit = userToEdit;
         }
-        public MonthViewModel(DateTime date, List<CalendarEvent> calendarEvents, Dictionary<string, int> userDict)
+        public MonthViewModel(DateTime date, List<CalendarEvent> calendarEvents, Dictionary<string, int> userDict, int userToEdit)
         {
             CurrentDate = date;
             FirstDayOfTheMonth = new DateTime(CurrentDate.Year, CurrentDate.Month, 1);
@@ -33,6 +35,7 @@ namespace Schedulist.App.Models
             else StartDate = FirstDayOfTheMonth.AddDays(-(int)FirstDayOfTheMonth.DayOfWeek - 6);
             CalendarEvents = calendarEvents;
             UserDict = userDict;
+            UserToEdit = userToEdit;
         }
     }
 }

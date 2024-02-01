@@ -66,13 +66,13 @@ body {
 
 /*calendar*/
 
-.monthName {
+.month-name {
     min-width: 490px;
     font-size: calc(30px + 3.5vw);
     justify-content: center;
 }
 
-.calendarHeader {
+.calendar-header {
     background-color: rgb(245, 245, 245);
     border-top: 1px solid lightgrey;
     border-bottom: 1px solid lightgrey;
@@ -81,7 +81,7 @@ body {
     font-size: calc(12px + 0.7vw);
 }
 
-.calendarBlock {
+.calendar-block {
     background-color: rgb(235, 235, 235);
     border: 0px;
     border-bottom: 1px solid lightgrey;
@@ -100,21 +100,21 @@ body {
     color: red;
 }
 
-.thisMonth {
+.this-month {
     background-color: rgb(245, 245, 245);
     color: black;
 }
 
-.buttonField {
+.button-field {
     width: 3%;
     justify-content: center;
 }
-.calendarDropdown {
+.calendar-dropdown {
     width: 9%;
     justify-content: center;
 }
 
-.calendarEventForDay {
+.calendar-event-for-day {
     color: #fff;
     background-color: #007bff;
     border: 1px solid transparent;
@@ -123,11 +123,12 @@ body {
     padding: 2px;
 }
 
-.calendarDayDate {
+.calendar-day-date {
     position: relative;
     left: calc(100% - 25px);
     width: 20px;
 }
+
 /*---------- Calendar Event list section ----------*/
 .button-container {
     display: flex;

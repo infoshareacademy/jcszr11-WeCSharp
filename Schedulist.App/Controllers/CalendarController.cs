@@ -18,7 +18,7 @@ namespace Schedulist.App.Controllers
         public CalendarController(ILogger<CalendarController> logger, User user, List<User> users) : base(logger)
         {
             _user = user;
-            _users = users;
+             _users = users;
             foreach (User userToAdd in _users) {
                 _userDict.Add($"{userToAdd.Name} {userToAdd.Surname}", userToAdd.Id ?? default(int));
             }
@@ -26,53 +26,58 @@ namespace Schedulist.App.Controllers
 
         public IActionResult Index()
         {
+            int userToChange = _user.Id ?? default(int);
             List<CalendarEvent> allCalendarEvents = new CsvCalendarEventRepository("..\\Schedulist\\CalendarEvents.csv").GetAllCalendarEvents();
             List<CalendarEvent> calendarEventsToDraw = new List<CalendarEvent>();
             foreach (CalendarEvent calendarEvent in allCalendarEvents)
             {
                 if (calendarEvent.AssignedToUser == _user.Id && calendarEvent.CalendarEventDate.Month == DateTime.Now.Month) calendarEventsToDraw.Add(calendarEvent);
             }
-            _calendarParams = new MonthViewModel(calendarEventsToDraw, _userDict);
+            _calendarParams = new MonthViewModel(calendarEventsToDraw, _userDict, userToChange);
             return View(_calendarParams);
         }
 
-        public IActionResult PreviousMonth(DateTime date)
+        public IActionResult PreviousMonth(DateTime date, int userToEdit)
         {
+            _user = _users.First(obj => obj.Id == userToEdit);
             List<CalendarEvent> allCalendarEvents = new CsvCalendarEventRepository("..\\Schedulist\\CalendarEvents.csv").GetAllCalendarEvents();
             List<CalendarEvent> calendarEventsToDraw = new List<CalendarEvent>();
             foreach (CalendarEvent calendarEvent in allCalendarEvents)
             {
                 if (calendarEvent.AssignedToUser == _user.Id && calendarEvent.CalendarEventDate.Month == date.AddMonths(-1).Month) calendarEventsToDraw.Add(calendarEvent);
             }
-            _calendarParams = new MonthViewModel(date.AddMonths(-1), calendarEventsToDraw, _userDict);
+            _calendarParams = new MonthViewModel(date.AddMonths(-1), calendarEventsToDraw, _userDict, userToEdit);
             return View("Index", _calendarParams);
         }
-        public IActionResult NextMonth(DateTime date)
+        public IActionResult NextMonth(DateTime date, int userToEdit)
         {
+            _user = _users.First(obj => obj.Id == userToEdit);
             List<CalendarEvent> allCalendarEvents = new CsvCalendarEventRepository("..\\Schedulist\\CalendarEvents.csv").GetAllCalendarEvents();
             List<CalendarEvent> calendarEventsToDraw = new List<CalendarEvent>();
             foreach (CalendarEvent calendarEvent in allCalendarEvents)
             {
                 if (calendarEvent.AssignedToUser == _user.Id && calendarEvent.CalendarEventDate.Month == date.AddMonths(1).Month) calendarEventsToDraw.Add(calendarEvent);
             }
-            _calendarParams = new MonthViewModel(date.AddMonths(1), calendarEventsToDraw, _userDict);
+            _calendarParams = new MonthViewModel(date.AddMonths(1), calendarEventsToDraw, _userDict, userToEdit);
             return View("Index", _calendarParams);
         }
 
-        public IActionResult ChangeUser(DateTime date, int userId)
+        public IActionResult ChangeUser(DateTime date, int userToEdit)
         {
-            _user = _users.First(obj => obj.Id == userId);
+            _user = _users.First(obj => obj.Id == userToEdit);
             List<CalendarEvent> allCalendarEvents = new CsvCalendarEventRepository("..\\Schedulist\\CalendarEvents.csv").GetAllCalendarEvents();
             List<CalendarEvent> calendarEventsToDraw = new List<CalendarEvent>(); foreach (CalendarEvent calendarEvent in allCalendarEvents)
             {
                 if (calendarEvent.AssignedToUser == _user.Id && calendarEvent.CalendarEventDate.Month == date.Month) calendarEventsToDraw.Add(calendarEvent);
             }
-            _calendarParams = new MonthViewModel(date, calendarEventsToDraw, _userDict);
+            _calendarParams = new MonthViewModel(date, calendarEventsToDraw, _userDict, userToEdit);
             return View("Index", _calendarParams);
         }
 
-        public IActionResult Day(DateTime date)
+        public IActionResult Day(DateTime date, int userToEdit)
         {
+            _user = _users.First(obj => obj.Id == userToEdit);
+
             var successMessage = TempData["Success"] as string;
             TempData["ReturnUrl"] = HttpContext.Request.Path + HttpContext.Request.QueryString;
 
