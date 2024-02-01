@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"] - Schedulist.App</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
@@ -9,54 +10,76 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css">
     <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css">
 </head>
+<style>
+    .sidenav {
+        padding-top: 90px;
+        background-color: grey;
+        height: 940px;
+        border-radius: 10px;
+        border: 1px solid #ddd;
+    }
+
+    .row.content {
+        height: 450px
+    }
+
+    .col-sm-10 {
+        background-color: white;
+        padding: 20px;
+        margin: 10px 0;
+    }
+</style>
 <body>
-    <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
-            <div class="container-fluid">
-                <a class="navbar-brand" asp-area="" asp-controller="Calendar" asp-action="Index">Schedulist.App</a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
-                        aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
-                    <ul class="navbar-nav flex-grow-1">
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Calendar" asp-action="Index">Calendar</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="CalendarEvent" asp-action="Index">Calendar Events</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="WorkModesToUser" asp-action="Index">Work Modes</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="WorkModesToUser" asp-action="Details">Work Modes - Details</a>
-                        </li>
-                    </ul>
-                </div>
+    <div class="container-fluid text-center">
+        <div class="row content">
+            <div class="col-sm-2 sidenav">
+                <ul class="nav nav-pills flex-column mt-4">
+                    <a class="navbar-brand" href="#">
+                        <img src="https://i.ibb.co/Gt4K0p6/schedulistlogo.png" alt="schedulistlogo" border="0">
+                    </a>
+                    <li class="nav-item">
+                        <a class="nav-link d-flex align-items-center" asp-area="" asp-controller="Calendar" asp-action="Index" style="color: white; font-size: 26px; font-family: Dubai;">
+                            <i class="bi bi-calendar-fill  text-white text-primary m-3"></i> <span style="font-size: 20px; font-family: Dubai;">Calendar</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link d-flex align-items-center" asp-area="" asp-controller="CalendarEvent" asp-action="Index" style="color: white; font-size: 26px; font-family: Dubai;">
+                            <i class="bi bi-calendar-event  text-white text-primary m-3"></i> <span style="font-size: 20px; font-family: Dubai;">Calendar Events</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link d-flex align-items-center" asp-area="" asp-controller="WorkModesToUser" asp-action="Index" style="color: white; font-size: 26px; font-family: Dubai;">
+                            <i class="bi bi-house-fill  text-white text-primary m-3"></i> <i class="bi bi-building-fill"></i> <span style="font-size: 20px; font-family: Dubai;">Work Modes</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link d-flex align-items-center" asp-area="" asp-controller="WorkModesToUser" asp-action="Details" style="color: white; font-size: 26px; font-family: Dubai;">
+                            <i class="bi bi-house text-white text-primary m-3"></i><span style="font-size: 20px; font-family: Dubai;">Work Modes details</span>
+                        </a>
+                    </li>
+                    <li class="nav-item-register mt-auto">
+                        <a class="nav-link d-flex align-items-center" <partial name="_LoginPartial" style="color: white;"></partial>
+                            </a>
+                    </li>
+                </ul>
             </div>
-            <partial name="_LoginPartial"></partial>
-        </nav>
-    </header>
-    <main role="main" style="padding: 0">
-        @RenderBody()
-    </main>
+            <div class="col-sm-10">
+                @RenderBody()
+            </div>
+        </div>
+    </div>
+    </div>
+    </div>
+
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
-
-
     @await Html.PartialAsync("_NotificationPartial")
-
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.7/dist/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
     @await RenderSectionAsync("Scripts", required: false)
-
-
 </body>
 </html>
 
