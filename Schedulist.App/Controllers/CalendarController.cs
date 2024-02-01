@@ -76,7 +76,10 @@ namespace Schedulist.App.Controllers
 
         public IActionResult Day(DateTime date, int userToEdit)
         {
-            _user = _users.First(obj => obj.Id == userToEdit);
+            if (userToEdit != 0)
+            {
+                _user = _users.First(obj => obj.Id == userToEdit);
+            }
 
             var successMessage = TempData["Success"] as string;
             TempData["ReturnUrl"] = HttpContext.Request.Path + HttpContext.Request.QueryString;
