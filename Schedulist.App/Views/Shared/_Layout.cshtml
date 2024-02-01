@@ -41,28 +41,29 @@
                     </a>
                     <li class="nav-item">
                         <a class="nav-link d-flex align-items-center" asp-area="" asp-controller="Calendar" asp-action="Index" style="color: white; font-size: 26px; font-family: Dubai;">
-                            <i class="bi bi-calendar-fill  text-white text-primary m-3"></i> <span style="font-size: 20px; font-family: Dubai;">Calendar</span>
+                            <i class="bi bi-caret-right text-white text-primary m-3"></i> <span style="font-size: 20px; font-family: Dubai;">Calendar</span>
                         </a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link d-flex align-items-center" asp-area="" asp-controller="CalendarEvent" asp-action="Index" style="color: white; font-size: 26px; font-family: Dubai;">
-                            <i class="bi bi-calendar-event  text-white text-primary m-3"></i> <span style="font-size: 20px; font-family: Dubai;">Calendar Events</span>
+                            <i class="bi bi-caret-right  text-white text-primary m-3"></i> <span style="font-size: 20px; font-family: Dubai;">Calendar Events</span>
                         </a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link d-flex align-items-center" asp-area="" asp-controller="WorkModesToUser" asp-action="Index" style="color: white; font-size: 26px; font-family: Dubai;">
-                            <i class="bi bi-house-fill  text-white text-primary m-3"></i> <i class="bi bi-building-fill"></i> <span style="font-size: 20px; font-family: Dubai;">Work Modes</span>
+                            <i class="bi bi-caret-right text-white text-primary m-3"></i> <i class="bi bi-building-fill"></i> <span style="font-size: 20px; font-family: Dubai;">Work Modes</span>
                         </a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link d-flex align-items-center" asp-area="" asp-controller="WorkModesToUser" asp-action="Details" style="color: white; font-size: 26px; font-family: Dubai;">
-                            <i class="bi bi-house text-white text-primary m-3"></i><span style="font-size: 20px; font-family: Dubai;">Work Modes details</span>
+                            <i class="bi bi-caret-right text-white text-primary m-3"></i><span style="font-size: 20px; font-family: Dubai;">Work Modes details</span>
                         </a>
                     </li>
                     <li class="nav-item-register mt-auto">
-                        <a class="nav-link d-flex align-items-center" <partial name="_LoginPartial" style="color: white;"></partial>
-                            </a>
+                        <a class="nav-link d-flex align-items-center" style="color: white;"></a>
                     </li>
+                    <partial name="_LoginPartial" style="color: white;"></partial>
+
                 </ul>
             </div>
             <div class="col-sm-10">
