@@ -1,5 +1,6 @@
 ﻿using Schedulist.Business.Actions;
 using Schedulist.DAL;
+using System.ComponentModel.DataAnnotations;
 
 namespace Schedulist.App.Services
 {
@@ -16,6 +17,7 @@ namespace Schedulist.App.Services
         }
         public CalendarEvent Create(CalendarEvent calendarEvent)
         {
+            //var calendarEvents = _repository.GetAllCalendarEvents();
             CsvCalendarEventRepository repository = new CsvCalendarEventRepository("..\\Schedulist\\CalendarEvents.csv");
             repository.AddCalendarEvent(calendarEvent);
             return calendarEvent;
@@ -40,6 +42,20 @@ namespace Schedulist.App.Services
 
             repository.ModifyCalendarEvent(newCalendarEvent);
             return calendarEvent;
+        }
+
+        public ValidationResult CalendarEventStartTimeOverlappingValidation(DateOnly calendarEventDate, TimeOnly calendarEventStartTime, TimeOnly calendarEventEndTime, int userId)
+        {
+            CsvCalendarEventRepository repository = new CsvCalendarEventRepository("..\\Schedulist\\CalendarEvents.csv");
+            var allCalendarEvents = repository.GetAllCalendarEvents();
+            var providedStartTime = allCalendarEvents.FirstOrDefault(c => c.AssignedToUser == userId &&
+                                         c.CalendarEventDate == calendarEventDate && ((calendarEventStartTime > c.CalendarEventStartTime && calendarEventStartTime < c.CalendarEventEndTime) || (c.CalendarEventStartTime > calendarEventStartTime && c.CalendarEventStartTime < calendarEventEndTime)));
+
+            if (providedStartTime != null)
+        {
+                return new ValidationResult("There is already a Calendar Event with the provided Start time or that takes place at the same time. Please provide different values.");
+        }
+            return ValidationResult.Success;
         }
     }
 }
