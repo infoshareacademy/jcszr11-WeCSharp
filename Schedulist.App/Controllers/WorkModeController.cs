@@ -36,44 +36,48 @@ namespace Schedulist.App.Controllers
             return View(workmode);
         }
 
-        // GET: WorkModeController/Create
-        public ActionResult Create()
-        {
-            Debug.WriteLine($"Creating Work Mode started!");
-            return View();
-        }
+        //// GET: WorkModeController/Create
+        //public ActionResult Create()
+        //{
+        //    Debug.WriteLine($"Creating Work Mode started!");
+        //    return View();
+        //}
 
-        // POST: WorkModeController/Create
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Create(WorkModeViewModel workModeView, WorkModesToUser workModesToUser)
-        {
-            var workmodename = WorkModeNamesList.GetAll();
-            workModeView.GetAllWorkModeNames = new List<SelectListItem>();
-            try
-            {
-                if(!ModelState.IsValid)
-                {
-                    return View(workModesToUser);
-                }
-                foreach (var name in workmodename)
-                {
-                    workModeView.GetAllWorkModeNames.Add(new SelectListItem { Text = name.Name, Value = name.Id.ToString() });
-                }
-                _workModeService.Create(workModeView, workModesToUser);
-                Debug.WriteLine("Created new work mode!");
-                TempData["Success"] = "Work mode has been created successfully";
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
+        //// POST: WorkModeController/Create
+        //[HttpPost]
+        //[ValidateAntiForgeryToken]
+        //public ActionResult Create(WorkModeViewModel workModeView, WorkModesToUser workModesToUser)
+        //{
+        //    var workmodename = WorkModeNamesList.GetAll();
+        //    workModeView.GetAllWorkModeNames = new List<SelectListItem>();
+        //    try
+        //    {
+        //        if(!ModelState.IsValid)
+        //        {
+        //            return View(workModesToUser);
+        //        }
+        //        //foreach (var name in workmodename)
+        //        //{
+        //        //    workModeView.GetAllWorkModeNames.Add(new SelectListItem { Text = name.Name, Value = name.Id.ToString() });
+        //        //}
+        //        //DateTime selectedDate = (DateTime)TempData.Peek("SelectedDate");
+        //        //DateOnly parsedChosenDate = DateOnly.FromDateTime(selectedDate);
+        //        workModeView.WorkModeName = WorkModeNamesList.GetAll().FirstOrDefault(w => w.Id == workModeView.SelectedWorkModeId)?.Name;
+
+        //        _workModeService.Create(workModeView, workModesToUser);
+        //        Debug.WriteLine("Created new work mode!");
+        //        TempData["Success"] = "Work mode has been created successfully";
+        //        return RedirectToAction(nameof(Index));
+        //    }
+        //    catch
+        //    {
+        //        return View();
+        //    }
             
-            //var model = new WorkModeViewModel();
+        //    //var model = new WorkModeViewModel();
             
             
-        }
+        //}
 
         // GET: WorkModeController/Edit/5
         public ActionResult Edit(int id)
