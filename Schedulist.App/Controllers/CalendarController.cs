@@ -84,6 +84,7 @@ namespace Schedulist.App.Controllers
             var successMessage = TempData["Success"] as string;
             TempData["ReturnUrl"] = HttpContext.Request.Path + HttpContext.Request.QueryString;
             TempData["SelectedDate"] = date;
+            TempData["UserId"] = userToEdit;
 
             DateOnly dateOnly = DateOnly.FromDateTime(date);
             CSVWorkModesRepository _csvWorkModesRepository = new("..\\Schedulist\\WorkModes.csv");
@@ -130,10 +131,15 @@ namespace Schedulist.App.Controllers
                 DateTime selectedDate = (DateTime)TempData["SelectedDate"];
                 DateOnly parsedChosenDate = DateOnly.FromDateTime(selectedDate);
 
-
                 CalendarEventService calendarEventService = new CalendarEventService();
-                calendarEvent.AssignedToUser = (int)_user.Id;
+                calendarEvent.AssignedToUser = (int)TempData["UserId"];
                 calendarEvent.CalendarEventDate = parsedChosenDate;
+                var validationResult = calendarEventService.CalendarEventStartTimeOverlappingValidation(calendarEvent.CalendarEventDate, calendarEvent.CalendarEventStartTime, calendarEvent.CalendarEventEndTime, calendarEvent.AssignedToUser);
+                if (validationResult != ValidationResult.Success)
+                {
+                    ModelState.AddModelError(nameof(calendarEvent.CalendarEventStartTime), validationResult.ErrorMessage);
+                    return View(calendarEvent);
+                }
                 calendarEventService.Create(calendarEvent);
                 Debug.WriteLine($"Created Calendar Event.");
                 PopupNotification("Calendar event has been created successfully");
