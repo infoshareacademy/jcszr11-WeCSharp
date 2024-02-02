@@ -14,7 +14,7 @@
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
                 <label asp-for="WorkModeName" class="control-label"></label>
-                @Html.DropDownListFor(model => model.WorkModeName, new SelectList(Schedulist.App.Helper.WorkModeNamesList.GetAll(), "Id", "Name"), "Select Work Mode", new { @class = "form-control" })
+                @Html.DropDownListFor(model => model.WorkModeName, new SelectList(Schedulist.App.Helper.WorkModeNamesList.GetAll(),"Id", "Name"), "Select Work Mode", new { @class = "form-control" })
                 <span asp-validation-for="WorkModeName" class="text-danger"></span>
             </div>
             <div class="form-group">
