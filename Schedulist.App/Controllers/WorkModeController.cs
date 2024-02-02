@@ -88,5 +88,10 @@ namespace Schedulist.App.Controllers
                 return View();
             }
         }
+
+        public ActionResult Statistics()
+        {
+            return View();
+        }
     }
 }
