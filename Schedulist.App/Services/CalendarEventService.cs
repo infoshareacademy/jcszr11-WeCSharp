@@ -39,6 +39,7 @@ namespace Schedulist.App.Services
             newCalendarEvent.CalendarEventName = calendarEvent.CalendarEventName;
             newCalendarEvent.CalendarEventStartTime = calendarEvent.CalendarEventStartTime;
             newCalendarEvent.CalendarEventEndTime = calendarEvent.CalendarEventEndTime;
+            newCalendarEvent.AssignedToUser = calendarEvent.AssignedToUser;
 
             repository.ModifyCalendarEvent(newCalendarEvent);
             return calendarEvent;

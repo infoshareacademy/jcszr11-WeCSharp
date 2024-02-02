@@ -2,6 +2,7 @@
 function DeleteCalendarEvent(actionUrl, CalendarEventName, CalendarEventDescription, CalendarEventDate,
     CalendarEventStartTime, CalendarEventEndTime, AssignedToUser)
 {
+    console.log(actionUrl)
     Swal.fire({
         title: 'Confirm Deletion',
         html: `
@@ -16,7 +17,7 @@ function DeleteCalendarEvent(actionUrl, CalendarEventName, CalendarEventDescript
             <strong>EventEndTime:</strong> ${CalendarEventEndTime}<br>
             <strong>AssignedToUser:</strong> ${AssignedToUser}
             </div>
-        `,
+        `,       
         icon: 'question',
         showCancelButton: true
     }).then(result => {

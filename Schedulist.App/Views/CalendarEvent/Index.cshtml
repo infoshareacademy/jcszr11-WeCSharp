@@ -4,7 +4,7 @@
     ViewData["Title"] = "Index";
 }
 
-<h1>Index</h1>
+<h1>Calendar Events List</h1>
 
 <p>
     <a asp-action="Create">Create New</a>
@@ -58,7 +58,7 @@
                 <td>
                     <div class="button-container">
                         <button type="button">@Html.ActionLink("Edit", "Edit", new { id = item.CalendarEventId })</button>
-                        <button type="button">@Html.ActionLink("Details", "Details", new { id = item.CalendarEventId })</button>
+                        @* <button type="button">@Html.ActionLink("Details", "Details", new { id = item.CalendarEventId })</button> *@
                         <button type="button" onclick="DeleteCalendarEvent('@Url.Action("Delete", "CalendarEvent")?id=@item.CalendarEventId','@item.CalendarEventName','@item.CalendarEventDescription',
                         '@item.CalendarEventDate','@item.CalendarEventStartTime','@item.CalendarEventEndTime','@item.AssignedToUser')">Delete</button>
                     </div>

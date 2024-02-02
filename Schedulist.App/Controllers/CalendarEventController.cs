@@ -59,12 +59,22 @@ namespace Schedulist.App.Controllers
                 {
                     return View(calendarEvent);
                 }
-                CalendarEventService calendarEventService = new CalendarEventService();
-                calendarEventService.Create(calendarEvent);
-                Debug.WriteLine($"Created Calendar Event.");
-                PopupNotification("Calendar event has been created successfully");
-
-                return RedirectToAction(nameof(Index));
+                if (calendarEvent.CalendarEventId == 0)
+                {
+                    CalendarEventService calendarEventService = new CalendarEventService();
+                    calendarEventService.Create(calendarEvent);
+                    Debug.WriteLine($"Created Calendar Event.");
+                    PopupNotification("Calendar event has been created successfully");
+                    return RedirectToAction(nameof(Index));
+                }
+                else
+                {
+                    CalendarEventService calendarEventService = new CalendarEventService();
+                    calendarEventService.Edit(calendarEvent);
+                    Debug.WriteLine($"Modified Calendar Event.");
+                    PopupNotification("Calendar event has been updated successfully");
+                    return RedirectToAction(nameof(Index));
+                }
             }
             catch (Exception ex)
             {
@@ -81,7 +91,7 @@ namespace Schedulist.App.Controllers
         {
             CalendarEventService calendarEventService = new CalendarEventService();
             var model = calendarEventService.GetCalendarEventById(id);
-            Debug.WriteLine($"Deleting Calendar Event started.");          
+            Debug.WriteLine($"Editing Calendar Event started.");          
             return View("Create", model);
         }
 
