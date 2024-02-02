@@ -15,7 +15,6 @@ namespace Schedulist.App.Controllers
         private readonly CSVWorkModesRepository _repository;
         
         public WorkModeService _workModeService;
-        public WorkModeViewModel _workModeViewModel;
         public WorkModeController(ILogger<WorkModeController> logger, CSVWorkModesRepository repository) : base(logger) 
         {
             _repository = repository;
@@ -89,35 +88,35 @@ namespace Schedulist.App.Controllers
         }
 
         // POST: WorkModeController/Edit/5
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, WorkModesToUser workModes)
-        {
-            var namesWorkModes = WorkModeNamesList.GetAll();
-            var viewWorkMode = new WorkModeViewModel();
-            viewWorkMode.GetAllWorkModeNames=new List<SelectListItem>();
+        //[HttpPost]
+        //[ValidateAntiForgeryToken]
+        //public ActionResult Edit(int id, WorkModesToUser workModes)
+        //{
+        //    var namesWorkModes = WorkModeNamesList.GetAll();
+        //    //var viewWorkMode = new WorkModeViewModel();
+        //    //viewWorkMode.GetAllWorkModeNames=new List<SelectListItem>();
             
-            try
-            {
-                if (!ModelState.IsValid)
-                {
-                    return View(id);
-                }
-                foreach (var name in namesWorkModes)
-                {
-                    viewWorkMode.GetAllWorkModeNames.Add(new SelectListItem { Text = name.Name, Value = name.Id.ToString() });
-                }
-                //WorkModeService workModeService = new WorkModeService();
-                _workModeService.Edit(viewWorkMode,workModes);
-                Debug.WriteLine("Modified Work Mode!");
-                TempData["Success"] = "Work Mode has been modified successfully!";
-                return RedirectToAction(nameof(Index));                
-            }
-            catch 
-            {
-                return View();
-            }
-        }
+        //    try
+        //    {
+        //        if (!ModelState.IsValid)
+        //        {
+        //            return View(id);
+        //        }
+        //        foreach (var name in namesWorkModes)
+        //        {
+        //            viewWorkMode.GetAllWorkModeNames.Add(new SelectListItem { Text = name.Name, Value = name.Id.ToString() });
+        //        }
+        //        //WorkModeService workModeService = new WorkModeService();
+        //        _workModeService.Edit(viewWorkMode,workModes);
+        //        Debug.WriteLine("Modified Work Mode!");
+        //        TempData["Success"] = "Work Mode has been modified successfully!";
+        //        return RedirectToAction(nameof(Index));                
+        //    }
+        //    catch 
+        //    {
+        //        return View();
+        //    }
+        //}
 
         // GET: WorkModeController/Delete/5
         public ActionResult Delete(int id)

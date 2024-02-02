@@ -15,7 +15,7 @@ namespace Schedulist.App.Services
             return workModeById;
         }
 
-        public WorkModesToUser Create (WorkModeViewModel workModeView, WorkModesToUser workModes)
+        public WorkModesToUser Create(WorkModesToUser workModes)
         {
             CSVWorkModesRepository repository = new CSVWorkModesRepository("..\\Schedulist\\WorkModes.csv");
             repository.AddWorkModes(workModes);
@@ -29,7 +29,7 @@ namespace Schedulist.App.Services
             return id;
         }
 
-        public WorkModesToUser Edit (WorkModeViewModel workModeView, WorkModesToUser workModes)
+        public WorkModesToUser Edit (WorkModesToUser workModes)
         {
             CSVWorkModesRepository repository = new CSVWorkModesRepository("..\\Schedulist\\WorkModes.csv");
             var newWorkMode = GetWorkModeById(workModes.WorkModeToUserID);

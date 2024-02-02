@@ -8,19 +8,9 @@
 <div class="row-margin">
     <h1>@Model.Date</h1>
     <h1>
-        @Model.User.Name @Model.User.Surname - @Model.WorkMode 
+        @Model.User.Name @Model.User.Surname - @Model.WorkMode
 
-@*          @using (Html.BeginForm("Create", "WorkMode", FormMethod.Post))
-        {
-            @Html.AntiForgeryToken()
-
-            @Html.DropDownListFor(model => model.SelectedWorkModeId, Model.GetAllWorkModeNames, "-- Select Work Mode --", new { @class = "form-control" })
-
-            <button type="submit" class="btn btn-primary">
-                Choose work mode
-            </button>
-        } *@
-        <button class="btn btn-primary" onclick="location.href='@Url.Action("CreateWM", "WorkMode")'">
+        <button class="btn btn-primary" onclick="location.href='@Url.Action("CreateWM", "Calendar")'">
             Choose work mode
         </button>
     </h1>

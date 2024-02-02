@@ -164,10 +164,10 @@ namespace Schedulist.App.Controllers
         // POST: WorkModeController/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult CreateWM(WorkModeViewModel workModeView, WorkModesToUser workModesToUser)
+        public ActionResult CreateWM(WorkModesToUser workModesToUser)
         {
             var workmodename = WorkModeNamesList.GetAll();
-            workModeView.GetAllWorkModeNames = new List<SelectListItem>();
+            //workModeView.GetAllWorkModeNames = new List<SelectListItem>();
             try
             {
                 if (!ModelState.IsValid)
@@ -180,14 +180,14 @@ namespace Schedulist.App.Controllers
                 //}
                 //DateTime selectedDate = (DateTime)TempData.Peek("SelectedDate");
                 //DateOnly parsedChosenDate = DateOnly.FromDateTime(selectedDate);
-                workModeView.WorkModeName = WorkModeNamesList.GetAll().FirstOrDefault(w => w.Id == workModeView.SelectedWorkModeId)?.Name;
+                //workModeView.WorkModeName = WorkModeNamesList.GetAll().FirstOrDefault(w => w.Id == workModeView.SelectedWorkModeId)?.Name;
 
                 //DateTime selectedDate = (DateTime)TempData.Peek("SelectedDate");
                 //DateOnly parsedChosenDate = DateOnly.FromDateTime(selectedDate);
 
                 WorkModeService _workModeService = new WorkModeService();
 
-                _workModeService.Create(workModeView, workModesToUser);
+                _workModeService.Create(workModesToUser);
                 Debug.WriteLine("Created new work mode!");
                 TempData["Success"] = "Work mode has been created successfully";
                 return RedirectToAction(nameof(Index));
