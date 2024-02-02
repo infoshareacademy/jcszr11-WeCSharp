@@ -101,6 +101,7 @@ namespace Schedulist.App.Controllers
             return View(viewModel);
         }
 
+
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {
@@ -117,7 +118,7 @@ namespace Schedulist.App.Controllers
         // POST: CalendarController/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Create(CalendarEvent calendarEvent)
+        public ActionResult Create(CalendarEvent calendarEvent)
         {
             try
             {
