@@ -1,83 +1,84 @@
 calendarEventId,calendarEventName,calendarEventDescription,calendarEventDate,calendarEventStartTime,calendarEventEndTime,userID
-9,First aid and safety training,Mandatory training,02/08/2024,08:00,16:00,3
-82,First aid and safety training,Mandatory training,02/07/2024,08:00,16:00,3
-10,First aid and safety training,Mandatory training,02/06/2024,08:00,16:00,2
-11,First aid and safety training,Mandatory training,02/06/2024,08:00,16:00,1
-13,Morning brief,Summary of tasks to do,02/06/2024,08:00,09:00,3
-14,Inventory Check and Replenishment,Conduct inventory checks,02/06/2024,09:00,11:00,3
-15,Shipping and Receiving,Verify incoming shipments,02/06/2024,11:00,12:00,3
-16,Lunch break,Break,02/06/2024,12:00,13:00,3
-16,Order Processing and Fulfillment,Process incoming orders,02/06/2024,13:00,16:00,3
-17,Summary meeting,Review today's meeting,02/06/2024,16:00,17:00,3
-50,First aid and safety training,Mandatory training,02/05/2024,08:00,16:00,4
-65,First aid and safety training,Mandatory training,02/05/2024,08:00,16:00,2
-78,First aid and safety training,Mandatory training,02/05/2024,08:00,16:00,1
-7,Full-day webinar on DP-900,Online session,02/05/2024,08:00,16:00,3
-1,Meeting regarding OPP/23/11/000123 part 1,Review of initial Project scope,02/02/2024,08:00,12:00,2
-2,Lunch break,With client,02/02/2024,12:00,13:00,2
-3,Summarize meeting regarding OPP/23/11/000123,Prepare for next day,02/02/2024,13:00,16:00,2
-28,Webinar,Working from home,02/02/2024,08:00,09:00,4
-28,Webinar,Working from home,02/02/2024,08:00,09:00,1
-30,Webinar,Online,02/02/2024,08:00,16:00,2
-87,Meeting regarding OPP/23/11/000123,Prepare for next day,02/02/2024,08:00,12:00,3
-58,Lunch break,Break,02/02/2024,12:00,13:00,3
-53,Full-day online training,Webinar,02/01/2024,08:00,16:00,3
-29,Webinar,Online meeting,02/01/2024,08:00,16:00,1
-18,Morning brief,Summary of tasks to do,01/31/2024,08:00,09:00,3
-19,Inventory Check and Replenishment,Conduct inventory checks,01/31/2024,09:00,11:00,3
-20,Shipping and Receiving,Verify incoming shipments,01/31/2024,11:00,12:00,3
-21,Lunch break,Break,01/31/2024,12:00,13:00,3
-22,Order Processing and Fulfillment,Process incoming orders,01/31/2024,13:00,16:00,3
-23,Summary meeting,Review today's meeting,01/31/2024,16:00,17:00,3
-4,Meeting regarding OPP/23/11/000123 part 2,Review of discussed Project scope,01/31/2024,08:00,12:00,2
-5,Lunch break,With client,01/31/2024,12:00,13:00,2
-6,Summarize meeting regarding OPP/23/11/000123,Prepare quotation,01/31/2024,13:00,15:00,2
-12,Summarize meeting regarding OPP/23/11/000123 part 2,Send quotation,01/31/2024,15:00,16:00,2
-24,Online webinar,Full day training,01/31/2024,08:00,16:00,4
-31,Online meeting,With customer,01/31/2024,16:00,17:00,1
-86,Project Dragon Work,Testing solution,01/30/2024,13:00,16:00,1
-81,Documentation and Training,New users,01/30/2024,08:00,12:00,3
-25,Online training,Webinar,01/30/2024,08:00,16:00,4
-26,Online training,Webinar,01/30/2024,08:00,16:00,1
-77,Feedback and Communication,Conduct final quality checks on the produced items,01/29/2024,09:00,12:00,3
-51,Development Work,On agreed project,01/29/2024,13:00,16:00,3
-8,Full-day webinar on DP-900,Online session,01/29/2024,08:00,16:00,1
-85,Daily stand-up,Summary of tasks to do,01/26/2024,08:00,08:30,2
-71,Morning brief,Summary of tasks to do,01/26/2024,08:00,09:00,3
-73,Meetings and Collaboration,With team members,01/26/2024,09:00,12:00,3
-75,Lunch break,Break,01/26/2024,12:00,13:00,3
-76,Development Work,On agreed project,01/26/2024,13:00,16:00,3
-84,Daily stand-up,Summary of tasks to do,01/25/2024,08:00,08:30,2
-48,Morning brief,Summary of tasks to do,01/25/2024,08:00,09:00,3
-49,Systems Check,And Maintenance,01/25/2024,09:00,11:00,3
-59,Documentation and Training,New users,01/25/2024,11:00,12:00,3
-62,Lunch break,Break,01/25/2024,12:00,13:00,3
-67,Project Dragon Work,Testing solution,01/25/2024,13:00,16:00,3
-70,Wrap-up and Planning,Summary of work done,01/25/2024,16:00,17:00,3
-83,Wrap-up and Planning,Summary of work done,01/25/2024,12:00,13:00,2
-59,Daily stand-up,Summary of tasks to do,01/24/2024,08:00,08:30,2
-42,Help Desk and User Support,test,01/24/2024,10:00,13:00,2
-38,Morning brief,Summary of tasks to do,01/24/2024,08:00,09:00,3
-47,Project Dragon Work,Testing solution,01/24/2024,09:00,15:00,3
-56,Quality Checks,Conduct final quality checks on the produced items,01/23/2024,09:00,12:00,3
-44,Morning brief,Summary of tasks to do,01/23/2024,08:00,09:00,3
-45,Feedback and Communication,Conduct final quality checks on the produced items,01/23/2024,09:00,12:00,3
-46,Daily stand-up,Summary of tasks to do,01/23/2024,08:00,08:30,2
-47,Systems Check,And Maintenance,01/23/2024,08:30,10:00,2
-36,Systems Check,And Maintenance,01/23/2024,08:30,10:00,2
-51,Quality Checks,Conduct final quality checks on the produced items,01/22/2024,09:00,12:00,3
-53,Order Processing and Fulfillment,Process incoming orders,01/19/2024,13:00,16:00,3
-52,Shipping and Receiving,Verify incoming shipments,01/18/2024,11:00,12:00,3
-43,Help Desk and User Support,test,01/18/2024,10:00,13:00,2
-66,Order Processing and Fulfillment,Process incoming orders,01/17/2024,13:00,16:00,3
-57,Order Processing and Fulfillment,Process incoming orders,01/17/2024,13:00,16:00,2
-54,Order Processing and Fulfillment,Process incoming orders,01/17/2024,13:00,16:00,1
-62,Morning brief,Summary of tasks to do,01/16/2024,08:00,09:00,3
-63,Morning brief,Summary of tasks to do,01/16/2024,08:00,09:00,1
-64,Morning brief,Summary of tasks to do,01/16/2024,08:00,09:00,2
-65,Morning brief,Summary of tasks to do,01/16/2024,08:00,09:00,4
-37,Project Dragon Work,Testing solution,01/16/2024,09:00,15:00,3
-55,Morning brief,Summary of tasks to do,01/15/2024,08:00,09:00,3
-48,Quality Checks,Conduct final quality checks on the produced items,01/15/2024,09:00,12:00,3
-49,Lunch break,Break,01/15/2024,12:00,13:00,3
-50,Clean-Up and Maintenance,test,01/15/2024,13:00,16:00,3
+1,Inventory Check and Replenishment,Conduct inventory checks,02/21/2024,09:00,11:00,3
+2,Inventory Check and Replenishment,Conduct inventory checks,02/20/2024,09:00,11:00,3
+3,First aid and safety training,Mandatory training,02/07/2024,08:00,16:00,3
+4,First aid and safety training,Mandatory training,02/06/2024,08:00,16:00,2
+5,First aid and safety training,Mandatory training,02/06/2024,08:00,16:00,1
+6,Inventory Check and Replenishment,Conduct inventory checks,02/23/2024,09:00,11:00,3
+7,Lunch break,Break,02/07/2024,12:00,13:00,3
+8,Lunch break,Break,02/06/2024,12:00,13:00,3
+9,Order Processing and Fulfillment,Process incoming orders,02/06/2024,13:00,16:00,3
+10,Summary meeting,Review today's meeting,02/06/2024,16:00,17:00,3
+11,First aid and safety training,Mandatory training,02/05/2024,08:00,16:00,4
+12,First aid and safety training,Mandatory1111,02/05/2024,08:00,16:00,2
+13,First aid and safety training,Mandatory training,02/05/2024,08:00,16:00,1
+14,Full-day webinar on DP-900,Online session,02/05/2024,08:00,16:00,3
+15,Meeting regarding OPP/23/11/000123 part 1,Review of initial Project scope,02/02/2024,08:00,12:00,2
+16,Lunch break,With client,02/02/2024,12:00,13:00,2
+17,Summarize meeting regarding OPP/23/11/000123,Prepare for next day,02/02/2024,13:00,16:00,2
+18,Webinar,Working from home,02/02/2024,08:00,09:00,4
+19,Webinar,Working from home,02/02/2024,08:00,09:00,1
+20,Webinar,Online,02/02/2024,08:00,16:00,2
+21,Meeting regarding OPP/23/11/000123,Prepare for next day,02/02/2024,08:00,12:00,3
+22,Lunch break,Break,02/02/2024,12:00,13:00,3
+85,TEST,TEST,02/02/2024,09:00,10:00,3
+24,Full-day online training,Webinar,02/01/2024,08:00,16:00,3
+25,Webinar,Online meeting,02/01/2024,08:00,16:00,1
+26,Morning brief,Summary of tasks to do,01/31/2024,08:00,09:00,3
+27,Inventory Check and Replenishment,Conduct inventory checks,01/31/2024,09:00,11:00,3
+28,Shipping and Receiving,Verify incoming shipments,01/31/2024,11:00,12:00,3
+29,Lunch break,Break,01/31/2024,12:00,13:00,3
+30,Order Processing and Fulfillment,Process incoming orders,01/31/2024,13:00,16:00,3
+31,Summary meeting,Review today's meeting,01/31/2024,16:00,17:00,3
+32,Meeting regarding OPP/23/11/000123 part 2,Review of discussed Project scope,01/31/2024,08:00,12:00,2
+33,Lunch break,With client,01/31/2024,12:00,13:00,2
+34,Summarize meeting regarding OPP/23/11/000123,Prepare quotation,01/31/2024,13:00,15:00,2
+35,Summarize meeting regarding OPP/23/11/000123 part 2,Send quotation,01/31/2024,15:00,16:00,2
+36,Online webinar,Full day training,01/31/2024,08:00,16:00,4
+37,Online meeting,With customer,01/31/2024,16:00,17:00,1
+38,Project Dragon Work,Testing solution,01/30/2024,13:00,16:00,1
+39,Documentation and Training,New users,01/30/2024,08:00,12:00,3
+40,Online training,Webinar,01/30/2024,08:00,16:00,4
+41,Online training,Webinar,01/30/2024,08:00,16:00,1
+42,Feedback and Communication,Conduct final quality checks on the produced items,01/29/2024,09:00,12:00,3
+43,Development Work,On agreed project,01/29/2024,13:00,16:00,3
+44,Full-day webinar on DP-900,Online session,01/29/2024,08:00,16:00,1
+45,Daily stand-up,Summary of tasks to do,01/26/2024,08:00,08:30,2
+46,Morning brief,Summary of tasks to do,01/26/2024,08:00,09:00,3
+47,Meetings and Collaboration,With team members,01/26/2024,09:00,12:00,3
+48,Lunch break,Break,01/26/2024,12:00,13:00,3
+49,Development Work,On agreed project,01/26/2024,13:00,16:00,3
+50,Daily stand-up,Summary of tasks to do,01/25/2024,08:00,08:30,2
+51,Morning brief,Summary of tasks to do,01/25/2024,08:00,09:00,3
+52,Systems Check,And Maintenance,01/25/2024,09:00,11:00,3
+53,Documentation and Training,New users,01/25/2024,11:00,12:00,3
+54,Lunch break,Break,01/25/2024,12:00,13:00,3
+55,Project Dragon Work,Testing solution,01/25/2024,13:00,16:00,3
+56,Wrap-up and Planning,Summary of work done,01/25/2024,16:00,17:00,3
+57,Wrap-up and Planning,Summary of work done,01/25/2024,12:00,13:00,2
+58,Daily stand-up,Summary of tasks to do,01/24/2024,08:00,08:30,2
+59,Help Desk and User Support,test,01/24/2024,10:00,13:00,2
+60,Morning brief,Summary of tasks to do,01/24/2024,08:00,09:00,3
+61,Project Dragon Work,Testing solution,01/24/2024,09:00,15:00,3
+62,Quality Checks,Conduct final quality checks on the produced items,01/23/2024,09:00,12:00,3
+63,Morning brief,Summary of tasks to do,01/23/2024,08:00,09:00,3
+64,Feedback and Communication,Conduct final quality checks on the produced items,01/23/2024,09:00,12:00,3
+65,Daily stand-up,Summary of tasks to do,01/23/2024,08:00,08:30,2
+66,Systems Check,And Maintenance,01/23/2024,08:30,10:00,2
+67,Systems Check,And Maintenance,01/23/2024,08:30,10:00,2
+68,Quality Checks,Conduct final quality checks on the produced items,01/22/2024,09:00,12:00,3
+69,Order Processing and Fulfillment,Process incoming orders,01/19/2024,13:00,16:00,3
+70,Shipping and Receiving,Verify incoming shipments,01/18/2024,11:00,12:00,3
+71,Help Desk and User Support,test,01/18/2024,10:00,13:00,2
+72,Order Processing and Fulfillment,Process incoming orders,01/17/2024,13:00,16:00,3
+73,Order Processing and Fulfillment,Process incoming orders,01/17/2024,13:00,16:00,2
+74,Order Processing and Fulfillment,Process incoming orders,01/17/2024,13:00,16:00,1
+75,Morning brief,Summary of tasks to do,01/16/2024,08:00,09:00,3
+76,Morning brief,Summary of tasks to do,01/16/2024,08:00,09:00,1
+77,Morning brief,Summary of tasks to do,01/16/2024,08:00,09:00,2
+78,Morning brief,Summary of tasks to do,01/16/2024,08:00,09:00,4
+79,Project Dragon Work,Testing solution,01/16/2024,09:00,15:00,3
+80,Morning brief,Summary of tasks to do,01/15/2024,08:00,09:00,3
+81,Quality Checks,Conduct final quality checks on the produced items,01/15/2024,09:00,12:00,3
+82,Lunch break,Break,01/15/2024,12:00,13:00,3
+83,Clean-Up and Maintenance,test,01/15/2024,13:00,16:00,3

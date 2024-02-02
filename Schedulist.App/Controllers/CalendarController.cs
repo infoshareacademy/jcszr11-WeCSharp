@@ -81,10 +81,11 @@ namespace Schedulist.App.Controllers
                 _user = _users.First(obj => obj.Id == userToEdit);
             }
 
-            var successMessage = TempData["Success"] as string;
             TempData["ReturnUrl"] = HttpContext.Request.Path + HttpContext.Request.QueryString;
             TempData["SelectedDate"] = date;
+            TempData["DayDate"] = date;
             TempData["UserId"] = userToEdit;
+            TempData["UserDetails"] = $"{_user.Name} {_user.Surname}";
             DateOnly dateOnly = DateOnly.FromDateTime(date);
             CSVWorkModesRepository _csvWorkModesRepository = new("..\\Schedulist\\WorkModes.csv");
             WorkModesToUser workMode = _csvWorkModesRepository.GetWorkModeByUserAndDate(_user.Id, dateOnly);
