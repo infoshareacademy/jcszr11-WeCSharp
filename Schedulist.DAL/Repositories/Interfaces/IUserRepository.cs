@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Schedulist.DAL
+namespace Schedulist.DAL.Repositories.Interfaces
 {
     public interface IUserRepository
     {

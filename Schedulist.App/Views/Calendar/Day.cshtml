@@ -64,7 +64,7 @@ else
     </div>
 }
 <div class="add-event text-center">
-    <button class="btn btn-primary" onclick="location.href='@Url.Action("Create", "Calendar")'">
-        Add new event
+    <button class="btn btn-primary" onclick="location.href='@Url.Action("Create", "Calendar", @Model.User.Id)'">
+        Add New Event
     </button>
 </div>

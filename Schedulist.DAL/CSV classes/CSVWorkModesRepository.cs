@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using CsvHelper.Configuration.Attributes;
+using Schedulist.DAL.Repositories.Interfaces;
 
 namespace Schedulist.DAL
 {
@@ -44,7 +45,7 @@ namespace Schedulist.DAL
                 csv.NextRecord();
                 csv.WriteRecords(ListOfWorkModes);
                 //Console.Clear();
-                Console.WriteLine($" The Workmode {workModes.WorkModeName} has been added to the list successfully at the day {workModes.DateOfWorkmode}");
+                Console.WriteLine($" The Workmode {workModes.WorkMode.Name} has been added to the list successfully at the day {workModes.DateOfWorkMode}");
             }
             catch (Exception ex)
             {
@@ -112,7 +113,7 @@ namespace Schedulist.DAL
         public WorkModesToUser? GetWorkModeByUserAndDate (int? idUser, DateOnly dateWorkMode)
         {
             ListOfWorkModes = GetAllWorkModes();
-            var workModesReturn = ListOfWorkModes.FirstOrDefault(u=>u.UserID==idUser && u.DateOfWorkmode==dateWorkMode);
+            var workModesReturn = ListOfWorkModes.FirstOrDefault(u=>u.UserID==idUser && u.DateOfWorkMode==dateWorkMode);
             return workModesReturn;
         }
         private static CsvConfiguration CsvConfiguration()
@@ -123,6 +124,11 @@ namespace Schedulist.DAL
                 Delimiter = ",",
             };
             return csvConfig;
+        }
+
+        public WorkModesToUser GetWorkModeByUserAndDate(int idUser, DateOnly dateWorkMode)
+        {
+            throw new NotImplementedException();
         }
     }
 }

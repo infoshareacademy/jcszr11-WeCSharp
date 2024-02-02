@@ -42,6 +42,7 @@ namespace Schedulist.DAL
         [Name("userID")]
         [Display(Name = "Assigned to user with ID")]
         public int AssignedToUser { get; set; }
+        public User User { get; set; }
 
         public CalendarEvent()
         {

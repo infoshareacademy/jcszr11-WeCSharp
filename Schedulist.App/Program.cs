@@ -1,6 +1,8 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Schedulist.DAL;
+using Schedulist.DAL.Repositories;
+using Schedulist.DAL.Repositories.Interfaces;
 
 
 namespace Schedulist.App
@@ -16,16 +18,16 @@ namespace Schedulist.App
 
             // Add services to the container.
             var connectionString = builder.Configuration.GetConnectionString("DefaultConnection") ?? throw new InvalidOperationException("Connection string 'DefaultConnection' not found.");
-            builder.Services.AddDbContext<DbContext>(options =>
+            builder.Services.AddDbContext<DBContact>(options =>
                 options.UseSqlServer(connectionString));
             builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
             builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
-                .AddEntityFrameworkStores<DbContext>();
+                .AddEntityFrameworkStores<DBContact>();
             builder.Services.AddControllersWithViews();
             builder.Services.AddSingleton<CsvCalendarEventRepository>(_ => new CsvCalendarEventRepository("..\\Schedulist\\CalendarEvents.csv"));
             builder.Services.AddSingleton<CSVWorkModesRepository>(_ => new CSVWorkModesRepository("..\\Schedulist\\WorkModes.csv"));
-
+            builder.Services.AddTransient<IWorkModesRepository, WorkModeRepository>();
             // todo user
             List<User> users = new CsvUserRepository("..\\Schedulist\\Users.csv").GetAllUsers();
             User user = users[2];

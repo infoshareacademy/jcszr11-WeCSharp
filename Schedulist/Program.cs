@@ -8,12 +8,12 @@ namespace Schedulist
     {
         static void Main()
         {
-            
-            while (true)
-            {
-                new Login(new CsvUserRepository("..\\..\\..\\Users.csv")).Run();    //Metoda do logowania użytkownika
-                if (CurrentUser.currentUser != null) MenuMain.Run();
-            }
+
+            //while (true)
+            //{
+            //    new Login(new CsvUserRepository("..\\..\\..\\Users.csv")).Run();    //Metoda do logowania użytkownika
+            //    if (CurrentUser.currentUser != null) MenuMain.Run();
+            //}
         }
     }
 }

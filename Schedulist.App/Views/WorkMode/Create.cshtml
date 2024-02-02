@@ -18,9 +18,9 @@
                 <span asp-validation-for="WorkModeToUserID" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="WorkModeName" class="control-label"></label>
-                <input asp-for="WorkModeName" class="form-control" />
-                <span asp-validation-for="WorkModeName" class="text-danger"></span>
+                <label asp-for="@Model.WorkMode.Name" class="control-label"></label>
+                <input asp-for="@Model.WorkMode.Name" class="form-control" />
+                <span asp-validation-for="@Model.WorkMode.Name" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="UserID" class="control-label"></label>

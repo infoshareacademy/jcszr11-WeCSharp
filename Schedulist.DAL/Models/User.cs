@@ -34,10 +34,11 @@ namespace Schedulist.DAL
         public string Login { get; set; }
         public string Password { get; set; }
         public bool AdminPrivilege { get; set; }
+        public ICollection<CalendarEvent> CalendarEvents { get; set; }
 
-        public override string ToString()
-        {
-            return ($"{Id}");
-        }
+        //public override string ToString()
+        //{
+        //    return ($"{Id}");
+        //}
     }
 }

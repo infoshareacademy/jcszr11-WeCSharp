@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Schedulist.DAL
+namespace Schedulist.DAL.Repositories.Interfaces
 {
     public interface IWorkModesRepository
     {
@@ -12,7 +12,7 @@ namespace Schedulist.DAL
         void AddWorkModes(WorkModesToUser workMode);
         void ModifyWorkModes(int workModesID, WorkModesToUser workMode);
         void DeleteWorkModes(int workModesID);
-        //WorkModesToUser GetWorkModeByUserAndDate(int idUser, DateOnly dateWorkMode);
-        
+        WorkModesToUser GetWorkModeByUserAndDate(int idUser, DateOnly dateWorkMode);
+
     }
 }
