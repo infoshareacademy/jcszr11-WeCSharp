@@ -1,5 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
+using Microsoft.AspNetCore.Mvc.Rendering;
+using Schedulist.App.Helper;
 using Schedulist.App.Models;
 using Schedulist.App.Services;
 using Schedulist.DAL;
@@ -81,9 +83,11 @@ namespace Schedulist.App.Controllers
                 _user = _users.First(obj => obj.Id == userToEdit);
             }
 
-            var successMessage = TempData["Success"] as string;
             TempData["ReturnUrl"] = HttpContext.Request.Path + HttpContext.Request.QueryString;
-
+            TempData["SelectedDate"] = date;
+            TempData["DayDate"] = date;
+            TempData["UserId"] = userToEdit;
+            TempData["UserDetails"] = $"{_user.Name} {_user.Surname}";
             DateOnly dateOnly = DateOnly.FromDateTime(date);
             CSVWorkModesRepository _csvWorkModesRepository = new("..\\Schedulist\\WorkModes.csv");
             WorkModesToUser workMode = _csvWorkModesRepository.GetWorkModeByUserAndDate(_user.Id, dateOnly);
@@ -107,7 +111,6 @@ namespace Schedulist.App.Controllers
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
 
-
         //GET: CalendarController/Create
         public ActionResult Create()
         {
@@ -126,10 +129,13 @@ namespace Schedulist.App.Controllers
                 {
                     return View(calendarEvent);
                 }
-                
-                
+                DateTime selectedDate = (DateTime)TempData.Peek("SelectedDate");
+                DateOnly parsedChosenDate = DateOnly.FromDateTime(selectedDate);
+
                 CalendarEventService calendarEventService = new CalendarEventService();
-                var validationResult = calendarEventService.CalendarEventStartTimeOverlappingValidation(calendarEvent.CalendarEventDate, calendarEvent.CalendarEventStartTime, calendarEvent.CalendarEventEndTime, calendarEvent.AssignedToUser);
+                calendarEvent.AssignedToUser = (int)TempData.Peek("UserId");
+                calendarEvent.CalendarEventDate = parsedChosenDate;
+                var validationResult = calendarEventService.CalendarEventTimesOverlappingValidation(calendarEvent.CalendarEventDate, calendarEvent.CalendarEventStartTime, calendarEvent.CalendarEventEndTime, calendarEvent.AssignedToUser);
                 if (validationResult != ValidationResult.Success)
                 {
                     ModelState.AddModelError(nameof(calendarEvent.CalendarEventStartTime), validationResult.ErrorMessage);
@@ -137,7 +143,7 @@ namespace Schedulist.App.Controllers
                 }
                 calendarEventService.Create(calendarEvent);
                 Debug.WriteLine($"Created Calendar Event.");
-                TempData["Success"] = "Calendar Event has been created successfully";
+                PopupNotification("Calendar event has been created successfully");
                 var returnUrl = TempData["ReturnUrl"] as string;
                 return Redirect(returnUrl);
             }
@@ -146,6 +152,54 @@ namespace Schedulist.App.Controllers
                 Debug.WriteLine($"Exception occurred: {ex.Message}");
                 return View();
             }
+        }
+
+        // GET: WorkModeController/Create
+        public ActionResult CreateWM()
+        {
+            Debug.WriteLine($"Creating Work Mode started!");
+            return View();
+        }
+
+        // POST: WorkModeController/Create
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult CreateWM(WorkModesToUser workModesToUser)
+        {
+            var workmodename = WorkModeNamesList.GetAll();
+            //workModeView.GetAllWorkModeNames = new List<SelectListItem>();
+            try
+            {
+                if (!ModelState.IsValid)
+                {
+                    return View(workModesToUser);
+                }
+                //foreach (var name in workmodename)
+                //{
+                //    workModeView.GetAllWorkModeNames.Add(new SelectListItem { Text = name.Name, Value = name.Id.ToString() });
+                //}
+                //DateTime selectedDate = (DateTime)TempData.Peek("SelectedDate");
+                //DateOnly parsedChosenDate = DateOnly.FromDateTime(selectedDate);
+                //workModeView.WorkModeName = WorkModeNamesList.GetAll().FirstOrDefault(w => w.Id == workModeView.SelectedWorkModeId)?.Name;
+
+                //DateTime selectedDate = (DateTime)TempData.Peek("SelectedDate");
+                //DateOnly parsedChosenDate = DateOnly.FromDateTime(selectedDate);
+
+                WorkModeService _workModeService = new WorkModeService();
+
+                _workModeService.Create(workModesToUser);
+                Debug.WriteLine("Created new work mode!");
+                TempData["Success"] = "Work mode has been created successfully";
+                return RedirectToAction(nameof(Index));
+            }
+            catch
+            {
+                return View();
+            }
+
+            //var model = new WorkModeViewModel();
+
+
         }
     }
 }

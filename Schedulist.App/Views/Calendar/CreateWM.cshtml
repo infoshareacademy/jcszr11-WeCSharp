@@ -6,26 +6,26 @@
 
 <h1>Create</h1>
 
-<h4>WorkModesToUser</h4>
+<h4>WorkModeViewModel</h4>
 <hr />
 <div class="row">
     <div class="col-md-4">
-        <form asp-action="Create">
+        <form asp-action="CreateWM">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
-                <label asp-for="WorkModeToUserID" class="control-label"></label>
-                <input asp-for="WorkModeToUserID" class="form-control" />
-                <span asp-validation-for="WorkModeToUserID" class="text-danger"></span>
-            </div>
-            <div class="form-group">
                 <label asp-for="WorkModeName" class="control-label"></label>
-                <input asp-for="WorkModeName" class="form-control" />
+                @Html.DropDownListFor(model => model.WorkModeName, new SelectList(Schedulist.App.Helper.WorkModeNamesList.GetAll(),"Id", "Name"), "Select Work Mode", new { @class = "form-control" })
                 <span asp-validation-for="WorkModeName" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="UserID" class="control-label"></label>
                 <input asp-for="UserID" class="form-control" />
                 <span asp-validation-for="UserID" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="DateOfWorkmode" class="control-label"></label>
+                <input asp-for="DateOfWorkmode" class="form-control" />
+                <span asp-validation-for="DateOfWorkmode" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <input type="submit" value="Create" class="btn btn-primary" />

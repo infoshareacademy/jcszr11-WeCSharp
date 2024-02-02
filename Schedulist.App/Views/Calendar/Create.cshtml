@@ -1,28 +1,31 @@
 ﻿@model Schedulist.DAL.CalendarEvent
 
-<h4 class="text-center" style="display:flex; justify-content:center; font-size: 30px">@(Model == null ? "Calendar Event creation" : "Calendar Event update")</h4>
-<hr />
+@{
+    ViewData["Title"] = "Create";
+}
 
-@Html.ValidationSummary(true, "", new { @class = "text-danger" })
+<h3>Calendar Event Creation</h3>
+<h4>@TempData.Peek("UserDetails") - @(Convert.ToDateTime(TempData.Peek("DayDate")).ToShortDateString())</h4>
+<hr />
 <div class="row">
     <div class="col-md-12" style="text-align: center; display: flex; justify-content: center; gap: 10px">
         <form asp-action="Create">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group" hidden>
+            @* <div class="form-group">
                 <label asp-for="CalendarEventId" class="control-label"></label>
                 <input asp-for="CalendarEventId" class="form-control" />
                 <span asp-validation-for="CalendarEventId" class="text-danger"></span>
-            </div>
-            <div class="form-group">
+            </div> *@
+          @*   <div class="form-group">
                 <label asp-for="CalendarEventDate" class="control-label"></label>
                 <input asp-for="CalendarEventDate" class="form-control" />
                 <span asp-validation-for="CalendarEventDate" class="text-danger"></span>
-            </div>
+            </div> *@
             <div class="form-group">
                 <label asp-for="CalendarEventStartTime" class="control-label"></label>
                 <input asp-for="CalendarEventStartTime" class="form-control" />
                 <span asp-validation-for="CalendarEventStartTime" class="text-danger"></span>
-            </div>
+            </div>            
             <div class="form-group">
                 <label asp-for="CalendarEventEndTime" class="control-label"></label>
                 <input asp-for="CalendarEventEndTime" class="form-control" />
@@ -38,27 +41,22 @@
                 <input asp-for="CalendarEventDescription" class="form-control" />
                 <span asp-validation-for="CalendarEventDescription" class="text-danger"></span>
             </div>
-            <div class="form-group">
+@*             <div class="form-group">
                 <label asp-for="AssignedToUser" class="control-label"></label>
                 <input asp-for="AssignedToUser" class="form-control" />
                 <span asp-validation-for="AssignedToUser" class="text-danger"></span>
-            </div>
-            @{
-                var buttonStyle = (Model == null ? "background-color: green;" : "background-color: rgb(224, 157, 49);");
-                var buttonText = (Model == null ? "Create" : "Update");
-            }
-            <div style="padding-top: 10px;">
-                <button class="form-button" type="submit" style='@(buttonStyle)'><span>@(buttonText)</span></button>
-            </div>
-            @*             <div class="form-button">
-            <a asp-action="Index"><button type="button">Back to List</button></a>
             </div> *@
+            
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
         </form>
     </div>
 </div>
-<script>
-    $.validator.unobtrusive.parse("form");
-</script>
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
-    }
+}

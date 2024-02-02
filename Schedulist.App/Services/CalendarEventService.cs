@@ -39,19 +39,24 @@ namespace Schedulist.App.Services
             newCalendarEvent.CalendarEventName = calendarEvent.CalendarEventName;
             newCalendarEvent.CalendarEventStartTime = calendarEvent.CalendarEventStartTime;
             newCalendarEvent.CalendarEventEndTime = calendarEvent.CalendarEventEndTime;
+            newCalendarEvent.AssignedToUser = calendarEvent.AssignedToUser;
 
             repository.ModifyCalendarEvent(newCalendarEvent);
             return calendarEvent;
         }
 
-        public ValidationResult CalendarEventStartTimeOverlappingValidation(DateOnly calendarEventDate, TimeOnly calendarEventStartTime, TimeOnly calendarEventEndTime, int userId)
+        public ValidationResult CalendarEventTimesOverlappingValidation(DateOnly calendarEventDate, TimeOnly calendarEventStartTime, TimeOnly calendarEventEndTime, int userId)
         {
             CsvCalendarEventRepository repository = new CsvCalendarEventRepository("..\\Schedulist\\CalendarEvents.csv");
             var allCalendarEvents = repository.GetAllCalendarEvents();
-            var providedStartTime = allCalendarEvents.FirstOrDefault(c => c.AssignedToUser == userId &&
+
+            var overlappingStartTimeEvent = allCalendarEvents.FirstOrDefault(c => c.AssignedToUser == userId &&
                                          c.CalendarEventDate == calendarEventDate && ((calendarEventStartTime > c.CalendarEventStartTime && calendarEventStartTime < c.CalendarEventEndTime) || (c.CalendarEventStartTime > calendarEventStartTime && c.CalendarEventStartTime < calendarEventEndTime)));
 
-            if (providedStartTime != null)
+            var overlappingEndTimeEvent = allCalendarEvents.FirstOrDefault(c => c.AssignedToUser == userId &&
+                                         c.CalendarEventDate == calendarEventDate && ((calendarEventEndTime > c.CalendarEventStartTime && calendarEventEndTime < c.CalendarEventEndTime) || (c.CalendarEventStartTime > calendarEventStartTime && c.CalendarEventStartTime < calendarEventEndTime)));
+
+            if (overlappingStartTimeEvent != null || overlappingEndTimeEvent != null)
         {
                 return new ValidationResult("There is already a Calendar Event with the provided Start time or that takes place at the same time. Please provide different values.");
         }
