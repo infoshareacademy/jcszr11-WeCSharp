@@ -6,26 +6,38 @@
 
 <div class="text-center" style="height: calc(100vh - 140px);">
     <div class="container-fluid d-flex h-100 flex-column">
-            <div class="row flex-nowrap monthName">
-                <div class="buttonField"></div>
-                <div class="buttonField">
-                    <button type="button" class="btn btn-light" onclick="location.href='@Url.Action("PreviousMonth", "Calendar", Model.CurrentDate)'"><</button>
-                </div>
-                <div class="buttonField">
-                    <button type="button" class="btn btn-light" onclick="location.href='@Url.Action("NextMonth", "Calendar", Model.CurrentDate)'">></button>
+        <div class="row flex-nowrap month-name">
+            <div class="button-field"></div>
+            <div class="button-field">
+                <button type="button" class="btn btn-light" onclick="location.href='@Url.Action("PreviousMonth", "Calendar", new {@date = Model.CurrentDate, @userToEdit = Model.UserToEdit})'"><</button>
+            </div>
+            <div class="button-field">
+                <button type="button" class="btn btn-light" onclick="location.href='@Url.Action("NextMonth", "Calendar", new {@date = Model.CurrentDate, @userToEdit = Model.UserToEdit})'">></button>
+            </div>
+            <div class="calendar-dropdown">
+                <div class="dropdown">
+                    <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        @Model.UserDict.First(obj => obj.Value == Model.UserToEdit).Key 
+                    </button>
+                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                        @foreach (KeyValuePair <string, int> DropdownUser in Model.UserDict)
+                        {
+                            <a class="dropdown-item" onclick="location.href='@Url.Action("ChangeUser", "Calendar", new {@date = Model.CurrentDate, @userToEdit = DropdownUser.Value})'">@DropdownUser.Key</a>
+                        }
+                        </div>
+                    </div>
                 </div>
                 <div class="col">
                     @Model.FirstDayOfTheMonth.ToString("MMMM yyyy")
                 </div>
-                <div class="buttonField"></div>
-                <div class="buttonField"></div>
-                <div class="buttonField"></div>
+                <div class="calendar-dropdown"></div>
+                <div class="calendar-dropdown"></div>
             </div>
         <div class="row flex-nowrap" style="border-left: 1px solid lightgrey;">
             @for (int i = 0; i < 7; i++)
             {
                 DateTime drawDayOfWeek = @Model.StartDate.AddDays(i);
-                <div class="col calendarHeader">@drawDayOfWeek.DayOfWeek</div>
+                <div class="col calendar-header">@drawDayOfWeek.DayOfWeek</div>
             }
         </div>
         <div class="row flex-nowrap flex-grow-1" style="border-left: 1px solid lightgrey;">
@@ -60,16 +72,8 @@
                             }
                             if (drawDate == DateTime.Today)
                             {
-                                <button type="button" class="col calendarBlock thisMonth today" onclick="location.href='@Url.Action("Day", "Calendar", drawDate)'">
-                                    <div class="calendarDayDate">
-                                        @drawDate.Day
-                                    </div>
-                                </button>
-                            }
-                            else
-                            {
-                                <button type="button" class="col calendarBlock thisMonth" onclick="location.href='@Url.Action("Day", "Calendar", drawDate)'">
-                                    <div class="calendarDayDate">
+                                <button type="button" class="col calendar-block this-month today" onclick="location.href='@Url.Action("Day", "Calendar", new {@date = drawDate, @userToEdit = Model.UserToEdit})'">
+                                    <div class="calendar-day-date">
                                         @drawDate.Day
                                     </div>
                                     <div style="height: 100%">
@@ -77,7 +81,31 @@
                                     {
                                         if (daysToRemove > 0)
                                         {
-                                            <div class="calendarEventForDay">@calendarEvent.CalendarEventName</div>
+                                                <div class="calendar-event-for-day">@calendarEvent.CalendarEventName</div>
+                                                daysToRemove -= 1;
+                                                numberOfCalendarEvents -= 1;
+                                            }
+                                        else
+                                        {
+                                            <div class="calendar-event-for-day">+@numberOfCalendarEvents</div>
+                                            break;
+                                        }
+                                    }
+                                    </div>
+                                </button>
+                            }
+                            else
+                            {
+                                <button type="button" class="col calendar-block this-month" onclick="location.href='@Url.Action("Day", "Calendar", new {@date = drawDate, @userToEdit = Model.UserToEdit})'">
+                                    <div class="calendar-day-date">
+                                        @drawDate.Day
+                                    </div>
+                                    <div style="height: 100%">
+                                    @foreach (CalendarEvent calendarEvent in calendarEventForDay)
+                                    {
+                                        if (daysToRemove > 0)
+                                        {
+                                            <div class="calendar-event-for-day">@calendarEvent.CalendarEventName</div>
                                             daysToRemove -= 1;
                                             numberOfCalendarEvents -= 1;
                                         }
@@ -85,13 +113,13 @@
                                         {
                                             if (numberOfCalendarEvents == 1)
                                             {
-                                                <div class="calendarEventForDay">@calendarEvent.CalendarEventName</div>
+                                                <div class="calendar-event-for-day">@calendarEvent.CalendarEventName</div>
                                                 daysToRemove -= 1;
                                                 numberOfCalendarEvents -= 1;
                                             }
                                             else
                                             {
-                                                <div class="calendarEventForDay">+@numberOfCalendarEvents</div>
+                                                <div class="calendar-event-for-day">+@numberOfCalendarEvents</div>
                                                 break;
                                             }
                                         }
@@ -102,8 +130,8 @@
                         }
                         else
                         {
-                            <button type="button" class="col calendarBlock" onclick="location.href='@Url.Action("Day", "Calendar", drawDate)'">
-                                <div class="calendarDayDate">
+                            <button type="button" class="col calendar-block" onclick="location.href='@Url.Action("Day", "Calendar", drawDate)'">
+                                <div class="calendar-day-date">
                                     @drawDate.Day
                                 </div>
                              </button>
@@ -115,3 +143,4 @@
         </div>
     </div>
 </div>
+
