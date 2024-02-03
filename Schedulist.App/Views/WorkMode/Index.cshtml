@@ -41,7 +41,26 @@
                 @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
                 @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
             </td> *@
+                <td>
+                    <div class="button-container">
+                        @* <button type="button">@Html.ActionLink("Edit", "Edit", new { id = item.CalendarEventId })</button> *@
+                        @* <button type="button">@Html.ActionLink("Details", "Details", new { id = item.CalendarEventId })</button> *@
+                        <button class="btn btn-primary btn-edit-delete" onclick="DeleteWorkMode('@Url.Action("Delete", "WorkMode")?'id=@item.WorkModeToUserID','@item.WorkModeName','@item.UserID','@item.DateOfWorkmode')">
+                            Delete
+                        </button>
+                    </div>
+                </td>
+
         </tr>
 }
     </tbody>
 </table>
+
+<script>
+    var workModeDeletedMessage = localStorage.getItem('workModeDeletedMessage');
+
+    if (workModeDeletedMessage) {
+        toastr.success(workModeDeletedMessage);
+        localStorage.removeItem('workModeDeletedMessage');
+    }
+</script>

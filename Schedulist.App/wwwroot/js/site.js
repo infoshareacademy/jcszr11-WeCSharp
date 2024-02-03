@@ -41,3 +41,41 @@ function DeleteCalendarEvent(actionUrl, CalendarEventName, CalendarEventDescript
     });
 }
 
+function DeleteWorkMode(actionUrl, WorkModeToUserID, WorkModeName, UserID, DateOfWorkmode)
+{
+    console.log(actionUrl)
+    Swal.fire({
+        title: 'Confirm Deletion',
+        html: `
+            <h4 style="color: red;"">Are you sure you want to delete the work mode?</h4>
+            <div>
+            <hr class="horizontal-line" style="height: 3px; border: 1px solid gray; margin: 10px">
+            <h2>Calendar Event Details:</h2>
+            <strong>WorkModeToUserID:</strong> ${WorkModeToUserID}<br>
+            <strong>WorkModeName:</strong> ${WorkModeName}<br>
+            <strong>UserID:</strong> ${UserID}<br>
+            <strong>Date:</strong> ${DateOfWorkmode}<br>
+            </div>
+        `,
+        icon: 'question',
+        showCancelButton: true
+    }).then(result => {
+        if (result.isConfirmed) {
+            $.ajax({
+                url: actionUrl,
+                type: 'POST',
+                success: function (result) {
+                    localStorage.setItem('workModeDeletedMessage', 'Your work mode has been deleted successfully');
+                    console.log(workModeDeletedMessage)
+                    location.reload();
+                },
+                error: function (error) {
+                    alert("failure");
+                }
+            });
+
+        } else if (result.dismiss === Swal.DismissReason.cancel) {
+            Swal.fire('Cancelled', 'Your work mode is safe :)', 'info');
+        }
+    });
+}

@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Schedulist.App.Helper;
 using Schedulist.App.Models;
 using Schedulist.App.Models.Domain_Models;
+using Schedulist.App.Models.Enum;
 using Schedulist.App.Services;
 using Schedulist.DAL;
 using System.Diagnostics;
@@ -119,18 +120,18 @@ namespace Schedulist.App.Controllers
         //}
 
         // GET: WorkModeController/Delete/5
-        public ActionResult Delete(int id)
-        {
-            //WorkModeService workModeService = new WorkModeService();
-            var model = _workModeService.GetWorkModeById(id);
-            Debug.WriteLine($"Removing Work Mode started!");
-            return View(model);
-        }
+        //public ActionResult Delete(int id)
+        //{
+        //    //WorkModeService workModeService = new WorkModeService();
+        //    var model = _workModeService.GetWorkModeById(id);
+        //    Debug.WriteLine($"Removing Work Mode started!");
+        //    return View(model);
+        //}
 
         // POST: WorkModeController/Delete/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Delete(int id, IFormCollection collection)
+        public ActionResult Delete(int id)
         {
             try
             {
@@ -138,14 +139,16 @@ namespace Schedulist.App.Controllers
                 {
                     return View(id);
                 }
-                //WorkModeService workModeService = new WorkModeService();
+                WorkModeService workModeService = new WorkModeService();
                 _workModeService.Delete(id);
                 Debug.WriteLine("Removed Work Mode!");
-                TempData["Success"] = "Work Mode has been removed successfully!";
+                PopupNotification("Work mode has been successfully deleted");
                 return RedirectToAction(nameof(Index));
             }
-            catch
+            catch (Exception ex)
             {
+                Debug.WriteLine($"Exception occurred: {ex.Message}");
+                PopupNotification("Error occurred while deleting calendar event", notificationType: NotificationType.error);
                 return View();
             }
         }
