@@ -17,6 +17,7 @@
     
     
 </div>
+
 @if (@Model.CalendarEvents.Count > 0)
 {
     <div style="display: flex;">
@@ -72,12 +73,23 @@ else
         No events for that day
     </div>
 }
-<div class="add-event text-center">
-    <input type="hidden" name="chosenDate" value="@Model.Date.ToString(" yyyy-MM-dd")" />
-    <button class="btn btn-primary" onclick="location.href='@Url.Action("Create", "Calendar")'">
-        Add new event
-    </button>
-</div>
+@if (Model.WorkMode == "Holiday leave" || Model.WorkMode == "Sick leave")
+{
+    <div class="no-events text-center">
+        You cannot create new Calendar event if Work mode equals "Holiday leave" or "Sick leave"!
+    </div>
+}
+else
+{
+    <div class="add-event text-center">
+        <input type="hidden" name="chosenDate" value="@Model.Date.ToString(" yyyy-MM-dd")" />
+        <button class="btn btn-primary" onclick="location.href='@Url.Action("Create", "Calendar")'">
+            Add new event
+        </button>
+    </div>
+}
+
+
 <script>
     var calendarEventDeletedMessage = localStorage.getItem('calendarEventDeletedMessage');
 
