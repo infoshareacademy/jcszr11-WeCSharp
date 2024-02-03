@@ -4,9 +4,8 @@
     ViewData["Title"] = "Create";
 }
 
-<h1>Create</h1>
-
-<h4>WorkModeViewModel</h4>
+<h3>Work Mode Creation</h3>
+<h4>@TempData.Peek("UserDetailsWM") - @(Convert.ToDateTime(TempData.Peek("DayDateWM")).ToShortDateString())</h4>
 <hr />
 <div class="row">
     <div class="col-md-4">
@@ -17,7 +16,7 @@
                 @Html.DropDownListFor(model => model.WorkModeName, new SelectList(Schedulist.App.Helper.WorkModeNamesList.GetAll(),"Id", "Name"), "Select Work Mode", new { @class = "form-control" })
                 <span asp-validation-for="WorkModeName" class="text-danger"></span>
             </div>
-            <div class="form-group">
+@*             <div class="form-group">
                 <label asp-for="UserID" class="control-label"></label>
                 <input asp-for="UserID" class="form-control" />
                 <span asp-validation-for="UserID" class="text-danger"></span>
@@ -26,7 +25,7 @@
                 <label asp-for="DateOfWorkmode" class="control-label"></label>
                 <input asp-for="DateOfWorkmode" class="form-control" />
                 <span asp-validation-for="DateOfWorkmode" class="text-danger"></span>
-            </div>
+            </div> *@
             <div class="form-group">
                 <input type="submit" value="Create" class="btn btn-primary" />
             </div>

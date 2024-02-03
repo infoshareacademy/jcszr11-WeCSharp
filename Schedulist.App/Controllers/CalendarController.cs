@@ -84,10 +84,15 @@ namespace Schedulist.App.Controllers
             }
 
             TempData["ReturnUrl"] = HttpContext.Request.Path + HttpContext.Request.QueryString;
+            TempData["ReturnUrlWM"] = HttpContext.Request.Path + HttpContext.Request.QueryString;
             TempData["SelectedDate"] = date;
+            TempData["SelectedDateForWM"] = date;
             TempData["DayDate"] = date;
+            TempData["DayDateWM"] = date;
             TempData["UserId"] = userToEdit;
+            TempData["UserIdForWM"] = userToEdit;
             TempData["UserDetails"] = $"{_user.Name} {_user.Surname}";
+            TempData["UserDetailsWM"] = $"{_user.Name} {_user.Surname}";
             DateOnly dateOnly = DateOnly.FromDateTime(date);
             CSVWorkModesRepository _csvWorkModesRepository = new("..\\Schedulist\\WorkModes.csv");
             WorkModesToUser workMode = _csvWorkModesRepository.GetWorkModeByUserAndDate(_user.Id, dateOnly);
@@ -167,30 +172,24 @@ namespace Schedulist.App.Controllers
         public ActionResult CreateWM(WorkModesToUser workModesToUser)
         {
             var workmodename = WorkModeNamesList.GetAll();
-            //workModeView.GetAllWorkModeNames = new List<SelectListItem>();
             try
             {
                 if (!ModelState.IsValid)
                 {
                     return View(workModesToUser);
                 }
-                //foreach (var name in workmodename)
-                //{
-                //    workModeView.GetAllWorkModeNames.Add(new SelectListItem { Text = name.Name, Value = name.Id.ToString() });
-                //}
-                //DateTime selectedDate = (DateTime)TempData.Peek("SelectedDate");
-                //DateOnly parsedChosenDate = DateOnly.FromDateTime(selectedDate);
-                //workModeView.WorkModeName = WorkModeNamesList.GetAll().FirstOrDefault(w => w.Id == workModeView.SelectedWorkModeId)?.Name;
 
-                //DateTime selectedDate = (DateTime)TempData.Peek("SelectedDate");
-                //DateOnly parsedChosenDate = DateOnly.FromDateTime(selectedDate);
+                DateTime selectedDate = (DateTime)TempData.Peek("SelectedDateForWM");
+                DateOnly parsedChosenDate = DateOnly.FromDateTime(selectedDate);
 
                 WorkModeService _workModeService = new WorkModeService();
-
+                workModesToUser.UserID = (int)TempData.Peek("UserId");
+                workModesToUser.DateOfWorkmode = parsedChosenDate;
                 _workModeService.Create(workModesToUser);
                 Debug.WriteLine("Created new work mode!");
-                TempData["Success"] = "Work mode has been created successfully";
-                return RedirectToAction(nameof(Index));
+                PopupNotification("Work mode has been created successfully");
+                var returnUrl = TempData["ReturnUrlWM"] as string;
+                return Redirect(returnUrl);
             }
             catch
             {

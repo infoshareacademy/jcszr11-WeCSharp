@@ -21,10 +21,10 @@
 {
     <div style="display: flex;">
         <div class="row flex-nowrap row-margin">
-            <div class="col-3 row-title row-text standard-border">
+            <div class="col-3 row-title row-text text-center standard-border">
                 @Html.DisplayNameFor(model => model.CalendarEvents.FirstOrDefault().CalendarEventName)
             </div>
-            <div class="col  row-title row-text standard-border">
+            <div class="col  row-title row-text text-center standard-border">
                 @Html.DisplayNameFor(model => model.CalendarEvents.FirstOrDefault().CalendarEventDescription)
             </div>
             <div class="col-1  row-title row-text text-center standard-border">
@@ -42,10 +42,10 @@
         {
             <div style="display: flex;">
                 <div class="row flex-nowrap row-margin">
-                    <div class="col-3 row-text standard-border">
+                    <div class="col-3 row-text text-center standard-border">
                         @Html.DisplayFor(modelItem => calendarEvent.CalendarEventName)
                     </div>
-                    <div class="col row-text standard-border">
+                    <div class="col row-text text-center standard-border">
                         @Html.DisplayFor(modelItem => calendarEvent.CalendarEventDescription)
                     </div>
                     <div class="col-1 row-text text-center standard-border">
@@ -57,9 +57,9 @@
 @*                     <button class="btn btn-primary btn-edit-delete" onclick="location.href='@Url.Action("Edit", "CalendarEvent")/@calendarEvent.CalendarEventId'">
                         e
                     </button> *@
-                    <button type="button" onclick="DeleteCalendarEvent('@Url.Action("Delete", "CalendarEvent")?id=@calendarEvent.CalendarEventId','@calendarEvent.CalendarEventName','@calendarEvent.CalendarEventDescription',
-                        '@calendarEvent.CalendarEventDate','@calendarEvent.CalendarEventStartTime','@calendarEvent.CalendarEventEndTime','@calendarEvent.AssignedToUser')">
-                        Delete
+                    <button class="btn btn-primary btn-edit-delete" onclick="DeleteCalendarEvent('@Url.Action("Delete", "CalendarEvent")?id=@calendarEvent.CalendarEventId','@calendarEvent.CalendarEventName','@calendarEvent.CalendarEventDescription',
+                    '@calendarEvent.CalendarEventDate','@calendarEvent.CalendarEventStartTime','@calendarEvent.CalendarEventEndTime','@calendarEvent.AssignedToUser')">
+                        D
                     </button>
                 </div>
             </div>
