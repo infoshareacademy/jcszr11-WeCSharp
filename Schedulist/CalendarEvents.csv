@@ -1,11 +1,11 @@
 calendarEventId,calendarEventName,calendarEventDescription,calendarEventDate,calendarEventStartTime,calendarEventEndTime,userID
+6,Inventory Check and Replenishment,Conduct inventory checks,02/23/2024,09:00,11:00,3
 1,Inventory Check and Replenishment,Conduct inventory checks,02/21/2024,09:00,11:00,3
 2,Inventory Check and Replenishment,Conduct inventory checks,02/20/2024,09:00,11:00,3
 3,First aid and safety training,Mandatory training,02/07/2024,08:00,16:00,3
+7,Lunch break,Break,02/07/2024,12:00,13:00,3
 4,First aid and safety training,Mandatory training,02/06/2024,08:00,16:00,2
 5,First aid and safety training,Mandatory training,02/06/2024,08:00,16:00,1
-6,Inventory Check and Replenishment,Conduct inventory checks,02/23/2024,09:00,11:00,3
-7,Lunch break,Break,02/07/2024,12:00,13:00,3
 8,Lunch break,Break,02/06/2024,12:00,13:00,3
 9,Order Processing and Fulfillment,Process incoming orders,02/06/2024,13:00,16:00,3
 10,Summary meeting,Review today's meeting,02/06/2024,16:00,17:00,3
@@ -19,7 +19,6 @@ calendarEventId,calendarEventName,calendarEventDescription,calendarEventDate,cal
 18,Webinar,Working from home,02/02/2024,08:00,09:00,4
 19,Webinar,Working from home,02/02/2024,08:00,09:00,1
 20,Webinar,Online,02/02/2024,08:00,16:00,2
-21,Meeting regarding OPP/23/11/000123,Prepare for next day,02/02/2024,08:00,12:00,3
 22,Lunch break,Break,02/02/2024,12:00,13:00,3
 23,Summarize meeting,OPP/23/11/000123,02/02/2024,13:00,16:00,3
 24,Full-day online training,Webinar,02/01/2024,08:00,16:00,3
