@@ -13,29 +13,35 @@
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.WorkModeToUserID)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.WorkModeName)
-            </th>
-            <th>
                 @Html.DisplayNameFor(model => model.UserID)
             </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DateOfWorkmode)
+            </th>
+          @*   <th>
+                @Html.DisplayNameFor(model => model.WorkModeToUserID)
+            </th> *@
+            <th>
+                @Html.DisplayNameFor(model => model.WorkModeName)
+            </th>         
             <th></th>
         </tr>
     </thead>
     <tbody>
 @foreach (var item in Model) {
         <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.UserID)
+                </td>
             <td>
+                    @Html.DisplayFor(modelItem => item.DateOfWorkmode)
+                </td>
+            @* <td>
                 @Html.DisplayFor(modelItem => item.WorkModeToUserID)
-            </td>
+            </td> *@
             <td>
                 @Html.DisplayFor(modelItem => item.WorkModeName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.UserID)
-            </td>
+            </td>    
 @*             <td>
                 @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
                 @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
