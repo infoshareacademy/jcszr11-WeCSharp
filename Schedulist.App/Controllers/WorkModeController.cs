@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Schedulist.App.Helper;
 using Schedulist.App.Models;
 using Schedulist.App.Models.Domain_Models;
+using Schedulist.App.Models.Enum;
 using Schedulist.App.Services;
 using Schedulist.DAL;
 using System.Diagnostics;
@@ -19,7 +20,7 @@ namespace Schedulist.App.Controllers
         {
             _repository = repository;
         }
-        
+
         // GET: WorkModeController
         [Route("WorkModesToUser")]
         public ActionResult Index()
@@ -28,12 +29,48 @@ namespace Schedulist.App.Controllers
             return View(workmode);
         }
 
-        // GET: WorkModeController/Details/5
-        public IActionResult Details(int id)
+        [HttpPost]
+        public ActionResult Delete(int id)
         {
-            var workmode = _repository.GetAllWorkModes()[id];
-            return View(workmode);
+            try
+            {
+                if (!ModelState.IsValid)
+                {
+                    return View(id);
+                }
+                WorkModeService workModeService = new WorkModeService();
+                workModeService.Delete(id);
+                Debug.WriteLine("Removed Work Mode!");
+                PopupNotification("Work mode has been successfully deleted");
+                return RedirectToAction(nameof(Index));
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine($"Exception occurred: {ex.Message}");
+                PopupNotification("Error occurred while deleting calendar event", notificationType: NotificationType.error);
+                return View();
+            }
         }
+        public ActionResult Edit(int id)
+        {
+            //WorkModeService workModeService = new WorkModeService();
+            var model = _workModeService.GetWorkModeById(id);
+            Debug.WriteLine($"Editing Work Mode started!");
+            return View(model);
+        }
+
+        public ActionResult Statistics()
+        {
+            return View();
+        }
+
+        //// GET: WorkModeController/Details/5
+        //public IActionResult Details(int id)
+        //{
+        //    var workmode = _repository.GetAllWorkModes()[id];
+        //    return View(workmode);
+        //}
+
 
         //// GET: WorkModeController/Create
         //public ActionResult Create()
@@ -72,20 +109,14 @@ namespace Schedulist.App.Controllers
         //    {
         //        return View();
         //    }
-            
+
         //    //var model = new WorkModeViewModel();
-            
-            
+
+
         //}
 
         // GET: WorkModeController/Edit/5
-        public ActionResult Edit(int id)
-        {
-            //WorkModeService workModeService = new WorkModeService();
-            var model = _workModeService.GetWorkModeById(id);
-            Debug.WriteLine($"Editing Work Mode started!");
-            return View(model);
-        }
+
 
         // POST: WorkModeController/Edit/5
         //[HttpPost]
@@ -119,40 +150,15 @@ namespace Schedulist.App.Controllers
         //}
 
         // GET: WorkModeController/Delete/5
-        public ActionResult Delete(int id)
-        {
-            //WorkModeService workModeService = new WorkModeService();
-            var model = _workModeService.GetWorkModeById(id);
-            Debug.WriteLine($"Removing Work Mode started!");
-            return View(model);
-        }
+        //public ActionResult Delete(int id)
+        //{
+        //    //WorkModeService workModeService = new WorkModeService();
+        //    var model = _workModeService.GetWorkModeById(id);
+        //    Debug.WriteLine($"Removing Work Mode started!");
+        //    return View(model);
+        //}
 
         // POST: WorkModeController/Delete/5
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Delete(int id, IFormCollection collection)
-        {
-            try
-            {
-                if (!ModelState.IsValid)
-                {
-                    return View(id);
-                }
-                //WorkModeService workModeService = new WorkModeService();
-                _workModeService.Delete(id);
-                Debug.WriteLine("Removed Work Mode!");
-                TempData["Success"] = "Work Mode has been removed successfully!";
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
-        }
 
-        public ActionResult Statistics()
-        {
-            return View();
-        }
     }
 }

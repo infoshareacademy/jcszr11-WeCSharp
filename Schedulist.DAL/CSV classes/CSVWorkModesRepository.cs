@@ -24,7 +24,7 @@ namespace Schedulist.DAL
             var csvConfig = CsvConfiguration();
             using var reader = new StreamReader(FilePath);
             using var csv = new CsvReader(reader, csvConfig);
-            ListOfWorkModes = csv.GetRecords<WorkModesToUser>().ToList();
+            ListOfWorkModes = csv.GetRecords<WorkModesToUser>().OrderBy(c => c.UserID).ThenBy(c => c.DateOfWorkmode).ToList();
             return ListOfWorkModes;
         }
         public void AddWorkModes(WorkModesToUser workModes)
