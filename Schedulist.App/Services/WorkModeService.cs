@@ -1,4 +1,5 @@
-﻿using Schedulist.App.Models;
+﻿using Microsoft.AspNetCore.Http.HttpResults;
+using Schedulist.App.Models;
 using Schedulist.DAL;
 
 namespace Schedulist.App.Services
@@ -22,11 +23,10 @@ namespace Schedulist.App.Services
             return workModes;
         }
 
-        public int Delete (int id)
+        public void Delete (int id)
         {
             CSVWorkModesRepository repository = new CSVWorkModesRepository("..\\Schedulist\\WorkModes.csv");
             repository.DeleteWorkModes(id);
-            return id;
         }
 
         public WorkModesToUser Edit (WorkModesToUser workModes)
