@@ -14,12 +14,15 @@ namespace Schedulist.DAL
         [Name("id")]
         [Display(Name = "Work Mode ID")]
         public int WorkModeToUserID { get; set; }
+
         [Name("name")]
         [Display(Name = "Work Mode Name")]
         public string WorkModeName { get; set; }
+
         [Name("userid")]
         [Display(Name = "User ID")]
         public int UserID { get; set; }
+
         [Name("dow")]
         [Display(Name = "Date")]
         [DataType(DataType.Date)]
