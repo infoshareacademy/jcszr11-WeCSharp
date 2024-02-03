@@ -33,7 +33,7 @@
             <div class="col-1  row-title row-text text-center standard-border">
                 @Html.DisplayNameFor(model => model.CalendarEvents.FirstOrDefault().CalendarEventEndTime)
             </div>
-            <div style="width: 80px;"></div>
+            <div class="btn-edit-delete"></div>
         </div>
     </div>
     @foreach (CalendarEvent calendarEvent in @Model.CalendarEvents)
@@ -59,7 +59,7 @@
                     </button> *@
                     <button class="btn btn-primary btn-edit-delete" onclick="DeleteCalendarEvent('@Url.Action("Delete", "CalendarEvent")?id=@calendarEvent.CalendarEventId','@calendarEvent.CalendarEventName','@calendarEvent.CalendarEventDescription',
                     '@calendarEvent.CalendarEventDate','@calendarEvent.CalendarEventStartTime','@calendarEvent.CalendarEventEndTime','@calendarEvent.AssignedToUser')">
-                        D
+                        Delete
                     </button>
                 </div>
             </div>
