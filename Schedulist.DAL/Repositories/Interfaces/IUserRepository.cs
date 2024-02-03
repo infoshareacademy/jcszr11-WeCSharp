@@ -9,9 +9,9 @@ namespace Schedulist.DAL.Repositories.Interfaces
 {
     public interface IUserRepository
     {
-        List<User> GetAllUsers();
-        void AddUser(User user, int? ID);
-        void ModifyUser(string userToModifyLogin, User modifiedUser);
-        void DeleteUser(User userToDelete);
+        //List<User> GetAllUsers();
+        //void AddUser(User user, int? ID);
+        //void ModifyUser(string userToModifyLogin, User modifiedUser);
+        //void DeleteUser(User userToDelete);
     }
 }

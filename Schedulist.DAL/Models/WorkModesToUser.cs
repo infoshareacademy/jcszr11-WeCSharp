@@ -1,5 +1,4 @@
 ﻿using CsvHelper.Configuration.Attributes;
-using Schedulist.DAL.Models;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -7,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Schedulist.DAL
+namespace Schedulist.DAL.Models
 {
     public class WorkModesToUser
     {

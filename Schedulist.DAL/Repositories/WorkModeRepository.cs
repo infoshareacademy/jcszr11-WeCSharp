@@ -4,16 +4,16 @@ using System.Linq;
 using System.Security.AccessControl;
 using System.Text;
 using System.Threading.Tasks;
+using Microsoft.Extensions.Logging;
+using Schedulist.DAL.Models;
 using Schedulist.DAL.Repositories.Interfaces;
 
 namespace Schedulist.DAL.Repositories
 {
-    public class WorkModeRepository : IWorkModesRepository
+    public class WorkModeRepository : BaseRepository, IWorkModesRepository
     {
-        private readonly DBContact _db;
-        public WorkModeRepository(DBContact db)
+        public WorkModeRepository(DBContact db, ILogger<BaseRepository> logger) : base(db, logger)
         {
-            _db = db;
         }
         public void AddWorkModes(WorkModesToUser workMode)
         {

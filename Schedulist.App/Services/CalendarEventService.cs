@@ -1,5 +1,6 @@
 ﻿//using Schedulist.Business.Actions;
 using Schedulist.DAL;
+using Schedulist.DAL.Models;
 using System.ComponentModel.DataAnnotations;
 
 namespace Schedulist.App.Services

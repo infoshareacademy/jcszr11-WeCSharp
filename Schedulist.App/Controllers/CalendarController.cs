@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Schedulist.App.Models;
 using Schedulist.App.Services;
 using Schedulist.DAL;
+using Schedulist.DAL.Models;
 using Schedulist.DAL.Repositories.Interfaces;
 using System.ComponentModel.DataAnnotations;
 using System.Diagnostics;
@@ -13,7 +14,7 @@ namespace Schedulist.App.Controllers
     public class CalendarController : ControlerBase
     {
         private User _user;
-        private MonthViewModel _calendarParams;
+        private MonthViewModel _mounthViewModel;
         private readonly IWorkModesRepository _workModesRepository;
         public CalendarController(ILogger<CalendarController> logger, User user, IWorkModesRepository workModesRepository) : base(logger)
         {
@@ -29,9 +30,9 @@ namespace Schedulist.App.Controllers
             {
                 if (calendarEvent.AssignedToUser == _user.Id && calendarEvent.CalendarEventDate.Month == DateTime.Now.Month) calendarEventsToDraw.Add(calendarEvent);
             }
-            _calendarParams = new MonthViewModel(calendarEventsToDraw);
-            Debug.WriteLine($"Drawing calendar for: {_calendarParams.CurrentDate:y}");
-            return View(_calendarParams);
+            _mounthViewModel = new MonthViewModel(calendarEventsToDraw);
+            Debug.WriteLine($"Drawing calendar for: {_mounthViewModel.CurrentDate:y}");
+            return View(_mounthViewModel);
         }
 
         public IActionResult PreviousMonth(DateTime date)
@@ -42,9 +43,9 @@ namespace Schedulist.App.Controllers
             {
                 if (calendarEvent.AssignedToUser == _user.Id && calendarEvent.CalendarEventDate.Month == date.AddMonths(-1).Month) calendarEventsToDraw.Add(calendarEvent);
             }
-            _calendarParams = new MonthViewModel(date.AddMonths(-1), calendarEventsToDraw);
-            Debug.WriteLine($"Drawing calendar for: {_calendarParams.CurrentDate:y}");
-            return View("Index", _calendarParams);
+            _mounthViewModel = new MonthViewModel(date.AddMonths(-1), calendarEventsToDraw);
+            Debug.WriteLine($"Drawing calendar for: {_mounthViewModel.CurrentDate:y}");
+            return View("Index", _mounthViewModel);
         }
         public IActionResult NextMonth(DateTime date)
         {
@@ -54,9 +55,9 @@ namespace Schedulist.App.Controllers
             {
                 if (calendarEvent.AssignedToUser == _user.Id && calendarEvent.CalendarEventDate.Month == date.AddMonths(1).Month) calendarEventsToDraw.Add(calendarEvent);
             }
-            _calendarParams = new MonthViewModel(date.AddMonths(1), calendarEventsToDraw);
-            Debug.WriteLine($"Drawing calendar for: {_calendarParams.CurrentDate:y}");
-            return View("Index", _calendarParams);
+            _mounthViewModel = new MonthViewModel(date.AddMonths(1), calendarEventsToDraw);
+            Debug.WriteLine($"Drawing calendar for: {_mounthViewModel.CurrentDate:y}");
+            return View("Index", _mounthViewModel);
         }
 
         public IActionResult Day(DateTime date)

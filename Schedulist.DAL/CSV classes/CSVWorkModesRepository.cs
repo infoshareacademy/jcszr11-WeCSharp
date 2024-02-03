@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using CsvHelper.Configuration.Attributes;
 using Schedulist.DAL.Repositories.Interfaces;
+using Schedulist.DAL.Models;
 
 namespace Schedulist.DAL
 {

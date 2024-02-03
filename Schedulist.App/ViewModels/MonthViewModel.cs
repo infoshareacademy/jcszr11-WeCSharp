@@ -1,4 +1,4 @@
-﻿using Schedulist.DAL;
+﻿using Schedulist.DAL.Models;
 
 namespace Schedulist.App.Models
 {

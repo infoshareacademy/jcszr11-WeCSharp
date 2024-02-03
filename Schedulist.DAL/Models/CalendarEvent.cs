@@ -6,7 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using CsvHelper.Configuration.Attributes;
 
-namespace Schedulist.DAL
+namespace Schedulist.DAL.Models
 {
     public class CalendarEvent : IValidatableObject
     {
@@ -66,7 +66,7 @@ namespace Schedulist.DAL
             {
                 yield return new ValidationResult("End Time cannot be earlier or the same time as Start Time of Calendar Event!", new[] { "CalendarEventEndTime" });
             }
-           
+
         }
     }
 }

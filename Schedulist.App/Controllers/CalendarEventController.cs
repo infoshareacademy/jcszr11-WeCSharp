@@ -1,10 +1,8 @@
-﻿using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
-using Schedulist.App.Models;
+﻿using Microsoft.AspNetCore.Mvc;
 using Schedulist.App.Models.Enum;
 using Schedulist.App.Services;
-using Schedulist.Business;
 using Schedulist.DAL;
+using Schedulist.DAL.Models;
 using System.Diagnostics;
 using System.Linq;
 using static System.Runtime.InteropServices.JavaScript.JSType;
