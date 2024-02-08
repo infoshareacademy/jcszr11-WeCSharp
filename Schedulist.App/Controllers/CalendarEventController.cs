@@ -4,8 +4,6 @@ using Schedulist.App.Services;
 using Schedulist.DAL;
 using Schedulist.DAL.Models;
 using System.Diagnostics;
-using System.Linq;
-using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace Schedulist.App.Controllers
 {

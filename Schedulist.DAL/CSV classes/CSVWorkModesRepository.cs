@@ -15,34 +15,34 @@ namespace Schedulist.DAL
     public class CSVWorkModesRepository : IWorkModesRepository
     {
         private readonly string FilePath;
-        public List<WorkModesToUser> ListOfWorkModes;
+        public List<WorkModesForUser> ListOfWorkModes;
         
         public CSVWorkModesRepository(string filePath)
         {
             FilePath=filePath;
         }
-        public List<WorkModesToUser> GetAllWorkModes()
+        public List<WorkModesForUser> GetAllWorkModes()
         {
             var csvConfig = CsvConfiguration();
             using var reader = new StreamReader(FilePath);
             using var csv = new CsvReader(reader, csvConfig);
-            ListOfWorkModes = csv.GetRecords<WorkModesToUser>().ToList();
+            ListOfWorkModes = csv.GetRecords<WorkModesForUser>().ToList();
             return ListOfWorkModes;
         }
-        public void AddWorkModes(WorkModesToUser workModes)
+        public void AddWorkModes(WorkModesForUser workModes)
         {
             var csvConfig = CsvConfiguration();
             ListOfWorkModes = GetAllWorkModes();
 
-            int nextWorkmodeToUserId = (int)(ListOfWorkModes.Count > 0 ? ListOfWorkModes.Max(w => w.WorkModeToUserID) + 1 : 1);
+            int nextWorkmodeToUserId = (int)(ListOfWorkModes.Count > 0 ? ListOfWorkModes.Max(w => w.Id) + 1 : 1);
                         
-            workModes.WorkModeToUserID = nextWorkmodeToUserId;
+            workModes.Id = nextWorkmodeToUserId;
             try
             {
                 ListOfWorkModes.Add(workModes);
                 using StreamWriter writer = new(FilePath);
                 using var csv = new CsvWriter(writer, csvConfig);
-                csv.WriteHeader<WorkModesToUser>();
+                csv.WriteHeader<WorkModesForUser>();
                 csv.NextRecord();
                 csv.WriteRecords(ListOfWorkModes);
                 //Console.Clear();
@@ -54,14 +54,14 @@ namespace Schedulist.DAL
             }
         }
         
-        public void ModifyWorkModes(int workModeToUserID, WorkModesToUser workModesToModify)
+        public void ModifyWorkModes(int workModeToUserID, WorkModesForUser workModesToModify)
         {
             var csvConfig = CsvConfiguration();
             ListOfWorkModes = GetAllWorkModes();
             
-            if(ListOfWorkModes.Any(w=>w.WorkModeToUserID==workModeToUserID)) 
+            if(ListOfWorkModes.Any(w=>w.Id==workModeToUserID)) 
             {                
-                workModeToUserID = workModesToModify.WorkModeToUserID;
+                workModeToUserID = workModesToModify.Id;
                 int indexToUpdate = workModeToUserID - 1;
                 ListOfWorkModes[indexToUpdate]=workModesToModify;
                 try
@@ -90,9 +90,9 @@ namespace Schedulist.DAL
             var csvConfig = CsvConfiguration();
             ListOfWorkModes = GetAllWorkModes();
             
-            if(ListOfWorkModes.Any(w=>w.WorkModeToUserID==workModesToDeleteID))
+            if(ListOfWorkModes.Any(w=>w.Id==workModesToDeleteID))
             {
-                var removeWorkMode = ListOfWorkModes.FirstOrDefault(w=>w.WorkModeToUserID==workModesToDeleteID);
+                var removeWorkMode = ListOfWorkModes.FirstOrDefault(w=>w.Id==workModesToDeleteID);
                 ListOfWorkModes.Remove(removeWorkMode);
                 try
                 {
@@ -111,10 +111,10 @@ namespace Schedulist.DAL
             }
         }
         
-        public WorkModesToUser? GetWorkModeByUserAndDate (int? idUser, DateOnly dateWorkMode)
+        public WorkModesForUser? GetWorkModeByUserAndDate (int? idUser, DateOnly dateWorkMode)
         {
             ListOfWorkModes = GetAllWorkModes();
-            var workModesReturn = ListOfWorkModes.FirstOrDefault(u=>u.UserID==idUser && u.DateOfWorkMode==dateWorkMode);
+            var workModesReturn = ListOfWorkModes.FirstOrDefault(u=>u.UserId==idUser && u.DateOfWorkMode==dateWorkMode);
             return workModesReturn;
         }
         private static CsvConfiguration CsvConfiguration()
@@ -127,7 +127,7 @@ namespace Schedulist.DAL
             return csvConfig;
         }
 
-        public WorkModesToUser GetWorkModeByUserAndDate(int idUser, DateOnly dateWorkMode)
+        public WorkModesForUser GetWorkModeByUserAndDate(int idUser, DateOnly dateWorkMode)
         {
             throw new NotImplementedException();
         }

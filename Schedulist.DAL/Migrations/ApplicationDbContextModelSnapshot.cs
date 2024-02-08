@@ -224,16 +224,13 @@ namespace WebApplication4.Data.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
-            modelBuilder.Entity("Schedulist.DAL.CalendarEvent", b =>
+            modelBuilder.Entity("Schedulist.DAL.Models.CalendarEvent", b =>
                 {
-                    b.Property<int>("CalendarEventId")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("CalendarEventId"));
-
-                    b.Property<int>("AssignedToUser")
-                        .HasColumnType("int");
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<DateOnly>("CalendarEventDate")
                         .HasColumnType("date");
@@ -255,11 +252,211 @@ namespace WebApplication4.Data.Migrations
                     b.Property<int>("UserId")
                         .HasColumnType("int");
 
-                    b.HasKey("CalendarEventId");
+                    b.HasKey("Id");
 
                     b.HasIndex("UserId");
 
                     b.ToTable("CalendarEvents");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            CalendarEventDate = new DateOnly(2024, 1, 10),
+                            CalendarEventDescription = "Ongoing maintenance tasks in the office",
+                            CalendarEventEndTime = new TimeOnly(9, 30, 0),
+                            CalendarEventName = "Maintenance Work",
+                            CalendarEventStartTime = new TimeOnly(8, 30, 0),
+                            UserId = 0
+                        },
+                        new
+                        {
+                            Id = 2,
+                            CalendarEventDate = new DateOnly(2024, 1, 11),
+                            CalendarEventDescription = "Scheduled office cleaning day",
+                            CalendarEventEndTime = new TimeOnly(10, 30, 0),
+                            CalendarEventName = "Office Cleaning",
+                            CalendarEventStartTime = new TimeOnly(9, 30, 0),
+                            UserId = 0
+                        },
+                        new
+                        {
+                            Id = 3,
+                            CalendarEventDate = new DateOnly(2024, 1, 11),
+                            CalendarEventDescription = "Time for a relaxed atmosphere!",
+                            CalendarEventEndTime = new TimeOnly(11, 30, 0),
+                            CalendarEventName = "Pottering",
+                            CalendarEventStartTime = new TimeOnly(10, 30, 0),
+                            UserId = 0
+                        },
+                        new
+                        {
+                            Id = 4,
+                            CalendarEventDate = new DateOnly(2024, 1, 11),
+                            CalendarEventDescription = "Team project meeting to discuss progress, challenges, and plans for project execution",
+                            CalendarEventEndTime = new TimeOnly(12, 30, 0),
+                            CalendarEventName = "Project Meeting",
+                            CalendarEventStartTime = new TimeOnly(11, 30, 0),
+                            UserId = 0
+                        },
+                        new
+                        {
+                            Id = 5,
+                            CalendarEventDate = new DateOnly(2024, 1, 12),
+                            CalendarEventDescription = "Strategic business meeting covering company development, market strategy, and key decisions",
+                            CalendarEventEndTime = new TimeOnly(13, 30, 0),
+                            CalendarEventName = "Business Meeting",
+                            CalendarEventStartTime = new TimeOnly(12, 30, 0),
+                            UserId = 0
+                        },
+                        new
+                        {
+                            Id = 6,
+                            CalendarEventDate = new DateOnly(2024, 1, 13),
+                            CalendarEventDescription = "Educational workshop aimed at enhancing employee's skills",
+                            CalendarEventEndTime = new TimeOnly(14, 30, 0),
+                            CalendarEventName = "Training Workshop",
+                            CalendarEventStartTime = new TimeOnly(13, 30, 0),
+                            UserId = 0
+                        });
+                });
+
+            modelBuilder.Entity("Schedulist.DAL.Models.Department", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Departments");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Name = "IT"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Name = "Construction"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Name = "Human Resources"
+                        },
+                        new
+                        {
+                            Id = 4,
+                            Name = "Marketing"
+                        },
+                        new
+                        {
+                            Id = 5,
+                            Name = "Production"
+                        },
+                        new
+                        {
+                            Id = 6,
+                            Name = "Finance and Accounting"
+                        },
+                        new
+                        {
+                            Id = 7,
+                            Name = "Customer Service"
+                        },
+                        new
+                        {
+                            Id = 8,
+                            Name = "Administration"
+                        },
+                        new
+                        {
+                            Id = 9,
+                            Name = "Procurement"
+                        },
+                        new
+                        {
+                            Id = 10,
+                            Name = "Sales"
+                        });
+                });
+
+            modelBuilder.Entity("Schedulist.DAL.Models.Position", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Positions");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Name = "Software Developer"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Name = "Constructor"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Name = "Human Resources Manager"
+                        },
+                        new
+                        {
+                            Id = 4,
+                            Name = "Marketing Manager"
+                        },
+                        new
+                        {
+                            Id = 5,
+                            Name = "CNC Operator"
+                        },
+                        new
+                        {
+                            Id = 6,
+                            Name = "Financial Controller"
+                        },
+                        new
+                        {
+                            Id = 7,
+                            Name = "Customer Service Supporter"
+                        },
+                        new
+                        {
+                            Id = 8,
+                            Name = "Administrative Assistant"
+                        },
+                        new
+                        {
+                            Id = 9,
+                            Name = "Procurement Specialist"
+                        },
+                        new
+                        {
+                            Id = 10,
+                            Name = "Sales Representative"
+                        });
                 });
 
             modelBuilder.Entity("Schedulist.DAL.Models.WorkMode", b =>
@@ -311,13 +508,83 @@ namespace WebApplication4.Data.Migrations
                         });
                 });
 
-            modelBuilder.Entity("Schedulist.DAL.User", b =>
+            modelBuilder.Entity("Schedulist.DAL.Models.WorkModesForUser", b =>
                 {
-                    b.Property<int?>("Id")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int?>("Id"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<DateOnly>("DateOfWorkMode")
+                        .HasColumnType("date");
+
+                    b.Property<int>("UserId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("WorkModeId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("UserId");
+
+                    b.HasIndex("WorkModeId");
+
+                    b.ToTable("WorkModesToUsers");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            DateOfWorkMode = new DateOnly(2024, 1, 10),
+                            UserId = 0,
+                            WorkModeId = 0
+                        },
+                        new
+                        {
+                            Id = 2,
+                            DateOfWorkMode = new DateOnly(2024, 1, 10),
+                            UserId = 0,
+                            WorkModeId = 0
+                        },
+                        new
+                        {
+                            Id = 3,
+                            DateOfWorkMode = new DateOnly(2024, 1, 11),
+                            UserId = 0,
+                            WorkModeId = 0
+                        },
+                        new
+                        {
+                            Id = 4,
+                            DateOfWorkMode = new DateOnly(2024, 1, 12),
+                            UserId = 0,
+                            WorkModeId = 0
+                        },
+                        new
+                        {
+                            Id = 5,
+                            DateOfWorkMode = new DateOnly(2024, 1, 13),
+                            UserId = 0,
+                            WorkModeId = 0
+                        },
+                        new
+                        {
+                            Id = 6,
+                            DateOfWorkMode = new DateOnly(2024, 1, 14),
+                            UserId = 0,
+                            WorkModeId = 0
+                        });
+                });
+
+            modelBuilder.Entity("Schedulist.DAL.User", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<bool>("AdminPrivilege")
                         .HasColumnType("bit");
@@ -349,32 +616,74 @@ namespace WebApplication4.Data.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Users");
-                });
 
-            modelBuilder.Entity("Schedulist.DAL.WorkModesToUser", b =>
-                {
-                    b.Property<int>("WorkModeToUserID")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("WorkModeToUserID"));
-
-                    b.Property<DateOnly>("DateOfWorkMode")
-                        .HasColumnType("date");
-
-                    b.Property<int>("UserID")
-                        .HasColumnType("int");
-
-                    b.Property<int>("WorkModeId")
-                        .HasColumnType("int");
-
-                    b.HasKey("WorkModeToUserID");
-
-                    b.HasIndex("UserID");
-
-                    b.HasIndex("WorkModeId");
-
-                    b.ToTable("WorkModesToUsers");
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            AdminPrivilege = false,
+                            Department = "A",
+                            Login = "Log1",
+                            Name = "Tomasz",
+                            Password = "Pass1",
+                            Position = "A",
+                            Surname = "Tomaszewicz"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            AdminPrivilege = false,
+                            Department = "A",
+                            Login = "Log2",
+                            Name = "Andrzej",
+                            Password = "Pass2",
+                            Position = "A",
+                            Surname = "Andrzejewski"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            AdminPrivilege = false,
+                            Department = "A",
+                            Login = "Log3",
+                            Name = "Romek",
+                            Password = "Pass2",
+                            Position = "A",
+                            Surname = "Romanowicz"
+                        },
+                        new
+                        {
+                            Id = 4,
+                            AdminPrivilege = true,
+                            Department = "A",
+                            Login = "Log4",
+                            Name = "Zbigniew",
+                            Password = "Pass3",
+                            Position = "A",
+                            Surname = "Zero"
+                        },
+                        new
+                        {
+                            Id = 5,
+                            AdminPrivilege = false,
+                            Department = "A",
+                            Login = "Log5",
+                            Name = "Jordan",
+                            Password = "Pass4",
+                            Position = "A",
+                            Surname = "Michael"
+                        },
+                        new
+                        {
+                            Id = 6,
+                            AdminPrivilege = false,
+                            Department = "A",
+                            Login = "Log6",
+                            Name = "Marta",
+                            Password = "Pass5",
+                            Position = "A",
+                            Surname = "Debowska"
+                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -428,7 +737,7 @@ namespace WebApplication4.Data.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("Schedulist.DAL.CalendarEvent", b =>
+            modelBuilder.Entity("Schedulist.DAL.Models.CalendarEvent", b =>
                 {
                     b.HasOne("Schedulist.DAL.User", "User")
                         .WithMany("CalendarEvents")
@@ -439,11 +748,11 @@ namespace WebApplication4.Data.Migrations
                     b.Navigation("User");
                 });
 
-            modelBuilder.Entity("Schedulist.DAL.WorkModesToUser", b =>
+            modelBuilder.Entity("Schedulist.DAL.Models.WorkModesForUser", b =>
                 {
                     b.HasOne("Schedulist.DAL.User", "User")
-                        .WithMany()
-                        .HasForeignKey("UserID")
+                        .WithMany("WorkModesForUser")
+                        .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -461,6 +770,8 @@ namespace WebApplication4.Data.Migrations
             modelBuilder.Entity("Schedulist.DAL.User", b =>
                 {
                     b.Navigation("CalendarEvents");
+
+                    b.Navigation("WorkModesForUser");
                 });
 #pragma warning restore 612, 618
         }

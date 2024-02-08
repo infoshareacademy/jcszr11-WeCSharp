@@ -13,7 +13,7 @@ namespace Schedulist.App.Services
             CsvCalendarEventRepository repository = new CsvCalendarEventRepository("..\\Schedulist\\CalendarEvents.csv");
             var calendarEvents = repository.GetAllCalendarEvents();
             var calendarEventsById = calendarEvents
-                .FirstOrDefault(c => c.CalendarEventId == id);
+                .FirstOrDefault(c => c.Id == id);
             return calendarEventsById;
         }
         public CalendarEvent Create(CalendarEvent calendarEvent)
@@ -33,7 +33,7 @@ namespace Schedulist.App.Services
         {
             CsvCalendarEventRepository repository = new CsvCalendarEventRepository("..\\Schedulist\\CalendarEvents.csv");
 
-            var newCalendarEvent = GetCalendarEventById(calendarEvent.CalendarEventId);
+            var newCalendarEvent = GetCalendarEventById(calendarEvent.Id);
 
             newCalendarEvent.CalendarEventDate = calendarEvent.CalendarEventDate;
             newCalendarEvent.CalendarEventDescription = calendarEvent.CalendarEventDescription;
@@ -49,7 +49,7 @@ namespace Schedulist.App.Services
         {
             CsvCalendarEventRepository repository = new CsvCalendarEventRepository("..\\Schedulist\\CalendarEvents.csv");
             var allCalendarEvents = repository.GetAllCalendarEvents();
-            var providedStartTime = allCalendarEvents.FirstOrDefault(c => c.AssignedToUser == userId &&
+            var providedStartTime = allCalendarEvents.FirstOrDefault(c => c.UserId == userId &&
                                          c.CalendarEventDate == calendarEventDate && ((calendarEventStartTime > c.CalendarEventStartTime && calendarEventStartTime < c.CalendarEventEndTime) || (c.CalendarEventStartTime > calendarEventStartTime && c.CalendarEventStartTime < calendarEventEndTime)));
 
             if (providedStartTime != null)

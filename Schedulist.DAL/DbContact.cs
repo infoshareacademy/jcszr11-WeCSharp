@@ -16,10 +16,12 @@ namespace Schedulist.DAL
         public DBContact(DbContextOptions<DBContact> options) : base(options) { }
 
 
-        public DbSet<WorkModesToUser> WorkModesToUsers { get; set; }
+        public DbSet<WorkModesForUser> WorkModesToUsers { get; set; }
         public DbSet<CalendarEvent> CalendarEvents { get; set; }
         public DbSet<User> Users { get; set; }
         public DbSet<WorkMode> WorkModes { get; set; }
+        public DbSet<Department> Departments { get; set; }
+        public DbSet<Position> Positions { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
@@ -33,26 +35,59 @@ namespace Schedulist.DAL
                 new WorkMode() { Id = 6, Name = "Others" }
             );
             base.OnModelCreating(builder);
+            builder.Entity<WorkModesForUser>().HasData(
+                new WorkModesForUser() { Id = 1, DateOfWorkMode = new DateOnly(2024, 01, 10) },
+                new WorkModesForUser() { Id = 2, DateOfWorkMode = new DateOnly(2024, 01, 10) },
+                new WorkModesForUser() { Id = 3, DateOfWorkMode = new DateOnly(2024, 01, 11) },
+                new WorkModesForUser() { Id = 4, DateOfWorkMode = new DateOnly(2024, 01, 12) },
+                new WorkModesForUser() { Id = 5, DateOfWorkMode = new DateOnly(2024, 01, 13) },
+                new WorkModesForUser() { Id = 6, DateOfWorkMode = new DateOnly(2024, 01, 14) }
+            );
+
+            base.OnModelCreating(builder);
+            builder.Entity<Department>().HasData(
+                new Department() { Id = 1, Name = "IT" },
+                new Department() { Id = 2, Name = "Construction" },
+                new Department() { Id = 3, Name = "Human Resources" },
+                new Department() { Id = 4, Name = "Marketing" },
+                new Department() { Id = 5, Name = "Production" },
+                new Department() { Id = 6, Name = "Finance and Accounting" },
+                new Department() { Id = 7, Name = "Customer Service" },
+                new Department() { Id = 8, Name = "Administration" },
+                new Department() { Id = 9, Name = "Procurement" },
+                new Department() { Id = 10, Name = "Sales" }
+            );
+            base.OnModelCreating(builder);
+            builder.Entity<Position>().HasData(
+                new Position() { Id = 1, Name = "Software Developer" },
+                new Position() { Id = 2, Name = "Constructor" },
+                new Position() { Id = 3, Name = "Human Resources Manager" },
+                new Position() { Id = 4, Name = "Marketing Manager" },
+                new Position() { Id = 5, Name = "CNC Operator" },
+                new Position() { Id = 6, Name = "Financial Controller" },
+                new Position() { Id = 7, Name = "Customer Service Supporter" },
+                new Position() { Id = 8, Name = "Administrative Assistant" },
+                new Position() { Id = 9, Name = "Procurement Specialist" },
+                new Position() { Id = 10, Name = "Sales Representative" }
+            );
+            base.OnModelCreating(builder);
             builder.Entity<CalendarEvent>().HasData(
-                new CalendarEvent() { CalendarEventId = 1, CalendarEventName = "Maintenance Work", CalendarEventDescription = "Ongoing maintenance tasks in the office", CalendarEventDate = new DateOnly(2024, 01, 10), CalendarEventStartTime = new TimeOnly(08, 30), CalendarEventEndTime = new TimeOnly(09, 30) },
-                new CalendarEvent() { CalendarEventId = 2, CalendarEventName = "Office Cleaning", CalendarEventDescription = "Scheduled office cleaning day", CalendarEventDate = new DateOnly(2024, 01, 11), CalendarEventStartTime = new TimeOnly(09, 30), CalendarEventEndTime = new TimeOnly(10, 30) },
-                new CalendarEvent() { CalendarEventId = 3, CalendarEventName = "Pottering", CalendarEventDescription = "Time for a relaxed atmosphere!", CalendarEventDate = new DateOnly(2024, 01, 11), CalendarEventStartTime = new TimeOnly(10, 30), CalendarEventEndTime = new TimeOnly(11, 30) },
-                new CalendarEvent() { CalendarEventId = 4, CalendarEventName = "Project Meeting", CalendarEventDescription = "Team project meeting to discuss progress, challenges, and plans for project execution", CalendarEventDate = new DateOnly(2024, 01, 11), CalendarEventStartTime = new TimeOnly(11, 30), CalendarEventEndTime = new TimeOnly(12, 30) },
-                new CalendarEvent() { CalendarEventId = 5, CalendarEventName = "Business Meeting", CalendarEventDescription = "Strategic business meeting covering company development, market strategy, and key decisions", CalendarEventDate = new DateOnly(2024, 01, 12), CalendarEventStartTime = new TimeOnly(12, 30), CalendarEventEndTime = new TimeOnly(13, 30) },
-                new CalendarEvent() { CalendarEventId = 6, CalendarEventName = "Training Workshop", CalendarEventDescription = "Educational workshop aimed at enhancing employee's skills", CalendarEventDate = new DateOnly(2024, 01, 13), CalendarEventStartTime = new TimeOnly(13, 30), CalendarEventEndTime = new TimeOnly(14, 30) }
+                new CalendarEvent() { Id = 1, CalendarEventName = "Maintenance Work", CalendarEventDescription = "Ongoing maintenance tasks in the office", CalendarEventDate = new DateOnly(2024, 01, 10), CalendarEventStartTime = new TimeOnly(08, 30), CalendarEventEndTime = new TimeOnly(09, 30) },
+                new CalendarEvent() { Id = 2, CalendarEventName = "Office Cleaning", CalendarEventDescription = "Scheduled office cleaning day", CalendarEventDate = new DateOnly(2024, 01, 11), CalendarEventStartTime = new TimeOnly(09, 30), CalendarEventEndTime = new TimeOnly(10, 30) },
+                new CalendarEvent() { Id = 3, CalendarEventName = "Pottering", CalendarEventDescription = "Time for a relaxed atmosphere!", CalendarEventDate = new DateOnly(2024, 01, 11), CalendarEventStartTime = new TimeOnly(10, 30), CalendarEventEndTime = new TimeOnly(11, 30) },
+                new CalendarEvent() { Id = 4, CalendarEventName = "Project Meeting", CalendarEventDescription = "Team project meeting to discuss progress, challenges, and plans for project execution", CalendarEventDate = new DateOnly(2024, 01, 11), CalendarEventStartTime = new TimeOnly(11, 30), CalendarEventEndTime = new TimeOnly(12, 30) },
+                new CalendarEvent() { Id = 5, CalendarEventName = "Business Meeting", CalendarEventDescription = "Strategic business meeting covering company development, market strategy, and key decisions", CalendarEventDate = new DateOnly(2024, 01, 12), CalendarEventStartTime = new TimeOnly(12, 30), CalendarEventEndTime = new TimeOnly(13, 30) },
+                new CalendarEvent() { Id = 6, CalendarEventName = "Training Workshop", CalendarEventDescription = "Educational workshop aimed at enhancing employee's skills", CalendarEventDate = new DateOnly(2024, 01, 13), CalendarEventStartTime = new TimeOnly(13, 30), CalendarEventEndTime = new TimeOnly(14, 30) }
             );
             base.OnModelCreating(builder);
             builder.Entity<User>().HasData(
-                new User() { Id = 1, Name = "Tomasz", Surname = "Tomaszewicz", Position = "Driver", Department = "Logistics", Login = "Log1", Password = "Pass1", AdminPrivilege = false},
-                new User() { Id = 2, Name = "Andrzej", Surname = "Andrzejewski", Position = "Sales Manager", Department = "Global Services", Login = "Log2", Password = "Pass2", AdminPrivilege = false },
-                new User() { Id = 3, Name = "Romek", Surname = "Romanowicz", Position = "Delivery Manager", Department = "Logistics", Login = "Log3", Password = "Pass2", AdminPrivilege = false },
-                new User() { Id = 4, Name = "Zbigniew", Surname = "Zero", Position = "CEO", Department = "Head", Login = "Log4", Password = "Pass3", AdminPrivilege = true },
-                new User() { Id = 5, Name = "Jordan", Surname = "Michael", Position = "Tester", Department = "IT", Login = "Log5", Password = "Pass4", AdminPrivilege = false },
-                new User() { Id = 6, Name = "Marta", Surname = "Debowska", Position = "Supporter", Department = "IT", Login = "Log6", Password = "Pass5", AdminPrivilege = false }
+                new User() { Id = 1, Name = "Tomasz", Surname = "Tomaszewicz", Login = "Log1", Password = "Pass1", AdminPrivilege = false},
+                new User() { Id = 2, Name = "Andrzej", Surname = "Andrzejewski", Login = "Log2", Password = "Pass2", AdminPrivilege = false },
+                new User() { Id = 3, Name = "Romek", Surname = "Romanowicz", Login = "Log3", Password = "Pass2", AdminPrivilege = false },
+                new User() { Id = 4, Name = "Zbigniew", Surname = "Zero", Login = "Log4", Password = "Pass3", AdminPrivilege = true },
+                new User() { Id = 5, Name = "Jordan", Surname = "Michael", Login = "Log5", Password = "Pass4", AdminPrivilege = false },
+                new User() { Id = 6, Name = "Marta", Surname = "Debowska", Login = "Log6", Password = "Pass5", AdminPrivilege = false }
             );
-            // Customize the ASP.NET Identity model and override the defaults if needed.
-            // For example, you can rename the ASP.NET Identity table names and more.
-            // Add your customizations after calling base.OnModelCreating(builder);
         }
     }
 

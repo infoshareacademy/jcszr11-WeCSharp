@@ -28,7 +28,7 @@ namespace Schedulist.App.Controllers
             List<CalendarEvent> calendarEventsToDraw = new List<CalendarEvent>();
             foreach (CalendarEvent calendarEvent in allCalendarEvents)
             {
-                if (calendarEvent.AssignedToUser == _user.Id && calendarEvent.CalendarEventDate.Month == DateTime.Now.Month) calendarEventsToDraw.Add(calendarEvent);
+                if (calendarEvent.UserId == _user.Id && calendarEvent.CalendarEventDate.Month == DateTime.Now.Month) calendarEventsToDraw.Add(calendarEvent);
             }
             _mounthViewModel = new MonthViewModel(calendarEventsToDraw);
             Debug.WriteLine($"Drawing calendar for: {_mounthViewModel.CurrentDate:y}");
@@ -41,7 +41,7 @@ namespace Schedulist.App.Controllers
             List<CalendarEvent> calendarEventsToDraw = new List<CalendarEvent>();
             foreach (CalendarEvent calendarEvent in allCalendarEvents)
             {
-                if (calendarEvent.AssignedToUser == _user.Id && calendarEvent.CalendarEventDate.Month == date.AddMonths(-1).Month) calendarEventsToDraw.Add(calendarEvent);
+                if (calendarEvent.UserId == _user.Id && calendarEvent.CalendarEventDate.Month == date.AddMonths(-1).Month) calendarEventsToDraw.Add(calendarEvent);
             }
             _mounthViewModel = new MonthViewModel(date.AddMonths(-1), calendarEventsToDraw);
             Debug.WriteLine($"Drawing calendar for: {_mounthViewModel.CurrentDate:y}");
@@ -53,7 +53,7 @@ namespace Schedulist.App.Controllers
             List<CalendarEvent> calendarEventsToDraw = new List<CalendarEvent>();
             foreach (CalendarEvent calendarEvent in allCalendarEvents)
             {
-                if (calendarEvent.AssignedToUser == _user.Id && calendarEvent.CalendarEventDate.Month == date.AddMonths(1).Month) calendarEventsToDraw.Add(calendarEvent);
+                if (calendarEvent.UserId == _user.Id && calendarEvent.CalendarEventDate.Month == date.AddMonths(1).Month) calendarEventsToDraw.Add(calendarEvent);
             }
             _mounthViewModel = new MonthViewModel(date.AddMonths(1), calendarEventsToDraw);
             Debug.WriteLine($"Drawing calendar for: {_mounthViewModel.CurrentDate:y}");
@@ -67,7 +67,7 @@ namespace Schedulist.App.Controllers
 
             DateOnly dateOnly = DateOnly.FromDateTime(date);
             //CSVWorkModesRepository _csvWorkModesRepository = new("..\\Schedulist\\WorkModes.csv");
-            WorkModesToUser workMode = _workModesRepository.GetWorkModeByUserAndDate((int)_user.Id, dateOnly);
+            WorkModesForUser workMode = _workModesRepository.GetWorkModeByUserAndDate((int)_user.Id, dateOnly);
             string workModeString;
             if (workMode != null) workModeString = workMode.WorkMode.Name;
             else workModeString = "No work mode";
@@ -75,7 +75,7 @@ namespace Schedulist.App.Controllers
             List<CalendarEvent> calendarEventsToDraw = new List<CalendarEvent>();
             foreach (CalendarEvent calendarEvent in allCalendarEvents)
             {
-                if (calendarEvent.AssignedToUser == _user.Id && calendarEvent.CalendarEventDate == dateOnly) calendarEventsToDraw.Add(calendarEvent);
+                if (calendarEvent.UserId == _user.Id && calendarEvent.CalendarEventDate == dateOnly) calendarEventsToDraw.Add(calendarEvent);
             }
             var vm = new DayViewModel(dateOnly, _user, workModeString, calendarEventsToDraw);
             Debug.WriteLine($"Drawing calendar day for: {dateOnly}");
@@ -86,7 +86,7 @@ namespace Schedulist.App.Controllers
         public ActionResult Create(int id)
         {
             var calendarEvent = new CalendarEvent();
-            calendarEvent.AssignedToUser = id;
+            calendarEvent.UserId = id;
 
             Debug.WriteLine($"Creating Calendar Event started.");
             return View(calendarEvent);
@@ -106,7 +106,7 @@ namespace Schedulist.App.Controllers
 
 
                 CalendarEventService calendarEventService = new CalendarEventService();
-                var validationResult = calendarEventService.CalendarEventStartTimeOverlappingValidation(calendarEvent.CalendarEventDate, calendarEvent.CalendarEventStartTime, calendarEvent.CalendarEventEndTime, calendarEvent.AssignedToUser);
+                var validationResult = calendarEventService.CalendarEventStartTimeOverlappingValidation(calendarEvent.CalendarEventDate, calendarEvent.CalendarEventStartTime, calendarEvent.CalendarEventEndTime, calendarEvent.UserId);
                 if (validationResult != ValidationResult.Success)
                 {
                     ModelState.AddModelError(nameof(calendarEvent.CalendarEventStartTime), validationResult.ErrorMessage);

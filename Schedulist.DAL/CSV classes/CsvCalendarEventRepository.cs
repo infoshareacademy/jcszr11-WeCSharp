@@ -32,8 +32,8 @@ namespace Schedulist.DAL
         {
             var csvConfig = CsvConfiguration();
             calendarEvents = GetAllCalendarEvents();
-            int nextCalendarEventId = calendarEvents.Count > 0 ? calendarEvents.Max(u => u.CalendarEventId) + 1 : 1;
-            calendarEvent.CalendarEventId = nextCalendarEventId;
+            int nextCalendarEventId = calendarEvents.Count > 0 ? calendarEvents.Max(u => u.Id) + 1 : 1;
+            calendarEvent.Id = nextCalendarEventId;
             try
             {
                 calendarEvents.Add(calendarEvent);
@@ -52,7 +52,7 @@ namespace Schedulist.DAL
         {
                 calendarEvents = GetAllCalendarEvents(); 
 
-            var eventToDelete = calendarEvents.FirstOrDefault(e => e.CalendarEventId == calendarEventId);
+            var eventToDelete = calendarEvents.FirstOrDefault(e => e.Id == calendarEventId);
             if (eventToDelete != null)
             {
                 calendarEvents.Remove(eventToDelete);
@@ -80,7 +80,7 @@ namespace Schedulist.DAL
             var csvConfig = CsvConfiguration();
             var calendarEventsList = GetAllCalendarEvents();
 
-            int indexToUpade = calendarEventToModify.CalendarEventId;
+            int indexToUpade = calendarEventToModify.Id;
             calendarEventsList[indexToUpade-1] = calendarEventToModify;
 
                 try

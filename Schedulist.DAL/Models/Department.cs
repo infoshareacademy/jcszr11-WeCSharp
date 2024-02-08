@@ -7,10 +7,11 @@ using System.Threading.Tasks;
 
 namespace Schedulist.DAL.Models
 {
-    public class WorkMode
+    public class Department
     {
         [Key]
         public int Id { get; set; }
         public string Name { get; set; }
+        public User User { get; set; }
     }
 }

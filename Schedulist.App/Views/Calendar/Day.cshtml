@@ -30,7 +30,7 @@
     </div>
     @foreach (CalendarEvent calendarEvent in @Model.CalendarEvents)
     {
-        if (calendarEvent.AssignedToUser == @Model.User.Id && calendarEvent.CalendarEventDate == @Model.Date)
+        if (calendarEvent.UserId == @Model.User.Id && calendarEvent.CalendarEventDate == @Model.Date)
         {
             <div style="display: flex;">
                 <div class="row flex-nowrap row-margin">
@@ -46,10 +46,10 @@
                     <div class="col-1 row-text text-center standard-border">
                         @Html.DisplayFor(modelItem => calendarEvent.CalendarEventEndTime)
                     </div>
-                    <button class="btn btn-primary btn-edit-delete" onclick="location.href='@Url.Action("Edit", "CalendarEvent")/@calendarEvent.CalendarEventId'">
+                    <button class="btn btn-primary btn-edit-delete" onclick="location.href='@Url.Action("Edit", "CalendarEvent")/@calendarEvent.Id'">
                         e
                     </button>
-                    <button class="btn btn-danger btn-edit-delete" onclick="location.href='@Url.Action("Delete", "CalendarEvent")/@calendarEvent.CalendarEventId'">
+                    <button class="btn btn-danger btn-edit-delete" onclick="location.href='@Url.Action("Delete", "CalendarEvent")/@calendarEvent.Id'">
                         d
                     </button>
                 </div>

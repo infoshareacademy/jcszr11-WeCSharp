@@ -15,7 +15,7 @@ namespace Schedulist.DAL.Repositories
         public WorkModeRepository(DBContact db, ILogger<BaseRepository> logger) : base(db, logger)
         {
         }
-        public void AddWorkModes(WorkModesToUser workMode)
+        public void AddWorkModes(WorkModesForUser workMode)
         {
             throw new NotImplementedException();
         }
@@ -25,17 +25,17 @@ namespace Schedulist.DAL.Repositories
             throw new NotImplementedException();
         }
 
-        public List<WorkModesToUser> GetAllWorkModes()
+        public List<WorkModesForUser> GetAllWorkModes()
         {
             throw new NotImplementedException();
         }
 
-        public WorkModesToUser GetWorkModeByUserAndDate(int idUser, DateOnly dateWorkMode)
+        public WorkModesForUser GetWorkModeByUserAndDate(int idUser, DateOnly dateWorkMode)
         {
             throw new NotImplementedException();
         }
 
-        public void ModifyWorkModes(int workModesID, WorkModesToUser workMode)
+        public void ModifyWorkModes(int workModesID, WorkModesForUser workMode)
         {
             throw new NotImplementedException();
         }
