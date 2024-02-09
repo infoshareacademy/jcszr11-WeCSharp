@@ -33,12 +33,17 @@ namespace Schedulist.App
             builder.Services.AddTransient<IWorkModesRepository, WorkModeRepository>();
 
             // todo user
-            //List<User> users = new CsvUserRepository("..\\Schedulist\\Users.csv").GetAllUsers();
+            //List<User> users = new UserRepository(IUserRepository).GetAllUsers();
             //User user = users[2];
             //builder.Services.AddSingleton<User>(user);
             // todo user
 
             var app = builder.Build();
+
+            var userRepository = app.Services.GetRequiredService<IUserRepository>();
+            var user = userRepository.GetUserById(2);
+
+            builder.Services.AddSingleton<User>(user);
 
             // Configure the HTTP request pipeline.
             if (!app.Environment.IsDevelopment())

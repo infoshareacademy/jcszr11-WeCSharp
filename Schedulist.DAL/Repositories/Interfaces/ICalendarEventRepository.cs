@@ -11,5 +11,8 @@ namespace Schedulist.DAL.Repositories.Interfaces
     {
         //List<CalendarEvent> GetAllCalendarEvents();
         //void AddCalendarEvent(CalendarEvent calendarEvent);
+        public List<CalendarEvent> GetAllCalendarEvents();
+        public CalendarEvent GetCalendarEventById(int id);
+
     }
 }

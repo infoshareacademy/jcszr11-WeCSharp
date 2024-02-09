@@ -1,4 +1,5 @@
 ﻿
+using Schedulist.DAL.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,9 +10,11 @@ namespace Schedulist.DAL.Repositories.Interfaces
 {
     public interface IUserRepository
     {
-        //List<User> GetAllUsers();
-        //void AddUser(User user, int? ID);
-        //void ModifyUser(string userToModifyLogin, User modifiedUser);
-        //void DeleteUser(User userToDelete);
+        public List<User> GetAllUsers();
+        public User GetUserById(int id);
+        public bool SaveUser(User user);
+        public bool UpdateUser(User user);
+        public bool DeleteUser(User user);
+
     }
 }
