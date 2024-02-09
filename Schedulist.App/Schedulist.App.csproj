@@ -22,7 +22,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Schedulist.Business\Schedulist.Business.csproj" />
     <ProjectReference Include="..\Schedulist.DAL\Schedulist.DAL.csproj" />
   </ItemGroup>
 

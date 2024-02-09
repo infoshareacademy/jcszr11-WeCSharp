@@ -1,12 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.ComponentModel.DataAnnotations;
 using CsvHelper.Configuration.Attributes;
-using Microsoft.EntityFrameworkCore.Design;
+
 
 namespace Schedulist.DAL.Models
 {

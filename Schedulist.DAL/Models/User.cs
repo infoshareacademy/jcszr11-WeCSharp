@@ -1,6 +1,5 @@
 ﻿using Schedulist.DAL.Models;
 using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Schedulist.DAL
 {

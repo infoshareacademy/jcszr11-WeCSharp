@@ -8,10 +8,10 @@ using Schedulist.DAL;
 
 #nullable disable
 
-namespace WebApplication4.Data.Migrations
+namespace Schedulist.DAL.Migrations
 {
     [DbContext(typeof(DBContact))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    partial class DBContactModelSnapshot : ModelSnapshot
     {
         protected override void BuildModel(ModelBuilder modelBuilder)
         {
@@ -267,7 +267,7 @@ namespace WebApplication4.Data.Migrations
                             CalendarEventEndTime = new TimeOnly(9, 30, 0),
                             CalendarEventName = "Maintenance Work",
                             CalendarEventStartTime = new TimeOnly(8, 30, 0),
-                            UserId = 0
+                            UserId = 2
                         },
                         new
                         {
@@ -277,7 +277,7 @@ namespace WebApplication4.Data.Migrations
                             CalendarEventEndTime = new TimeOnly(10, 30, 0),
                             CalendarEventName = "Office Cleaning",
                             CalendarEventStartTime = new TimeOnly(9, 30, 0),
-                            UserId = 0
+                            UserId = 2
                         },
                         new
                         {
@@ -287,7 +287,7 @@ namespace WebApplication4.Data.Migrations
                             CalendarEventEndTime = new TimeOnly(11, 30, 0),
                             CalendarEventName = "Pottering",
                             CalendarEventStartTime = new TimeOnly(10, 30, 0),
-                            UserId = 0
+                            UserId = 2
                         },
                         new
                         {
@@ -297,7 +297,7 @@ namespace WebApplication4.Data.Migrations
                             CalendarEventEndTime = new TimeOnly(12, 30, 0),
                             CalendarEventName = "Project Meeting",
                             CalendarEventStartTime = new TimeOnly(11, 30, 0),
-                            UserId = 0
+                            UserId = 2
                         },
                         new
                         {
@@ -307,7 +307,7 @@ namespace WebApplication4.Data.Migrations
                             CalendarEventEndTime = new TimeOnly(13, 30, 0),
                             CalendarEventName = "Business Meeting",
                             CalendarEventStartTime = new TimeOnly(12, 30, 0),
-                            UserId = 0
+                            UserId = 2
                         },
                         new
                         {
@@ -317,7 +317,7 @@ namespace WebApplication4.Data.Migrations
                             CalendarEventEndTime = new TimeOnly(14, 30, 0),
                             CalendarEventName = "Training Workshop",
                             CalendarEventStartTime = new TimeOnly(13, 30, 0),
-                            UserId = 0
+                            UserId = 2
                         });
                 });
 
@@ -538,43 +538,43 @@ namespace WebApplication4.Data.Migrations
                         {
                             Id = 1,
                             DateOfWorkMode = new DateOnly(2024, 1, 10),
-                            UserId = 0,
-                            WorkModeId = 0
+                            UserId = 2,
+                            WorkModeId = 1
                         },
                         new
                         {
                             Id = 2,
                             DateOfWorkMode = new DateOnly(2024, 1, 10),
-                            UserId = 0,
-                            WorkModeId = 0
+                            UserId = 2,
+                            WorkModeId = 1
                         },
                         new
                         {
                             Id = 3,
                             DateOfWorkMode = new DateOnly(2024, 1, 11),
-                            UserId = 0,
-                            WorkModeId = 0
+                            UserId = 2,
+                            WorkModeId = 1
                         },
                         new
                         {
                             Id = 4,
                             DateOfWorkMode = new DateOnly(2024, 1, 12),
-                            UserId = 0,
-                            WorkModeId = 0
+                            UserId = 2,
+                            WorkModeId = 1
                         },
                         new
                         {
                             Id = 5,
                             DateOfWorkMode = new DateOnly(2024, 1, 13),
-                            UserId = 0,
-                            WorkModeId = 0
+                            UserId = 2,
+                            WorkModeId = 1
                         },
                         new
                         {
                             Id = 6,
                             DateOfWorkMode = new DateOnly(2024, 1, 14),
-                            UserId = 0,
-                            WorkModeId = 0
+                            UserId = 2,
+                            WorkModeId = 1
                         });
                 });
 
@@ -589,9 +589,8 @@ namespace WebApplication4.Data.Migrations
                     b.Property<bool>("AdminPrivilege")
                         .HasColumnType("bit");
 
-                    b.Property<string>("Department")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int>("DepartmentId")
+                        .HasColumnType("int");
 
                     b.Property<string>("Login")
                         .IsRequired()
@@ -605,15 +604,18 @@ namespace WebApplication4.Data.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Position")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int>("PositionId")
+                        .HasColumnType("int");
 
                     b.Property<string>("Surname")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("DepartmentId");
+
+                    b.HasIndex("PositionId");
 
                     b.ToTable("Users");
 
@@ -622,66 +624,66 @@ namespace WebApplication4.Data.Migrations
                         {
                             Id = 1,
                             AdminPrivilege = false,
-                            Department = "A",
+                            DepartmentId = 1,
                             Login = "Log1",
                             Name = "Tomasz",
                             Password = "Pass1",
-                            Position = "A",
+                            PositionId = 1,
                             Surname = "Tomaszewicz"
                         },
                         new
                         {
                             Id = 2,
                             AdminPrivilege = false,
-                            Department = "A",
+                            DepartmentId = 1,
                             Login = "Log2",
                             Name = "Andrzej",
                             Password = "Pass2",
-                            Position = "A",
+                            PositionId = 1,
                             Surname = "Andrzejewski"
                         },
                         new
                         {
                             Id = 3,
                             AdminPrivilege = false,
-                            Department = "A",
+                            DepartmentId = 1,
                             Login = "Log3",
                             Name = "Romek",
                             Password = "Pass2",
-                            Position = "A",
+                            PositionId = 1,
                             Surname = "Romanowicz"
                         },
                         new
                         {
                             Id = 4,
                             AdminPrivilege = true,
-                            Department = "A",
+                            DepartmentId = 1,
                             Login = "Log4",
                             Name = "Zbigniew",
                             Password = "Pass3",
-                            Position = "A",
+                            PositionId = 1,
                             Surname = "Zero"
                         },
                         new
                         {
                             Id = 5,
                             AdminPrivilege = false,
-                            Department = "A",
+                            DepartmentId = 1,
                             Login = "Log5",
                             Name = "Jordan",
                             Password = "Pass4",
-                            Position = "A",
+                            PositionId = 1,
                             Surname = "Michael"
                         },
                         new
                         {
                             Id = 6,
                             AdminPrivilege = false,
-                            Department = "A",
+                            DepartmentId = 1,
                             Login = "Log6",
                             Name = "Marta",
                             Password = "Pass5",
-                            Position = "A",
+                            PositionId = 1,
                             Surname = "Debowska"
                         });
                 });
@@ -765,6 +767,35 @@ namespace WebApplication4.Data.Migrations
                     b.Navigation("User");
 
                     b.Navigation("WorkMode");
+                });
+
+            modelBuilder.Entity("Schedulist.DAL.User", b =>
+                {
+                    b.HasOne("Schedulist.DAL.Models.Department", "Department")
+                        .WithMany("User")
+                        .HasForeignKey("DepartmentId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Schedulist.DAL.Models.Position", "Position")
+                        .WithMany("User")
+                        .HasForeignKey("PositionId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Department");
+
+                    b.Navigation("Position");
+                });
+
+            modelBuilder.Entity("Schedulist.DAL.Models.Department", b =>
+                {
+                    b.Navigation("User");
+                });
+
+            modelBuilder.Entity("Schedulist.DAL.Models.Position", b =>
+                {
+                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("Schedulist.DAL.User", b =>

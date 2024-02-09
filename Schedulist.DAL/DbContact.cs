@@ -36,12 +36,12 @@ namespace Schedulist.DAL
             );
             base.OnModelCreating(builder);
             builder.Entity<WorkModesForUser>().HasData(
-                new WorkModesForUser() { Id = 1, DateOfWorkMode = new DateOnly(2024, 01, 10) },
-                new WorkModesForUser() { Id = 2, DateOfWorkMode = new DateOnly(2024, 01, 10) },
-                new WorkModesForUser() { Id = 3, DateOfWorkMode = new DateOnly(2024, 01, 11) },
-                new WorkModesForUser() { Id = 4, DateOfWorkMode = new DateOnly(2024, 01, 12) },
-                new WorkModesForUser() { Id = 5, DateOfWorkMode = new DateOnly(2024, 01, 13) },
-                new WorkModesForUser() { Id = 6, DateOfWorkMode = new DateOnly(2024, 01, 14) }
+                new WorkModesForUser() { Id = 1, DateOfWorkMode = new DateOnly(2024, 01, 10), WorkModeId = 1, UserId = 2 },
+                new WorkModesForUser() { Id = 2, DateOfWorkMode = new DateOnly(2024, 01, 10), WorkModeId = 1, UserId = 2 },
+                new WorkModesForUser() { Id = 3, DateOfWorkMode = new DateOnly(2024, 01, 11), WorkModeId = 1, UserId = 2 },
+                new WorkModesForUser() { Id = 4, DateOfWorkMode = new DateOnly(2024, 01, 12), WorkModeId = 1, UserId = 2 },
+                new WorkModesForUser() { Id = 5, DateOfWorkMode = new DateOnly(2024, 01, 13), WorkModeId = 1, UserId = 2 },
+                new WorkModesForUser() { Id = 6, DateOfWorkMode = new DateOnly(2024, 01, 14), WorkModeId = 1, UserId = 2 }
             );
 
             base.OnModelCreating(builder);
@@ -72,21 +72,21 @@ namespace Schedulist.DAL
             );
             base.OnModelCreating(builder);
             builder.Entity<CalendarEvent>().HasData(
-                new CalendarEvent() { Id = 1, CalendarEventName = "Maintenance Work", CalendarEventDescription = "Ongoing maintenance tasks in the office", CalendarEventDate = new DateOnly(2024, 01, 10), CalendarEventStartTime = new TimeOnly(08, 30), CalendarEventEndTime = new TimeOnly(09, 30) },
-                new CalendarEvent() { Id = 2, CalendarEventName = "Office Cleaning", CalendarEventDescription = "Scheduled office cleaning day", CalendarEventDate = new DateOnly(2024, 01, 11), CalendarEventStartTime = new TimeOnly(09, 30), CalendarEventEndTime = new TimeOnly(10, 30) },
-                new CalendarEvent() { Id = 3, CalendarEventName = "Pottering", CalendarEventDescription = "Time for a relaxed atmosphere!", CalendarEventDate = new DateOnly(2024, 01, 11), CalendarEventStartTime = new TimeOnly(10, 30), CalendarEventEndTime = new TimeOnly(11, 30) },
-                new CalendarEvent() { Id = 4, CalendarEventName = "Project Meeting", CalendarEventDescription = "Team project meeting to discuss progress, challenges, and plans for project execution", CalendarEventDate = new DateOnly(2024, 01, 11), CalendarEventStartTime = new TimeOnly(11, 30), CalendarEventEndTime = new TimeOnly(12, 30) },
-                new CalendarEvent() { Id = 5, CalendarEventName = "Business Meeting", CalendarEventDescription = "Strategic business meeting covering company development, market strategy, and key decisions", CalendarEventDate = new DateOnly(2024, 01, 12), CalendarEventStartTime = new TimeOnly(12, 30), CalendarEventEndTime = new TimeOnly(13, 30) },
-                new CalendarEvent() { Id = 6, CalendarEventName = "Training Workshop", CalendarEventDescription = "Educational workshop aimed at enhancing employee's skills", CalendarEventDate = new DateOnly(2024, 01, 13), CalendarEventStartTime = new TimeOnly(13, 30), CalendarEventEndTime = new TimeOnly(14, 30) }
+                new CalendarEvent() { Id = 1, CalendarEventName = "Maintenance Work", CalendarEventDescription = "Ongoing maintenance tasks in the office", CalendarEventDate = new DateOnly(2024, 01, 10), CalendarEventStartTime = new TimeOnly(08, 30, 0), CalendarEventEndTime = new TimeOnly(09, 30, 0), UserId = 2 },
+                new CalendarEvent() { Id = 2, CalendarEventName = "Office Cleaning", CalendarEventDescription = "Scheduled office cleaning day", CalendarEventDate = new DateOnly(2024, 01, 11), CalendarEventStartTime = new TimeOnly(09, 30, 0), CalendarEventEndTime = new TimeOnly(10, 30, 0), UserId = 2 },
+                new CalendarEvent() { Id = 3, CalendarEventName = "Pottering", CalendarEventDescription = "Time for a relaxed atmosphere!", CalendarEventDate = new DateOnly(2024, 01, 11), CalendarEventStartTime = new TimeOnly(10, 30, 0), CalendarEventEndTime = new TimeOnly(11, 30, 0), UserId = 2 },
+                new CalendarEvent() { Id = 4, CalendarEventName = "Project Meeting", CalendarEventDescription = "Team project meeting to discuss progress, challenges, and plans for project execution", CalendarEventDate = new DateOnly(2024, 01, 11), CalendarEventStartTime = new TimeOnly(11, 30, 0), CalendarEventEndTime = new TimeOnly(12, 30, 0), UserId = 2 },
+                new CalendarEvent() { Id = 5, CalendarEventName = "Business Meeting", CalendarEventDescription = "Strategic business meeting covering company development, market strategy, and key decisions", CalendarEventDate = new DateOnly(2024, 01, 12), CalendarEventStartTime = new TimeOnly(12, 30, 0), CalendarEventEndTime = new TimeOnly(13, 30, 0), UserId = 2 },
+                new CalendarEvent() { Id = 6, CalendarEventName = "Training Workshop", CalendarEventDescription = "Educational workshop aimed at enhancing employee's skills", CalendarEventDate = new DateOnly(2024, 01, 13), CalendarEventStartTime = new TimeOnly(13, 30, 0), CalendarEventEndTime = new TimeOnly(14, 30, 0), UserId = 2 }
             );
             base.OnModelCreating(builder);
             builder.Entity<User>().HasData(
-                new User() { Id = 1, Name = "Tomasz", Surname = "Tomaszewicz", Login = "Log1", Password = "Pass1", AdminPrivilege = false},
-                new User() { Id = 2, Name = "Andrzej", Surname = "Andrzejewski", Login = "Log2", Password = "Pass2", AdminPrivilege = false },
-                new User() { Id = 3, Name = "Romek", Surname = "Romanowicz", Login = "Log3", Password = "Pass2", AdminPrivilege = false },
-                new User() { Id = 4, Name = "Zbigniew", Surname = "Zero", Login = "Log4", Password = "Pass3", AdminPrivilege = true },
-                new User() { Id = 5, Name = "Jordan", Surname = "Michael", Login = "Log5", Password = "Pass4", AdminPrivilege = false },
-                new User() { Id = 6, Name = "Marta", Surname = "Debowska", Login = "Log6", Password = "Pass5", AdminPrivilege = false }
+                new User() { Id = 1, Name = "Tomasz", Surname = "Tomaszewicz", Login = "Log1", Password = "Pass1", AdminPrivilege = false, DepartmentId = 1, PositionId = 1},
+                new User() { Id = 2, Name = "Andrzej", Surname = "Andrzejewski", Login = "Log2", Password = "Pass2", AdminPrivilege = false, DepartmentId = 1, PositionId = 1 },
+                new User() { Id = 3, Name = "Romek", Surname = "Romanowicz", Login = "Log3", Password = "Pass2", AdminPrivilege = false, DepartmentId = 1, PositionId = 1 },
+                new User() { Id = 4, Name = "Zbigniew", Surname = "Zero", Login = "Log4", Password = "Pass3", AdminPrivilege = true, DepartmentId = 1, PositionId = 1 },
+                new User() { Id = 5, Name = "Jordan", Surname = "Michael", Login = "Log5", Password = "Pass4", AdminPrivilege = false, DepartmentId = 1, PositionId = 1 },
+                new User() { Id = 6, Name = "Marta", Surname = "Debowska", Login = "Log6", Password = "Pass5", AdminPrivilege = false, DepartmentId = 1, PositionId = 1 }
             );
         }
     }
