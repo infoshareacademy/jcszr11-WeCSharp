@@ -32,21 +32,26 @@ namespace Schedulist.App
             builder.Services.AddTransient<ICalendarRepository, CalendarRepository>();
             builder.Services.AddTransient<IWorkModesRepository, WorkModeRepository>();
 
+            var app = builder.Build();
             // todo user
-            //List<User> users = new UserRepository(IUserRepository).GetAllUsers();
-            //User user = users[2];
+            //var userRepository = app.Services.GetRequiredService<IUserRepository>();
+            //User user = userRepository.GetUserById(2);
             //builder.Services.AddSingleton<User>(user);
             // todo user
+            //using (var scope = app.Services.CreateScope())
+            //{
+            //    var serviceProvider = scope.ServiceProvider;
+            //    var userRepository = serviceProvider.GetRequiredService<IUserRepository>();
 
-            var app = builder.Build();
+            //    User user = userRepository.GetUserById(2);
+            //}
+                //var userRepository = app.Services.GetRequiredService<IUserRepository>();
+                //var user = userRepository.GetUserById(2);
 
-            var userRepository = app.Services.GetRequiredService<IUserRepository>();
-            var user = userRepository.GetUserById(2);
+                //builder.Services.AddSingleton(user);
 
-            builder.Services.AddSingleton<User>(user);
-
-            // Configure the HTTP request pipeline.
-            if (!app.Environment.IsDevelopment())
+                // Configure the HTTP request pipeline.
+                if (!app.Environment.IsDevelopment())
             {
                 app.UseExceptionHandler("/Calendar/Error");
                 // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.

@@ -32,7 +32,7 @@ namespace Schedulist.DAL.Repositories
             catch (Exception ex)
             {
                 _logger.LogError(ex, "An error occurred while retrieving User from the database.");
-                return new CalendarEvent;
+                return new User();
             }
         }
         public bool SaveUser(User user)

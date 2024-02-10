@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Security.AccessControl;
-using System.Text;
-using System.Threading.Tasks;
-using Microsoft.Extensions.Logging;
+﻿using Microsoft.Extensions.Logging;
 using Schedulist.DAL.Models;
 using Schedulist.DAL.Repositories.Interfaces;
 
@@ -15,29 +9,61 @@ namespace Schedulist.DAL.Repositories
         public WorkModeRepository(DBContact db, ILogger<BaseRepository> logger) : base(db, logger)
         {
         }
-        public void AddWorkModes(WorkModesForUser workMode)
+        public List<WorkModeForUser> GetAllWorkModes()
+        {
+            try
+            {
+                return _db.WorkModesToUsers.ToList();
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "An error occurred while retrieving Work Modes from the database.");
+                return new List<WorkModeForUser>();
+            }
+        }
+        public WorkModeForUser CreateWorkMode(WorkModeForUser workMode)
         {
             throw new NotImplementedException();
         }
-
-        public void DeleteWorkModes(int workModesID)
+        public WorkModeForUser GetWorkModeByUserIdAndDateOfWorkMode(int userId, DateOnly dateOfWorkMode)
         {
-            throw new NotImplementedException();
+            try
+            {
+                return _db.WorkModesToUsers.Where(w => w.UserId == userId && w.DateOfWorkMode == dateOfWorkMode).FirstOrDefault();
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "An error occurred while retrieving Work Mode from the database.");
+                return new WorkModeForUser();
+            }
         }
-
-        public List<WorkModesForUser> GetAllWorkModes()
+        public bool UpdateWorkModes(WorkModeForUser workModeToUpdate)
         {
-            throw new NotImplementedException();
+            try
+            {
+                _db.WorkModesToUsers.Update(workModeToUpdate);
+                _db.SaveChanges();
+                return true;
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "An error occurred while updating Work Mode from the database.");
+                return false;
+            }
         }
-
-        public WorkModesForUser GetWorkModeByUserAndDate(int idUser, DateOnly dateWorkMode)
+        public bool DeleteWorkMode(WorkModeForUser workModeToDelete)
         {
-            throw new NotImplementedException();
-        }
-
-        public void ModifyWorkModes(int workModesID, WorkModesForUser workMode)
-        {
-            throw new NotImplementedException();
+            try
+            {
+                _db.WorkModesToUsers.Remove(workModeToDelete);
+                _db.SaveChanges();
+                return true;
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "An error occurred while deleting Work Mode from the database.");
+                return false;
+            }
         }
     }
 }

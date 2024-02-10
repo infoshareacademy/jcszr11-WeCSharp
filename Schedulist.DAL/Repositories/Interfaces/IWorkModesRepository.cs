@@ -9,11 +9,11 @@ namespace Schedulist.DAL.Repositories.Interfaces
 {
     public interface IWorkModesRepository
     {
-        List<WorkModesForUser> GetAllWorkModes();
-        void AddWorkModes(WorkModesForUser workMode);
-        void ModifyWorkModes(int workModesID, WorkModesForUser workMode);
-        void DeleteWorkModes(int workModesID);
-        WorkModesForUser GetWorkModeByUserAndDate(int idUser, DateOnly dateWorkMode);
+        List<WorkModeForUser> GetAllWorkModes();
+        WorkModeForUser CreateWorkMode(WorkModeForUser workMode);
+        bool UpdateWorkModes(WorkModeForUser workMode);
+        bool DeleteWorkMode(WorkModeForUser workModeToDelete);
+        WorkModeForUser GetWorkModeByUserIdAndDateOfWorkMode(int idUser, DateOnly dateWorkMode);
 
     }
 }

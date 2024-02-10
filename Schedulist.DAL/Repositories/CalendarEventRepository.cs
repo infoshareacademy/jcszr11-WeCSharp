@@ -2,6 +2,7 @@
 using Microsoft.Extensions.Logging;
 using Schedulist.DAL.Models;
 using Schedulist.DAL.Repositories.Interfaces;
+using System.ComponentModel.DataAnnotations;
 
 
 namespace Schedulist.DAL.Repositories
@@ -34,10 +35,10 @@ namespace Schedulist.DAL.Repositories
             catch (Exception ex)
             {
                 _logger.LogError(ex, "An error occurred while retrieving Calendar Event from the database.");
-                return new CalendarEvent;
+                return new CalendarEvent();
             }
         }
-        public bool SaveCalendarEvent(CalendarEvent calendarEvent)
+        public bool CreateCalendarEvent(CalendarEvent calendarEvent)
         {
             try
             {
@@ -65,7 +66,7 @@ namespace Schedulist.DAL.Repositories
                 return false;
             }
         }
-        public bool DeleteCalendarEvent(CalendarEvent calendarEvent) 
+        public bool DeleteCalendarEvent(CalendarEvent calendarEvent)
         {
             try
             {
@@ -78,6 +79,19 @@ namespace Schedulist.DAL.Repositories
                 _logger.LogError(ex, "An error occurred while deleting Calendar Event in database.");
                 return false;
             }
+        }
+        public ValidationResult CalendarEventStartTimeOverlappingValidation(DateOnly calendarEventDate, TimeOnly calendarEventStartTime, TimeOnly calendarEventEndTime, int userId)
+        {
+            List<CalendarEvent> allCalendarEvents = GetAllCalendarEvents();
+            var providedStartTime = allCalendarEvents.FirstOrDefault(c => c.UserId == userId &&
+                                    c.CalendarEventDate == calendarEventDate && ((calendarEventStartTime > c.CalendarEventStartTime && calendarEventStartTime < c.CalendarEventEndTime)
+                                    || (c.CalendarEventStartTime > calendarEventStartTime && c.CalendarEventStartTime < calendarEventEndTime)));
+
+            if (providedStartTime != null)
+            {
+                return new ValidationResult("There is already a Calendar Event with the provided Start time or that takes place at the same time. Please provide different values.");
+            }
+            return ValidationResult.Success;
         }
     }
 }

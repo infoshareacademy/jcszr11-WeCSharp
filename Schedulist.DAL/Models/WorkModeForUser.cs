@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace Schedulist.DAL.Models
 {
-    public class WorkModesForUser
+    public class WorkModeForUser
     {
         [Name("Id")]
         [Key]

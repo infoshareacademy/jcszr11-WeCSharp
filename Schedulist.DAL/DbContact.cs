@@ -16,7 +16,7 @@ namespace Schedulist.DAL
         public DBContact(DbContextOptions<DBContact> options) : base(options) { }
 
 
-        public DbSet<WorkModesForUser> WorkModesToUsers { get; set; }
+        public DbSet<WorkModeForUser> WorkModesToUsers { get; set; }
         public DbSet<CalendarEvent> CalendarEvents { get; set; }
         public DbSet<User> Users { get; set; }
         public DbSet<WorkMode> WorkModes { get; set; }
@@ -35,13 +35,13 @@ namespace Schedulist.DAL
                 new WorkMode() { Id = 6, Name = "Others" }
             );
             base.OnModelCreating(builder);
-            builder.Entity<WorkModesForUser>().HasData(
-                new WorkModesForUser() { Id = 1, DateOfWorkMode = new DateOnly(2024, 01, 10), WorkModeId = 1, UserId = 2 },
-                new WorkModesForUser() { Id = 2, DateOfWorkMode = new DateOnly(2024, 01, 10), WorkModeId = 1, UserId = 2 },
-                new WorkModesForUser() { Id = 3, DateOfWorkMode = new DateOnly(2024, 01, 11), WorkModeId = 1, UserId = 2 },
-                new WorkModesForUser() { Id = 4, DateOfWorkMode = new DateOnly(2024, 01, 12), WorkModeId = 1, UserId = 2 },
-                new WorkModesForUser() { Id = 5, DateOfWorkMode = new DateOnly(2024, 01, 13), WorkModeId = 1, UserId = 2 },
-                new WorkModesForUser() { Id = 6, DateOfWorkMode = new DateOnly(2024, 01, 14), WorkModeId = 1, UserId = 2 }
+            builder.Entity<WorkModeForUser>().HasData(
+                new WorkModeForUser() { Id = 1, DateOfWorkMode = new DateOnly(2024, 01, 10), WorkModeId = 1, UserId = 2 },
+                new WorkModeForUser() { Id = 2, DateOfWorkMode = new DateOnly(2024, 01, 10), WorkModeId = 1, UserId = 2 },
+                new WorkModeForUser() { Id = 3, DateOfWorkMode = new DateOnly(2024, 01, 11), WorkModeId = 1, UserId = 2 },
+                new WorkModeForUser() { Id = 4, DateOfWorkMode = new DateOnly(2024, 01, 12), WorkModeId = 1, UserId = 2 },
+                new WorkModeForUser() { Id = 5, DateOfWorkMode = new DateOnly(2024, 01, 13), WorkModeId = 1, UserId = 2 },
+                new WorkModeForUser() { Id = 6, DateOfWorkMode = new DateOnly(2024, 01, 14), WorkModeId = 1, UserId = 2 }
             );
 
             base.OnModelCreating(builder);

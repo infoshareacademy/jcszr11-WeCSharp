@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -9,10 +10,12 @@ namespace Schedulist.DAL.Repositories.Interfaces
 {
     public interface ICalendarEventRepository
     {
-        //List<CalendarEvent> GetAllCalendarEvents();
-        //void AddCalendarEvent(CalendarEvent calendarEvent);
         public List<CalendarEvent> GetAllCalendarEvents();
         public CalendarEvent GetCalendarEventById(int id);
+        public bool CreateCalendarEvent(CalendarEvent calendarEvent);
+        public bool UpdateCalendarEvent(CalendarEvent calendarEvent);
+        public bool DeleteCalendarEvent(CalendarEvent calendarEvent);
+        public ValidationResult CalendarEventStartTimeOverlappingValidation(DateOnly calendarEventDate, TimeOnly calendarEventStartTime, TimeOnly calendarEventEndTime, int userId);
 
     }
 }

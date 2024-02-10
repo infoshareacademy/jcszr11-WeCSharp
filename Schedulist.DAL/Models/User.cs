@@ -22,7 +22,7 @@ namespace Schedulist.DAL
         public int PositionId { get; set; }
         public Position? Position { get; set; }
 
-        public List<WorkModesForUser>? WorkModesForUser { get; set; }
+        public List<WorkModeForUser>? WorkModesForUser { get; set; }
 
         public ICollection<CalendarEvent>? CalendarEvents { get; set; }
         //EntityFramework Configuration Section

@@ -1,7 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Schedulist.App.Models;
-using Schedulist.App.Services;
 using Schedulist.DAL;
 using Schedulist.DAL.Models;
 using Schedulist.DAL.Repositories.Interfaces;
@@ -13,58 +11,57 @@ namespace Schedulist.App.Controllers
     public class CalendarController : ControlerBase
     {
         private User _user;
-        private MonthViewModel _mounthViewModel;
+        private readonly CalendarEvent _newCalendarEvent;
+        private MonthViewModel? _monthViewModel;
         private readonly IWorkModesRepository _workModesRepository;
         private readonly ICalendarEventRepository _calendarEventRepository;
-        private readonly DayViewModel _dayViewModel;
         private readonly ICalendarEventRepository _calendarEventService;
-        public CalendarController(ILogger<CalendarController> logger, User user, IWorkModesRepository workModesRepository, ICalendarEventRepository calendarEventRepository, ICalendarEventRepository calendarEventService,  MonthViewModel monthViewModel) : base(logger)
+        public CalendarController(ILogger<CalendarController> logger, User user, IWorkModesRepository workModesRepository, ICalendarEventRepository calendarEventRepository, ICalendarEventRepository calendarEventService, CalendarEvent newCalendarEvent) : base(logger)
         {
             _user = user;
             _workModesRepository = workModesRepository;
-            _calendarEventRepository = calendarEventRepository;
-            _dayViewModel = new DayViewModel();
-            _mounthViewModel = monthViewModel;
             _calendarEventService = calendarEventService;
+            _calendarEventRepository = calendarEventRepository;
+            _newCalendarEvent = newCalendarEvent;
         }
 
         public IActionResult Index()
         {
-            List<CalendarEvent> CalendarEvents = _calendarEventRepository.GetAllCalendarEvents();
+            List<CalendarEvent> calendarEvents = _calendarEventRepository.GetAllCalendarEvents();
             //List<CalendarEvent> calendarEventsToDraw = new List<CalendarEvent>();
-            foreach (CalendarEvent calendarEvent in CalendarEvents)
+            foreach (CalendarEvent calendarEvent in calendarEvents)
             {
                 if (calendarEvent.UserId == _user.Id && calendarEvent.CalendarEventDate.Month == DateTime.Now.Month) 
-                    CalendarEvents.Add(calendarEvent);
+                    calendarEvents.Add(calendarEvent);
             }
-            _mounthViewModel = new MonthViewModel(CalendarEvents);
-            Debug.WriteLine($"Drawing calendar for: {_mounthViewModel.CurrentDate:y}");
-            return View(_mounthViewModel);
+            _monthViewModel = new MonthViewModel(calendarEvents);
+            Debug.WriteLine($"Drawing calendar for: {_monthViewModel.CurrentDate:y}");
+            return View(_monthViewModel);
         }
 
         public IActionResult PreviousMonth(DateTime date)
         {
-            List<CalendarEvent> CalendarEvents = _calendarEventRepository.GetAllCalendarEvents();
+            List<CalendarEvent> calendarEvents = _calendarEventRepository.GetAllCalendarEvents();
             List<CalendarEvent> calendarEventsToDraw = new List<CalendarEvent>();
-            foreach (CalendarEvent calendarEvent in CalendarEvents)
+            foreach (CalendarEvent calendarEvent in calendarEvents)
             {
                 if (calendarEvent.UserId == _user.Id && calendarEvent.CalendarEventDate.Month == date.AddMonths(-1).Month) calendarEventsToDraw.Add(calendarEvent);
             }
-            _mounthViewModel = new MonthViewModel(date.AddMonths(-1), calendarEventsToDraw);
-            Debug.WriteLine($"Drawing calendar for: {_mounthViewModel.CurrentDate:y}");
-            return View("Index", _mounthViewModel);
+            _monthViewModel = new MonthViewModel(date.AddMonths(-1), calendarEventsToDraw);
+            Debug.WriteLine($"Drawing calendar for: {_monthViewModel.CurrentDate:y}");
+            return View("Index", _monthViewModel);
         }
         public IActionResult NextMonth(DateTime date)
         {
-            List<CalendarEvent> CalendarEvents = _calendarEventRepository.GetAllCalendarEvents();
+            List<CalendarEvent> calendarEvents = _calendarEventRepository.GetAllCalendarEvents();
             List<CalendarEvent> calendarEventsToDraw = new List<CalendarEvent>();
-            foreach (CalendarEvent calendarEvent in CalendarEvents)
+            foreach (CalendarEvent calendarEvent in calendarEvents)
             {
                 if (calendarEvent.UserId == _user.Id && calendarEvent.CalendarEventDate.Month == date.AddMonths(1).Month) calendarEventsToDraw.Add(calendarEvent);
             }
-            _mounthViewModel = new MonthViewModel(date.AddMonths(1), calendarEventsToDraw);
-            Debug.WriteLine($"Drawing calendar for: {_mounthViewModel.CurrentDate:y}");
-            return View("Index", _mounthViewModel);
+            _monthViewModel = new MonthViewModel(date.AddMonths(1), calendarEventsToDraw);
+            Debug.WriteLine($"Drawing calendar for: {_monthViewModel.CurrentDate:y}");
+            return View("Index", _monthViewModel);
         }
 
         public IActionResult Day(DateTime date)
@@ -73,25 +70,25 @@ namespace Schedulist.App.Controllers
             TempData["ReturnUrl"] = HttpContext.Request.Path + HttpContext.Request.QueryString;
 
             DateOnly dateOnly = DateOnly.FromDateTime(date);
-            WorkModesForUser workMode = _workModesRepository.GetWorkModeByUserAndDate((int)_user.Id, dateOnly);
+            WorkModeForUser workMode = _workModesRepository.GetWorkModeByUserIdAndDateOfWorkMode((int)_user.Id, dateOnly);
             string workModeString;
             if (workMode != null) workModeString = workMode.WorkMode.Name;
             else workModeString = "No work mode";
-            List<CalendarEvent> CalendarEvents = _calendarEventRepository.GetAllCalendarEvents();
+            List<CalendarEvent> calendarEvents = _calendarEventRepository.GetAllCalendarEvents();
             List<CalendarEvent> calendarEventsToDraw = new List<CalendarEvent>();
-            foreach (CalendarEvent calendarEvent in CalendarEvents)
+            foreach (CalendarEvent calendarEvent in calendarEvents)
             {
                 if (calendarEvent.UserId == _user.Id && calendarEvent.CalendarEventDate == dateOnly) calendarEventsToDraw.Add(calendarEvent);
             }
-            var vm = new DayViewModel(dateOnly, _user, workModeString, calendarEventsToDraw);
+            var dayViewModel = new DayViewModel(dateOnly, _user, workModeString, calendarEventsToDraw);
             Debug.WriteLine($"Drawing calendar day for: {dateOnly}");
-            return View(vm);
+            return View(dayViewModel);
         }
 
         //GET: CalendarController/Create
         public ActionResult Create(int id)
         {
-            var calendarEvent = new CalendarEvent();
+            var calendarEvent = _newCalendarEvent;
             calendarEvent.UserId = id;
 
             Debug.WriteLine($"Creating Calendar Event started.");
@@ -110,16 +107,16 @@ namespace Schedulist.App.Controllers
                     return View(calendarEvent);
                 }
 
-                CalendarEventService calendarEventService = new CalendarEventService();
-                var validationResult = calendarEventService.CalendarEventStartTimeOverlappingValidation(calendarEvent.CalendarEventDate, calendarEvent.CalendarEventStartTime, calendarEvent.CalendarEventEndTime, calendarEvent.UserId);
+
+                var validationResult = _calendarEventService.CalendarEventStartTimeOverlappingValidation(calendarEvent.CalendarEventDate, calendarEvent.CalendarEventStartTime, calendarEvent.CalendarEventEndTime, calendarEvent.UserId);
                 if (validationResult != ValidationResult.Success)
                 {
                     ModelState.AddModelError(nameof(calendarEvent.CalendarEventStartTime), validationResult.ErrorMessage);
                     return View(calendarEvent);
                 }
-                calendarEventService.Create(calendarEvent);
+                _calendarEventRepository.CreateCalendarEvent(calendarEvent);
                 Debug.WriteLine($"Created Calendar Event.");
-                TempData["Success"] = "Calendar Event has been created successfully";
+                PopupNotification("Calendar event has been created successfully");
                 var returnUrl = TempData["ReturnUrl"] as string;
                 return Redirect(returnUrl);
             }
