@@ -15,7 +15,7 @@ namespace Schedulist.App.Controllers
         private readonly IWorkModeRepository _workModeRepository;
         private readonly ICalendarEventRepository _calendarEventRepository;
         private readonly IUserRepository _userRepository;
-        private Dictionary<string, int> _userDict = new Dictionary<string, int>();
+        private Dictionary<string, int> _userDict = [];
         private MonthViewModel _calendarParams;
         public CalendarController(ILogger<CalendarController> logger, User user, IWorkModeForUserRepository workModeForUserRepository, IWorkModeRepository workModeRepository, ICalendarEventRepository calendarEventRepository, IUserRepository userRepository) : base(logger)
         {
@@ -45,10 +45,6 @@ namespace Schedulist.App.Controllers
             List<CalendarEvent> allCalendarEvents = _calendarEventRepository.GetAllCalendarEvents();
             _user = _userRepository.GetAllUsers().First(obj => obj.Id == userToEdit);
             var calendarEventsToDraw = allCalendarEvents.Where(e => e.UserId == _user.Id && e.CalendarEventDate.Month == date.AddMonths(-1).Month).ToList();
-            //foreach (CalendarEvent calendarEvent in calendarEvents)
-            //{
-            //    if (calendarEvent.UserId == _user.Id;
-            //}
             _calendarParams = new MonthViewModel(date.AddMonths(-1), calendarEventsToDraw, _userDict, userToEdit);
             return View("Index", _calendarParams);
         }
@@ -66,10 +62,6 @@ namespace Schedulist.App.Controllers
             _user = _userRepository.GetAllUsers().First(obj => obj.Id == userToEdit);
             List<CalendarEvent> allCalendarEvents = _calendarEventRepository.GetAllCalendarEvents();
             var calendarEventsToDraw = allCalendarEvents.Where(e => e.UserId == _user.Id && e.CalendarEventDate.Month == date.Month).ToList();
-            //foreach (CalendarEvent calendarEvent in allCalendarEvents)
-            //{
-            //    if (calendarEvent.UserId == _user.Id && calendarEvent.CalendarEventDate.Month == date.Month) calendarEventsToDraw.Add(calendarEvent);
-            //}
             _calendarParams = new MonthViewModel(date, calendarEventsToDraw, _userDict, userToEdit);
             return View("Index", _calendarParams);
         }
@@ -95,13 +87,9 @@ namespace Schedulist.App.Controllers
             WorkModeForUser workMode = _workModeForUserRepository.GetWorkModeByUserIdAndDateOfWorkMode((int)_user.Id, dateOnly);
             string workModeString;
             if (workMode != null) workModeString = _workModeRepository.GetAllWorkModes().Where(x => x.Id == workMode.WorkModeId).FirstOrDefault().Name;
-            else workModeString = "No work mode";
+            workModeString = "No work mode";
             List<CalendarEvent> calendarEvents = _calendarEventRepository.GetAllCalendarEvents();
             var calendarEventsToDraw = calendarEvents.Where(c => c.UserId == _user.Id && c.CalendarEventDate == dateOnly).ToList();
-            //foreach (CalendarEvent calendarEvent in calendarEvents)
-            //{
-            //    if (calendarEvent.UserId == _user.Id && calendarEvent.CalendarEventDate == dateOnly) calendarEventsToDraw.Add(calendarEvent);
-            //}
             var dayViewModel = new DayViewModel(dateOnly, _user, workModeString, calendarEventsToDraw);
             Debug.WriteLine($"Drawing calendar day for: {dateOnly}");
             return View(dayViewModel);
