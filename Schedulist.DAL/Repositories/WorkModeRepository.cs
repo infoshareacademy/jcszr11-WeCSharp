@@ -1,6 +1,11 @@
 ﻿using Microsoft.Extensions.Logging;
 using Schedulist.DAL.Models;
 using Schedulist.DAL.Repositories.Interfaces;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
 namespace Schedulist.DAL.Repositories
 {
@@ -8,61 +13,18 @@ namespace Schedulist.DAL.Repositories
     {
         public WorkModeRepository(DBContact db, ILogger<BaseRepository> logger) : base(db, logger)
         {
+            
         }
-        public List<WorkModeForUser> GetAllWorkModes()
+        public List<WorkMode> GetAllWorkModes()
         {
             try
             {
-                return _db.WorkModesToUsers.ToList();
+                return _db.WorkModes.ToList();
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex, "An error occurred while retrieving Work Modes from the database.");
-                return new List<WorkModeForUser>();
-            }
-        }
-        public WorkModeForUser CreateWorkMode(WorkModeForUser workMode)
-        {
-            throw new NotImplementedException();
-        }
-        public WorkModeForUser GetWorkModeByUserIdAndDateOfWorkMode(int userId, DateOnly dateOfWorkMode)
-        {
-            try
-            {
-                return _db.WorkModesToUsers.Where(w => w.UserId == userId && w.DateOfWorkMode == dateOfWorkMode).FirstOrDefault();
-            }
-            catch (Exception ex)
-            {
-                _logger.LogError(ex, "An error occurred while retrieving Work Mode from the database.");
-                return new WorkModeForUser();
-            }
-        }
-        public bool UpdateWorkModes(WorkModeForUser workModeToUpdate)
-        {
-            try
-            {
-                _db.WorkModesToUsers.Update(workModeToUpdate);
-                _db.SaveChanges();
-                return true;
-            }
-            catch (Exception ex)
-            {
-                _logger.LogError(ex, "An error occurred while updating Work Mode from the database.");
-                return false;
-            }
-        }
-        public bool DeleteWorkMode(WorkModeForUser workModeToDelete)
-        {
-            try
-            {
-                _db.WorkModesToUsers.Remove(workModeToDelete);
-                _db.SaveChanges();
-                return true;
-            }
-            catch (Exception ex)
-            {
-                _logger.LogError(ex, "An error occurred while deleting Work Mode from the database.");
-                return false;
+                _logger.LogError(ex, "An error occurred while retrieving from database");
+                return new List<WorkMode>();
             }
         }
     }

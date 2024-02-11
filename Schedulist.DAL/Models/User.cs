@@ -1,7 +1,6 @@
-﻿using Schedulist.DAL.Models;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 
-namespace Schedulist.DAL
+namespace Schedulist.DAL.Models
 {
     public class User
     {
@@ -24,5 +23,17 @@ namespace Schedulist.DAL
 
         public ICollection<CalendarEvent>? CalendarEvents { get; set; }
         //EntityFramework Configuration Section
+        public User()
+        {
+            
+        }
+        public User(string name, string surname, string login, string password, bool adminPrivilege)
+        {
+            Name = name;
+            Surname = surname;
+            Login = login;
+            Password = password;
+            AdminPrivilege = adminPrivilege;
+        }
     }
 }

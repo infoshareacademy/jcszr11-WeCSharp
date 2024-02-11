@@ -1,9 +1,6 @@
 ﻿@model CalendarEvent
 @using Schedulist.DAL.Models
 
-@{
-    ViewData["Title"] = "Create";
-}
 
 <h4 class="text-center" style="display:flex; justify-content:center; font-size: 30px">@(Model == null ? "Calendar Event Creation" : "Calendar Event Update")</h4>
 <hr />
@@ -11,11 +8,14 @@
     <div class="col-md-12" style="text-align: center; display: flex; justify-content: center; gap: 10px">
         <form asp-action="Create">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
+            @if (Model != null)
+            {
+                <div class="form-group">
                 <label asp-for="Id" class="control-label" hidden></label>
                 <input asp-for="Id" class="form-control" hidden/>
                 <span asp-validation-for="Id" class="text-danger"></span>
             </div>
+            }           
             <div class="form-group">
                 <label asp-for="CalendarEventName" class="control-label"></label>
                 <input asp-for="CalendarEventName" class="form-control" />

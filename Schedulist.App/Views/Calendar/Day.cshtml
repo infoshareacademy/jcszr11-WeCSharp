@@ -1,4 +1,5 @@
-﻿@using Schedulist.DAL.Models
+﻿@using Schedulist.App.ViewModels
+@using Schedulist.DAL.Models
 @model DayViewModel
 
 @{
@@ -7,16 +8,25 @@
 
 <div class="row-margin">
     <h1>@Model.Date</h1>
-    <h1>@Model.User.Name @Model.User.Surname - @Model.WorkMode</h1>
+    <h1>
+        @Model.User.Name @Model.User.Surname - @Model.WorkMode
+
+        <button class="btn btn-primary" onclick="location.href='@Url.Action("CreateWM", "Calendar")'">
+            Choose work mode
+        </button>
+    </h1>
+    
+    
 </div>
+
 @if (@Model.CalendarEvents.Count > 0)
 {
     <div style="display: flex;">
         <div class="row flex-nowrap row-margin">
-            <div class="col-3 row-title row-text standard-border">
+            <div class="col-3 row-title row-text text-center standard-border">
                 @Html.DisplayNameFor(model => model.CalendarEvents.FirstOrDefault().CalendarEventName)
             </div>
-            <div class="col  row-title row-text standard-border">
+            <div class="col  row-title row-text text-center standard-border">
                 @Html.DisplayNameFor(model => model.CalendarEvents.FirstOrDefault().CalendarEventDescription)
             </div>
             <div class="col-1  row-title row-text text-center standard-border">
@@ -25,7 +35,7 @@
             <div class="col-1  row-title row-text text-center standard-border">
                 @Html.DisplayNameFor(model => model.CalendarEvents.FirstOrDefault().CalendarEventEndTime)
             </div>
-            <div style="width: 80px;"></div>
+            <div class="btn-edit-delete"></div>
         </div>
     </div>
     @foreach (CalendarEvent calendarEvent in @Model.CalendarEvents)
@@ -34,10 +44,10 @@
         {
             <div style="display: flex;">
                 <div class="row flex-nowrap row-margin">
-                    <div class="col-3 row-text standard-border">
+                    <div class="col-3 row-text text-center standard-border">
                         @Html.DisplayFor(modelItem => calendarEvent.CalendarEventName)
                     </div>
-                    <div class="col row-text standard-border">
+                    <div class="col row-text text-center standard-border">
                         @Html.DisplayFor(modelItem => calendarEvent.CalendarEventDescription)
                     </div>
                     <div class="col-1 row-text text-center standard-border">
@@ -46,11 +56,12 @@
                     <div class="col-1 row-text text-center standard-border">
                         @Html.DisplayFor(modelItem => calendarEvent.CalendarEventEndTime)
                     </div>
-                    <button class="btn btn-primary btn-edit-delete" onclick="location.href='@Url.Action("Edit", "CalendarEvent")/@calendarEvent.Id'">
+@*                     <button class="btn btn-primary btn-edit-delete" onclick="location.href='@Url.Action("Edit", "CalendarEvent")/@calendarEvent.CalendarEventId'">
                         e
-                    </button>
-                    <button class="btn btn-danger btn-edit-delete" onclick="location.href='@Url.Action("Delete", "CalendarEvent")/@calendarEvent.Id'">
-                        d
+                    </button> *@
+                    <button class="btn btn-primary btn-edit-delete" onclick="DeleteCalendarEvent('@Url.Action("Delete", "CalendarEvent")?id=@calendarEvent.Id','@calendarEvent.CalendarEventName','@calendarEvent.CalendarEventDescription',
+                    '@calendarEvent.CalendarEventDate','@calendarEvent.CalendarEventStartTime','@calendarEvent.CalendarEventEndTime','@calendarEvent.UserId')">
+                        Delete
                     </button>
                 </div>
             </div>
@@ -63,8 +74,28 @@ else
         No events for that day
     </div>
 }
-<div class="add-event text-center">
-    <button class="btn btn-primary" onclick="location.href='@Url.Action("Create", "Calendar", @Model.User.Id)'">
-        Add New Event
-    </button>
-</div>
+@if (Model.WorkMode == "Holiday leave" || Model.WorkMode == "Sick leave")
+{
+    <div class="no-events text-center">
+        You cannot create new Calendar event if Work mode equals "Holiday leave" or "Sick leave"!
+    </div>
+}
+else
+{
+    <div class="add-event text-center">
+        <input type="hidden" name="chosenDate" value="@Model.Date.ToString(" yyyy-MM-dd")" />
+        <button class="btn btn-primary" onclick="location.href='@Url.Action("Create", "Calendar")'">
+            Add new event
+        </button>
+    </div>
+}
+
+
+<script>
+    var calendarEventDeletedMessage = localStorage.getItem('calendarEventDeletedMessage');
+
+    if (calendarEventDeletedMessage) {
+        toastr.success(calendarEventDeletedMessage);
+        localStorage.removeItem('calendarEventDeletedMessage');
+    }
+</script>

@@ -1,4 +1,4 @@
-namespace Schedulist.App.Models
+namespace Schedulist.App.ViewModels
 {
     public class ErrorViewModel
     {
