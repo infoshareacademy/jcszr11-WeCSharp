@@ -10,19 +10,18 @@ namespace Schedulist.App.Controllers
 {
     public class CalendarController : ControlerBase
     {
+        int i = 0;
         private User _user;
         private readonly CalendarEvent _newCalendarEvent;
         private MonthViewModel? _monthViewModel;
-        private readonly IWorkModesRepository _workModesRepository;
+        private readonly IWorkModeRepository _workModesRepository;
         private readonly ICalendarEventRepository _calendarEventRepository;
-        private readonly ICalendarEventRepository _calendarEventService;
-        public CalendarController(ILogger<CalendarController> logger, User user, IWorkModesRepository workModesRepository, ICalendarEventRepository calendarEventRepository, ICalendarEventRepository calendarEventService, CalendarEvent newCalendarEvent) : base(logger)
+        public CalendarController(ILogger<CalendarController> logger, User user, IWorkModeRepository workModesRepository, ICalendarEventRepository calendarEventRepository) : base(logger)
         {
             _user = user;
             _workModesRepository = workModesRepository;
-            _calendarEventService = calendarEventService;
             _calendarEventRepository = calendarEventRepository;
-            _newCalendarEvent = newCalendarEvent;
+            _newCalendarEvent = new CalendarEvent();
         }
 
         public IActionResult Index()
@@ -108,7 +107,7 @@ namespace Schedulist.App.Controllers
                 }
 
 
-                var validationResult = _calendarEventService.CalendarEventStartTimeOverlappingValidation(calendarEvent.CalendarEventDate, calendarEvent.CalendarEventStartTime, calendarEvent.CalendarEventEndTime, calendarEvent.UserId);
+                var validationResult = _calendarEventRepository.CalendarEventStartTimeOverlappingValidation(calendarEvent.CalendarEventDate, calendarEvent.CalendarEventStartTime, calendarEvent.CalendarEventEndTime, calendarEvent.UserId);
                 if (validationResult != ValidationResult.Success)
                 {
                     ModelState.AddModelError(nameof(calendarEvent.CalendarEventStartTime), validationResult.ErrorMessage);

@@ -1,6 +1,8 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using Schedulist.App.Interfaces;
 using Schedulist.DAL;
+using Schedulist.DAL.Models;
 using Schedulist.DAL.Repositories;
 using Schedulist.DAL.Repositories.Interfaces;
 
@@ -25,12 +27,18 @@ namespace Schedulist.App
             builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
                 .AddEntityFrameworkStores<DBContact>();
             builder.Services.AddControllersWithViews();
+            User user = new User();
+            user.Id = 2;
+            user.Name = "Hejka";
+            builder.Services.AddSingleton<User>(user);
+            // todo user
+
             //builder.Services.AddSingleton<CsvCalendarEventRepository>(_ => new CsvCalendarEventRepository("..\\Schedulist\\CalendarEvents.csv"));
             //builder.Services.AddSingleton<CSVWorkModesRepository>(_ => new CSVWorkModesRepository("..\\Schedulist\\WorkModes.csv"));
             builder.Services.AddTransient<IUserRepository, UserRepository>();
             builder.Services.AddTransient<ICalendarEventRepository, CalendarEventRepository>();
             builder.Services.AddTransient<ICalendarRepository, CalendarRepository>();
-            builder.Services.AddTransient<IWorkModesRepository, WorkModeRepository>();
+            builder.Services.AddTransient<IWorkModeRepository, WorkModeRepository>();
 
             var app = builder.Build();
             // todo user
@@ -38,6 +46,7 @@ namespace Schedulist.App
             //User user = userRepository.GetUserById(2);
             //builder.Services.AddSingleton<User>(user);
             // todo user
+
             //using (var scope = app.Services.CreateScope())
             //{
             //    var serviceProvider = scope.ServiceProvider;
@@ -45,13 +54,13 @@ namespace Schedulist.App
 
             //    User user = userRepository.GetUserById(2);
             //}
-                //var userRepository = app.Services.GetRequiredService<IUserRepository>();
-                //var user = userRepository.GetUserById(2);
+            //var userRepository = app.Services.GetRequiredService<IUserRepository>();
+            //var user = userRepository.GetUserById(2);
 
-                //builder.Services.AddSingleton(user);
+            //builder.Services.AddSingleton(user);
 
-                // Configure the HTTP request pipeline.
-                if (!app.Environment.IsDevelopment())
+            // Configure the HTTP request pipeline.
+            if (!app.Environment.IsDevelopment())
             {
                 app.UseExceptionHandler("/Calendar/Error");
                 // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.

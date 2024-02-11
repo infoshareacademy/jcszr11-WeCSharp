@@ -7,7 +7,7 @@ using Schedulist.DAL.Models;
 
 namespace Schedulist.DAL.Repositories.Interfaces
 {
-    public interface IWorkModesRepository
+    public interface IWorkModeRepository
     {
         List<WorkModeForUser> GetAllWorkModes();
         WorkModeForUser CreateWorkMode(WorkModeForUser workMode);

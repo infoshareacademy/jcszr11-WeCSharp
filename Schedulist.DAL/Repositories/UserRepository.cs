@@ -35,7 +35,7 @@ namespace Schedulist.DAL.Repositories
                 return new User();
             }
         }
-        public bool SaveUser(User user)
+        public bool CreateUser(User user)
         {
             try
             {

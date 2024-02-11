@@ -12,7 +12,7 @@ namespace Schedulist.DAL.Repositories.Interfaces
     {
         public List<User> GetAllUsers();
         public User GetUserById(int id);
-        public bool SaveUser(User user);
+        public bool CreateUser(User user);
         public bool UpdateUser(User user);
         public bool DeleteUser(User user);
 

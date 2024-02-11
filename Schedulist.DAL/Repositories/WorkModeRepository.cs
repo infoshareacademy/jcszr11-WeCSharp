@@ -4,7 +4,7 @@ using Schedulist.DAL.Repositories.Interfaces;
 
 namespace Schedulist.DAL.Repositories
 {
-    public class WorkModeRepository : BaseRepository, IWorkModesRepository
+    public class WorkModeRepository : BaseRepository, IWorkModeRepository
     {
         public WorkModeRepository(DBContact db, ILogger<BaseRepository> logger) : base(db, logger)
         {
