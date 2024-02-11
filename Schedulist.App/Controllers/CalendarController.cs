@@ -7,21 +7,18 @@ using System.Diagnostics;
 
 namespace Schedulist.App.Controllers
 {
-    public class CalendarController : ControlerBase
+    public class CalendarController : ControllerBase
     {
         private User _user;
-        //private List<User> _userRepository;
         private readonly CalendarEvent _newCalendarEvent;
-        private MonthViewModel? _monthViewModel;
         private readonly IWorkModeForUserRepository _workModesRepository;
         private readonly ICalendarEventRepository _calendarEventRepository;
         private readonly IUserRepository _userRepository;
         private Dictionary<string, int> _userDict = new Dictionary<string, int>();
         private MonthViewModel _calendarParams;
-        public CalendarController(ILogger<CalendarController> logger, User user/*, List<User> users*/, IWorkModeForUserRepository workModesRepository, ICalendarEventRepository calendarEventRepository, IUserRepository userRepository) : base(logger)
+        public CalendarController(ILogger<CalendarController> logger, User user, IWorkModeForUserRepository workModesRepository, ICalendarEventRepository calendarEventRepository, IUserRepository userRepository) : base(logger)
         {
             _user = user;
-            //_userRepository = users;
             _workModesRepository = workModesRepository;
             _calendarEventRepository = calendarEventRepository;
             _userRepository = userRepository;
@@ -30,7 +27,6 @@ namespace Schedulist.App.Controllers
             {
                 _userDict.Add($"{userToAdd.Name} {userToAdd.Surname}", userToAdd.Id);
             }
-            _userRepository = userRepository;
         }
 
         public IActionResult Index()
@@ -45,7 +41,6 @@ namespace Schedulist.App.Controllers
             //}
             //_monthViewModel = new MonthViewModel(calendarEvents);
             //return View(_monthViewModel);
-            Debug.WriteLine($"Drawing calendar for: {_monthViewModel.CurrentDate:y}");
             _calendarParams = new MonthViewModel(calendarEventsToDraw, _userDict, userToChangeId);
             return View(_calendarParams);
         }
@@ -59,7 +54,6 @@ namespace Schedulist.App.Controllers
             //{
             //    if (calendarEvent.UserId == _user.Id && calendarEvent.CalendarEventDate.Month == date.AddMonths(-1).Month) calendarEventsToDraw.Add(calendarEvent);
             //}
-            Debug.WriteLine($"Drawing calendar for: {_monthViewModel.CurrentDate:y}");
             _calendarParams = new MonthViewModel(date.AddMonths(-1), calendarEventsToDraw, _userDict, userToEdit);
             return View("Index", _calendarParams);
         }
@@ -67,8 +61,7 @@ namespace Schedulist.App.Controllers
         {
             List<CalendarEvent> allCalendarEvents = _calendarEventRepository.GetAllCalendarEvents();
             _user = _userRepository.GetAllUsers().First(obj => obj.Id == userToEdit);
-            var calendarEventsToDraw = allCalendarEvents.Where(e => e.UserId == _user.Id && e.CalendarEventDate.Month == date.AddMonths(+1).Month).ToList();
-            Debug.WriteLine($"Drawing calendar for: {_monthViewModel.CurrentDate:y}");       
+            var calendarEventsToDraw = allCalendarEvents.Where(e => e.UserId == _user.Id && e.CalendarEventDate.Month == date.AddMonths(+1).Month).ToList();     
             _calendarParams = new MonthViewModel(date.AddMonths(1), calendarEventsToDraw, _userDict, userToEdit);
             return View("Index", _calendarParams);
         }

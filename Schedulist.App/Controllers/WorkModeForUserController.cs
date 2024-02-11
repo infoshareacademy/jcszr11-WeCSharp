@@ -8,7 +8,7 @@ using System.Diagnostics;
 
 namespace Schedulist.App.Controllers
 {
-    public class WorkModeForUserController : ControlerBase
+    public class WorkModeForUserController : ControllerBase
     {
         private readonly IWorkModeForUserRepository _workModeForUserRepository;
         public WorkModeForUserController(ILogger<WorkModeForUserController> logger, IWorkModeForUserRepository workModeForUserRepository) : base(logger)

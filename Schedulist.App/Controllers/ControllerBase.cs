@@ -1,14 +1,13 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
 using Schedulist.App.Models.Enum;
 
 namespace Schedulist.App.Controllers
 {
-    public class ControlerBase : Controller
+    public class ControllerBase : Controller
     {
         public readonly ILogger logger;
-        public ControlerBase(ILogger logger)
+        public ControllerBase(ILogger logger)
         {
             Thread.CurrentThread.CurrentCulture = new System.Globalization.CultureInfo("en-GB");
             this.logger = logger;

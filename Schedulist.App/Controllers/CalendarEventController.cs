@@ -6,7 +6,7 @@ using System.Diagnostics;
 
 namespace Schedulist.App.Controllers
 {
-    public class CalendarEventController : ControlerBase
+    public class CalendarEventController : ControllerBase
     {
         private readonly ICalendarEventRepository _calendarEventRepository;
         public CalendarEventController(ILogger<CalendarEventController> logger, ICalendarEventRepository calendarEventRepository) : base(logger) 

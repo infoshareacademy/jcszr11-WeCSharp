@@ -28,9 +28,8 @@ namespace Schedulist.App
                 .AddEntityFrameworkStores<DBContact>();
             builder.Services.AddControllersWithViews();
 
-            User user = new User();
-            user.Id = 2;
-            user.Name = "Hejka";
+            User user = new User() { Id = 4, Name = "Zbigniew", Surname = "Zero", Login = "Log4", Password = "Pass3", AdminPrivilege = true, DepartmentId = 1, PositionId = 1 };
+            builder.Services.AddSingleton<User>(user);
 
             builder.Services.AddTransient<IUserRepository, UserRepository>();
             builder.Services.AddTransient<ICalendarEventRepository, CalendarEventRepository>();
