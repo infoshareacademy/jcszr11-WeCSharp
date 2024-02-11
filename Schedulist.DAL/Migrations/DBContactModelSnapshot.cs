@@ -17,7 +17,7 @@ namespace Schedulist.DAL.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "8.0.0")
+                .HasAnnotation("ProductVersion", "8.0.1")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
@@ -459,126 +459,7 @@ namespace Schedulist.DAL.Migrations
                         });
                 });
 
-            modelBuilder.Entity("Schedulist.DAL.Models.WorkMode", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("WorkModes");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            Name = "Office"
-                        },
-                        new
-                        {
-                            Id = 2,
-                            Name = "HomeOffice"
-                        },
-                        new
-                        {
-                            Id = 3,
-                            Name = "SickLeave"
-                        },
-                        new
-                        {
-                            Id = 4,
-                            Name = "Delegation"
-                        },
-                        new
-                        {
-                            Id = 5,
-                            Name = "Holiday"
-                        },
-                        new
-                        {
-                            Id = 6,
-                            Name = "Others"
-                        });
-                });
-
-            modelBuilder.Entity("Schedulist.DAL.Models.WorkModesForUser", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<DateOnly>("DateOfWorkMode")
-                        .HasColumnType("date");
-
-                    b.Property<int>("UserId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("WorkModeId")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("UserId");
-
-                    b.HasIndex("WorkModeId");
-
-                    b.ToTable("WorkModesToUsers");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            DateOfWorkMode = new DateOnly(2024, 1, 10),
-                            UserId = 2,
-                            WorkModeId = 1
-                        },
-                        new
-                        {
-                            Id = 2,
-                            DateOfWorkMode = new DateOnly(2024, 1, 10),
-                            UserId = 2,
-                            WorkModeId = 1
-                        },
-                        new
-                        {
-                            Id = 3,
-                            DateOfWorkMode = new DateOnly(2024, 1, 11),
-                            UserId = 2,
-                            WorkModeId = 1
-                        },
-                        new
-                        {
-                            Id = 4,
-                            DateOfWorkMode = new DateOnly(2024, 1, 12),
-                            UserId = 2,
-                            WorkModeId = 1
-                        },
-                        new
-                        {
-                            Id = 5,
-                            DateOfWorkMode = new DateOnly(2024, 1, 13),
-                            UserId = 2,
-                            WorkModeId = 1
-                        },
-                        new
-                        {
-                            Id = 6,
-                            DateOfWorkMode = new DateOnly(2024, 1, 14),
-                            UserId = 2,
-                            WorkModeId = 1
-                        });
-                });
-
-            modelBuilder.Entity("Schedulist.DAL.User", b =>
+            modelBuilder.Entity("Schedulist.DAL.Models.User", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -688,6 +569,125 @@ namespace Schedulist.DAL.Migrations
                         });
                 });
 
+            modelBuilder.Entity("Schedulist.DAL.Models.WorkMode", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("WorkModes");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Name = "Office"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Name = "HomeOffice"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Name = "SickLeave"
+                        },
+                        new
+                        {
+                            Id = 4,
+                            Name = "Delegation"
+                        },
+                        new
+                        {
+                            Id = 5,
+                            Name = "Holiday"
+                        },
+                        new
+                        {
+                            Id = 6,
+                            Name = "Others"
+                        });
+                });
+
+            modelBuilder.Entity("Schedulist.DAL.Models.WorkModeForUser", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<DateOnly>("DateOfWorkMode")
+                        .HasColumnType("date");
+
+                    b.Property<int>("UserId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("WorkModeId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("UserId");
+
+                    b.HasIndex("WorkModeId");
+
+                    b.ToTable("WorkModesToUsers");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            DateOfWorkMode = new DateOnly(2024, 1, 10),
+                            UserId = 2,
+                            WorkModeId = 1
+                        },
+                        new
+                        {
+                            Id = 2,
+                            DateOfWorkMode = new DateOnly(2024, 1, 10),
+                            UserId = 2,
+                            WorkModeId = 1
+                        },
+                        new
+                        {
+                            Id = 3,
+                            DateOfWorkMode = new DateOnly(2024, 1, 11),
+                            UserId = 2,
+                            WorkModeId = 1
+                        },
+                        new
+                        {
+                            Id = 4,
+                            DateOfWorkMode = new DateOnly(2024, 1, 12),
+                            UserId = 2,
+                            WorkModeId = 1
+                        },
+                        new
+                        {
+                            Id = 5,
+                            DateOfWorkMode = new DateOnly(2024, 1, 13),
+                            UserId = 2,
+                            WorkModeId = 1
+                        },
+                        new
+                        {
+                            Id = 6,
+                            DateOfWorkMode = new DateOnly(2024, 1, 14),
+                            UserId = 2,
+                            WorkModeId = 1
+                        });
+                });
+
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
                 {
                     b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole", null)
@@ -741,7 +741,7 @@ namespace Schedulist.DAL.Migrations
 
             modelBuilder.Entity("Schedulist.DAL.Models.CalendarEvent", b =>
                 {
-                    b.HasOne("Schedulist.DAL.User", "User")
+                    b.HasOne("Schedulist.DAL.Models.User", "User")
                         .WithMany("CalendarEvents")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -750,26 +750,7 @@ namespace Schedulist.DAL.Migrations
                     b.Navigation("User");
                 });
 
-            modelBuilder.Entity("Schedulist.DAL.Models.WorkModesForUser", b =>
-                {
-                    b.HasOne("Schedulist.DAL.User", "User")
-                        .WithMany("WorkModesForUser")
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("Schedulist.DAL.Models.WorkMode", "WorkMode")
-                        .WithMany()
-                        .HasForeignKey("WorkModeId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("User");
-
-                    b.Navigation("WorkMode");
-                });
-
-            modelBuilder.Entity("Schedulist.DAL.User", b =>
+            modelBuilder.Entity("Schedulist.DAL.Models.User", b =>
                 {
                     b.HasOne("Schedulist.DAL.Models.Department", "Department")
                         .WithMany("User")
@@ -788,6 +769,25 @@ namespace Schedulist.DAL.Migrations
                     b.Navigation("Position");
                 });
 
+            modelBuilder.Entity("Schedulist.DAL.Models.WorkModeForUser", b =>
+                {
+                    b.HasOne("Schedulist.DAL.Models.User", "User")
+                        .WithMany("WorkModesForUser")
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Schedulist.DAL.Models.WorkMode", "WorkMode")
+                        .WithMany()
+                        .HasForeignKey("WorkModeId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("User");
+
+                    b.Navigation("WorkMode");
+                });
+
             modelBuilder.Entity("Schedulist.DAL.Models.Department", b =>
                 {
                     b.Navigation("User");
@@ -798,7 +798,7 @@ namespace Schedulist.DAL.Migrations
                     b.Navigation("User");
                 });
 
-            modelBuilder.Entity("Schedulist.DAL.User", b =>
+            modelBuilder.Entity("Schedulist.DAL.Models.User", b =>
                 {
                     b.Navigation("CalendarEvents");
 
