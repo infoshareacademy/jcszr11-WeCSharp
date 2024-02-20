@@ -56,6 +56,7 @@ namespace Schedulist.DAL.Repositories
         {
             try
             {
+                
                 _db.CalendarEvents.Update(calendarEvent);
                 _db.SaveChanges();
                 return true;

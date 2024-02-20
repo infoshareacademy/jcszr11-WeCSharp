@@ -2,6 +2,7 @@
 using Schedulist.App.Models.Enum;
 using Schedulist.DAL.Models;
 using Schedulist.DAL.Repositories.Interfaces;
+using System.ComponentModel.DataAnnotations;
 using System.Diagnostics;
 
 namespace Schedulist.App.Controllers
@@ -48,14 +49,26 @@ namespace Schedulist.App.Controllers
         {
             try
             {
-                if (!ModelState.IsValid)
+                ////if (!ModelState.IsValid)
+                ////{
+                ////    return View(calendarEvent);
+                ////}
+                ///
+                var timeValidationResult = _calendarEventRepository.CalendarEventTimesValidation(calendarEvent.CalendarEventStartTime, calendarEvent.CalendarEventEndTime);
+                var validationResult = _calendarEventRepository.CalendarEventOverlappingValidation(calendarEvent.CalendarEventDate, calendarEvent.CalendarEventStartTime, calendarEvent.CalendarEventEndTime, calendarEvent.UserId);
+                if (timeValidationResult != ValidationResult.Success)
                 {
+                    ModelState.AddModelError(nameof(calendarEvent.CalendarEventEndTime), timeValidationResult.ErrorMessage);
+                    return View(calendarEvent);
+                }
+                if (validationResult != ValidationResult.Success)
+                {
+                    ModelState.AddModelError(nameof(calendarEvent.CalendarEventStartTime), validationResult.ErrorMessage);
                     return View(calendarEvent);
                 }
                 _calendarEventRepository.CreateCalendarEvent(calendarEvent);
                 Debug.WriteLine($"Created Calendar Event.");
                 PopupNotification("Calendar event has been created successfully");
-
                 return RedirectToAction(nameof(Index));
             }
             catch (Exception ex)
@@ -72,7 +85,7 @@ namespace Schedulist.App.Controllers
         public ActionResult Edit(int id)
         {
             var model = _calendarEventRepository.GetCalendarEventById(id);
-            Debug.WriteLine($"Deleting Calendar Event started.");
+            Debug.WriteLine($"Updating Calendar Event started.");
             return View("Create", model);
         }
 
@@ -83,10 +96,10 @@ namespace Schedulist.App.Controllers
         {
             try
             {
-                if (!ModelState.IsValid)
-                {
-                    return View(id);
-                }
+                //if (!ModelState.IsValid)
+                //{
+                //    return View(id);
+                //}
                 _calendarEventRepository.UpdateCalendarEvent(calendarEvent);
                 Debug.WriteLine($"Modified Calendar Event.");
                 PopupNotification("Calendar event has been updated successfully");
