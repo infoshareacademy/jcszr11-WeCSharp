@@ -6,7 +6,7 @@ namespace Schedulist.DAL.Repositories
 {
     public class WorkModeForUserRepository : BaseRepository, IWorkModeForUserRepository
     {
-        public WorkModeForUserRepository(DBContact db, ILogger<BaseRepository> logger) : base(db, logger)
+        public WorkModeForUserRepository(SchedulistDbContext db, ILogger<BaseRepository> logger) : base(db, logger)
         {
         }
         public List<WorkModeForUser> GetAllWorkModesForUser()

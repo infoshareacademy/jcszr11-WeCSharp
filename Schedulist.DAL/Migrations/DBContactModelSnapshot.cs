@@ -10,7 +10,7 @@ using Schedulist.DAL;
 
 namespace Schedulist.DAL.Migrations
 {
-    [DbContext(typeof(DBContact))]
+    [DbContext(typeof(SchedulistDbContext))]
     partial class DBContactModelSnapshot : ModelSnapshot
     {
         protected override void BuildModel(ModelBuilder modelBuilder)

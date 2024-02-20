@@ -11,7 +11,7 @@ using Schedulist.DAL;
 
 namespace Schedulist.DAL.Migrations
 {
-    [DbContext(typeof(DBContact))]
+    [DbContext(typeof(SchedulistDbContext))]
     [Migration("20240211185540_InitialMigration")]
     partial class InitialMigration
     {

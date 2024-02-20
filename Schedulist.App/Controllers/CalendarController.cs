@@ -116,7 +116,7 @@ namespace Schedulist.App.Controllers
         public ActionResult Create(int id)
         {
             var calendarEvent = _newCalendarEvent;
-            calendarEvent.UserId = id;
+            calendarEvent.UserId = _user.Id;
 
             Debug.WriteLine($"Creating Calendar Event started.");
             return View(calendarEvent);
@@ -129,20 +129,21 @@ namespace Schedulist.App.Controllers
         {
             try
             {
-                if (!ModelState.IsValid)
-                {
-                    return View(calendarEvent);
-                }
-              
                 DateTime selectedDate = (DateTime)TempData.Peek("SelectedDate");
                 DateOnly parsedChosenDate = DateOnly.FromDateTime(selectedDate);
 
                 calendarEvent.UserId = (int)TempData.Peek("UserId");
                 calendarEvent.CalendarEventDate = parsedChosenDate;
-                var validationResult = _calendarEventRepository.CalendarEventStartTimeOverlappingValidation(calendarEvent.CalendarEventDate, calendarEvent.CalendarEventStartTime, calendarEvent.CalendarEventEndTime, calendarEvent.UserId);
+                var timeValidationResult = _calendarEventRepository.CalendarEventTimesValidation(calendarEvent.CalendarEventStartTime, calendarEvent.CalendarEventEndTime);
+                var validationResult = _calendarEventRepository.CalendarEventOverlappingValidation(calendarEvent.CalendarEventDate, calendarEvent.CalendarEventStartTime, calendarEvent.CalendarEventEndTime, calendarEvent.UserId);
+                if (timeValidationResult != ValidationResult.Success)
+                {
+                    ModelState.AddModelError(nameof(calendarEvent.CalendarEventEndTime), timeValidationResult.ErrorMessage);                  
+                    return View(calendarEvent);
+                } 
                 if (validationResult != ValidationResult.Success)
                 {
-                    ModelState.AddModelError(nameof(calendarEvent.CalendarEventStartTime), validationResult.ErrorMessage);
+                    ModelState.AddModelError(nameof(calendarEvent.CalendarEventStartTime), validationResult.ErrorMessage);              
                     return View(calendarEvent);
                 }
                 _calendarEventRepository.CreateCalendarEvent(calendarEvent);
@@ -172,10 +173,10 @@ namespace Schedulist.App.Controllers
         {
             try
             {
-                if (!ModelState.IsValid)
-                {
-                    return View(workModesToUser);
-                }
+                //if (!ModelState.IsValid)
+                //{
+                //    return View(workModesToUser);
+                //}
 
                 DateTime selectedDate = (DateTime)TempData.Peek("SelectedDateForWM");
                 DateOnly parsedChosenDate = DateOnly.FromDateTime(selectedDate);

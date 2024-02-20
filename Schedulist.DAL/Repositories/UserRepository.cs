@@ -6,7 +6,7 @@ namespace Schedulist.DAL.Repositories
 {
     public class UserRepository : BaseRepository, IUserRepository
     {
-        public UserRepository(DBContact db, ILogger<BaseRepository> logger) : base(db, logger)
+        public UserRepository(SchedulistDbContext db, ILogger<BaseRepository> logger) : base(db, logger)
         {
 
         }

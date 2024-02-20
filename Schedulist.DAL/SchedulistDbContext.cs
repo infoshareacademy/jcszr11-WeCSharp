@@ -11,9 +11,9 @@ using System.Threading.Tasks;
 
 namespace Schedulist.DAL
 {
-    public class DBContact : IdentityDbContext<IdentityUser>
+    public class SchedulistDbContext : IdentityDbContext<IdentityUser>
     {
-        public DBContact(DbContextOptions<DBContact> options) : base(options) { }
+        public SchedulistDbContext(DbContextOptions<SchedulistDbContext> options) : base(options) { }
 
 
         public DbSet<WorkModeForUser> WorkModesToUsers { get; set; }
