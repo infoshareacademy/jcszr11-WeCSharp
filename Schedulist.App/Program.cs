@@ -28,7 +28,7 @@ namespace Schedulist.App
                 .AddEntityFrameworkStores<SchedulistDbContext>();
             builder.Services.AddControllersWithViews();
 
-            User user = new User() { Id = 4, Name = "Zbigniew", Surname = "Zero", Login = "Log4", Password = "Pass3", AdminPrivilege = true, DepartmentId = 1, PositionId = 1 };
+            User user = new() { Id = 2, Name = "Andrzej", Surname = "Andrzejewski", Login = "Log2", Password = "Pass2", AdminPrivilege = false, DepartmentId = 1, PositionId = 1 };
             builder.Services.AddSingleton<User>(user);
 
             builder.Services.AddTransient<IUserRepository, UserRepository>();
