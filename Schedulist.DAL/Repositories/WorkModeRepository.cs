@@ -15,6 +15,12 @@ namespace Schedulist.DAL.Repositories
         {
             
         }
+
+        public WorkMode GetWorkModeById(int id)
+        {
+            return GetAllWorkModes().Where(e => e.Id == id).FirstOrDefault();
+        }
+
         public List<WorkMode> GetAllWorkModes()
         {
             try
