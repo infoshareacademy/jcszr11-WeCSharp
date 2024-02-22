@@ -1,4 +1,5 @@
-﻿@model Schedulist.DAL.WorkModesToUser
+﻿@model Schedulist.DAL.Models.WorkModeForUser
+@inject Schedulist.DAL.Repositories.Interfaces.IWorkModeRepository workModeRepository
 
 @{
     ViewData["Title"] = "Create";
@@ -12,9 +13,9 @@
         <form asp-action="CreateWM">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
-                <label asp-for="WorkModeName" class="control-label"></label>
-                @Html.DropDownListFor(model => model.WorkModeName, new SelectList(Schedulist.App.Helper.WorkModeNamesList.GetAll(),"Id", "Name"), "Select Work Mode", new { @class = "form-control" })
-                <span asp-validation-for="WorkModeName" class="text-danger"></span>
+                <label asp-for="@Model.WorkMode.Name" class="control-label"></label>
+                @Html.DropDownListFor(model => @Model.WorkMode.Name, new SelectList(@workModeRepository.GetAllWorkModes(), "Id", "Name"), "Select Work Mode", new { @class = "form-control" })
+                <span asp-validation-for="@Model.WorkMode.Name" class="text-danger"></span>
             </div>
 @*             <div class="form-group">
                 <label asp-for="UserID" class="control-label"></label>

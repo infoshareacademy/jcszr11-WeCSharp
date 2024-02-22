@@ -1,33 +1,26 @@
-﻿using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
-using Schedulist.App.Models;
+﻿using Microsoft.AspNetCore.Mvc;
 using Schedulist.App.Models.Enum;
-using Schedulist.App.Services;
-using Schedulist.Business;
-using Schedulist.DAL;
+using Schedulist.DAL.Models;
+using Schedulist.DAL.Repositories.Interfaces;
 using System.Diagnostics;
-using System.Linq;
-using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace Schedulist.App.Controllers
 {
-    public class CalendarEventController : ControlerBase
+    public class CalendarEventController : ControllerBase
     {
-        private readonly CsvCalendarEventRepository _repository;
-        public CalendarEventService _calendarEventService;
-        public CalendarEventController(ILogger<CalendarEventController> logger, CsvCalendarEventRepository repository) : base(logger) 
+        private readonly ICalendarEventRepository _calendarEventRepository;
+        public CalendarEventController(ILogger<CalendarEventController> logger, ICalendarEventRepository calendarEventRepository) : base(logger) 
         {
-            _repository = repository;
+            _calendarEventRepository = calendarEventRepository;
         }
 
         // GET: CalendarEventController
         [HttpGet]
         [ResponseCache(Duration = 30, NoStore = true)]
         public IActionResult Index()
-        {           
-            var model = _repository.GetAllCalendarEvents();
-            //var model = Events;
-            return View(model);
+        {
+            var calendarEvents = _calendarEventRepository.GetAllCalendarEvents();
+            return View(calendarEvents);
         }
 
         // GET: CalendarEventController/Details/5
@@ -35,7 +28,7 @@ namespace Schedulist.App.Controllers
         [ResponseCache(Duration = 30, NoStore = true)]
         public IActionResult Details(int id)
         {
-            var calendarEvent = _repository.GetAllCalendarEvents()[id];
+            var calendarEvent = _calendarEventRepository.GetAllCalendarEvents()[id];
             return View(calendarEvent);
         }
 
@@ -59,22 +52,11 @@ namespace Schedulist.App.Controllers
                 {
                     return View(calendarEvent);
                 }
-                if (calendarEvent.CalendarEventId == 0)
-                {
-                    CalendarEventService calendarEventService = new CalendarEventService();
-                    calendarEventService.Create(calendarEvent);
-                    Debug.WriteLine($"Created Calendar Event.");
-                    PopupNotification("Calendar event has been created successfully");
-                    return RedirectToAction(nameof(Index));
-                }
-                else
-                {
-                    CalendarEventService calendarEventService = new CalendarEventService();
-                    calendarEventService.Edit(calendarEvent);
-                    Debug.WriteLine($"Modified Calendar Event.");
-                    PopupNotification("Calendar event has been updated successfully");
-                    return RedirectToAction(nameof(Index));
-                }
+                _calendarEventRepository.CreateCalendarEvent(calendarEvent);
+                Debug.WriteLine($"Created Calendar Event.");
+                PopupNotification("Calendar event has been created successfully");
+
+                return RedirectToAction(nameof(Index));
             }
             catch (Exception ex)
             {
@@ -89,9 +71,8 @@ namespace Schedulist.App.Controllers
         [ResponseCache(Duration = 30, NoStore = true)]
         public ActionResult Edit(int id)
         {
-            CalendarEventService calendarEventService = new CalendarEventService();
-            var model = calendarEventService.GetCalendarEventById(id);
-            Debug.WriteLine($"Editing Calendar Event started.");          
+            var model = _calendarEventRepository.GetCalendarEventById(id);
+            Debug.WriteLine($"Deleting Calendar Event started.");
             return View("Create", model);
         }
 
@@ -106,8 +87,7 @@ namespace Schedulist.App.Controllers
                 {
                     return View(id);
                 }
-                CalendarEventService calendarEventService = new CalendarEventService();
-                calendarEventService.Edit(calendarEvent);
+                _calendarEventRepository.UpdateCalendarEvent(calendarEvent);
                 Debug.WriteLine($"Modified Calendar Event.");
                 PopupNotification("Calendar event has been updated successfully");
                 return RedirectToAction(nameof(Index));
@@ -123,8 +103,8 @@ namespace Schedulist.App.Controllers
         {
             try
             {
-                CalendarEventService calendarEventService = new CalendarEventService();
-                calendarEventService.Delete(id);
+                CalendarEvent calendarEventToDelete = _calendarEventRepository.GetCalendarEventById(id);
+                _calendarEventRepository.DeleteCalendarEvent(calendarEventToDelete);
                 Debug.WriteLine($"Deleted Calendar Event.");
                 PopupNotification("calendar event has been successfully deleted");
                 return RedirectToAction(nameof(Index));

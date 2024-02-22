@@ -1,7 +1,10 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Schedulist.DAL;
-using System.Collections.Generic;
+using Schedulist.DAL.Models;
+using Schedulist.DAL.Repositories;
+using Schedulist.DAL.Repositories.Interfaces;
+
 
 
 namespace Schedulist.App
@@ -17,22 +20,22 @@ namespace Schedulist.App
 
             // Add services to the container.
             var connectionString = builder.Configuration.GetConnectionString("DefaultConnection") ?? throw new InvalidOperationException("Connection string 'DefaultConnection' not found.");
-            builder.Services.AddDbContext<DbContext>(options =>
+            builder.Services.AddDbContext<SchedulistDbContext>(options =>
                 options.UseSqlServer(connectionString));
             builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
             builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
-                .AddEntityFrameworkStores<DbContext>();
+                .AddEntityFrameworkStores<SchedulistDbContext>();
             builder.Services.AddControllersWithViews();
-            builder.Services.AddSingleton<CsvCalendarEventRepository>(_ => new CsvCalendarEventRepository("..\\Schedulist\\CalendarEvents.csv"));
-            builder.Services.AddSingleton<CSVWorkModesRepository>(_ => new CSVWorkModesRepository("..\\Schedulist\\WorkModes.csv"));
 
-            // todo user
-            List<User> users = new CsvUserRepository("..\\Schedulist\\Users.csv").GetAllUsers();
-            builder.Services.AddSingleton<List<User>>(users);
-            User user = users[2];
+            User user = new() { Id = 2, Name = "Andrzej", Surname = "Andrzejewski", Login = "Log2", Password = "Pass2", AdminPrivilege = false, DepartmentId = 1, PositionId = 1 };
             builder.Services.AddSingleton<User>(user);
-            // todo user
+
+            builder.Services.AddTransient<IUserRepository, UserRepository>();
+            builder.Services.AddTransient<ICalendarEventRepository, CalendarEventRepository>();
+            builder.Services.AddTransient<ICalendarRepository, CalendarRepository>();
+            builder.Services.AddTransient<IWorkModeForUserRepository, WorkModeForUserRepository>();
+            builder.Services.AddTransient<IWorkModeRepository, WorkModeRepository>();
 
             var app = builder.Build();
 

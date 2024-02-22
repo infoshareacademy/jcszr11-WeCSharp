@@ -99,6 +99,7 @@ body {
 }
 
 .calendar-block {
+    position: relative;
     background-color: rgb(235, 235, 235);
     border: 0px;
     border-bottom: 1px solid lightgrey;
@@ -140,10 +141,25 @@ body {
     padding: 2px;
 }
 
+.calendar-event-for-day-inactive {
+    color: #fff;
+    background-color: rgb(108, 117, 125);
+    border: 1px solid transparent;
+    border-radius: 0.25rem;
+    margin: 2px;
+    padding: 2px;
+}
+
 .calendar-day-date {
     position: relative;
     left: calc(100% - 25px);
     width: 20px;
+}
+
+.calendar-day-work-mode {
+    position: absolute;
+    bottom: 0;
+    justify-self: center;
 }
 
 /*---------- Calendar Event list section ----------*/

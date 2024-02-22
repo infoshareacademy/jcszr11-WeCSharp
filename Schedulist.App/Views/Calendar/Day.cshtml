@@ -1,4 +1,5 @@
-﻿@using Schedulist.DAL
+﻿@using Schedulist.App.ViewModels
+@using Schedulist.DAL.Models
 @model DayViewModel
 
 @{
@@ -39,7 +40,7 @@
     </div>
     @foreach (CalendarEvent calendarEvent in @Model.CalendarEvents)
     {
-        if (calendarEvent.AssignedToUser == @Model.User.Id && calendarEvent.CalendarEventDate == @Model.Date)
+        if (calendarEvent.UserId == @Model.User.Id && calendarEvent.CalendarEventDate == @Model.Date)
         {
             <div style="display: flex;">
                 <div class="row flex-nowrap row-margin">
@@ -58,8 +59,8 @@
 @*                     <button class="btn btn-primary btn-edit-delete" onclick="location.href='@Url.Action("Edit", "CalendarEvent")/@calendarEvent.CalendarEventId'">
                         e
                     </button> *@
-                    <button class="btn btn-primary btn-edit-delete" onclick="DeleteCalendarEvent('@Url.Action("Delete", "CalendarEvent")?id=@calendarEvent.CalendarEventId','@calendarEvent.CalendarEventName','@calendarEvent.CalendarEventDescription',
-                    '@calendarEvent.CalendarEventDate','@calendarEvent.CalendarEventStartTime','@calendarEvent.CalendarEventEndTime','@calendarEvent.AssignedToUser')">
+                    <button class="btn btn-primary btn-edit-delete" onclick="DeleteCalendarEvent('@Url.Action("Delete", "CalendarEvent")?id=@calendarEvent.Id','@calendarEvent.CalendarEventName','@calendarEvent.CalendarEventDescription',
+                    '@calendarEvent.CalendarEventDate','@calendarEvent.CalendarEventStartTime','@calendarEvent.CalendarEventEndTime','@calendarEvent.UserId')">
                         Delete
                     </button>
                 </div>

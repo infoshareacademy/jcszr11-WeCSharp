@@ -9,7 +9,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Schedulist.Business", "..\S
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Schedulist.DAL", "..\Schedulist.DAL\Schedulist.DAL.csproj", "{B0D716B9-A579-403D-8078-1A5F399D4253}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Schedulist.App", "..\Schedulist.App1\Schedulist.App.csproj", "{E8C72B75-0AAE-4015-BA70-215969F2501E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Schedulist.App", "..\Schedulist.App\Schedulist.App.csproj", "{7F03C4AD-C0EE-4AD7-95D7-3BA357D25837}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -29,10 +29,10 @@ Global
 		{B0D716B9-A579-403D-8078-1A5F399D4253}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B0D716B9-A579-403D-8078-1A5F399D4253}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B0D716B9-A579-403D-8078-1A5F399D4253}.Release|Any CPU.Build.0 = Release|Any CPU
-		{E8C72B75-0AAE-4015-BA70-215969F2501E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{E8C72B75-0AAE-4015-BA70-215969F2501E}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{E8C72B75-0AAE-4015-BA70-215969F2501E}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{E8C72B75-0AAE-4015-BA70-215969F2501E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7F03C4AD-C0EE-4AD7-95D7-3BA357D25837}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7F03C4AD-C0EE-4AD7-95D7-3BA357D25837}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7F03C4AD-C0EE-4AD7-95D7-3BA357D25837}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7F03C4AD-C0EE-4AD7-95D7-3BA357D25837}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

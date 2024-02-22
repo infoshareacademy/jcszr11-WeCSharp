@@ -1,8 +1,7 @@
-﻿@using Schedulist.DAL
+﻿@using Schedulist.App.ViewModels
+@using Schedulist.DAL.Models
+@using Schedulist.DAL.Repositories
 @model MonthViewModel
-@{
-    ViewData["Title"] = "Calendar";
-}
 
 <div class="text-center" style="height: calc(100vh - 140px);">
     <div class="container-fluid d-flex h-100 flex-column">
@@ -76,19 +75,47 @@
                                     <div class="calendar-day-date">
                                         @drawDate.Day
                                     </div>
+                                <div class="calendar-day-work-mode">
+                                            @{string workModeForThisDay = "";}
+                                            @foreach (WorkModeForUser workMode in Model.WorkModesToDraw)
+                                            {
+                                            if (workMode.DateOfWorkMode == DateOnly.FromDateTime(drawDate))
+                                                {
+                                                    workModeForThisDay = Model.WorkMode.GetWorkModeById(workMode.Id).Name;
+                                                }
+                                        }
+                                        @workModeForThisDay;
+                                    </div>
                                     <div style="height: 100%">
                                     @foreach (CalendarEvent calendarEvent in calendarEventForDay)
                                     {
-                                        if (daysToRemove > 0)
+                                        if (workModeForThisDay == "SickLeave" || workModeForThisDay == "Holiday")
                                         {
+                                              if (daysToRemove > 0)
+                                            {
+                                                <div class="calendar-event-for-day-inactive">@calendarEvent.CalendarEventName</div>
+                                                daysToRemove -= 1;
+                                                numberOfCalendarEvents -= 1;
+                                            }
+                                            else
+                                            {
+                                                <div class="calendar-event-for-day-inactive">+@numberOfCalendarEvents</div>
+                                                break;
+                                            }  
+                                        }
+                                        else
+                                        {
+                                            if (daysToRemove > 0)
+                                            {
                                                 <div class="calendar-event-for-day">@calendarEvent.CalendarEventName</div>
                                                 daysToRemove -= 1;
                                                 numberOfCalendarEvents -= 1;
                                             }
-                                        else
-                                        {
-                                            <div class="calendar-event-for-day">+@numberOfCalendarEvents</div>
-                                            break;
+                                            else
+                                            {
+                                                <div class="calendar-event-for-day">+@numberOfCalendarEvents</div>
+                                                break;
+                                            }
                                         }
                                     }
                                     </div>
@@ -100,18 +127,37 @@
                                     <div class="calendar-day-date">
                                         @drawDate.Day
                                     </div>
+                                    <div class="calendar-day-work-mode">
+                                            @{string workModeForThisDay = "";}
+                                            @foreach (WorkModeForUser workMode in Model.WorkModesToDraw)
+                                            {
+                                            if (workMode.DateOfWorkMode == DateOnly.FromDateTime(drawDate))
+                                                {
+                                                    workModeForThisDay = Model.WorkMode.GetWorkModeById(workMode.Id).Name;
+                                                }
+                                        }
+                                        @workModeForThisDay
+                                    </div>
                                     <div style="height: 100%">
                                     @foreach (CalendarEvent calendarEvent in calendarEventForDay)
                                     {
-                                        if (daysToRemove > 0)
+                                        if (workModeForThisDay == "SickLeave" || workModeForThisDay == "Holiday")
                                         {
-                                            <div class="calendar-event-for-day">@calendarEvent.CalendarEventName</div>
-                                            daysToRemove -= 1;
-                                            numberOfCalendarEvents -= 1;
+                                              if (daysToRemove > 0)
+                                            {
+                                                <div class="calendar-event-for-day-inactive">@calendarEvent.CalendarEventName</div>
+                                                daysToRemove -= 1;
+                                                numberOfCalendarEvents -= 1;
+                                            }
+                                            else
+                                            {
+                                                <div class="calendar-event-for-day-inactive">+@numberOfCalendarEvents</div>
+                                                break;
+                                            }  
                                         }
                                         else
                                         {
-                                            if (numberOfCalendarEvents == 1)
+                                            if (daysToRemove > 0)
                                             {
                                                 <div class="calendar-event-for-day">@calendarEvent.CalendarEventName</div>
                                                 daysToRemove -= 1;

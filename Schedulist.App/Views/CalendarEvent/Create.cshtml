@@ -1,4 +1,5 @@
-﻿@model Schedulist.DAL.CalendarEvent
+﻿@model CalendarEvent
+@using Schedulist.DAL.Models
 
 
 <h4 class="text-center" style="display:flex; justify-content:center; font-size: 30px">@(Model == null ? "Calendar Event Creation" : "Calendar Event Update")</h4>
@@ -10,9 +11,9 @@
             @if (Model != null)
             {
                 <div class="form-group">
-                <label asp-for="CalendarEventId" class="control-label" hidden></label>
-                <input asp-for="CalendarEventId" class="form-control" hidden/>
-                <span asp-validation-for="CalendarEventId" class="text-danger"></span>
+                <label asp-for="Id" class="control-label" hidden></label>
+                <input asp-for="Id" class="form-control" hidden/>
+                <span asp-validation-for="Id" class="text-danger"></span>
             </div>
             }           
             <div class="form-group">
@@ -41,9 +42,9 @@
                 <span asp-validation-for="CalendarEventEndTime" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="AssignedToUser" class="control-label"></label>
-                <input asp-for="AssignedToUser" class="form-control" />
-                <span asp-validation-for="AssignedToUser" class="text-danger"></span>
+                <label asp-for="UserId" class="control-label"></label>
+                <input asp-for="UserId" class="form-control" />
+                <span asp-validation-for="UserId" class="text-danger"></span>
             </div>
             @{
                 var buttonStyle = (Model == null ? "background-color: green;" : "background-color: rgb(224, 157, 49);");

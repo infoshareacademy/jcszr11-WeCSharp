@@ -16,7 +16,7 @@
 			<PrivateAssets>all</PrivateAssets>
 			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
 		</PackageReference>
-		<PackageReference Include="Newtonsoft.Json" Version="13.0.3"/>
+		<PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
 	</ItemGroup>
 
   <ItemGroup>
@@ -28,18 +28,6 @@
   <ItemGroup>
     <ProjectReference Include="..\Schedulist.Business\Schedulist.Business.csproj" />
     <ProjectReference Include="..\Schedulist.DAL\Schedulist.DAL.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <None Update="CalendarEvents.csv">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="Users.csv">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="WorkModes.csv">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
   </ItemGroup>
 
 </Project>

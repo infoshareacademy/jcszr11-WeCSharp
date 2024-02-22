@@ -1,4 +1,4 @@
-﻿@model IEnumerable<Schedulist.DAL.WorkModesToUser>
+﻿@model IEnumerable<Schedulist.DAL.Models.WorkModeForUser>
 
 @{
     ViewData["Title"] = "Index";
@@ -13,16 +13,16 @@
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.UserID)
+                @Html.DisplayNameFor(model => model.UserId)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.DateOfWorkmode)
+                @Html.DisplayNameFor(model => model.DateOfWorkMode)
             </th>
           @*   <th>
                 @Html.DisplayNameFor(model => model.WorkModeToUserID)
             </th> *@
             <th>
-                @Html.DisplayNameFor(model => model.WorkModeName)
+                @Html.DisplayNameFor(model => model.WorkMode.Name)
             </th>         
             <th></th>
         </tr>
@@ -31,16 +31,16 @@
 @foreach (var item in Model) {
         <tr>
                 <td>
-                    @Html.DisplayFor(modelItem => item.UserID)
+                    @Html.DisplayFor(modelItem => item.UserId)
                 </td>
             <td>
-                    @Html.DisplayFor(modelItem => item.DateOfWorkmode)
+                    @Html.DisplayFor(modelItem => item.DateOfWorkMode)
                 </td>
             @* <td>
                 @Html.DisplayFor(modelItem => item.WorkModeToUserID)
             </td> *@
             <td>
-                @Html.DisplayFor(modelItem => item.WorkModeName)
+                @Html.DisplayFor(modelItem => item.WorkMode.Name)
             </td>    
 @*             <td>
                 @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
@@ -51,7 +51,7 @@
                     <div class="button-container">
                         @* <button type="button">@Html.ActionLink("Edit", "Edit", new { id = item.CalendarEventId })</button> *@
                         @* <button type="button">@Html.ActionLink("Details", "Details", new { id = item.CalendarEventId })</button> *@
-                        <button type="button" onclick="DeleteWorkMode('@Url.Action("Delete", "WorkMode")?id=@item.WorkModeToUserID','@item.WorkModeToUserID','@item.WorkModeName','@item.UserID','@item.DateOfWorkmode')">
+                        <button type="button" onclick="DeleteWorkMode('@Url.Action("Delete", "WorkMode")?id=@item.UserId','@item.UserId','@item.WorkMode.Name','@item.UserId','@item.DateOfWorkMode')">
                             Delete
                         </button>
                     </div>

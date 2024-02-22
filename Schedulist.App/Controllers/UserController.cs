@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Schedulist.App.Controllers
 {
-    public class UserController : ControlerBase
+    public class UserController : ControllerBase
     {
         public UserController(ILogger<UserController> logger) : base(logger) { }
         // GET: UserController

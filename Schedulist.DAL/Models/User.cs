@@ -1,43 +1,27 @@
-﻿using CsvHelper.Configuration.Attributes;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Security.Principal;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.ComponentModel.DataAnnotations;
 
-
-namespace Schedulist.DAL
+namespace Schedulist.DAL.Models
 {
     public class User
     {
-       
-        public User(string name, string surname, string position, string department, string login, string password)
-        {
-            Name = name;
-            Surname = surname;
-            Login = login;
-            Position = position;
-            Department = department;
-            Password = password;
-        }
-        public User()
-        {
-            
-        }
-
-        public int? Id { get;  set; }
-        public string Name { get;  set; }
+        [Key]
+        public int Id { get; set; }
+        public string Name { get; set; }
         public string Surname { get; set; }
-        public string Position { get; set; }
-        public string Department { get; set; }
         public string Login { get; set; }
         public string Password { get; set; }
         public bool AdminPrivilege { get; set; }
 
-        public override string ToString()
-        {
-            return ($"{Id}");
-        }
+        //EntityFramework Configuration Section
+        public int DepartmentId { get; set; }
+        public Department Department { get; set; }
+
+        public int PositionId { get; set; }
+        public Position? Position { get; set; }
+
+        public List<WorkModeForUser>? WorkModesForUser { get; set; }
+
+        public ICollection<CalendarEvent>? CalendarEvents { get; set; }
+        //EntityFramework Configuration Section
     }
 }
