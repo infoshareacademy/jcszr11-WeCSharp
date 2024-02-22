@@ -11,10 +11,16 @@ namespace Schedulist.DAL.Repositories
 {
     public class WorkModeRepository : BaseRepository, IWorkModeRepository
     {
-        public WorkModeRepository(DBContact db, ILogger<BaseRepository> logger) : base(db, logger)
+        public WorkModeRepository(SchedulistDbContext db, ILogger<BaseRepository> logger) : base(db, logger)
         {
             
         }
+
+        public WorkMode GetWorkModeById(int id)
+        {
+            return GetAllWorkModes().Where(e => e.Id == id).FirstOrDefault();
+        }
+
         public List<WorkMode> GetAllWorkModes()
         {
             try
