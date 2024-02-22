@@ -1,4 +1,5 @@
 ﻿using Schedulist.DAL.Models;
+using Schedulist.DAL.Repositories.Interfaces;
 
 namespace Schedulist.App.ViewModels
 {
@@ -12,7 +13,9 @@ namespace Schedulist.App.ViewModels
         public List<CalendarEvent> CalendarEvents { get; set; }
         public Dictionary<string, int> UserDict { get; set; }
         public int UserToEdit;
-        public MonthViewModel(List<CalendarEvent> calendarEvents, Dictionary<string, int> userDict, int userToEdit)
+        public IWorkModeRepository WorkMode;
+        public List<WorkModeForUser> WorkModesToDraw;
+        public MonthViewModel(List<CalendarEvent> calendarEvents, Dictionary<string, int> userDict, int userToEdit, IWorkModeRepository workMode, List<WorkModeForUser> workModesToDraw)
         {
             CurrentDate = DateTime.Now;
             FirstDayOfTheMonth = new DateTime(CurrentDate.Year, CurrentDate.Month, 1);
@@ -23,8 +26,10 @@ namespace Schedulist.App.ViewModels
             CalendarEvents = calendarEvents;
             UserDict = userDict;
             UserToEdit = userToEdit;
-        }
-        public MonthViewModel(DateTime date, List<CalendarEvent> calendarEvents, Dictionary<string, int> userDict, int userToEdit)
+            WorkMode = workMode;
+            WorkModesToDraw = workModesToDraw;
+    }
+        public MonthViewModel(DateTime date, List<CalendarEvent> calendarEvents, Dictionary<string, int> userDict, int userToEdit, IWorkModeRepository workMode, List<WorkModeForUser> workModesToDraw)
         {
             CurrentDate = date;
             FirstDayOfTheMonth = new DateTime(CurrentDate.Year, CurrentDate.Month, 1);
@@ -36,6 +41,8 @@ namespace Schedulist.App.ViewModels
             CalendarEvents = calendarEvents;
             UserDict = userDict;
             UserToEdit = userToEdit;
+            WorkMode = workMode;
+            WorkModesToDraw = workModesToDraw;
         }
     }
 }

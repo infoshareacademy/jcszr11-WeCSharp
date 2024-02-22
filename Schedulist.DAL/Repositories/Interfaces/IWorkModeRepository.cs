@@ -10,5 +10,6 @@ namespace Schedulist.DAL.Repositories.Interfaces
     public interface IWorkModeRepository
     {
         public List<WorkMode> GetAllWorkModes();
+        public WorkMode GetWorkModeById(int id);
     }
 }
