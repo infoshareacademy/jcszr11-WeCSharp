@@ -9,9 +9,9 @@ namespace Schedulist.DAL.Repositories
 {
     public class BaseRepository
     {
-        protected DBContact _db { get; set; }
+        protected SchedulistDbContext _db { get; set; }
         protected readonly ILogger<BaseRepository> _logger;
-        public BaseRepository(DBContact db, ILogger<BaseRepository> logger)
+        public BaseRepository(SchedulistDbContext db, ILogger<BaseRepository> logger)
         {
             _logger = logger;
             _db = db;

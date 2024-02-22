@@ -11,7 +11,7 @@ namespace Schedulist.DAL.Repositories
     public class CalendarRepository : BaseRepository, ICalendarRepository
     {
 
-        public CalendarRepository(DBContact db, ILogger<BaseRepository> logger) : base(db, logger)
+        public CalendarRepository(SchedulistDbContext db, ILogger<BaseRepository> logger) : base(db, logger)
         {
 
         }

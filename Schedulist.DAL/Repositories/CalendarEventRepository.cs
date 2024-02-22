@@ -9,7 +9,7 @@ namespace Schedulist.DAL.Repositories
 {
     public class CalendarEventRepository : BaseRepository, ICalendarEventRepository
     {
-        public CalendarEventRepository(DBContact db, ILogger<BaseRepository> logger) : base (db, logger)
+        public CalendarEventRepository(SchedulistDbContext db, ILogger<BaseRepository> logger) : base (db, logger)
         {
 
         }
@@ -80,16 +80,25 @@ namespace Schedulist.DAL.Repositories
                 return false;
             }
         }
-        public ValidationResult CalendarEventStartTimeOverlappingValidation(DateOnly calendarEventDate, TimeOnly calendarEventStartTime, TimeOnly calendarEventEndTime, int userId)
+        public ValidationResult CalendarEventOverlappingValidation(DateOnly calendarEventDate, TimeOnly calendarEventStartTime, TimeOnly calendarEventEndTime, int userId)
         {
             List<CalendarEvent> allCalendarEvents = GetAllCalendarEvents();
             var providedStartTime = allCalendarEvents.FirstOrDefault(c => c.UserId == userId &&
-                                    c.CalendarEventDate == calendarEventDate && ((calendarEventStartTime > c.CalendarEventStartTime && calendarEventStartTime < c.CalendarEventEndTime)
+                                    c.CalendarEventDate == calendarEventDate && ((calendarEventStartTime >= c.CalendarEventStartTime && calendarEventStartTime < c.CalendarEventEndTime)
                                     || (c.CalendarEventStartTime > calendarEventStartTime && c.CalendarEventStartTime < calendarEventEndTime)));
 
             if (providedStartTime != null)
             {
                 return new ValidationResult("There is already a Calendar Event with the provided Start time or that takes place at the same time. Please provide different values.");
+            }
+            return ValidationResult.Success;
+        }
+
+        public ValidationResult CalendarEventTimesValidation(TimeOnly calendarEventStartTime, TimeOnly calendarEventEndTime)
+        {
+            if (calendarEventStartTime >= calendarEventEndTime)
+            {
+                return new ValidationResult("Start Time cannot be later or the same time as End Time!");
             }
             return ValidationResult.Success;
         }

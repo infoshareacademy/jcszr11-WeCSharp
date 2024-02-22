@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace Schedulist.DAL.Migrations
 {
     /// <inheritdoc />
-    public partial class CreatingInitialTablesAndRelations : Migration
+    public partial class InitialMigration : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)

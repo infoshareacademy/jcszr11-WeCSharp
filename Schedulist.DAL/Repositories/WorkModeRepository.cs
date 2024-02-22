@@ -11,7 +11,7 @@ namespace Schedulist.DAL.Repositories
 {
     public class WorkModeRepository : BaseRepository, IWorkModeRepository
     {
-        public WorkModeRepository(DBContact db, ILogger<BaseRepository> logger) : base(db, logger)
+        public WorkModeRepository(SchedulistDbContext db, ILogger<BaseRepository> logger) : base(db, logger)
         {
             
         }
