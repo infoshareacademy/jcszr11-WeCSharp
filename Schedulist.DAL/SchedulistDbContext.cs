@@ -13,6 +13,10 @@ namespace Schedulist.DAL
 {
     public class SchedulistDbContext : IdentityDbContext<IdentityUser>
     {
+        public SchedulistDbContext()
+        {
+        }
+
         public SchedulistDbContext(DbContextOptions<SchedulistDbContext> options) : base(options) { }
 
 

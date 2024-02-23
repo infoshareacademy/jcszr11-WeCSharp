@@ -1,6 +1,8 @@
 ﻿@model CalendarEvent
 @using Schedulist.DAL.Models
-
+@{
+    ViewBag.Title = "AssignUser";
+}
 
 <h4 class="text-center" style="display:flex; justify-content:center; font-size: 30px">@(Model == null ? "Calendar Event Creation" : "Calendar Event Update")</h4>
 <hr />
@@ -41,10 +43,17 @@
                 <input asp-for="CalendarEventEndTime" class="form-control" />
                 <span asp-validation-for="CalendarEventEndTime" class="text-danger"></span>
             </div>
-            <div class="form-group">
+@*             <div class="form-group">
                 <label asp-for="UserId" class="control-label"></label>
                 <input asp-for="UserId" class="form-control" />
                 <span asp-validation-for="UserId" class="text-danger"></span>
+            </div> *@
+                <div class="form-group">
+                <label asp-for="UserId" class="control-label"></label>
+                <div class="col-md-10">
+                @Html.DropDownListFor(model => Model.UserId, ViewBag.Users as SelectList, "Assigned to User", new { @class = "form-control" }) 
+                <span asp-validation-for="UserId" class="text-danger"></span>
+                </div>
             </div>
             @{
                 var buttonStyle = (Model == null ? "background-color: green;" : "background-color: rgb(224, 157, 49);");
