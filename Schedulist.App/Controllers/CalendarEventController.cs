@@ -1,6 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 using Schedulist.App.Models.Enum;
+using Schedulist.DAL;
 using Schedulist.DAL.Models;
 using Schedulist.DAL.Repositories.Interfaces;
 using System.ComponentModel.DataAnnotations;
@@ -150,6 +152,16 @@ namespace Schedulist.App.Controllers
                 PopupNotification("Error occurred while deleting calendar event", notificationType: NotificationType.error);
                 return View();
             }
+        }
+
+        public ActionResult AssignUser()
+        {
+            using (var db = new SchedulistDbContext())
+            {
+                var users = db.Users.ToList();
+                ViewBag.Users = new SelectList(users, "Id", "Name", "Surname");
+            }
+                return View(); 
         }
     }
 }
