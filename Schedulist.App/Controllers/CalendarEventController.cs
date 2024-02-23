@@ -1,7 +1,9 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.CodeAnalysis.CSharp.Syntax;
 using Schedulist.App.Models.Enum;
 using Schedulist.DAL.Models;
 using Schedulist.DAL.Repositories.Interfaces;
+using System.ComponentModel.DataAnnotations;
 using System.Diagnostics;
 
 namespace Schedulist.App.Controllers
@@ -48,15 +50,48 @@ namespace Schedulist.App.Controllers
         {
             try
             {
-                if (!ModelState.IsValid)
+                //if (!ModelState.IsValid)
+                //{
+                //    return View(calendarEvent);
+                //}
+                if (calendarEvent.Id == 0)
                 {
-                    return View(calendarEvent);
+                    var timeValidationResult = _calendarEventRepository.CalendarEventTimesValidation(calendarEvent.CalendarEventStartTime, calendarEvent.CalendarEventEndTime);
+                    var validationResult = _calendarEventRepository.CalendarEventOverlappingValidation(calendarEvent.CalendarEventDate, calendarEvent.CalendarEventStartTime, calendarEvent.CalendarEventEndTime, calendarEvent.UserId, calendarEvent.Id);
+                    if (timeValidationResult != ValidationResult.Success)
+                    {
+                        ModelState.AddModelError(nameof(calendarEvent.CalendarEventEndTime), timeValidationResult.ErrorMessage);
+                        return View(calendarEvent);
+                    }
+                    if (validationResult != ValidationResult.Success)
+                    {
+                        ModelState.AddModelError(nameof(calendarEvent.CalendarEventStartTime), validationResult.ErrorMessage);
+                        return View(calendarEvent);
+                    }
+                    _calendarEventRepository.CreateCalendarEvent(calendarEvent);
+                    Debug.WriteLine($"Created Calendar Event.");
+                    PopupNotification("Calendar event has been created successfully");
+                    return RedirectToAction(nameof(Index));
                 }
-                _calendarEventRepository.CreateCalendarEvent(calendarEvent);
-                Debug.WriteLine($"Created Calendar Event.");
-                PopupNotification("Calendar event has been created successfully");
-
-                return RedirectToAction(nameof(Index));
+                else
+                {
+                    var timeValidationResult = _calendarEventRepository.CalendarEventTimesValidation(calendarEvent.CalendarEventStartTime, calendarEvent.CalendarEventEndTime);
+                    var validationResult = _calendarEventRepository.CalendarEventOverlappingValidation(calendarEvent.CalendarEventDate, calendarEvent.CalendarEventStartTime, calendarEvent.CalendarEventEndTime, calendarEvent.UserId, calendarEvent.Id);
+                    if (timeValidationResult != ValidationResult.Success)
+                    {
+                        ModelState.AddModelError(nameof(calendarEvent.CalendarEventEndTime), timeValidationResult.ErrorMessage);
+                        return View(calendarEvent);
+                    }
+                    if (validationResult != ValidationResult.Success)
+                    {
+                        ModelState.AddModelError(nameof(calendarEvent.CalendarEventStartTime), validationResult.ErrorMessage);
+                        return View(calendarEvent);
+                    }
+                    _calendarEventRepository.UpdateCalendarEvent(calendarEvent);
+                    Debug.WriteLine($"Modified Calendar Event.");
+                    PopupNotification("Calendar event has been updated successfully");
+                    return RedirectToAction(nameof(Index));
+                }
             }
             catch (Exception ex)
             {
@@ -77,26 +112,26 @@ namespace Schedulist.App.Controllers
         }
 
         // POST: CalendarEventController/Edit/5
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, CalendarEvent calendarEvent)
-        {
-            try
-            {
-                if (!ModelState.IsValid)
-                {
-                    return View(id);
-                }
-                _calendarEventRepository.UpdateCalendarEvent(calendarEvent);
-                Debug.WriteLine($"Modified Calendar Event.");
-                PopupNotification("Calendar event has been updated successfully");
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
-        }
+        //[HttpPost]
+        //[ValidateAntiForgeryToken]
+        //public ActionResult Edit(int id, CalendarEvent calendarEvent)
+        //{
+        //    try
+        //    {
+        //        if (!ModelState.IsValid)
+        //        {
+        //            return View(id);
+        //        }
+        //        _calendarEventRepository.UpdateCalendarEvent(calendarEvent);
+        //        Debug.WriteLine($"Modified Calendar Event.");
+        //        PopupNotification("Calendar event has been updated successfully");
+        //        return RedirectToAction(nameof(Index));
+        //    }
+        //    catch
+        //    {
+        //        return View();
+        //    }
+        //}
         // POST: CalendarEventController/Delete/5
         [HttpPost]
         public ActionResult Delete(int id)

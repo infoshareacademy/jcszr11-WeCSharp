@@ -80,10 +80,10 @@ namespace Schedulist.DAL.Repositories
                 return false;
             }
         }
-        public ValidationResult CalendarEventOverlappingValidation(DateOnly calendarEventDate, TimeOnly calendarEventStartTime, TimeOnly calendarEventEndTime, int userId)
+        public ValidationResult CalendarEventOverlappingValidation(DateOnly calendarEventDate, TimeOnly calendarEventStartTime, TimeOnly calendarEventEndTime, int userId, int calendarEventId)
         {
             List<CalendarEvent> allCalendarEvents = GetAllCalendarEvents();
-            var providedStartTime = allCalendarEvents.FirstOrDefault(c => c.UserId == userId &&
+            var providedStartTime = allCalendarEvents.FirstOrDefault(c => c.UserId == userId && c.Id != calendarEventId &&
                                     c.CalendarEventDate == calendarEventDate && ((calendarEventStartTime >= c.CalendarEventStartTime && calendarEventStartTime < c.CalendarEventEndTime)
                                     || (c.CalendarEventStartTime > calendarEventStartTime && c.CalendarEventStartTime < calendarEventEndTime)));
 
