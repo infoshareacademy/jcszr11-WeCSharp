@@ -153,15 +153,5 @@ namespace Schedulist.App.Controllers
                 return View();
             }
         }
-
-        public ActionResult AssignUser()
-        {
-            using (var db = new SchedulistDbContext())
-            {
-                var users = db.Users.ToList();
-                ViewBag.Users = new SelectList(users, "Id", "Name", "Surname");
-            }
-                return View(); 
-        }
     }
 }
