@@ -3,7 +3,7 @@
 @inject SignInManager<IdentityUser> SignInManager
 @inject UserManager<IdentityUser> UserManager
 
-<ul class="navbar-nav">
+<ul class="nav nav-pills flex-column mt-4">
 @if (SignInManager.IsSignedIn(User))
 {
     <li class="nav-item">
@@ -17,12 +17,16 @@
 }
 else
 {
-        <li class="nav-item">
-            <a class="nav-link text-white" id="register" asp-area="Identity" asp-page="/Account/Register" style="font-family: 'Dubai', sans-serif;">Register</a>
+        <button type="button" class="btn btn-secondary dropdown-toggle btn-circle btn-x1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <i class="bi bi-person"></i>
+        </button>
+        <div class="dropdown-menu">
+        <li class="nav-item" style="text-align: left;">
+            <a class="nav-link text-black" id="register" asp-area="Identity" asp-page="/Account/Register" style="font-family: 'Dubai', sans-serif;">Register</a>
         </li>
-        <li class="nav-item">
-            <a class="nav-link text-white" id="login" asp-area="Identity" asp-page="/Account/Login" style="font-family: 'Dubai', sans-serif;">Login</a>
+        <li class="nav-item" style="text-align: left;">
+            <a class="nav-link text-black" id="login" asp-area="Identity" asp-page="/Account/Login" style="font-family: 'Dubai', sans-serif;">Login</a>
         </li>
-
+        </div>
 }
 </ul>
