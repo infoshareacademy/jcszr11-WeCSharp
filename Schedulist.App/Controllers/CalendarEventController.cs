@@ -48,7 +48,6 @@ namespace Schedulist.App.Controllers
         public ActionResult Create()
         {
             SetupUserList();
-            //ViewBag.Users = usersListItems;
             logger.LogInformation($"Creating Calendar Event started.");
             return View();
         }
@@ -68,10 +67,6 @@ namespace Schedulist.App.Controllers
             try
             {
                 SetupUserList();
-                //if (!ModelState.IsValid)
-                //{
-                //    return View(calendarEvent);
-                //}
                 var validationResults = _calendarEventService.ValidateCalendarEvent(calendarEvent);
                 if (validationResults.Any(x => x != ValidationResult.Success))
                 {
@@ -110,10 +105,12 @@ namespace Schedulist.App.Controllers
             try
             {
                 SetupUserList();
-                if (!ModelState.IsValid)
-                {
-                    return View(id);
-                }
+                //var validationResults = _calendarEventService.ValidateCalendarEvent(calendarEvent);
+                //if (validationResults.Any(x => x != ValidationResult.Success))
+                //{
+                //    validationResults.Where(x => x != ValidationResult.Success).ToList().ForEach(x => ModelState.AddModelError(nameof(calendarEvent.CalendarEventEndTime), x.ErrorMessage));
+                //    return View(calendarEvent);
+                //}
                 _calendarEventRepository.UpdateCalendarEvent(calendarEvent);
                 logger.LogInformation($"Modified Calendar Event.");
                 PopupNotification("Calendar event has been updated successfully");
