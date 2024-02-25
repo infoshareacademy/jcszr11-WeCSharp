@@ -70,7 +70,7 @@ namespace Schedulist.App.Controllers
             return View("Index", _calendarParams);
         }
 
-        public IActionResult Day(DateTime date, int userToEdit)
+        public IActionResult Day (DateTime date, int userToEdit)
         {
             if (userToEdit != 0)
             {
