@@ -1,6 +1,7 @@
 ﻿@using Schedulist.App.ViewModels
 @using Schedulist.DAL.Models
 @using Schedulist.DAL.Repositories
+@using Schedulist.DAL.Shared
 @model MonthViewModel
 
 <div class="text-center" style="height: calc(100vh - 140px);">
@@ -89,7 +90,7 @@
                                     <div style="height: 100%">
                                     @foreach (CalendarEvent calendarEvent in calendarEventForDay)
                                     {
-                                        if (workModeForThisDay == "SickLeave" || workModeForThisDay == "Holiday")
+                                        if (workModeForThisDay == WorkModeNames.SICK_LEAVE || workModeForThisDay == WorkModeNames.HOLIDAY)
                                         {
                                               if (daysToRemove > 0)
                                             {
@@ -141,7 +142,7 @@
                                     <div style="height: 100%">
                                     @foreach (CalendarEvent calendarEvent in calendarEventForDay)
                                     {
-                                        if (workModeForThisDay == "SickLeave" || workModeForThisDay == "Holiday")
+                                        if (workModeForThisDay == WorkModeNames.SICK_LEAVE || workModeForThisDay == WorkModeNames.HOLIDAY)
                                         {
                                               if (daysToRemove > 0)
                                             {

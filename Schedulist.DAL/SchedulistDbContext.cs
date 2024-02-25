@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Schedulist.DAL.Models;
+using Schedulist.DAL.Shared;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -31,12 +32,12 @@ namespace Schedulist.DAL
         {
             base.OnModelCreating(builder);
             builder.Entity<WorkMode>().HasData(
-                new WorkMode() { Id = 1, Name = "Office" },
-                new WorkMode() { Id = 2, Name = "HomeOffice" },
-                new WorkMode() { Id = 3, Name = "SickLeave" },
-                new WorkMode() { Id = 4, Name = "Delegation" },
-                new WorkMode() { Id = 5, Name = "Holiday" },
-                new WorkMode() { Id = 6, Name = "Others" }
+                new WorkMode() { Id = 1, Name = WorkModeNames.OFFICE },
+                new WorkMode() { Id = 2, Name = WorkModeNames.HOME_OFFICE },
+                new WorkMode() { Id = 3, Name = WorkModeNames.SICK_LEAVE },
+                new WorkMode() { Id = 4, Name = WorkModeNames.DELEGATION },
+                new WorkMode() { Id = 5, Name = WorkModeNames.HOLIDAY },
+                new WorkMode() { Id = 6, Name = WorkModeNames.OTHERS}
             );
             base.OnModelCreating(builder);
             builder.Entity<WorkModeForUser>().HasData(

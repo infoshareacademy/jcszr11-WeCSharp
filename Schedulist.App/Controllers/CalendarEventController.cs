@@ -52,48 +52,35 @@ namespace Schedulist.App.Controllers
         {
             try
             {
-                //if (!ModelState.IsValid)
-                //{
-                //    return View(calendarEvent);
-                //}
-                if (calendarEvent.Id == 0)
+                if (!ModelState.IsValid)
                 {
+                    return View(calendarEvent);
+                }
                     var timeValidationResult = _calendarEventRepository.CalendarEventTimesValidation(calendarEvent.CalendarEventStartTime, calendarEvent.CalendarEventEndTime);
-                    var validationResult = _calendarEventRepository.CalendarEventOverlappingValidation(calendarEvent.CalendarEventDate, calendarEvent.CalendarEventStartTime, calendarEvent.CalendarEventEndTime, calendarEvent.UserId, calendarEvent.Id);
                     if (timeValidationResult != ValidationResult.Success)
                     {
                         ModelState.AddModelError(nameof(calendarEvent.CalendarEventEndTime), timeValidationResult.ErrorMessage);
                         return View(calendarEvent);
                     }
+                    var validationResult = _calendarEventRepository.CalendarEventOverlappingValidation(calendarEvent.CalendarEventDate, calendarEvent.CalendarEventStartTime, calendarEvent.CalendarEventEndTime, calendarEvent.UserId, calendarEvent.Id);
                     if (validationResult != ValidationResult.Success)
                     {
                         ModelState.AddModelError(nameof(calendarEvent.CalendarEventStartTime), validationResult.ErrorMessage);
                         return View(calendarEvent);
                     }
+                if (calendarEvent.Id == 0)
+                {
                     _calendarEventRepository.CreateCalendarEvent(calendarEvent);
                     Debug.WriteLine($"Created Calendar Event.");
                     PopupNotification("Calendar event has been created successfully");
-                    return RedirectToAction(nameof(Index));
                 }
                 else
                 {
-                    var timeValidationResult = _calendarEventRepository.CalendarEventTimesValidation(calendarEvent.CalendarEventStartTime, calendarEvent.CalendarEventEndTime);
-                    var validationResult = _calendarEventRepository.CalendarEventOverlappingValidation(calendarEvent.CalendarEventDate, calendarEvent.CalendarEventStartTime, calendarEvent.CalendarEventEndTime, calendarEvent.UserId, calendarEvent.Id);
-                    if (timeValidationResult != ValidationResult.Success)
-                    {
-                        ModelState.AddModelError(nameof(calendarEvent.CalendarEventEndTime), timeValidationResult.ErrorMessage);
-                        return View(calendarEvent);
-                    }
-                    if (validationResult != ValidationResult.Success)
-                    {
-                        ModelState.AddModelError(nameof(calendarEvent.CalendarEventStartTime), validationResult.ErrorMessage);
-                        return View(calendarEvent);
-                    }
                     _calendarEventRepository.UpdateCalendarEvent(calendarEvent);
                     Debug.WriteLine($"Modified Calendar Event.");
                     PopupNotification("Calendar event has been updated successfully");
-                    return RedirectToAction(nameof(Index));
                 }
+                    return RedirectToAction(nameof(Index));
             }
             catch (Exception ex)
             {
