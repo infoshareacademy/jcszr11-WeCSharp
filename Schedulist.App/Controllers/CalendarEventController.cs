@@ -1,19 +1,26 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Azure.Identity;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Schedulist.App.Models.Enum;
 using Schedulist.App.Services.Interfaces;
 using Schedulist.DAL.Models;
+using Schedulist.DAL.Repositories;
 using Schedulist.DAL.Repositories.Interfaces;
 using System.ComponentModel.DataAnnotations;
+using System.Diagnostics;
+using System.Drawing.Text;
 
 namespace Schedulist.App.Controllers
 {
     public class CalendarEventController : ControllerBase
     {
         private readonly ICalendarEventRepository _calendarEventRepository;
+        private readonly IUserRepository _userRepository;
         private readonly ICalendarEventService _calendarEventService;
-        public CalendarEventController(ILogger<CalendarEventController> logger, ICalendarEventRepository calendarEventRepository, ICalendarEventService calendarEventService) : base(logger) 
+        public CalendarEventController(ILogger<CalendarEventController> logger, ICalendarEventRepository calendarEventRepository, ICalendarEventService calendarEventService, IUserRepository userRepository) : base(logger) 
         {
             _calendarEventRepository = calendarEventRepository;
+            _userRepository = userRepository;
             _calendarEventService = calendarEventService;
         }
 
@@ -40,8 +47,17 @@ namespace Schedulist.App.Controllers
         [ResponseCache(Duration = 30, NoStore = true)]
         public ActionResult Create()
         {
+            SetupUserList();
+            //ViewBag.Users = usersListItems;
             logger.LogInformation($"Creating Calendar Event started.");
             return View();
+        }
+
+        private void SetupUserList()
+        {
+            var users = _userRepository.GetAllUsers();
+            var usersListItems = users.Select(user => new SelectListItem { Text = $"{user.Name} {user.Surname}", Value = user.Id.ToString() });
+            ViewBag.Users = new SelectList(usersListItems, "Value", "Text");
         }
 
         // POST: CalendarEventController/Create
@@ -133,5 +149,15 @@ namespace Schedulist.App.Controllers
                 return View();
             }
         }
+
+        //public ActionResult AssignUser()
+        //{
+        //    using (var db = new SchedulistDbContext())
+        //    {
+        //        var users = db.Users.ToList();
+        //        ViewBag.Users = new SelectList(users, "Id", "Name");
+        //    }
+        //        return View(); 
+        //}
     }
 }
