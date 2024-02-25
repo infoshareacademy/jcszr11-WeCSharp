@@ -67,28 +67,20 @@ namespace Schedulist.App.Controllers
         {
             try
             {
-                if (!ModelState.IsValid)
-                {
-                    return View(calendarEvent);
-                }
+                SetupUserList();
+                //if (!ModelState.IsValid)
+                //{
+                //    return View(calendarEvent);
+                //}
                 var validationResults = _calendarEventService.ValidateCalendarEvent(calendarEvent);
                 if (validationResults.Any(x => x != ValidationResult.Success))
                 {
                     validationResults.Where(x => x != ValidationResult.Success).ToList().ForEach(x => ModelState.AddModelError(nameof(calendarEvent.CalendarEventEndTime), x.ErrorMessage));
                     return View(calendarEvent);
                 }
-                if (calendarEvent.Id == 0)
-                {
                     _calendarEventRepository.CreateCalendarEvent(calendarEvent);
                     logger.LogInformation("Calendar Event created.");
                     PopupNotification("Calendar event has been created successfully");
-                }
-                else
-                {
-                    _calendarEventRepository.UpdateCalendarEvent(calendarEvent);
-                    logger.LogInformation($"Modified Calendar Event.");
-                    PopupNotification("Calendar event has been updated successfully");
-                }
                     return RedirectToAction(nameof(Index));
             }
             catch (Exception ex)
@@ -104,33 +96,35 @@ namespace Schedulist.App.Controllers
         [ResponseCache(Duration = 30, NoStore = true)]
         public ActionResult Edit(int id)
         {
+            SetupUserList();
             var model = _calendarEventRepository.GetCalendarEventById(id);
-            logger.LogInformation($"Deleting Calendar Event started.");
-            return View("Create", model);
+            logger.LogInformation($"Updating Calendar Event started.");
+            return View("Edit", model);
         }
 
-        // POST: CalendarEventController/Edit/5
-        //[HttpPost]
-        //[ValidateAntiForgeryToken]
-        //public ActionResult Edit(int id, CalendarEvent calendarEvent)
-        //{
-        //    try
-        //    {
-        //        if (!ModelState.IsValid)
-        //        {
-        //            return View(id);
-        //        }
-        //        _calendarEventRepository.UpdateCalendarEvent(calendarEvent);
-        //        Debug.WriteLine($"Modified Calendar Event.");
-        //        PopupNotification("Calendar event has been updated successfully");
-        //        return RedirectToAction(nameof(Index));
-        //    }
-        //    catch
-        //    {
-        //        return View();
-        //    }
-        //}
-        // POST: CalendarEventController/Delete/5
+        //POST: CalendarEventController/Edit/5
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Edit(int id, CalendarEvent calendarEvent)
+        {
+            try
+            {
+                SetupUserList();
+                if (!ModelState.IsValid)
+                {
+                    return View(id);
+                }
+                _calendarEventRepository.UpdateCalendarEvent(calendarEvent);
+                logger.LogInformation($"Modified Calendar Event.");
+                PopupNotification("Calendar event has been updated successfully");
+                return RedirectToAction(nameof(Index));
+            }
+            catch
+            {
+                return View();
+            }
+        }
+        //POST: CalendarEventController/Delete/5
         [HttpPost]
         public ActionResult Delete(int id)
         {
