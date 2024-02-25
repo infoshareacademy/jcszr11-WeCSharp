@@ -18,9 +18,10 @@
             <div class="col-sm-2 sidenav">
                 <partial name="_LoginPartial" style="color: white;"></partial>
                 <ul class="nav nav-pills flex-column mt-4">
-                    <a class="navbar-brand" href="#">
+                    <a class="navbar-brand" href="@Url.Action("Index", "Calendar")">
                         <img src="https://i.ibb.co/Gt4K0p6/schedulistlogo.png" alt="schedulistlogo" border="0">
                     </a>
+
                     <li class="nav-item">
                         <a class="nav-link d-flex align-items-center" asp-area="" asp-controller="Calendar" asp-action="Index" style="color: white; font-size: 26px; font-family: Dubai;">
                             <i class="bi bi-caret-right text-white text-primary m-3"></i> <span style="font-size: 20px; font-family: Dubai;">Calendar</span>
