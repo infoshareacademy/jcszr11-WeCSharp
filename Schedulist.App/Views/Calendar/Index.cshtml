@@ -76,20 +76,23 @@
                                         @drawDate.Day
                                     </div>
                                 <div class="calendar-day-work-mode">
-                                            @{string workModeForThisDay = "";}
+                                            @{WorkMode workModeForThisDay = new WorkMode();}
                                             @foreach (WorkModeForUser workMode in Model.WorkModesToDraw)
                                             {
                                             if (workMode.DateOfWorkMode == DateOnly.FromDateTime(drawDate))
                                                 {
-                                                    workModeForThisDay = Model.WorkMode.GetWorkModeById(workMode.Id).Name;
+                                                    workModeForThisDay = Model.WorkMode.GetWorkModeById(workMode.Id);
                                                 }
                                         }
-                                        @workModeForThisDay;
+                                        @if (workModeForThisDay != null)
+                                        {
+                                        @workModeForThisDay.Name;
+                                        }
                                     </div>
                                     <div style="height: 100%">
                                     @foreach (CalendarEvent calendarEvent in calendarEventForDay)
                                     {
-                                        if (workModeForThisDay == "SickLeave" || workModeForThisDay == "Holiday")
+                                        if (workModeForThisDay.Id == 3 || workModeForThisDay.Id == 5)
                                         {
                                               if (daysToRemove > 0)
                                             {
