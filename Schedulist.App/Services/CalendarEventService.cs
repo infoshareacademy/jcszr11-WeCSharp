@@ -22,8 +22,6 @@ namespace Schedulist.App.Services
                 timeValidationResult,
                 validationResult
             };
-
         }
-
     }
 }

@@ -1,4 +1,5 @@
 ﻿using Azure.Identity;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Schedulist.App.Models.Enum;
@@ -40,6 +41,14 @@ namespace Schedulist.App.Controllers
         {
             var calendarEvent = _calendarEventRepository.GetAllCalendarEvents()[id];
             return View(calendarEvent);
+        }
+
+        [HttpGet]
+        [AllowAnonymous]
+        public ActionResult<IEnumerable<CalendarEvent>> GetAll([FromQuery] CalendarEventQuery query)
+        {
+            var calendarEvent = _calendarEventRepository.GetAll(query);
+            return Ok(calendarEvent);
         }
 
         //GET: CalendarEventController/Create
@@ -140,15 +149,5 @@ namespace Schedulist.App.Controllers
                 return View();
             }
         }
-
-        //public ActionResult AssignUser()
-        //{
-        //    using (var db = new SchedulistDbContext())
-        //    {
-        //        var users = db.Users.ToList();
-        //        ViewBag.Users = new SelectList(users, "Id", "Name");
-        //    }
-        //        return View(); 
-        //}
     }
 }

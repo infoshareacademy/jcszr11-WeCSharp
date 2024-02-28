@@ -11,6 +11,7 @@ namespace Schedulist.DAL.Repositories.Interfaces
     public interface ICalendarEventRepository
     {
         public List<CalendarEvent> GetAllCalendarEvents();
+        PagedResult<CalendarEvent> GetAll(CalendarEventQuery query);
         public CalendarEvent GetCalendarEventById(int id);
         public bool CreateCalendarEvent(CalendarEvent calendarEvent);
         public bool UpdateCalendarEvent(CalendarEvent calendarEvent);

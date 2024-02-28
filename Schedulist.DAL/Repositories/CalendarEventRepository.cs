@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore.Query.Internal;
+﻿using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.EntityFrameworkCore.Query.Internal;
 using Microsoft.Extensions.Logging;
 using Schedulist.DAL.Models;
 using Schedulist.DAL.Repositories.Interfaces;
@@ -9,7 +10,7 @@ namespace Schedulist.DAL.Repositories
 {
     public class CalendarEventRepository : BaseRepository, ICalendarEventRepository
     {
-        public CalendarEventRepository(SchedulistDbContext db, ILogger<BaseRepository> logger) : base (db, logger)
+        public CalendarEventRepository(SchedulistDbContext db, ILogger<BaseRepository> logger) : base(db, logger)
         {
 
         }
@@ -101,6 +102,25 @@ namespace Schedulist.DAL.Repositories
                 return new ValidationResult("Start Time cannot be later or the same time as End Time!");
             }
             return ValidationResult.Success;
+        }
+        public PagedResult<CalendarEvent> GetAll(CalendarEventQuery query) //TODO powinno być CalendarEventDto
+        {
+            var baseQuery = _db.CalendarEvents
+                .Where(r => query.SearchPhrase == null
+                || (r.CalendarEventName.ToLower().Contains(query.SearchPhrase.ToLower())
+                || r.CalendarEventDescription.ToLower().Contains(query.SearchPhrase.ToLower())));
+
+            var calendarEvents = baseQuery
+                .Skip(query.PageSize * (query.PageNumber - 1))
+                .Take(query.PageSize)
+                .ToList();
+
+            var totalItemsCount = baseQuery.Count();
+
+            //var calendarEventDto = _mapper.Map<List<CalendarEventDto>>(calendarEvents);
+
+            var result = new PagedResult<CalendarEvent>(calendarEvents, totalItemsCount, query.PageSize, query.PageNumber); //TODO powinno być <CalendarEventDto> i calendarEventDto
+            return result;
         }
     }
 }
