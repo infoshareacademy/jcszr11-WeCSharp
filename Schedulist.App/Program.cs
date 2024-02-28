@@ -1,9 +1,11 @@
+using FluentValidation;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Schedulist.App.Services;
 using Schedulist.App.Services.Interfaces;
 using Schedulist.DAL;
 using Schedulist.DAL.Models;
+using Schedulist.DAL.Models.Validators;
 using Schedulist.DAL.Repositories;
 using Schedulist.DAL.Repositories.Interfaces;
 
@@ -39,6 +41,7 @@ namespace Schedulist.App
             builder.Services.AddTransient<ICalendarRepository, CalendarRepository>();
             builder.Services.AddTransient<IWorkModeForUserRepository, WorkModeForUserRepository>();
             builder.Services.AddTransient<IWorkModeRepository, WorkModeRepository>();
+            builder.Services.AddScoped<IValidator<CalendarEventQuery>, CalendarEventQueryValidator>();
 
             var app = builder.Build();
 

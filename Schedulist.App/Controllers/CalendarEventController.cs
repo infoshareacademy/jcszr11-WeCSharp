@@ -13,6 +13,8 @@ using System.Drawing.Text;
 
 namespace Schedulist.App.Controllers
 {
+    //[ApiController]
+    //[Authorize]
     public class CalendarEventController : ControllerBase
     {
         private readonly ICalendarEventRepository _calendarEventRepository;
