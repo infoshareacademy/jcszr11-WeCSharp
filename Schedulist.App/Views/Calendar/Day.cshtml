@@ -5,18 +5,26 @@
 @{
     ViewData["Title"] = "Day";
 }
-
-<div class="row-margin">
-    <h1>@Model.Date</h1>
-    <h1>
+<div class="row flex-nowrap month-name-container">
+    <div class="button-field"></div>
+    <div class="button-field"></div>
+    <div class="month-name">
+        @Model.Date.ToString("dd MMMM yyyy")
+    </div>
+    <div class="calendar-dropdown">
+        <div class="dropdown">
+            <button class="btn btn-primary dropdown-toggle month-view-dropdown" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                Day
+            </button>
+            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                <a class="dropdown-item">Week</a>
+                <a class="dropdown-item" onclick="location.href='@Url.Action("Index", "Calendar")'">Month</a>
+            </div>
+        </div>
+    </div>
+    <div class="month-user-name">
         @Model.User.Name @Model.User.Surname - @Model.WorkMode
-
-        <button class="btn btn-primary" onclick="location.href='@Url.Action("CreateWM", "Calendar")'">
-            Choose work mode
-        </button>
-    </h1>
-    
-    
+    </div>
 </div>
 
 @if (@Model.CalendarEvents.Count > 0)

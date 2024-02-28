@@ -23,6 +23,8 @@ html {
 .col-sm-10 {
     background-color: white;
     padding: 20px;
+    padding-left: 40px;
+    padding-right: 40px;
     margin: 10px 0;
 }
 /*shared*/
@@ -83,10 +85,25 @@ body {
 
 /*calendar*/
 
-.month-name {
+.month-name-container {
     min-width: 490px;
-    font-size: calc(30px + 3.5vw);
-    justify-content: center;
+    justify-content: left;
+    padding-bottom: 10px;
+    border-bottom: 1px solid lightgrey;
+}
+
+
+.month-name {
+    font-size: 30px;
+    width: 270px;
+    padding: 0;
+}
+
+.month-user-name {
+    font-size: 30px;
+    padding: 0;
+    padding-left: 10px;
+    text-align: left;
 }
 
 .calendar-header {
@@ -109,7 +126,7 @@ body {
     color: grey;
     text-decoration: none;
     padding: 0;
-    display:grid ;
+    display: grid;
 }
 
 .today {
@@ -124,11 +141,22 @@ body {
 }
 
 .button-field {
-    width: 3%;
-    justify-content: center;
+    width: 45px;
+    padding: 0;
+    padding-top: 5px;
 }
+.user-dropdown {
+    width: 210px;
+}
+
+.month-view-dropdown {
+    width: 100px;
+}
+
 .calendar-dropdown {
-    width: 9%;
+    padding: 0;
+    padding-top: 5px;
+    width: 130px;
     justify-content: center;
 }
 
@@ -169,6 +197,7 @@ body {
     gap: 5px;
     cursor: pointer;
 }
+
 .button {
     font-family: 'Arial Narrow';
 }
@@ -183,14 +212,15 @@ body {
     font-size: 18px;
 }
 
-.form-button:hover {
-    transform: scale(1.04);
- }
+    .form-button:hover {
+        transform: scale(1.04);
+    }
 /*---------- Notification section ----------*/
 #toast-container > .toast-success {
     background-color: green;
     color: white;
 }
+
 #toast-container > .toast-error {
     background-color: darkred;
     color: white;
