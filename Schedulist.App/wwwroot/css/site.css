@@ -85,6 +85,15 @@ body {
 
 /*calendar*/
 
+.day-calendar-row {
+    height: 50px;
+    border-bottom: 1px solid lightgrey;
+}
+
+.day-calendar-row-hour {
+    border-right: 1px solid lightgrey;
+}
+
 .month-name-container {
     min-width: 490px;
     justify-content: left;
@@ -94,14 +103,16 @@ body {
 
 
 .month-name {
-    font-size: 30px;
-    width: 270px;
+    font-size: 24px;
+    width: 250px;
     padding: 0;
+    padding-top: 5px;
 }
 
 .month-user-name {
-    font-size: 30px;
+    font-size: 24px;
     padding: 0;
+    padding-top: 5px;
     padding-left: 10px;
     text-align: left;
 }
@@ -145,6 +156,7 @@ body {
     padding: 0;
     padding-top: 5px;
 }
+
 .user-dropdown {
     width: 210px;
 }
