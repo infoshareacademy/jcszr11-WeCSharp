@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Schedulist.DAL.Models;
 
 namespace Schedulist.App
 {
@@ -6,7 +7,7 @@ namespace Schedulist.App
     {
         public MapperProfile() 
         { 
-
+            CreateMap<CalendarEvent, CalendarEventDto>();
         }
     }
 }
