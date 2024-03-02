@@ -21,8 +21,8 @@
                         Month
                     </button>
                     <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                            <a class="dropdown-item" onclick="location.href='@Url.Action("Day", "Calendar", new {@date = DateTime.Now, @userToEdit = Model.UserToEdit})'">Day</a>
-                            <a class="dropdown-item">Week</a>
+                        <a class="dropdown-item" onclick="location.href='@Url.Action("Day", "Calendar", new {@date = DateTime.Now, @userToEdit = Model.UserToEdit})'">Day</a>
+                        <a class="dropdown-item" onclick="location.href='@Url.Action("Week", "Calendar", new {@date = DateTime.Now, @userToEdit = Model.UserToEdit})'">Week</a>
                     </div>
                 </div>
             </div>
