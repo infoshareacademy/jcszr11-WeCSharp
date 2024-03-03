@@ -7,40 +7,14 @@
 }
 <div style="position: sticky; top: 0 ">
     <div class="row flex-nowrap month-name-container">
-        @{
-            DateOnly startOfWeek = Model.Date;
-            while (true)
-            {
-                if (startOfWeek.DayOfWeek == DayOfWeek.Monday)
-                {
-                    break;
-                }
-                else
-                {
-                    startOfWeek = startOfWeek.AddDays(-1);
-                }
-            }
-            DateOnly endOfWeek = Model.Date;
-            while (true)
-            {
-                if (endOfWeek.DayOfWeek == DayOfWeek.Sunday)
-                {
-                    break;
-                }
-                else
-                {
-                    endOfWeek = endOfWeek.AddDays(1);
-                }
-            }
-        }
         <div class="button-field">
-            <button type="button" class="btn btn-light" onclick="location.href='@Url.Action("Week", "Calendar", new {@date = startOfWeek.AddDays(-1), @userToEdit = Model.User})'"><</button>
+            <button type="button" class="btn btn-light" onclick="location.href='@Url.Action("Week", "Calendar", new {@date = Model.StartOfWeek.AddDays(-1), @userToEdit = Model.User})'"><</button>
         </div>
         <div class="button-field">
-            <button type="button" class="btn btn-light" onclick="location.href='@Url.Action("Week", "Calendar", new {@date = endOfWeek.AddDays(1), @userToEdit = Model.User})'">></button>
+            <button type="button" class="btn btn-light" onclick="location.href='@Url.Action("Week", "Calendar", new {@date = Model.EndOfWeek.AddDays(1), @userToEdit = Model.User})'">></button>
         </div>
         <div class="month-name">
-            @startOfWeek.ToString("dd MMMM yyyy") - @endOfWeek.ToString("dd MMMM yyyy")
+            @Model.StartOfWeek.ToString("dd MMMM yyyy") - @Model.EndOfWeek.ToString("dd MMMM yyyy")
         </div>
         <div class="calendar-dropdown">
             <div class="dropdown">
@@ -54,7 +28,6 @@
             </div>
         </div>
         <div class="event-dropdown">
-            <input type="hidden" name="chosenDate" value="@Model.Date.ToString(" yyyy-MM-dd")" />
             <button class="btn btn-primary" onclick="location.href='@Url.Action("Create", "Calendar")'">
                 Add new event
             </button>
@@ -127,12 +100,15 @@
             <div class="col-1  row-title row-text text-center standard-border">
                 @Html.DisplayNameFor(model => model.CalendarEvents.FirstOrDefault().CalendarEventEndTime)
             </div>
+            <div class="col-1  row-title row-text text-center standard-border">
+                @Html.DisplayNameFor(model => model.CalendarEvents.FirstOrDefault().CalendarEventDate)
+            </div>
             <div class="btn-edit-delete"></div>
         </div>
     </div>
     @foreach (CalendarEvent calendarEvent in @Model.CalendarEvents)
     {
-        if (calendarEvent.UserId == @Model.User.Id && calendarEvent.CalendarEventDate == @Model.Date)
+        if (calendarEvent.UserId == @Model.User.Id && calendarEvent.CalendarEventDate > Model.StartOfWeek && calendarEvent.CalendarEventDate < Model.EndOfWeek)
         {
             <div style="display: flex;">
                 <div class="row flex-nowrap row-margin">
@@ -148,9 +124,9 @@
                     <div class="col-1 row-text text-center standard-border">
                         @Html.DisplayFor(modelItem => calendarEvent.CalendarEventEndTime)
                     </div>
-                    @*                     <button class="btn btn-primary btn-edit-delete" onclick="location.href='@Url.Action("Edit", "CalendarEvent")/@calendarEvent.CalendarEventId'">
-        e
-        </button> *@
+                    <div class="col-1 row-text text-center standard-border">
+                        @Html.DisplayFor(modelItem => calendarEvent.CalendarEventDate.DayOfWeek)
+                    </div>
                     <button class="btn btn-primary btn-edit-delete" onclick="DeleteCalendarEvent('@Url.Action("Delete", "CalendarEvent")?id=@calendarEvent.Id','@calendarEvent.CalendarEventName','@calendarEvent.CalendarEventDescription',
                     '@calendarEvent.CalendarEventDate','@calendarEvent.CalendarEventStartTime','@calendarEvent.CalendarEventEndTime','@calendarEvent.UserId')">
                         Delete

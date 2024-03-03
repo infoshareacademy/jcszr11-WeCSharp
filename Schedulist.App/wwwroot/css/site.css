@@ -132,7 +132,8 @@ html {
     border-bottom: 1px solid lightgrey;
     border-right: 1px solid lightgrey;
     min-width: 70px;
-    font-size: calc(12px + 0.7vw);
+    font-size: calc(6px + 0.7vw);
+    padding: 4px;
 }
 
 .calendar-block {
