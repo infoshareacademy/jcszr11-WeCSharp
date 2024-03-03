@@ -5,37 +5,37 @@
 @{
     ViewData["Title"] = "Day";
 }
-<div class="row flex-nowrap month-name-container">
-    <div class="button-field">
-        <button type="button" class="btn btn-light" onclick="location.href='@Url.Action("Day", "Calendar", new {@date = Model.Date.AddDays(-1), @userToEdit = Model.User})'"><</button>
-    </div>
-    <div class="button-field">
-        <button type="button" class="btn btn-light" onclick="location.href='@Url.Action("Day", "Calendar", new {@date = Model.Date.AddDays(1), @userToEdit = Model.User})'">></button>
-    </div>
-    <div class="month-name">
-        @Model.Date.ToString("dd MMMM yyyy")
-    </div>
-    <div class="calendar-dropdown">
-        <div class="dropdown">
-            <button class="btn btn-primary dropdown-toggle month-view-dropdown" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                Day
-            </button>
-            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                <a class="dropdown-item" onclick="location.href='@Url.Action("Week", "Calendar", new {@date = DateTime.Now, @userToEdit = Model.User})'">Week</a>
-                <a class="dropdown-item" onclick="location.href='@Url.Action("Index", "Calendar", new {@date = DateTime.Now, @userToEdit = Model.User})'">Month</a>
+<div style="position: sticky; top: 0">
+    <div class="row flex-nowrap month-name-container">
+        <div class="button-field">
+            <button type="button" class="btn btn-light" onclick="location.href='@Url.Action("Day", "Calendar", new {@date = Model.Date.AddDays(-1), @userToEdit = Model.User})'"><</button>
+        </div>
+        <div class="button-field">
+            <button type="button" class="btn btn-light" onclick="location.href='@Url.Action("Day", "Calendar", new {@date = Model.Date.AddDays(1), @userToEdit = Model.User})'">></button>
+        </div>
+        <div class="month-name">
+            @Model.Date.ToString("dd MMMM yyyy")
+        </div>
+        <div class="calendar-dropdown">
+            <div class="dropdown">
+                <button class="btn btn-primary dropdown-toggle month-view-dropdown" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Day
+                </button>
+                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                    <a class="dropdown-item" onclick="location.href='@Url.Action("Week", "Calendar", new {@date = DateTime.Now, @userToEdit = Model.User})'">Week</a>
+                    <a class="dropdown-item" onclick="location.href='@Url.Action("Index", "Calendar", new {@date = DateTime.Now, @userToEdit = Model.User})'">Month</a>
+                </div>
             </div>
         </div>
+        <div class="month-user-name">
+            @Model.User.Name @Model.User.Surname - @Model.WorkMode
+        </div>
     </div>
-    <div class="month-user-name">
-        @Model.User.Name @Model.User.Surname - @Model.WorkMode
-    </div>
-</div>
-
-<div>
     <div class="row day-calendar-row">
         <div class="col-1 day-calendar-row-hour calendar-header">Hour</div>
         <div class="col-11 calendar-header"></div>
     </div>
+</div>
     @for (int i = 0; i < 24; i++)
     {
         <div class="row day-calendar-row">
@@ -64,7 +64,6 @@
             <div class="col-11"></div>
         </div>
     }
-</div>
 
 @if (@Model.CalendarEvents.Count > 0)
 {
@@ -103,9 +102,9 @@
                     <div class="col-1 row-text text-center standard-border">
                         @Html.DisplayFor(modelItem => calendarEvent.CalendarEventEndTime)
                     </div>
-@*                     <button class="btn btn-primary btn-edit-delete" onclick="location.href='@Url.Action("Edit", "CalendarEvent")/@calendarEvent.CalendarEventId'">
-                        e
-                    </button> *@
+                    @*                     <button class="btn btn-primary btn-edit-delete" onclick="location.href='@Url.Action("Edit", "CalendarEvent")/@calendarEvent.CalendarEventId'">
+        e
+        </button> *@
                     <button class="btn btn-primary btn-edit-delete" onclick="DeleteCalendarEvent('@Url.Action("Delete", "CalendarEvent")?id=@calendarEvent.Id','@calendarEvent.CalendarEventName','@calendarEvent.CalendarEventDescription',
                     '@calendarEvent.CalendarEventDate','@calendarEvent.CalendarEventStartTime','@calendarEvent.CalendarEventEndTime','@calendarEvent.UserId')">
                         Delete

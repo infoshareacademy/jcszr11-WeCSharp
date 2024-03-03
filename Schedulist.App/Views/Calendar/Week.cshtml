@@ -5,59 +5,58 @@
 @{
     ViewData["Title"] = "Week";
 }
-<div class="row flex-nowrap month-name-container">
-    @{
-        DateOnly startOfWeek = Model.Date;
-        while (true)
-        {
-            if (startOfWeek.DayOfWeek == DayOfWeek.Monday)
+<div style="position: sticky; top: 0 ">
+    <div class="row flex-nowrap month-name-container">
+        @{
+            DateOnly startOfWeek = Model.Date;
+            while (true)
             {
-                break;
+                if (startOfWeek.DayOfWeek == DayOfWeek.Monday)
+                {
+                    break;
+                }
+                else
+                {
+                    startOfWeek = startOfWeek.AddDays(-1);
+                }
             }
-            else
+            DateOnly endOfWeek = Model.Date;
+            while (true)
             {
-                startOfWeek = startOfWeek.AddDays(-1);
+                if (endOfWeek.DayOfWeek == DayOfWeek.Sunday)
+                {
+                    break;
+                }
+                else
+                {
+                    endOfWeek = endOfWeek.AddDays(1);
+                }
             }
         }
-        DateOnly endOfWeek = Model.Date;
-        while (true)
-        {
-            if (endOfWeek.DayOfWeek == DayOfWeek.Sunday)
-            {
-                break;
-            }
-            else
-            {
-                endOfWeek = endOfWeek.AddDays(1);
-            }
-        }
-    }
-    <div class="button-field">
-        <button type="button" class="btn btn-light" onclick="location.href='@Url.Action("Week", "Calendar", new {@date = startOfWeek.AddDays(-1), @userToEdit = Model.User})'"><</button>
-    </div>
-    <div class="button-field">
-        <button type="button" class="btn btn-light" onclick="location.href='@Url.Action("Week", "Calendar", new {@date = endOfWeek.AddDays(1), @userToEdit = Model.User})'">></button>
-    </div>
-    <div class="month-range">
-        @startOfWeek.ToString("dd MMMM yyyy") - @endOfWeek.ToString("dd MMMM yyyy")
-    </div>
-    <div class="calendar-dropdown">
-        <div class="dropdown">
-            <button class="btn btn-primary dropdown-toggle month-view-dropdown" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                Week
-            </button>
-            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                <a class="dropdown-item" onclick="location.href='@Url.Action("Day", "Calendar", new {@date = DateTime.Now, @userToEdit = Model.User})'">Day</a>
-                <a class="dropdown-item" onclick="location.href='@Url.Action("Index", "Calendar")'">Month</a>
+        <div class="button-field">
+            <button type="button" class="btn btn-light" onclick="location.href='@Url.Action("Week", "Calendar", new {@date = startOfWeek.AddDays(-1), @userToEdit = Model.User})'"><</button>
+        </div>
+        <div class="button-field">
+            <button type="button" class="btn btn-light" onclick="location.href='@Url.Action("Week", "Calendar", new {@date = endOfWeek.AddDays(1), @userToEdit = Model.User})'">></button>
+        </div>
+        <div class="month-range">
+            @startOfWeek.ToString("dd MMMM yyyy") - @endOfWeek.ToString("dd MMMM yyyy")
+        </div>
+        <div class="calendar-dropdown">
+            <div class="dropdown">
+                <button class="btn btn-primary dropdown-toggle month-view-dropdown" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Week
+                </button>
+                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                    <a class="dropdown-item" onclick="location.href='@Url.Action("Day", "Calendar", new {@date = DateTime.Now, @userToEdit = Model.User})'">Day</a>
+                    <a class="dropdown-item" onclick="location.href='@Url.Action("Index", "Calendar")'">Month</a>
+                </div>
             </div>
         </div>
+        <div class="month-user-name">
+            @Model.User.Name @Model.User.Surname - @Model.WorkMode
+        </div>
     </div>
-    <div class="month-user-name">
-        @Model.User.Name @Model.User.Surname - @Model.WorkMode
-    </div>
-</div>
-
-<div>
     <div class="row day-calendar-row">
         <div class="col-1 day-calendar-row-hour calendar-header">Hour</div>
         <div class="col calendar-header day-calendar-row-hour">Monday</div>
@@ -68,6 +67,8 @@
         <div class="col day-calendar-row-hour calendar-header">Saturday</div>
         <div class="col day-calendar-row-hour calendar-header">Sunday</div>
     </div>
+</div>
+<div>
     @for (int i = 0; i < 24; i++)
     {
         <div class="row day-calendar-row">
@@ -141,9 +142,9 @@
                     <div class="col-1 row-text text-center standard-border">
                         @Html.DisplayFor(modelItem => calendarEvent.CalendarEventEndTime)
                     </div>
-@*                     <button class="btn btn-primary btn-edit-delete" onclick="location.href='@Url.Action("Edit", "CalendarEvent")/@calendarEvent.CalendarEventId'">
-                        e
-                    </button> *@
+                    @*                     <button class="btn btn-primary btn-edit-delete" onclick="location.href='@Url.Action("Edit", "CalendarEvent")/@calendarEvent.CalendarEventId'">
+        e
+        </button> *@
                     <button class="btn btn-primary btn-edit-delete" onclick="DeleteCalendarEvent('@Url.Action("Delete", "CalendarEvent")?id=@calendarEvent.Id','@calendarEvent.CalendarEventName','@calendarEvent.CalendarEventDescription',
                     '@calendarEvent.CalendarEventDate','@calendarEvent.CalendarEventStartTime','@calendarEvent.CalendarEventEndTime','@calendarEvent.UserId')">
                         Delete
