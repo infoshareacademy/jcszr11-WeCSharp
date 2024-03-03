@@ -22,12 +22,12 @@
                     Day
                 </button>
                 <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                    <a class="dropdown-item" onclick="location.href='@Url.Action("Week", "Calendar", new {@date = DateTime.Now, @userToEdit = Model.User})'">Week</a>
-                    <a class="dropdown-item" onclick="location.href='@Url.Action("Index", "Calendar", new {@date = DateTime.Now, @userToEdit = Model.User})'">Month</a>
+                    <a class="dropdown-item" onclick="location.href='@Url.Action("Week", "Calendar", new {@date = DateTime.Now, @userToEdit = Model.User.Id})'">Week</a>
+                    <a class="dropdown-item" onclick="location.href='@Url.Action("ChangeUser", "Calendar", new {@date = DateTime.Now, @userToEdit = Model.User.Id})'">Month</a>
                 </div>
             </div>
         </div>
-        <div class="calendar-dropdown">
+        <div class="event-dropdown">
             <input type="hidden" name="chosenDate" value="@Model.Date.ToString(" yyyy-MM-dd")" />
             <button class="btn btn-primary" onclick="location.href='@Url.Action("Create", "Calendar")'">
                 Add new event
