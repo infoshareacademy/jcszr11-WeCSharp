@@ -1,28 +1,54 @@
 ﻿@using Schedulist.App.ViewModels
 @using Schedulist.DAL.Models
-@model DayViewModel
+@model WeekViewModel
 
 @{
-    ViewData["Title"] = "Day";
+    ViewData["Title"] = "Week";
 }
 <div class="row flex-nowrap month-name-container">
+    @{
+        DateOnly startOfWeek = Model.Date;
+        while (true)
+        {
+            if (startOfWeek.DayOfWeek == DayOfWeek.Monday)
+            {
+                break;
+            }
+            else
+            {
+                startOfWeek = startOfWeek.AddDays(-1);
+            }
+        }
+        DateOnly endOfWeek = Model.Date;
+        while (true)
+        {
+            if (endOfWeek.DayOfWeek == DayOfWeek.Sunday)
+            {
+                break;
+            }
+            else
+            {
+                endOfWeek = endOfWeek.AddDays(1);
+            }
+        }
+    }
     <div class="button-field">
-        <button type="button" class="btn btn-light" onclick="location.href='@Url.Action("Day", "Calendar", new {@date = Model.Date.AddDays(-1), @userToEdit = Model.User})'"><</button>
+        <button type="button" class="btn btn-light" onclick="location.href='@Url.Action("Week", "Calendar", new {@date = startOfWeek.AddDays(-1), @userToEdit = Model.User})'"><</button>
     </div>
     <div class="button-field">
-        <button type="button" class="btn btn-light" onclick="location.href='@Url.Action("Day", "Calendar", new {@date = Model.Date.AddDays(1), @userToEdit = Model.User})'">></button>
+        <button type="button" class="btn btn-light" onclick="location.href='@Url.Action("Week", "Calendar", new {@date = endOfWeek.AddDays(1), @userToEdit = Model.User})'">></button>
     </div>
-    <div class="month-name">
-        @Model.Date.ToString("dd MMMM yyyy")
+    <div class="month-range">
+        @startOfWeek.ToString("dd MMMM yyyy") - @endOfWeek.ToString("dd MMMM yyyy")
     </div>
     <div class="calendar-dropdown">
         <div class="dropdown">
             <button class="btn btn-primary dropdown-toggle month-view-dropdown" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                Day
+                Week
             </button>
             <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                <a class="dropdown-item" onclick="location.href='@Url.Action("Week", "Calendar", new {@date = DateTime.Now, @userToEdit = Model.User})'">Week</a>
-                <a class="dropdown-item" onclick="location.href='@Url.Action("Index", "Calendar", new {@date = DateTime.Now, @userToEdit = Model.User})'">Month</a>
+                <a class="dropdown-item" onclick="location.href='@Url.Action("Day", "Calendar", new {@date = DateTime.Now, @userToEdit = Model.User})'">Day</a>
+                <a class="dropdown-item" onclick="location.href='@Url.Action("Index", "Calendar")'">Month</a>
             </div>
         </div>
     </div>
@@ -32,6 +58,16 @@
 </div>
 
 <div>
+    <div class="row day-calendar-row">
+        <div class="col-1 day-calendar-row-hour">Hour</div>
+        <div class="col day-calendar-row-hour">Monday</div>
+        <div class="col day-calendar-row-hour">Tuesday</div>
+        <div class="col day-calendar-row-hour">Wednesday</div>
+        <div class="col day-calendar-row-hour">Thursday</div>
+        <div class="col day-calendar-row-hour">Friday</div>
+        <div class="col day-calendar-row-hour">Saturday</div>
+        <div class="col day-calendar-row-hour">Sunday</div>
+    </div>
     @for (int i = 0; i < 24; i++)
     {
         <div class="row day-calendar-row">
@@ -40,12 +76,10 @@
                 if (i == 0)
                 {
                     <div class="col-1 day-calendar-row-hour">12 AM</div>
-                    <div class="col-11"></div>
                 }
                 else
                 {
                     <div class="col-1 day-calendar-row-hour">@i AM</div>
-                    <div class="col-11"></div>
                 }
             }
             else
@@ -53,14 +87,19 @@
                 if (i == 12)
                 {
                     <div class="col-1 day-calendar-row-hour">12 AM</div>
-                    <div class="col-11"></div>
                 }
                 else
                 {
                     <div class="col-1 day-calendar-row-hour">@i PM</div>
-                    <div class="col-11"></div>
                 }
             }
+            <div class="col day-calendar-row-hour"></div>
+            <div class="col day-calendar-row-hour"></div>
+            <div class="col day-calendar-row-hour"></div>
+            <div class="col day-calendar-row-hour"></div>
+            <div class="col day-calendar-row-hour"></div>
+            <div class="col day-calendar-row-hour"></div>
+            <div class="col day-calendar-row-hour"></div>
         </div>
     }
 </div>

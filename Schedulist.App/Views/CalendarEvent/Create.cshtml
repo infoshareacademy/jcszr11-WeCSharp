@@ -47,16 +47,15 @@
                 <span asp-validation-for="UserId" class="text-danger"></span>
             </div>
             @{
-                var buttonStyle = (Model == null ? "background-color: green;" : "background-color: rgb(224, 157, 49);");
                 var buttonText = (Model == null ? "Create" : "Update");
             }
             <div style="padding-top: 10px;">
-                <button class="form-button" type="submit" style='@(buttonStyle)'><span>@(buttonText)</span></button>
+                <button class="btn btn-primary form-button" type="submit"><span>@(buttonText)</span></button>
             </div>
             <div style="padding-top: 12px">
-                <a asp-action="Index" class="form-button btn btn-dark shadow-none">Back to List</a>
+                <a asp-action="Index" class="btn btn-primary form-button shadow-none">Back to List</a>
             </div>
-        </form>
+            </form>
     </div>
 </div>
 
