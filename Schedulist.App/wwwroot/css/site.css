@@ -92,8 +92,12 @@ body {
 
 .day-calendar-row-hour {
     border-right: 1px solid lightgrey;
-    padding: 15px;
     height: 50px;
+    padding: 15px;
+    padding-left: 0;
+    padding-right: 0;
+    font-size: initial !important;
+    min-width: 0 !important;
 }
 
 .month-name-container {
