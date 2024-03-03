@@ -27,6 +27,12 @@
                 </div>
             </div>
         </div>
+        <div class="calendar-dropdown">
+            <input type="hidden" name="chosenDate" value="@Model.Date.ToString(" yyyy-MM-dd")" />
+            <button class="btn btn-primary" onclick="location.href='@Url.Action("Create", "Calendar")'">
+                Add new event
+            </button>
+        </div>
         <div class="month-user-name">
             @Model.User.Name @Model.User.Surname - @Model.WorkMode
         </div>
@@ -36,34 +42,34 @@
         <div class="col-11 calendar-header"></div>
     </div>
 </div>
-    @for (int i = 0; i < 24; i++)
-    {
-        <div class="row day-calendar-row">
-            @if (i < 12)
+@for (int i = 0; i < 24; i++)
+{
+    <div class="row day-calendar-row">
+        @if (i < 12)
+        {
+            if (i == 0)
             {
-                if (i == 0)
-                {
-                    <div class="col-1 day-calendar-row-hour">12 AM</div>
-                }
-                else
-                {
-                    <div class="col-1 day-calendar-row-hour">@i AM</div>
-                }
+                <div class="col-1 day-calendar-row-hour">12 AM</div>
             }
             else
             {
-                if (i == 12)
-                {
-                    <div class="col-1 day-calendar-row-hour">12 AM</div>
-                }
-                else
-                {
-                    <div class="col-1 day-calendar-row-hour">@i PM</div>
-                }
+                <div class="col-1 day-calendar-row-hour">@i AM</div>
             }
-            <div class="col-11"></div>
-        </div>
-    }
+        }
+        else
+        {
+            if (i == 12)
+            {
+                <div class="col-1 day-calendar-row-hour">12 AM</div>
+            }
+            else
+            {
+                <div class="col-1 day-calendar-row-hour">@i PM</div>
+            }
+        }
+        <div class="col-11"></div>
+    </div>
+}
 
 @if (@Model.CalendarEvents.Count > 0)
 {
@@ -102,9 +108,6 @@
                     <div class="col-1 row-text text-center standard-border">
                         @Html.DisplayFor(modelItem => calendarEvent.CalendarEventEndTime)
                     </div>
-                    @*                     <button class="btn btn-primary btn-edit-delete" onclick="location.href='@Url.Action("Edit", "CalendarEvent")/@calendarEvent.CalendarEventId'">
-        e
-        </button> *@
                     <button class="btn btn-primary btn-edit-delete" onclick="DeleteCalendarEvent('@Url.Action("Delete", "CalendarEvent")?id=@calendarEvent.Id','@calendarEvent.CalendarEventName','@calendarEvent.CalendarEventDescription',
                     '@calendarEvent.CalendarEventDate','@calendarEvent.CalendarEventStartTime','@calendarEvent.CalendarEventEndTime','@calendarEvent.UserId')">
                         Delete
@@ -113,27 +116,6 @@
             </div>
         }
     }
-}
-else
-{
-    <div class="no-events text-center">
-        No events for that day
-    </div>
-}
-@if (Model.WorkMode == "Holiday leave" || Model.WorkMode == "Sick leave")
-{
-    <div class="no-events text-center">
-        You cannot create new Calendar event if Work mode equals "Holiday leave" or "Sick leave"!
-    </div>
-}
-else
-{
-    <div class="add-event text-center">
-        <input type="hidden" name="chosenDate" value="@Model.Date.ToString(" yyyy-MM-dd")" />
-        <button class="btn btn-primary" onclick="location.href='@Url.Action("Create", "Calendar")'">
-            Add new event
-        </button>
-    </div>
 }
 
 

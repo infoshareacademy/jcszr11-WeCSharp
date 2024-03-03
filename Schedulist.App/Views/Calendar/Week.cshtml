@@ -39,7 +39,7 @@
         <div class="button-field">
             <button type="button" class="btn btn-light" onclick="location.href='@Url.Action("Week", "Calendar", new {@date = endOfWeek.AddDays(1), @userToEdit = Model.User})'">></button>
         </div>
-        <div class="month-range">
+        <div class="month-name">
             @startOfWeek.ToString("dd MMMM yyyy") - @endOfWeek.ToString("dd MMMM yyyy")
         </div>
         <div class="calendar-dropdown">
@@ -52,6 +52,12 @@
                     <a class="dropdown-item" onclick="location.href='@Url.Action("Index", "Calendar")'">Month</a>
                 </div>
             </div>
+        </div>
+        <div class="calendar-dropdown">
+            <input type="hidden" name="chosenDate" value="@Model.Date.ToString(" yyyy-MM-dd")" />
+            <button class="btn btn-primary" onclick="location.href='@Url.Action("Create", "Calendar")'">
+                Add new event
+            </button>
         </div>
         <div class="month-user-name">
             @Model.User.Name @Model.User.Surname - @Model.WorkMode
@@ -153,27 +159,6 @@
             </div>
         }
     }
-}
-else
-{
-    <div class="no-events text-center">
-        No events for that day
-    </div>
-}
-@if (Model.WorkMode == "Holiday leave" || Model.WorkMode == "Sick leave")
-{
-    <div class="no-events text-center">
-        You cannot create new Calendar event if Work mode equals "Holiday leave" or "Sick leave"!
-    </div>
-}
-else
-{
-    <div class="add-event text-center">
-        <input type="hidden" name="chosenDate" value="@Model.Date.ToString(" yyyy-MM-dd")" />
-        <button class="btn btn-primary" onclick="location.href='@Url.Action("Create", "Calendar")'">
-            Add new event
-        </button>
-    </div>
 }
 
 
