@@ -8,8 +8,10 @@ using System.Threading.Tasks;
 
 namespace Schedulist.DAL.Models
 {
-    public class CalendarEventDto
+    public class AdminManageCalendarEventDto
     {
+        [Display(Name = "Calendar Event ID")]
+        public int Id { get; set; }
         [Display(Name = "Calendar Event Name")]
         [Required]
         public string CalendarEventName { get; set; }
@@ -33,8 +35,6 @@ namespace Schedulist.DAL.Models
         public TimeOnly CalendarEventEndTime { get; set; }
 
         [Display(Name = "Assigned to user with ID")]
-        [Required]
-        public int UserId { get; set; }
         public User User { get; set; }
     }
 }

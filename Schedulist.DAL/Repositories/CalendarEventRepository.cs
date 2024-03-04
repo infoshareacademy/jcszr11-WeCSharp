@@ -1,4 +1,6 @@
-﻿using Microsoft.EntityFrameworkCore.Query.Internal;
+﻿using AutoMapper;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Query.Internal;
 using Microsoft.Extensions.Logging;
 using Schedulist.DAL.Models;
 using Schedulist.DAL.Repositories.Interfaces;
@@ -9,9 +11,10 @@ namespace Schedulist.DAL.Repositories
 {
     public class CalendarEventRepository : BaseRepository, ICalendarEventRepository
     {
-        public CalendarEventRepository(SchedulistDbContext db, ILogger<BaseRepository> logger) : base (db, logger)
+        private readonly IMapper _mapper;
+        public CalendarEventRepository(SchedulistDbContext db, ILogger<BaseRepository> logger, IMapper mapper) : base (db, logger)
         {
-
+            _mapper = mapper;
         }
 
         public List<CalendarEvent> GetAllCalendarEvents()
@@ -56,7 +59,6 @@ namespace Schedulist.DAL.Repositories
         {
             try
             {
-                
                 _db.CalendarEvents.Update(calendarEvent);
                 _db.SaveChanges();
                 return true;
