@@ -28,12 +28,21 @@ namespace Schedulist.App.Controllers
         }
 
         // GET: CalendarEventController
+        //[HttpGet]
+        //[ResponseCache(Duration = 30, NoStore = true)]
+        //public IActionResult Index()
+        //{
+        //    var calendarEvents = _calendarEventRepository.GetAllCalendarEvents();
+        //    return View(calendarEvents);
+        //}
+
+        // GET: CalendarEventController
         [HttpGet]
         [ResponseCache(Duration = 30, NoStore = true)]
-        public IActionResult Index()
+        public IActionResult Index(CalendarEventQuery query)
         {
-            var calendarEvents = _calendarEventRepository.GetAllCalendarEvents();
-            return View(calendarEvents);
+            var viewModel = _calendarEventRepository.GetAllCalendarEvents();
+            return View(viewModel);
         }
 
         // GET: CalendarEventController/Details/5
@@ -45,13 +54,13 @@ namespace Schedulist.App.Controllers
             return View(calendarEvent);
         }
 
-        [HttpGet]
-        [AllowAnonymous]
-        public ActionResult<IEnumerable<CalendarEvent>> GetAll([FromQuery] CalendarEventQuery query)
-        {
-            var calendarEvent = _calendarEventRepository.GetAll(query);
-            return Ok(calendarEvent);
-        }
+        //[HttpGet]
+        //[AllowAnonymous]
+        //public ActionResult<IEnumerable<CalendarEvent>> GetAll([FromQuery] CalendarEventQuery query)
+        //{
+        //    var calendarEvent = _calendarEventRepository.GetAll(query);
+        //    return Ok(calendarEvent);
+        //}
 
         //GET: CalendarEventController/Create
         [HttpGet]

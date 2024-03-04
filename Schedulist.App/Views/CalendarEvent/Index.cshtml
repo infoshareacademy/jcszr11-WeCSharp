@@ -1,4 +1,5 @@
-﻿@model IEnumerable<CalendarEvent>
+﻿@model CalendarEventViewModel
+@using Schedulist.App.ViewModels
 @using Schedulist.DAL.Models
 
 @{
@@ -14,28 +15,28 @@
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.CalendarEventDate)
+                @Html.DisplayNameFor(model => model.CalendarEvents.First().CalendarEventDate)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.CalendarEventStartTime)
+                @Html.DisplayNameFor(model => model.CalendarEvents.First().CalendarEventStartTime)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.CalendarEventEndTime)
+                @Html.DisplayNameFor(model => model.CalendarEvents.First().CalendarEventEndTime)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.CalendarEventName)
+                @Html.DisplayNameFor(model => model.CalendarEvents.First().CalendarEventName)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.CalendarEventDescription)
+                @Html.DisplayNameFor(model => model.CalendarEvents.First().CalendarEventDescription)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.UserId)
+                @Html.DisplayNameFor(model => model.CalendarEvents.First().UserId)
             </th>
             <th></th>
         </tr>
     </thead>
     <tbody>
-        @foreach (var item in Model)
+        @foreach (var item in Model.CalendarEvents)
         {
             <tr>
                 <td>
@@ -68,6 +69,17 @@
         }
     </tbody>
 </table>
+
+<div class="pagination">
+    @if (Model.TotalItems > Model.PageSize)
+    {
+        var totalPages = (int)Math.Ceiling((double)Model.TotalItems / Model.PageSize);
+        for (int i = 1; i <= totalPages; i++)
+        {
+            <a href="@Url.Action("Index", new { pageNumber = i, pageSize = Model.PageSize })">@i</a>
+        }
+    }
+</div>
 
 <script>
     var calendarEventDeletedMessage = localStorage.getItem('calendarEventDeletedMessage');
