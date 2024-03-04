@@ -1,18 +1,27 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Azure.Identity;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Schedulist.App.Models.Enum;
+using Schedulist.App.Services.Interfaces;
 using Schedulist.DAL.Models;
+using Schedulist.DAL.Repositories;
 using Schedulist.DAL.Repositories.Interfaces;
 using System.ComponentModel.DataAnnotations;
 using System.Diagnostics;
+using System.Drawing.Text;
 
 namespace Schedulist.App.Controllers
 {
     public class CalendarEventController : ControllerBase
     {
         private readonly ICalendarEventRepository _calendarEventRepository;
-        public CalendarEventController(ILogger<CalendarEventController> logger, ICalendarEventRepository calendarEventRepository) : base(logger) 
+        private readonly IUserRepository _userRepository;
+        private readonly ICalendarEventService _calendarEventService;
+        public CalendarEventController(ILogger<CalendarEventController> logger, ICalendarEventRepository calendarEventRepository, ICalendarEventService calendarEventService, IUserRepository userRepository) : base(logger) 
         {
             _calendarEventRepository = calendarEventRepository;
+            _userRepository = userRepository;
+            _calendarEventService = calendarEventService;
         }
 
         // GET: CalendarEventController
@@ -38,8 +47,16 @@ namespace Schedulist.App.Controllers
         [ResponseCache(Duration = 30, NoStore = true)]
         public ActionResult Create()
         {
-            Debug.WriteLine($"Creating Calendar Event started.");
+            SetupUserList();
+            logger.LogInformation($"Creating Calendar Event started.");
             return View();
+        }
+
+        private void SetupUserList()
+        {
+            var users = _userRepository.GetAllUsers();
+            var usersListItems = users.Select(user => new SelectListItem { Text = $"{user.Name} {user.Surname}", Value = user.Id.ToString() });
+            ViewBag.Users = new SelectList(usersListItems, "Value", "Text");
         }
 
         // POST: CalendarEventController/Create
@@ -49,32 +66,27 @@ namespace Schedulist.App.Controllers
         {
             try
             {
+                SetupUserList();
+                var validationResults = _calendarEventService.ValidateCalendarEvent(calendarEvent);
+                if (validationResults.Any(x => x != ValidationResult.Success))
                 ////if (!ModelState.IsValid)
                 ////{
                 ////    return View(calendarEvent);
                 ////}
                 ///
-                var timeValidationResult = _calendarEventRepository.CalendarEventTimesValidation(calendarEvent.CalendarEventStartTime, calendarEvent.CalendarEventEndTime);
-                var validationResult = _calendarEventRepository.CalendarEventOverlappingValidation(calendarEvent.CalendarEventDate, calendarEvent.CalendarEventStartTime, calendarEvent.CalendarEventEndTime, calendarEvent.UserId);
-                if (timeValidationResult != ValidationResult.Success)
                 {
-                    ModelState.AddModelError(nameof(calendarEvent.CalendarEventEndTime), timeValidationResult.ErrorMessage);
+                    validationResults.Where(x => x != ValidationResult.Success).ToList().ForEach(x => ModelState.AddModelError(nameof(calendarEvent.CalendarEventEndTime), x.ErrorMessage));
                     return View(calendarEvent);
                 }
-                if (validationResult != ValidationResult.Success)
-                {
-                    ModelState.AddModelError(nameof(calendarEvent.CalendarEventStartTime), validationResult.ErrorMessage);
-                    return View(calendarEvent);
-                }
-                _calendarEventRepository.CreateCalendarEvent(calendarEvent);
-                Debug.WriteLine($"Created Calendar Event.");
-                PopupNotification("Calendar event has been created successfully");
-                return RedirectToAction(nameof(Index));
+                    _calendarEventRepository.CreateCalendarEvent(calendarEvent);
+                    logger.LogInformation("Calendar Event created.");
+                    PopupNotification("Calendar event has been created successfully");
+                    return RedirectToAction(nameof(Index));
             }
             catch (Exception ex)
             {
                 PopupNotification("Error occurred while deleting calendar event", notificationType: NotificationType.error);
-                Debug.WriteLine($"Exception occurred: {ex.Message}");
+                logger.LogInformation($"Exception occurred: {ex.Message}");
                 return Ok();
             }
         }
@@ -84,24 +96,28 @@ namespace Schedulist.App.Controllers
         [ResponseCache(Duration = 30, NoStore = true)]
         public ActionResult Edit(int id)
         {
+            SetupUserList();
             var model = _calendarEventRepository.GetCalendarEventById(id);
-            Debug.WriteLine($"Updating Calendar Event started.");
-            return View("Create", model);
+            logger.LogInformation($"Updating Calendar Event started.");
+            return View("Edit", model);
         }
 
-        // POST: CalendarEventController/Edit/5
+        //POST: CalendarEventController/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Edit(int id, CalendarEvent calendarEvent)
         {
             try
             {
-                //if (!ModelState.IsValid)
+                SetupUserList();
+                //var validationResults = _calendarEventService.ValidateCalendarEvent(calendarEvent);
+                //if (validationResults.Any(x => x != ValidationResult.Success))
                 //{
-                //    return View(id);
+                //    validationResults.Where(x => x != ValidationResult.Success).ToList().ForEach(x => ModelState.AddModelError(nameof(calendarEvent.CalendarEventEndTime), x.ErrorMessage));
+                //    return View(calendarEvent);
                 //}
                 _calendarEventRepository.UpdateCalendarEvent(calendarEvent);
-                Debug.WriteLine($"Modified Calendar Event.");
+                logger.LogInformation($"Modified Calendar Event.");
                 PopupNotification("Calendar event has been updated successfully");
                 return RedirectToAction(nameof(Index));
             }
@@ -110,7 +126,7 @@ namespace Schedulist.App.Controllers
                 return View();
             }
         }
-        // POST: CalendarEventController/Delete/5
+        //POST: CalendarEventController/Delete/5
         [HttpPost]
         public ActionResult Delete(int id)
         {
@@ -118,16 +134,26 @@ namespace Schedulist.App.Controllers
             {
                 CalendarEvent calendarEventToDelete = _calendarEventRepository.GetCalendarEventById(id);
                 _calendarEventRepository.DeleteCalendarEvent(calendarEventToDelete);
-                Debug.WriteLine($"Deleted Calendar Event.");
+                logger.LogInformation($"Deleted Calendar Event.");
                 PopupNotification("calendar event has been successfully deleted");
                 return RedirectToAction(nameof(Index));
             }
             catch (Exception ex)
             {
-                Debug.WriteLine($"Exception occurred: {ex.Message}");
+                logger.LogInformation($"Exception occurred: {ex.Message}");
                 PopupNotification("Error occurred while deleting calendar event", notificationType: NotificationType.error);
                 return View();
             }
         }
+
+        //public ActionResult AssignUser()
+        //{
+        //    using (var db = new SchedulistDbContext())
+        //    {
+        //        var users = db.Users.ToList();
+        //        ViewBag.Users = new SelectList(users, "Id", "Name");
+        //    }
+        //        return View(); 
+        //}
     }
 }

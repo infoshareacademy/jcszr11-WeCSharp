@@ -15,7 +15,7 @@ namespace Schedulist.DAL.Repositories.Interfaces
         public bool CreateCalendarEvent(CalendarEvent calendarEvent);
         public bool UpdateCalendarEvent(CalendarEvent calendarEvent);
         public bool DeleteCalendarEvent(CalendarEvent calendarEvent);
-        public ValidationResult CalendarEventOverlappingValidation(DateOnly calendarEventDate, TimeOnly calendarEventStartTime, TimeOnly calendarEventEndTime, int userId);
-        public ValidationResult CalendarEventTimesValidation(TimeOnly calendarEventStartTime, TimeOnly calendarEventEndTime);
+        public ValidationResult CalendarEventOverlappingValidation(CalendarEvent calendarEvent);
+        public ValidationResult CalendarEventTimesValidation(CalendarEvent calendarEvent);
     }
 }
