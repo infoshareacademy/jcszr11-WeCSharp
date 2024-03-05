@@ -32,7 +32,7 @@
                         @Model.UserDict.First(obj => obj.Value == Model.UserToEdit).Key 
                     </button>
                     <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                        @foreach (KeyValuePair <string, int> DropdownUser in Model.UserDict)
+                        @foreach (KeyValuePair <string, string> DropdownUser in Model.UserDict)
                         {
                             <a class="dropdown-item" onclick="location.href='@Url.Action("ChangeUser", "Calendar", new {@date = Model.CurrentDate, @userToEdit = DropdownUser.Value})'">@DropdownUser.Key</a>
                         }

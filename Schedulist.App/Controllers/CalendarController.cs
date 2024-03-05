@@ -15,7 +15,7 @@ namespace Schedulist.App.Controllers
         private readonly IWorkModeRepository _workModeRepository;
         private readonly ICalendarEventRepository _calendarEventRepository;
         private readonly IUserRepository _userRepository;
-        private Dictionary<string, int> _userDict = [];
+        private Dictionary<string, string> _userDict = [];
         private MonthViewModel _calendarParams;
         public CalendarController(ILogger<CalendarController> logger, User user, IWorkModeForUserRepository workModeForUserRepository, IWorkModeRepository workModeRepository, ICalendarEventRepository calendarEventRepository, IUserRepository userRepository) : base(logger)
         {
@@ -33,7 +33,7 @@ namespace Schedulist.App.Controllers
 
         public IActionResult Index()
         {
-            int userToChangeId = _user.Id;
+            string userToChangeId = _user.Id;
             List<CalendarEvent> allCalendarEvents = _calendarEventRepository.GetAllCalendarEvents();
             var calendarEventsToDraw = allCalendarEvents.Where(e => e.UserId == userToChangeId && e.CalendarEventDate.Month == DateTime.Now.Month).ToList();
             List<WorkModeForUser> workModesToDraw = _workModeForUserRepository.GetAllWorkModesForUser().Where(e => e.DateOfWorkMode.Month == DateTime.Now.Month && e.UserId == userToChangeId).ToList();
@@ -41,7 +41,7 @@ namespace Schedulist.App.Controllers
             return View(_calendarParams);
         }
 
-        public IActionResult PreviousMonth(DateTime date, int userToEdit)
+        public IActionResult PreviousMonth(DateTime date, string userToEdit)
         {
             List<CalendarEvent> allCalendarEvents = _calendarEventRepository.GetAllCalendarEvents();
             _user = _userRepository.GetAllUsers().First(obj => obj.Id == userToEdit);
@@ -50,7 +50,7 @@ namespace Schedulist.App.Controllers
             _calendarParams = new MonthViewModel(date.AddMonths(-1), calendarEventsToDraw, _userDict, userToEdit, _workModeRepository, workModesToDraw);
             return View("Index", _calendarParams);
         }
-        public IActionResult NextMonth(DateTime date, int userToEdit)
+        public IActionResult NextMonth(DateTime date, string userToEdit)
         {
             List<CalendarEvent> allCalendarEvents = _calendarEventRepository.GetAllCalendarEvents();
             _user = _userRepository.GetAllUsers().First(obj => obj.Id == userToEdit);
@@ -60,7 +60,7 @@ namespace Schedulist.App.Controllers
             return View("Index", _calendarParams);
         }
 
-        public IActionResult ChangeUser(DateTime date, int userToEdit)
+        public IActionResult ChangeUser(DateTime date, string userToEdit)
         {
             _user = _userRepository.GetAllUsers().First(obj => obj.Id == userToEdit);
             List<CalendarEvent> allCalendarEvents = _calendarEventRepository.GetAllCalendarEvents();
@@ -70,9 +70,9 @@ namespace Schedulist.App.Controllers
             return View("Index", _calendarParams);
         }
 
-        public IActionResult Day (DateTime date, int userToEdit)
+        public IActionResult Day (DateTime date, string userToEdit)
         {
-            if (userToEdit != 0)
+            if (userToEdit != string.Empty)
             {
                 _user = _userRepository.GetAllUsers().First(obj => obj.Id == userToEdit);
             }
@@ -88,7 +88,7 @@ namespace Schedulist.App.Controllers
             TempData["UserDetails"] = $"{_user.Name} {_user.Surname}";
             TempData["UserDetailsWM"] = $"{_user.Name} {_user.Surname}";
             DateOnly dateOnly = DateOnly.FromDateTime(date);
-            WorkModeForUser workMode = _workModeForUserRepository.GetWorkModeByUserIdAndDateOfWorkMode((int)_user.Id, dateOnly);
+            WorkModeForUser workMode = _workModeForUserRepository.GetWorkModeByUserIdAndDateOfWorkMode(_user.Id, dateOnly);
             string workModeString = "No work mode";
             //if (workMode != null) workModeString = _workModeRepository.GetAllWorkModes().Where(x => x.Id == workMode.WorkModeId).FirstOrDefault().Name;
             if (workMode != null) workModeString = _workModeRepository.GetWorkModeById(workMode.WorkModeId).Name;
@@ -99,9 +99,9 @@ namespace Schedulist.App.Controllers
             return View(dayViewModel);
         }
 
-        public IActionResult Week(DateTime date, int userToEdit)
+        public IActionResult Week(DateTime date, string userToEdit)
         {
-            if (userToEdit != 0)
+            if (userToEdit != string.Empty)
             {
                 _user = _userRepository.GetAllUsers().First(obj => obj.Id == userToEdit);
             }
@@ -118,7 +118,7 @@ namespace Schedulist.App.Controllers
             //TempData["UserDetailsWM"] = $"{_user.Name} {_user.Surname}";
 
             DateOnly dateOnly = DateOnly.FromDateTime(date);
-            WorkModeForUser workMode = _workModeForUserRepository.GetWorkModeByUserIdAndDateOfWorkMode((int)_user.Id, dateOnly);
+            WorkModeForUser workMode = _workModeForUserRepository.GetWorkModeByUserIdAndDateOfWorkMode((string)_user.Id, dateOnly);
             string workModeString = "No work mode";
             //if (workMode != null) workModeString = _workModeRepository.GetAllWorkModes().Where(x => x.Id == workMode.WorkModeId).FirstOrDefault().Name;
             if (workMode != null) workModeString = _workModeRepository.GetWorkModeById(workMode.WorkModeId).Name;
@@ -149,7 +149,7 @@ namespace Schedulist.App.Controllers
                 DateTime selectedDate = (DateTime)TempData.Peek("SelectedDate");
                 DateOnly parsedChosenDate = DateOnly.FromDateTime(selectedDate);
 
-                calendarEvent.UserId = (int)TempData.Peek("UserId");
+                calendarEvent.UserId = (string)TempData.Peek("UserId")!;
                 calendarEvent.CalendarEventDate = parsedChosenDate;
                 var timeValidationResult = _calendarEventRepository.CalendarEventTimesValidation(calendarEvent.CalendarEventStartTime, calendarEvent.CalendarEventEndTime);
                 var validationResult = _calendarEventRepository.CalendarEventOverlappingValidation(calendarEvent.CalendarEventDate, calendarEvent.CalendarEventStartTime, calendarEvent.CalendarEventEndTime, calendarEvent.UserId);
@@ -198,7 +198,7 @@ namespace Schedulist.App.Controllers
                 DateTime selectedDate = (DateTime)TempData.Peek("SelectedDateForWM");
                 DateOnly parsedChosenDate = DateOnly.FromDateTime(selectedDate);
 
-                workModesToUser.UserId = (int)TempData.Peek("UserId");
+                workModesToUser.UserId = (string)TempData.Peek("UserId")!;
                 workModesToUser.DateOfWorkMode = parsedChosenDate;
                 _workModeForUserRepository.CreateWorkModeForUser(workModesToUser);
                 Debug.WriteLine("Created new work mode!");

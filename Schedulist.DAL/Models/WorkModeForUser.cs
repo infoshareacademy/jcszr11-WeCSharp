@@ -14,7 +14,7 @@ namespace Schedulist.DAL.Models
 
         //EntityFramework Configuration Section
         [Name("UserId")]
-        public int UserId { get; set; }
+        public string UserId { get; set; }
         public User User { get; set; }
 
         [Name("WorkModeId")]

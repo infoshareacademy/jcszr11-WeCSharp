@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Schedulist.DAL;
 
@@ -11,9 +12,11 @@ using Schedulist.DAL;
 namespace Schedulist.DAL.Migrations
 {
     [DbContext(typeof(SchedulistDbContext))]
-    partial class DBContactModelSnapshot : ModelSnapshot
+    [Migration("20240305175831_IdentityFixing2")]
+    partial class IdentityFixing2
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -51,13 +54,13 @@ namespace Schedulist.DAL.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "2d3f2e54-3d40-4823-9938-2e339a9b96b9",
+                            Id = "71ae69f6-4d0b-4d1a-a8a0-107c62b9b889",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         },
                         new
                         {
-                            Id = "dd96a05a-bdf2-4fd5-b0a3-befe647fdbc5",
+                            Id = "c88c23e1-b7ec-49c0-a72c-0f588f3c32c4",
                             Name = "User",
                             NormalizedName = "USER"
                         });
@@ -207,6 +210,68 @@ namespace Schedulist.DAL.Migrations
                     b.HasIndex("UserId");
 
                     b.ToTable("CalendarEvents");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            CalendarEventDate = new DateOnly(2024, 1, 10),
+                            CalendarEventDescription = "Ongoing maintenance tasks in the office",
+                            CalendarEventEndTime = new TimeOnly(9, 30, 0),
+                            CalendarEventName = "Maintenance Work",
+                            CalendarEventStartTime = new TimeOnly(8, 30, 0),
+                            UserId = "8e445865-a24d-4543-a6c6-9443d048cdb9"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            CalendarEventDate = new DateOnly(2024, 1, 11),
+                            CalendarEventDescription = "Scheduled office cleaning day",
+                            CalendarEventEndTime = new TimeOnly(10, 30, 0),
+                            CalendarEventName = "Office Cleaning",
+                            CalendarEventStartTime = new TimeOnly(9, 30, 0),
+                            UserId = "8e445865-a24d-4543-a6c6-9443d048cdb9"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            CalendarEventDate = new DateOnly(2024, 1, 11),
+                            CalendarEventDescription = "Time for a relaxed atmosphere!",
+                            CalendarEventEndTime = new TimeOnly(11, 30, 0),
+                            CalendarEventName = "Pottering",
+                            CalendarEventStartTime = new TimeOnly(10, 30, 0),
+                            UserId = "8e445865-a24d-4543-a6c6-9443d048cdb9"
+                        },
+                        new
+                        {
+                            Id = 4,
+                            CalendarEventDate = new DateOnly(2024, 1, 11),
+                            CalendarEventDescription = "Team project meeting to discuss progress, challenges, and plans for project execution",
+                            CalendarEventEndTime = new TimeOnly(12, 30, 0),
+                            CalendarEventName = "Project Meeting",
+                            CalendarEventStartTime = new TimeOnly(11, 30, 0),
+                            UserId = "8e445865-a24d-4543-a6c6-9443d048cdb9"
+                        },
+                        new
+                        {
+                            Id = 5,
+                            CalendarEventDate = new DateOnly(2024, 1, 12),
+                            CalendarEventDescription = "Strategic business meeting covering company development, market strategy, and key decisions",
+                            CalendarEventEndTime = new TimeOnly(13, 30, 0),
+                            CalendarEventName = "Business Meeting",
+                            CalendarEventStartTime = new TimeOnly(12, 30, 0),
+                            UserId = "8e445865-a24d-4543-a6c6-9443d048cdb9"
+                        },
+                        new
+                        {
+                            Id = 6,
+                            CalendarEventDate = new DateOnly(2024, 1, 13),
+                            CalendarEventDescription = "Educational workshop aimed at enhancing employee's skills",
+                            CalendarEventEndTime = new TimeOnly(14, 30, 0),
+                            CalendarEventName = "Training Workshop",
+                            CalendarEventStartTime = new TimeOnly(13, 30, 0),
+                            UserId = "8e445865-a24d-4543-a6c6-9443d048cdb9"
+                        });
                 });
 
             modelBuilder.Entity("Schedulist.DAL.Models.Department", b =>
@@ -432,16 +497,16 @@ namespace Schedulist.DAL.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "e5dc4fa2-d5d4-48f0-9e57-14f9ec5a2cde",
+                            Id = "8e445865-a24d-4543-a6c6-9443d048cdb9",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "9a883d51-fe1d-4496-906c-c0c0c242ca32",
+                            ConcurrencyStamp = "1dede95a-f722-49f3-a98b-66d8426bb27d",
                             DepartmentId = 1,
                             EmailConfirmed = true,
                             LockoutEnabled = false,
                             Name = "Name",
                             PhoneNumberConfirmed = false,
                             PositionId = 2,
-                            SecurityStamp = "d65ce551-e447-4382-b54a-4bd703bcb219",
+                            SecurityStamp = "28011aa0-7745-48a7-a38f-2c4085a89ec5",
                             Surname = "fff",
                             TwoFactorEnabled = false
                         });
@@ -521,6 +586,50 @@ namespace Schedulist.DAL.Migrations
                     b.HasIndex("WorkModeId");
 
                     b.ToTable("WorkModesToUsers");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            DateOfWorkMode = new DateOnly(2024, 1, 10),
+                            UserId = "8e445865-a24d-4543-a6c6-9443d048cdb9",
+                            WorkModeId = 1
+                        },
+                        new
+                        {
+                            Id = 2,
+                            DateOfWorkMode = new DateOnly(2024, 1, 10),
+                            UserId = "8e445865-a24d-4543-a6c6-9443d048cdb9",
+                            WorkModeId = 1
+                        },
+                        new
+                        {
+                            Id = 3,
+                            DateOfWorkMode = new DateOnly(2024, 1, 11),
+                            UserId = "8e445865-a24d-4543-a6c6-9443d048cdb9",
+                            WorkModeId = 1
+                        },
+                        new
+                        {
+                            Id = 4,
+                            DateOfWorkMode = new DateOnly(2024, 1, 12),
+                            UserId = "8e445865-a24d-4543-a6c6-9443d048cdb9",
+                            WorkModeId = 1
+                        },
+                        new
+                        {
+                            Id = 5,
+                            DateOfWorkMode = new DateOnly(2024, 1, 13),
+                            UserId = "8e445865-a24d-4543-a6c6-9443d048cdb9",
+                            WorkModeId = 1
+                        },
+                        new
+                        {
+                            Id = 6,
+                            DateOfWorkMode = new DateOnly(2024, 1, 14),
+                            UserId = "8e445865-a24d-4543-a6c6-9443d048cdb9",
+                            WorkModeId = 1
+                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>

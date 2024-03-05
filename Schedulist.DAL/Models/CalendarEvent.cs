@@ -40,7 +40,7 @@ namespace Schedulist.DAL.Models
         //EntityFramework Configuration Section
         [Name("UserId")]
         [Display(Name = "Assigned to user with ID")]
-        public int UserId { get; set; }
+        public string UserId { get; set; }
         public User User { get; set; }
         //EntityFramework Configuration Section
 
@@ -49,7 +49,7 @@ namespace Schedulist.DAL.Models
 
         }
         public CalendarEvent(int calendarEventId, string calendarEventName, string calendarEventDescription, DateOnly calendarEventDate,
-            TimeOnly calendarEventStartTime, TimeOnly calendarEventEndTime, int userId)
+            TimeOnly calendarEventStartTime, TimeOnly calendarEventEndTime, string userId)
         {
             Id = calendarEventId;
             CalendarEventName = calendarEventName;
