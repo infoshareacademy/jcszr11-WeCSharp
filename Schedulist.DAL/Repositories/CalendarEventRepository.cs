@@ -80,12 +80,12 @@ namespace Schedulist.DAL.Repositories
                 return false;
             }
         }
-        public ValidationResult CalendarEventOverlappingValidation(DateOnly calendarEventDate, TimeOnly calendarEventStartTime, TimeOnly calendarEventEndTime, int userId)
+        public ValidationResult CalendarEventOverlappingValidation(CalendarEvent calendarEvent)
         {
             List<CalendarEvent> allCalendarEvents = GetAllCalendarEvents();
-            var providedStartTime = allCalendarEvents.FirstOrDefault(c => c.UserId == userId &&
-                                    c.CalendarEventDate == calendarEventDate && ((calendarEventStartTime >= c.CalendarEventStartTime && calendarEventStartTime < c.CalendarEventEndTime)
-                                    || (c.CalendarEventStartTime > calendarEventStartTime && c.CalendarEventStartTime < calendarEventEndTime)));
+            var providedStartTime = allCalendarEvents.FirstOrDefault(c => c.UserId == calendarEvent.UserId && c.Id != calendarEvent.Id &&
+                                    c.CalendarEventDate == calendarEvent.CalendarEventDate && ((calendarEvent.CalendarEventStartTime >= c.CalendarEventStartTime && calendarEvent.CalendarEventStartTime < c.CalendarEventEndTime)
+                                    || (c.CalendarEventStartTime > calendarEvent.CalendarEventStartTime && c.CalendarEventStartTime < calendarEvent.CalendarEventEndTime)));
 
             if (providedStartTime != null)
             {
@@ -94,9 +94,9 @@ namespace Schedulist.DAL.Repositories
             return ValidationResult.Success;
         }
 
-        public ValidationResult CalendarEventTimesValidation(TimeOnly calendarEventStartTime, TimeOnly calendarEventEndTime)
+        public ValidationResult CalendarEventTimesValidation(CalendarEvent calendarEvent)
         {
-            if (calendarEventStartTime >= calendarEventEndTime)
+            if (calendarEvent.CalendarEventStartTime >= calendarEvent.CalendarEventEndTime)
             {
                 return new ValidationResult("Start Time cannot be later or the same time as End Time!");
             }

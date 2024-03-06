@@ -12,7 +12,7 @@ namespace Schedulist.App.Controllers
             Thread.CurrentThread.CurrentCulture = new System.Globalization.CultureInfo("en-GB");
             this.logger = logger;
         }
-        public void PopupNotification(string title, string message = "", NotificationType notificationType = NotificationType.success)
+        protected void PopupNotification(string title, string message = "", NotificationType notificationType = NotificationType.success)
         {
             var msg = new
             {
@@ -23,5 +23,19 @@ namespace Schedulist.App.Controllers
 
             TempData["Message"] = JsonConvert.SerializeObject(msg);
         }
+        protected T PickTempDataValue<T>(string paramName)
+        {
+            var value = TempData.Peek(paramName);
+            if (value == null)
+                throw new ArgumentNullException(paramName,"Value has not been found");           
+
+            return (T)value;
+        }
+        protected ActionResult HandleValueTempDataNotFound(string paramName)
+        {
+            logger.LogError($"TempData value not found for argument: {paramName}");
+            return View();
+        }
+      
     }
 }
