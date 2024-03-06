@@ -25,5 +25,9 @@ namespace Schedulist.App.Services
 
         }
 
+        public List<ValidationResult> ValidateCalendarEvent(int id)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

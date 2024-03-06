@@ -13,7 +13,7 @@ namespace Schedulist.DAL.Repositories.Interfaces
         public List<CalendarEvent> GetAllCalendarEvents();
         public CalendarEvent GetCalendarEventById(int id);
         public bool CreateCalendarEvent(CalendarEvent calendarEvent);
-        public bool UpdateCalendarEvent(CalendarEvent calendarEvent);
+        public void UpdateCalendarEvent(int id, CalendarEvent calendarEvent);
         public bool DeleteCalendarEvent(CalendarEvent calendarEvent);
         public ValidationResult CalendarEventOverlappingValidation(CalendarEvent calendarEvent);
         public ValidationResult CalendarEventTimesValidation(CalendarEvent calendarEvent);
