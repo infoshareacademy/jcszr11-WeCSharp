@@ -97,6 +97,7 @@ html {
     padding-bottom: 20px;
     font-size: initial !important;
     min-width: 0 !important;
+    width: 100px;
 }
 
 .month-name-container {
@@ -107,6 +108,7 @@ html {
     justify-content: left;
     padding-bottom: 10px;
     border-bottom: 1px solid lightgrey;
+    max-height: 63px;
 }
 
 
@@ -219,8 +221,38 @@ html {
     justify-self: center;
 }
 
-/*---------- Calendar Event list section ----------*/
-.button-container {
+.calendar-calendar-event-container {
+    position: absolute;
+    width: calc(100% - 298px);
+    height: calc(100% - 123px);
+    bottom: 0;
+    left: 298px;
+}
+
+.day-calendar-event-container {
+    margin-left: 100px;
+    height: 100%;
+    width: 100%;
+    position: relative;
+    padding-left: 10px;
+    padding-right: 110px;
+}
+
+.calendar-calendar-event {
+    width: calc(100% - 120px);
+    height: 100%;
+    background-color: rgba(255, 255, 255, 0.75);
+    border-radius: 15px;
+    outline: 2px solid #265c95;
+    outline-offset: -1px;
+    position: absolute;
+}
+
+.week-calendar-event-container {
+}
+
+    /*---------- Calendar Event list section ----------*/
+    .button-container {
     display: flex;
     justify-content: center;
     gap: 5px;
