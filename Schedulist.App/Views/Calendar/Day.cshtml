@@ -82,7 +82,7 @@
                     string top = $"{calendarEvent.CalendarEventStartTime.Hour * 60 + calendarEvent.CalendarEventStartTime.Minute}px";
                     var duration = calendarEvent.CalendarEventEndTime - calendarEvent.CalendarEventStartTime;
                     string height = $"{duration.Hours * 60 + duration.Minutes}px";
-                    <div class="calendar-calendar-event" style="top: @top; height: @height;">
+                    <div class="day-calendar-event" style="top: @top; height: @height;">
                         @calendarEvent.CalendarEventName<br>
                         @calendarEvent.CalendarEventDescription
                     </div>
@@ -91,37 +91,6 @@
         }
     </div>
 </div>
-
-@if (@Model.CalendarEvents.Count > 0)
-{
-    @foreach (CalendarEvent calendarEvent in @Model.CalendarEvents)
-    {
-        if (calendarEvent.UserId == @Model.User.Id && calendarEvent.CalendarEventDate == @Model.Date)
-        {
-            <div style="display: flex;">
-                <div class="row flex-nowrap row-margin">
-                    <div class="col-3 row-text text-center standard-border">
-                        @Html.DisplayFor(modelItem => calendarEvent.CalendarEventName)
-                    </div>
-                    <div class="col row-text text-center standard-border">
-                        @Html.DisplayFor(modelItem => calendarEvent.CalendarEventDescription)
-                    </div>
-                    <div class="col-1 row-text text-center standard-border">
-                        @Html.DisplayFor(modelItem => calendarEvent.CalendarEventStartTime)
-                    </div>
-                    <div class="col-1 row-text text-center standard-border">
-                        @Html.DisplayFor(modelItem => calendarEvent.CalendarEventEndTime)
-                    </div>
-                    <button class="btn btn-primary btn-edit-delete" onclick="DeleteCalendarEvent('@Url.Action("Delete", "CalendarEvent")?id=@calendarEvent.Id','@calendarEvent.CalendarEventName','@calendarEvent.CalendarEventDescription',
-                    '@calendarEvent.CalendarEventDate','@calendarEvent.CalendarEventStartTime','@calendarEvent.CalendarEventEndTime','@calendarEvent.UserId')">
-                        Delete
-                    </button>
-                </div>
-            </div>
-        }
-    }
-}
-
 
 <script>
     var calendarEventDeletedMessage = localStorage.getItem('calendarEventDeletedMessage');

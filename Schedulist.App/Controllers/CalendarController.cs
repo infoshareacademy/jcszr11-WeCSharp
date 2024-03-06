@@ -15,7 +15,7 @@ namespace Schedulist.App.Controllers
         private readonly IWorkModeRepository _workModeRepository;
         private readonly ICalendarEventRepository _calendarEventRepository;
         private readonly IUserRepository _userRepository;
-        private Dictionary<string, int> _userDict = [];
+        private readonly Dictionary<string, int> _userDict = [];
         private MonthViewModel _calendarParams;
         public CalendarController(ILogger<CalendarController> logger, User user, IWorkModeForUserRepository workModeForUserRepository, IWorkModeRepository workModeRepository, ICalendarEventRepository calendarEventRepository, IUserRepository userRepository) : base(logger)
         {
