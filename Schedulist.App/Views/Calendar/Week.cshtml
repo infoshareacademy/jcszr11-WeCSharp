@@ -90,7 +90,7 @@
         int day = 0;
         for (DateOnly date = Model.StartOfWeek; date <= Model.EndOfWeek; date = date.AddDays(1))
         {
-            <div class="week-calendar-event-container" style="left: calc((100% - 100px) / 7 * @day);">
+            <div class="week-calendar-event-container" style="left: calc(100% / 7 * @day);">
                 @foreach (CalendarEvent calendarEvent in @Model.CalendarEvents)
                 {
                     if (calendarEvent.UserId == @Model.User.Id && calendarEvent.CalendarEventDate.DayOfWeek == date.DayOfWeek)

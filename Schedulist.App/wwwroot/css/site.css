@@ -222,7 +222,7 @@ html {
 
 .calendar-calendar-event-container {
     position: absolute;
-    width: calc(100% - 298px);
+    width: calc(100% - 398px);
     height: calc(100% - 123px);
     bottom: 0;
     left: 298px;
@@ -230,7 +230,7 @@ html {
 }
 
 .day-calendar-event {
-    width: calc(100% - 120px);
+    width: 100%;
     height: 100%;
     background-color: rgba(255, 255, 255, 0.75);
     border-radius: 15px;
@@ -243,7 +243,7 @@ html {
 }
 
 .week-calendar-event {
-    width: 95%;
+    width: 100%;
     height: 100%;
     background-color: rgba(255, 255, 255, 0.75);
     border-radius: 15px;
@@ -259,16 +259,13 @@ html {
     height: 100%;
     width: 100%;
     position: relative;
-    padding-left: 10px;
-    padding-right: 110px;
 }
 
 .week-calendar-event-container {
-    width: calc((100% - 120px) / 7);
+    width: calc(100% / 7);
     height: 100%;
     outline-offset: -1px;
     position: absolute;
-    padding: 5px;
 }
 
     /*---------- Calendar Event list section ----------*/
