@@ -85,7 +85,11 @@
                     <div class="day-calendar-event" style="top: @top; height: @height;">
                         @calendarEvent.CalendarEventName<br>
                         @calendarEvent.CalendarEventDescription
+                        <button class="btn btn-primary" onclick="location.href='@Url.Action("Edit", "Calendar", new { id = calendarEvent.Id })'">
+                            Edit
+                        </button>
                     </div>
+                    
                 }
             }
         }
