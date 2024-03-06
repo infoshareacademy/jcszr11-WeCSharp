@@ -17,7 +17,7 @@ namespace Schedulist.App.Controllers
         private readonly ICalendarEventRepository _calendarEventRepository;
         private readonly ICalendarEventService _calendarEventService;
         private readonly IUserRepository _userRepository;
-        private Dictionary<string, int> _userDict = [];
+        private readonly Dictionary<string, int> _userDict = [];
         private MonthViewModel _calendarParams;
         public CalendarController(ILogger<CalendarController> logger, User user, IWorkModeForUserRepository workModeForUserRepository, IWorkModeRepository workModeRepository, ICalendarEventRepository calendarEventRepository, ICalendarEventService calendarEventService, IUserRepository userRepository) : base(logger)
         {
@@ -107,27 +107,39 @@ namespace Schedulist.App.Controllers
             {
                 _user = _userRepository.GetAllUsers().First(obj => obj.Id == userToEdit);
             }
-
-            //TempData["ReturnUrl"] = HttpContext.Request.Path + HttpContext.Request.QueryString;
-            //TempData["ReturnUrlWM"] = HttpContext.Request.Path + HttpContext.Request.QueryString;
-            //TempData["SelectedDate"] = date;
-            //TempData["SelectedDateForWM"] = date;
-            //TempData["DayDate"] = date;
-            //TempData["DayDateWM"] = date;
-            //TempData["UserId"] = userToEdit;
-            //TempData["UserIdForWM"] = userToEdit;
-            //TempData["UserDetails"] = $"{_user.Name} {_user.Surname}";
-            //TempData["UserDetailsWM"] = $"{_user.Name} {_user.Surname}";
-
             DateOnly dateOnly = DateOnly.FromDateTime(date);
             WorkModeForUser workMode = _workModeForUserRepository.GetWorkModeByUserIdAndDateOfWorkMode((int)_user.Id, dateOnly);
             string workModeString = "No work mode";
             //if (workMode != null) workModeString = _workModeRepository.GetAllWorkModes().Where(x => x.Id == workMode.WorkModeId).FirstOrDefault().Name;
             if (workMode != null) workModeString = _workModeRepository.GetWorkModeById(workMode.WorkModeId).Name;
             List<CalendarEvent> calendarEvents = _calendarEventRepository.GetAllCalendarEvents();
-            var calendarEventsToDraw = calendarEvents.Where(c => c.UserId == _user.Id && c.CalendarEventDate == dateOnly).ToList();
+            DateOnly startOfWeek = DateOnly.FromDateTime(date);
+            while (true)
+            {
+                if (startOfWeek.DayOfWeek == DayOfWeek.Monday)
+                {
+                    break;
+                }
+                else
+                {
+                    startOfWeek = startOfWeek.AddDays(-1);
+                }
+            }
+            DateOnly endOfWeek = DateOnly.FromDateTime(date);
+            while (true)
+            {
+                if (endOfWeek.DayOfWeek == DayOfWeek.Sunday)
+                {
+                    break;
+                }
+                else
+                {
+                    endOfWeek = endOfWeek.AddDays(1);
+                }
+            }
+            var calendarEventsToDraw = calendarEvents.Where(c => c.UserId == _user.Id && c.CalendarEventDate > startOfWeek && c.CalendarEventDate < endOfWeek).ToList();
             var weekViewModel = new WeekViewModel(dateOnly, _user, workModeString, calendarEventsToDraw);
-            Debug.WriteLine($"Drawing calendar day for: {dateOnly}");
+            Debug.WriteLine($"Drawing calendar week for: {weekViewModel.StartOfWeek} - {weekViewModel.EndOfWeek}");
             return View(weekViewModel);
         }
 
