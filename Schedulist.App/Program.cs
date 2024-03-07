@@ -24,7 +24,7 @@ namespace Schedulist.App
                 options.UseSqlServer(connectionString));
             builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
-            builder.Services.AddDefaultIdentity<User>(options => options.SignIn.RequireConfirmedAccount = true).AddRoles<IdentityRole>()
+            builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true).AddRoles<IdentityRole>()
                 .AddEntityFrameworkStores<SchedulistDbContext>();
             builder.Services.AddControllersWithViews();
 
@@ -36,13 +36,13 @@ namespace Schedulist.App
             builder.Services.AddTransient<ICalendarRepository, CalendarRepository>();
             builder.Services.AddTransient<IWorkModeForUserRepository, WorkModeForUserRepository>();
             builder.Services.AddTransient<IWorkModeRepository, WorkModeRepository>();
-            builder.Services.AddScoped<DBSeed>();
+            //builder.Services.AddScoped<DBSeed>();
 
             var app = builder.Build();
             using (var scope = app.Services.CreateScope())
             {
-                var dbSeed = scope.ServiceProvider.GetService<DBSeed>();
-                await dbSeed.CreateAdmin();
+                //var dbSeed = scope.ServiceProvider.GetService<DBSeed>();
+                //await dbSeed.CreateAdmin();
             }
                 // Configure the HTTP request pipeline.
                 if (!app.Environment.IsDevelopment())

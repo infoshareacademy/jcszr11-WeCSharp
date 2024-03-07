@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Schedulist.DAL;
 
@@ -11,9 +12,11 @@ using Schedulist.DAL;
 namespace Schedulist.DAL.Migrations
 {
     [DbContext(typeof(SchedulistDbContext))]
-    partial class DBContactModelSnapshot : ModelSnapshot
+    [Migration("20240307212027_NewAllMigrations")]
+    partial class NewAllMigrations
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -51,13 +54,13 @@ namespace Schedulist.DAL.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "2d3f2e54-3d40-4823-9938-2e339a9b96b9",
+                            Id = "63487da1-04f5-4000-abc7-3d1ad72029ae",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         },
                         new
                         {
-                            Id = "dd96a05a-bdf2-4fd5-b0a3-befe647fdbc5",
+                            Id = "1e68dc83-8e51-4c5d-9beb-3c5c11348716",
                             Name = "User",
                             NormalizedName = "USER"
                         });
@@ -86,6 +89,80 @@ namespace Schedulist.DAL.Migrations
                     b.HasIndex("RoleId");
 
                     b.ToTable("AspNetRoleClaims", (string)null);
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUser", b =>
+                {
+                    b.Property<string>("Id")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<int>("AccessFailedCount")
+                        .HasColumnType("int");
+
+                    b.Property<string>("ConcurrencyStamp")
+                        .IsConcurrencyToken()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Discriminator")
+                        .IsRequired()
+                        .HasMaxLength(13)
+                        .HasColumnType("nvarchar(13)");
+
+                    b.Property<string>("Email")
+                        .HasMaxLength(256)
+                        .HasColumnType("nvarchar(256)");
+
+                    b.Property<bool>("EmailConfirmed")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("LockoutEnabled")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTimeOffset?>("LockoutEnd")
+                        .HasColumnType("datetimeoffset");
+
+                    b.Property<string>("NormalizedEmail")
+                        .HasMaxLength(256)
+                        .HasColumnType("nvarchar(256)");
+
+                    b.Property<string>("NormalizedUserName")
+                        .HasMaxLength(256)
+                        .HasColumnType("nvarchar(256)");
+
+                    b.Property<string>("PasswordHash")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("PhoneNumber")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("PhoneNumberConfirmed")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("SecurityStamp")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("TwoFactorEnabled")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("UserName")
+                        .HasMaxLength(256)
+                        .HasColumnType("nvarchar(256)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("NormalizedEmail")
+                        .HasDatabaseName("EmailIndex");
+
+                    b.HasIndex("NormalizedUserName")
+                        .IsUnique()
+                        .HasDatabaseName("UserNameIndex")
+                        .HasFilter("[NormalizedUserName] IS NOT NULL");
+
+                    b.ToTable("AspNetUsers", (string)null);
+
+                    b.HasDiscriminator<string>("Discriminator").HasValue("IdentityUser");
+
+                    b.UseTphMappingStrategy();
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>
@@ -207,6 +284,68 @@ namespace Schedulist.DAL.Migrations
                     b.HasIndex("UserId");
 
                     b.ToTable("CalendarEvents");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            CalendarEventDate = new DateOnly(2024, 1, 10),
+                            CalendarEventDescription = "Ongoing maintenance tasks in the office",
+                            CalendarEventEndTime = new TimeOnly(9, 30, 0),
+                            CalendarEventName = "Maintenance Work",
+                            CalendarEventStartTime = new TimeOnly(8, 30, 0),
+                            UserId = "1"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            CalendarEventDate = new DateOnly(2024, 1, 11),
+                            CalendarEventDescription = "Scheduled office cleaning day",
+                            CalendarEventEndTime = new TimeOnly(10, 30, 0),
+                            CalendarEventName = "Office Cleaning",
+                            CalendarEventStartTime = new TimeOnly(9, 30, 0),
+                            UserId = "2"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            CalendarEventDate = new DateOnly(2024, 1, 11),
+                            CalendarEventDescription = "Time for a relaxed atmosphere!",
+                            CalendarEventEndTime = new TimeOnly(11, 30, 0),
+                            CalendarEventName = "Pottering",
+                            CalendarEventStartTime = new TimeOnly(10, 30, 0),
+                            UserId = "1"
+                        },
+                        new
+                        {
+                            Id = 4,
+                            CalendarEventDate = new DateOnly(2024, 1, 11),
+                            CalendarEventDescription = "Team project meeting to discuss progress, challenges, and plans for project execution",
+                            CalendarEventEndTime = new TimeOnly(12, 30, 0),
+                            CalendarEventName = "Project Meeting",
+                            CalendarEventStartTime = new TimeOnly(11, 30, 0),
+                            UserId = "3"
+                        },
+                        new
+                        {
+                            Id = 5,
+                            CalendarEventDate = new DateOnly(2024, 1, 12),
+                            CalendarEventDescription = "Strategic business meeting covering company development, market strategy, and key decisions",
+                            CalendarEventEndTime = new TimeOnly(13, 30, 0),
+                            CalendarEventName = "Business Meeting",
+                            CalendarEventStartTime = new TimeOnly(12, 30, 0),
+                            UserId = "2"
+                        },
+                        new
+                        {
+                            Id = 6,
+                            CalendarEventDate = new DateOnly(2024, 1, 13),
+                            CalendarEventDescription = "Educational workshop aimed at enhancing employee's skills",
+                            CalendarEventEndTime = new TimeOnly(14, 30, 0),
+                            CalendarEventName = "Training Workshop",
+                            CalendarEventStartTime = new TimeOnly(13, 30, 0),
+                            UserId = "1"
+                        });
                 });
 
             modelBuilder.Entity("Schedulist.DAL.Models.Department", b =>
@@ -347,106 +486,6 @@ namespace Schedulist.DAL.Migrations
                         });
                 });
 
-            modelBuilder.Entity("Schedulist.DAL.Models.User", b =>
-                {
-                    b.Property<string>("Id")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<int>("AccessFailedCount")
-                        .HasColumnType("int");
-
-                    b.Property<string>("ConcurrencyStamp")
-                        .IsConcurrencyToken()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("DepartmentId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("Email")
-                        .HasMaxLength(256)
-                        .HasColumnType("nvarchar(256)");
-
-                    b.Property<bool>("EmailConfirmed")
-                        .HasColumnType("bit");
-
-                    b.Property<bool>("LockoutEnabled")
-                        .HasColumnType("bit");
-
-                    b.Property<DateTimeOffset?>("LockoutEnd")
-                        .HasColumnType("datetimeoffset");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("NormalizedEmail")
-                        .HasMaxLength(256)
-                        .HasColumnType("nvarchar(256)");
-
-                    b.Property<string>("NormalizedUserName")
-                        .HasMaxLength(256)
-                        .HasColumnType("nvarchar(256)");
-
-                    b.Property<string>("PasswordHash")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("PhoneNumber")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<bool>("PhoneNumberConfirmed")
-                        .HasColumnType("bit");
-
-                    b.Property<int>("PositionId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("SecurityStamp")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Surname")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<bool>("TwoFactorEnabled")
-                        .HasColumnType("bit");
-
-                    b.Property<string>("UserName")
-                        .HasMaxLength(256)
-                        .HasColumnType("nvarchar(256)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("DepartmentId");
-
-                    b.HasIndex("NormalizedEmail")
-                        .HasDatabaseName("EmailIndex");
-
-                    b.HasIndex("NormalizedUserName")
-                        .IsUnique()
-                        .HasDatabaseName("UserNameIndex")
-                        .HasFilter("[NormalizedUserName] IS NOT NULL");
-
-                    b.HasIndex("PositionId");
-
-                    b.ToTable("AspNetUsers", (string)null);
-
-                    b.HasData(
-                        new
-                        {
-                            Id = "e5dc4fa2-d5d4-48f0-9e57-14f9ec5a2cde",
-                            AccessFailedCount = 0,
-                            ConcurrencyStamp = "9a883d51-fe1d-4496-906c-c0c0c242ca32",
-                            DepartmentId = 1,
-                            EmailConfirmed = true,
-                            LockoutEnabled = false,
-                            Name = "Name",
-                            PhoneNumberConfirmed = false,
-                            PositionId = 2,
-                            SecurityStamp = "d65ce551-e447-4382-b54a-4bd703bcb219",
-                            Surname = "fff",
-                            TwoFactorEnabled = false
-                        });
-                });
-
             modelBuilder.Entity("Schedulist.DAL.Models.WorkMode", b =>
                 {
                     b.Property<int>("Id")
@@ -521,6 +560,125 @@ namespace Schedulist.DAL.Migrations
                     b.HasIndex("WorkModeId");
 
                     b.ToTable("WorkModesToUsers");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            DateOfWorkMode = new DateOnly(2024, 1, 10),
+                            UserId = "1",
+                            WorkModeId = 1
+                        },
+                        new
+                        {
+                            Id = 2,
+                            DateOfWorkMode = new DateOnly(2024, 1, 10),
+                            UserId = "2",
+                            WorkModeId = 1
+                        },
+                        new
+                        {
+                            Id = 3,
+                            DateOfWorkMode = new DateOnly(2024, 1, 11),
+                            UserId = "3",
+                            WorkModeId = 1
+                        },
+                        new
+                        {
+                            Id = 4,
+                            DateOfWorkMode = new DateOnly(2024, 1, 12),
+                            UserId = "1",
+                            WorkModeId = 1
+                        },
+                        new
+                        {
+                            Id = 5,
+                            DateOfWorkMode = new DateOnly(2024, 1, 13),
+                            UserId = "2",
+                            WorkModeId = 1
+                        },
+                        new
+                        {
+                            Id = 6,
+                            DateOfWorkMode = new DateOnly(2024, 1, 14),
+                            UserId = "2",
+                            WorkModeId = 1
+                        });
+                });
+
+            modelBuilder.Entity("Schedulist.DAL.Models.User", b =>
+                {
+                    b.HasBaseType("Microsoft.AspNetCore.Identity.IdentityUser");
+
+                    b.Property<int>("DepartmentId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("PositionId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Surname")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasIndex("DepartmentId");
+
+                    b.HasIndex("PositionId");
+
+                    b.HasDiscriminator().HasValue("User");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = "1",
+                            AccessFailedCount = 50,
+                            ConcurrencyStamp = "7d37c3d6-10c8-4c42-bfcf-d87b38d18b35",
+                            EmailConfirmed = true,
+                            LockoutEnabled = false,
+                            PhoneNumberConfirmed = false,
+                            SecurityStamp = "69942b06-ac6c-41f1-a7ef-b7831c702b2f",
+                            TwoFactorEnabled = false,
+                            UserName = "kurstomasza@gmail.com",
+                            DepartmentId = 1,
+                            Name = "Tomasz",
+                            PositionId = 2,
+                            Surname = "Tomaszewicz"
+                        },
+                        new
+                        {
+                            Id = "2",
+                            AccessFailedCount = 50,
+                            ConcurrencyStamp = "7959d5e2-b41e-4726-815f-552343599554",
+                            EmailConfirmed = true,
+                            LockoutEnabled = false,
+                            PhoneNumberConfirmed = false,
+                            SecurityStamp = "bf50612a-2d25-4b15-b30c-72b7eeefd816",
+                            TwoFactorEnabled = false,
+                            UserName = "kursandrzeja@gmail.com",
+                            DepartmentId = 3,
+                            Name = "Andrzej",
+                            PositionId = 4,
+                            Surname = "Andrzejewicz"
+                        },
+                        new
+                        {
+                            Id = "3",
+                            AccessFailedCount = 50,
+                            ConcurrencyStamp = "86358572-4d3c-46ab-ba96-d0135907be61",
+                            EmailConfirmed = true,
+                            LockoutEnabled = false,
+                            PhoneNumberConfirmed = false,
+                            SecurityStamp = "8a80f47d-8ce1-425e-88e5-d9d192e5adb7",
+                            TwoFactorEnabled = false,
+                            UserName = "kursmichaela@gmail.com",
+                            DepartmentId = 3,
+                            Name = "Michael",
+                            PositionId = 1,
+                            Surname = "Jordan"
+                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -534,7 +692,7 @@ namespace Schedulist.DAL.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>
                 {
-                    b.HasOne("Schedulist.DAL.Models.User", null)
+                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -543,7 +701,7 @@ namespace Schedulist.DAL.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<string>", b =>
                 {
-                    b.HasOne("Schedulist.DAL.Models.User", null)
+                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -558,7 +716,7 @@ namespace Schedulist.DAL.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Schedulist.DAL.Models.User", null)
+                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -567,7 +725,7 @@ namespace Schedulist.DAL.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>
                 {
-                    b.HasOne("Schedulist.DAL.Models.User", null)
+                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -583,25 +741,6 @@ namespace Schedulist.DAL.Migrations
                         .IsRequired();
 
                     b.Navigation("User");
-                });
-
-            modelBuilder.Entity("Schedulist.DAL.Models.User", b =>
-                {
-                    b.HasOne("Schedulist.DAL.Models.Department", "Department")
-                        .WithMany("User")
-                        .HasForeignKey("DepartmentId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("Schedulist.DAL.Models.Position", "Position")
-                        .WithMany("User")
-                        .HasForeignKey("PositionId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Department");
-
-                    b.Navigation("Position");
                 });
 
             modelBuilder.Entity("Schedulist.DAL.Models.WorkModeForUser", b =>
@@ -621,6 +760,25 @@ namespace Schedulist.DAL.Migrations
                     b.Navigation("User");
 
                     b.Navigation("WorkMode");
+                });
+
+            modelBuilder.Entity("Schedulist.DAL.Models.User", b =>
+                {
+                    b.HasOne("Schedulist.DAL.Models.Department", "Department")
+                        .WithMany("User")
+                        .HasForeignKey("DepartmentId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Schedulist.DAL.Models.Position", "Position")
+                        .WithMany("User")
+                        .HasForeignKey("PositionId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Department");
+
+                    b.Navigation("Position");
                 });
 
             modelBuilder.Entity("Schedulist.DAL.Models.Department", b =>
