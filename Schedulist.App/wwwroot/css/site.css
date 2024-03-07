@@ -9,12 +9,12 @@ html {
 }
 /*---------- Main Layout ----------*/
 .sidenav {
-    padding-top: 90px;
-    background-color: grey;
+    padding-top: 5px;
+    background-color: #0066CC;
     border-radius: 10px;
     border: 1px solid #ddd;
     height: 100vh;
-    width: 300px;
+    width: 250px;
     position: sticky;
     top: 0;
 }
@@ -302,4 +302,80 @@ html {
 #toast-container > .toast-error {
     background-color: darkred;
     color: white;
+}
+
+/*-----Buttons------*/
+
+.button {
+    font-family: Dubai;
+    font-weight: 0;
+    color: #fff;
+    padding: 10px 30px;
+    box-shadow: rgb(0, 0, 0) 0px 0px 0px 0px;
+    border-radius: 7px;
+    transition: 661ms;
+    transform: translateY(0);
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    cursor: pointer;
+    text-align:center;
+}
+
+    .button:hover {
+        transition: 661ms;
+        padding: 10px 30px;
+        transform: translateY(-0px);
+        background-color: #fff;
+        text-align:center;
+     }
+
+    /*Blue*/
+.buttonBlue {
+    background-color: #0066CC;
+    border: 1px solid #0066cc;
+    width: auto;
+    font-size: 15px;
+}
+    .buttonBlue:hover{
+   color: #0066cc;
+        border: solid 1px #0066cc;
+    }
+
+    /*Red*/
+.buttonRed {
+    background-color: #c42121;
+    border: 1px solid #c42121;
+    width: auto;
+    font-size: 15px;
+}
+    .buttonRed:hover {
+        color: #c42121;
+        border: solid 1px #c42121;
+    }
+
+ /*Green*/
+.buttonGreen {
+    background-color: #26a35f;
+    border: 1px solid #26a35f;
+    width: auto;
+    font-size: 15px;
+}
+    .buttonGreen:hover {
+        color: #26a35f;
+        border: solid 1px #26a35f;
+    }
+
+    /*Navbar button*/
+.buttonNavbar {
+    background-color: #0066CC;
+    border: 1px solid #0066cc;
+    width: auto;
+    font-size: 20px;
+    align-items:center;
+    text-decoration:none;
+}
+.buttonNavbar:hover {
+    color: #0066cc;
+    border: solid 1px #0066cc;
 }
