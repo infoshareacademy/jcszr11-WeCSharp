@@ -310,9 +310,9 @@ html {
     font-family: Dubai;
     font-weight: 0;
     color: #fff;
-    padding: 10px 30px;
+    padding: 7px 30px;
     box-shadow: rgb(0, 0, 0) 0px 0px 0px 0px;
-    border-radius: 7px;
+    border-radius: 5px;
     transition: 661ms;
     transform: translateY(0);
     display: flex;
@@ -324,7 +324,7 @@ html {
 
     .button:hover {
         transition: 661ms;
-        padding: 10px 30px;
+        padding: 7px 30px;
         transform: translateY(-0px);
         background-color: #fff;
         text-align:center;
