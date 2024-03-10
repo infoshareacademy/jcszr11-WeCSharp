@@ -110,7 +110,6 @@ namespace Schedulist.App.Controllers
             DateOnly dateOnly = DateOnly.FromDateTime(date);
             WorkModeForUser workMode = _workModeForUserRepository.GetWorkModeByUserIdAndDateOfWorkMode((int)_user.Id, dateOnly);
             string workModeString = "No work mode";
-            //if (workMode != null) workModeString = _workModeRepository.GetAllWorkModes().Where(x => x.Id == workMode.WorkModeId).FirstOrDefault().Name;
             if (workMode != null) workModeString = _workModeRepository.GetWorkModeById(workMode.WorkModeId).Name;
             List<CalendarEvent> calendarEvents = _calendarEventRepository.GetAllCalendarEvents();
             DateOnly startOfWeek = DateOnly.FromDateTime(date);
