@@ -20,6 +20,10 @@ html {
     top: 0;
 }
 
+.pointer {
+    cursor: pointer;
+}
+
 .row.content {
     height: 100%
 }
@@ -142,9 +146,8 @@ html {
 
 .calendar-header {
     background-color: rgb(245, 245, 245);
-    border-top: 1px solid lightgrey;
-    border-bottom: 1px solid lightgrey;
-    border-right: 1px solid lightgrey;
+    border: 1px solid lightgrey;
+    border-left: none;
     min-width: 70px;
     font-size: calc(6px + 0.7vw);
     padding: 4px;
@@ -287,12 +290,20 @@ html {
 }
 
 .calendar-sidebar-container {
+    z-index: 1;
     display: none;
     position: absolute;
     height: calc(100% - 123px);
     width: 350px;
     right: 0;
     top: 123px;
+}
+
+.calendar-sidebar-event-container {
+    width: 100%;
+    padding-top: 15px;
+    padding-bottom: 15px;
+    border-top: 1px solid lightgrey;
 }
 
 .calendar-sidebar {
@@ -302,6 +313,10 @@ html {
     position: sticky;
     height: calc(100vh - 123px);
     padding-top: 50px;
+}
+
+.main-calendar-sidebar {
+    height: calc(100vh - 123px);
 }
 
 /*---------- Calendar Event list section ----------*/

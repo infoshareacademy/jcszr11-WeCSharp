@@ -4,6 +4,27 @@
 @using Schedulist.DAL.Shared
 @model MonthViewModel
 
+<script>
+    function openCalendarSidebar(element) {
+        closeCalendarSidebars()
+        var sidebarId = element.getAttribute('data-sidebar-id');
+        var sidebarElement = document.getElementById(sidebarId);
+        sidebarElement.style.display = "block";
+    }
+
+    function closeCalendarSidebars() {
+        @for (int i = 1; i<=31; i++)
+        {
+            @:closeCalendarSidebar('Day-@i');
+        }
+    }
+
+    function closeCalendarSidebar(sidebarId) {
+        var sidebarElement = document.getElementById(sidebarId);
+        sidebarElement.style.display = "none";
+    }
+</script>
+
 <div class="text-center" style="height: 100vh;">
     <div class="container-fluid d-flex h-100 flex-column" style="padding: 0;">
         <div class="row flex-nowrap month-name-container">
@@ -45,7 +66,7 @@
             @for (int i = 0; i < 7; i++)
             {
                 DateTime drawDayOfWeek = @Model.StartDate.AddDays(i);
-                <div class="col calendar-header">@drawDayOfWeek.DayOfWeek</div>
+                <div class="col calendar-header day-calendar-row-hour">@drawDayOfWeek.DayOfWeek</div>
             }
         </div>
         <div class="row flex-nowrap flex-grow-1" style="border-left: 1px solid lightgrey;">
@@ -80,7 +101,8 @@
                             }
                             if (drawDate == DateTime.Today)
                             {
-                                <button type="button" class="col calendar-block this-month today" onclick="location.href='@Url.Action("Day", "Calendar", new {@date = drawDate, @userToEdit = Model.UserToEdit})'">
+                                // <button type="button" class="col calendar-block this-month today" onclick="location.href='@Url.Action("Day", "Calendar", new {@date = drawDate, @userToEdit = Model.UserToEdit})'">
+                                <button type="button" class="col calendar-block this-month today" data-sidebar-id="Day-@drawDate.Day" onclick="openCalendarSidebar(this)">
                                 <div class="calendar-day-date">
                                     @drawDate.Day
                                 </div>
@@ -135,7 +157,7 @@
                             }
                             else
                             {
-                                <button type="button" class="col calendar-block this-month" onclick="location.href='@Url.Action("Day", "Calendar", new {@date = drawDate, @userToEdit = Model.UserToEdit})'">
+                                <button type="button" class="col calendar-block this-month" data-sidebar-id="Day-@drawDate.Day" onclick="openCalendarSidebar(this)">
                                     <div class="calendar-day-date">
                                         @drawDate.Day
                                     </div>
@@ -188,7 +210,7 @@
                         }
                         else
                         {
-                            <button type="button" class="col calendar-block" onclick="location.href='@Url.Action("Day", "Calendar", drawDate)'">
+                            <button type="button" class="col calendar-block">
                                 <div class="calendar-day-date">
                                     @drawDate.Day
                                 </div>
@@ -200,5 +222,36 @@
             }
         </div>
     </div>
+</div>
+
+@* day sidebar *@
+<div>
+    @{
+        for (int i = 0; i <= 31; i++)
+        {
+            drawDate = Model.FirstDayOfTheMonth.AddDays(i);
+            @:<div id="Day-@i" class="calendar-sidebar-container">
+            @:<div class="calendar-sidebar">
+            @:<button onclick="closeCalendarSidebars()" class="sidebar-close-button">x</button>
+            if (drawDate.Month == Model.CurrentDate.Month)
+            {
+                <h3>@DateOnly.FromDateTime(drawDate)</h3>
+                @foreach (CalendarEvent calendarEvent in @Model.CalendarEvents)
+                {
+                    if (calendarEvent.UserId == @Model.UserToEdit && calendarEvent.CalendarEventDate == DateOnly.FromDateTime(drawDate))
+                    {
+                        <div class="calendar-sidebar-event-container">
+                        @calendarEvent.CalendarEventStartTime - @calendarEvent.CalendarEventEndTime<br>
+                        @calendarEvent.CalendarEventName<br>
+                        @calendarEvent.CalendarEventDescription<br>
+                        </div>
+                    }
+                }
+            }
+            @:</button>
+            @:</div>
+            @:</div>
+        }
+    }
 </div>
 
