@@ -101,7 +101,6 @@
                             }
                             if (drawDate == DateTime.Today)
                             {
-                                // <button type="button" class="col calendar-block this-month today" onclick="location.href='@Url.Action("Day", "Calendar", new {@date = drawDate, @userToEdit = Model.UserToEdit})'">
                                 <button type="button" class="col calendar-block this-month today" data-sidebar-id="Day-@drawDate.Day" onclick="openCalendarSidebar(this)">
                                 <div class="calendar-day-date">
                                     @drawDate.Day
@@ -230,12 +229,13 @@
         for (int i = 0; i <= 31; i++)
         {
             drawDate = Model.FirstDayOfTheMonth.AddDays(i);
-            @:<div id="Day-@i" class="calendar-sidebar-container">
+            int id = i + 1;
+            @:<div id="Day-@id" class="calendar-sidebar-container">
             @:<div class="calendar-sidebar">
             @:<button onclick="closeCalendarSidebars()" class="sidebar-close-button">x</button>
             if (drawDate.Month == Model.CurrentDate.Month)
             {
-                <h3>@DateOnly.FromDateTime(drawDate)</h3>
+                <h3 class="pointer" onclick="location.href='@Url.Action("Day", "Calendar", new {@date = drawDate, @userToEdit = Model.UserToEdit})'">@DateOnly.FromDateTime(drawDate)</h3>
                 @foreach (CalendarEvent calendarEvent in @Model.CalendarEvents)
                 {
                     if (calendarEvent.UserId == @Model.UserToEdit && calendarEvent.CalendarEventDate == DateOnly.FromDateTime(drawDate))

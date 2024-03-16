@@ -19,14 +19,14 @@
         string sidebarId = $"calendarEvent{calendarEvent.Id}";
         @:closeCalendarSidebar('@sidebarId');
     }
-        closeCalendarSidebar('Monday');
+            closeCalendarSidebar('Monday');
         closeCalendarSidebar('Tuesday');
         closeCalendarSidebar('Wednesday');
         closeCalendarSidebar('Thursday');
         closeCalendarSidebar('Friday');
         closeCalendarSidebar('Saturday');
         closeCalendarSidebar('Sunday');
-        }
+    }
 
     function closeCalendarSidebar(sidebarId) {
         var sidebarElement = document.getElementById(sidebarId);
@@ -298,9 +298,14 @@
             @calendarEvent.CalendarEventStartTime - @calendarEvent.CalendarEventEndTime<br>
             @calendarEvent.CalendarEventName<br>
             @calendarEvent.CalendarEventDescription<br>
-            <button class="btn btn-primary" onclick="location.href='@Url.Action("Edit", "CalendarEvent", new { id = calendarEvent.Id })'">
-                Edit
-            </button>
+            <div>
+                <button class="btn btn-primary" onclick="location.href='@Url.Action("Edit", "CalendarEvent", new { id = calendarEvent.Id })'">
+                    Edit
+                </button>
+                <button class="btn btn-danger" onclick="location.href='@Url.Action("Delete", "CalendarEvent", new { id = calendarEvent.Id })'">
+                    Delete
+                </button>
+            </div>
         </div>
     </div>
 }
