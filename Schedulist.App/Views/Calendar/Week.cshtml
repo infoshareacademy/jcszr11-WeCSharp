@@ -160,139 +160,32 @@
 
 @* week sidebar *@
 <div>
-    <div id="Monday" class="calendar-sidebar-container">
-        <div class="calendar-sidebar">
-            <button onclick="closeCalendarSidebars()" class="sidebar-close-button">x</button>
-            <h3>Monday</h3>
-            @foreach (CalendarEvent calendarEvent in @Model.CalendarEvents)
-            {
-                if (calendarEvent.UserId == @Model.User.Id && calendarEvent.CalendarEventDate.DayOfWeek == DayOfWeek.Monday)
+    @for (DateOnly day = Model.StartOfWeek; day <= Model.EndOfWeek; day = day.AddDays(1))
+    {
+        Console.WriteLine("writing sidebar for"+day);
+        @:<div id="@day.DayOfWeek.ToString()" class="calendar-sidebar-container">
+            @:<div class="calendar-sidebar">
+                @:<button onclick="closeCalendarSidebars()" class="sidebar-close-button">x</button>
+                <div class="pointer" onclick="location.href='@Url.Action("Day", "Calendar", new {@date = day, @userToEdit = Model.User})'">
+                    <h3>@day.DayOfWeek.ToString()</h3>
+                    <h5>@day.ToString()</h5>
+                </div>
+                @foreach (CalendarEvent calendarEvent in @Model.CalendarEvents)
                 {
-                    string sidebarId = $"calendarEvent{calendarEvent.Id}";
-                    <div class="calendar-sidebar-event-container pointer" data-sidebar-id="@sidebarId" onclick="openCalendarSidebar(this)">
-                        @calendarEvent.CalendarEventStartTime - @calendarEvent.CalendarEventEndTime<br>
-                        @calendarEvent.CalendarEventName<br>
-                        @calendarEvent.CalendarEventDescription<br>
-                    </div>
+                    if (calendarEvent.UserId == @Model.User.Id && calendarEvent.CalendarEventDate == day)
+                    {
+                        string sidebarId = $"calendarEvent{calendarEvent.Id}";
+                        <div class="calendar-sidebar-event-container pointer" data-sidebar-id="@sidebarId" onclick="openCalendarSidebar(this)">
+                            @calendarEvent.CalendarEventStartTime - @calendarEvent.CalendarEventEndTime<br>
+                            @calendarEvent.CalendarEventName<br>
+                            @calendarEvent.CalendarEventDescription<br>
+                        </div>
+                    }
                 }
-            }
-            </button>
-        </div>
-    </div>
-    <div id="Tuesday" class="calendar-sidebar-container">
-        <div class="calendar-sidebar">
-            <button onclick="closeCalendarSidebars()" class="sidebar-close-button">x</button>
-            <h3>Tuesday</h3>
-            @foreach (CalendarEvent calendarEvent in @Model.CalendarEvents)
-            {
-                if (calendarEvent.UserId == @Model.User.Id && calendarEvent.CalendarEventDate.DayOfWeek == DayOfWeek.Tuesday)
-                {
-                    string sidebarId = $"calendarEvent{calendarEvent.Id}";
-                    <div class="calendar-sidebar-event-container pointer" data-sidebar-id="@sidebarId" onclick="openCalendarSidebar(this)">
-                        @calendarEvent.CalendarEventStartTime - @calendarEvent.CalendarEventEndTime<br>
-                        @calendarEvent.CalendarEventName<br>
-                        @calendarEvent.CalendarEventDescription<br>
-                    </div>
-                }
-            }
-            </button>
-        </div>
-    </div>
-    <div id="Wednesday" class="calendar-sidebar-container">
-        <div class="calendar-sidebar">
-            <button onclick="closeCalendarSidebars()" class="sidebar-close-button">x</button>
-            <h3>Wednesday</h3>
-            @foreach (CalendarEvent calendarEvent in @Model.CalendarEvents)
-            {
-                if (calendarEvent.UserId == @Model.User.Id && calendarEvent.CalendarEventDate.DayOfWeek == DayOfWeek.Wednesday)
-                {
-                    string sidebarId = $"calendarEvent{calendarEvent.Id}";
-                    <div class="calendar-sidebar-event-container pointer" data-sidebar-id="@sidebarId" onclick="openCalendarSidebar(this)">
-                        @calendarEvent.CalendarEventStartTime - @calendarEvent.CalendarEventEndTime<br>
-                        @calendarEvent.CalendarEventName<br>
-                        @calendarEvent.CalendarEventDescription<br>
-                    </div>
-                }
-            }
-            </button>
-        </div>
-    </div>
-    <div id="Thursday" class="calendar-sidebar-container">
-        <div class="calendar-sidebar">
-            <button onclick="closeCalendarSidebars()" class="sidebar-close-button">x</button>
-            <h3>Thursday</h3>
-            @foreach (CalendarEvent calendarEvent in @Model.CalendarEvents)
-            {
-                if (calendarEvent.UserId == @Model.User.Id && calendarEvent.CalendarEventDate.DayOfWeek == DayOfWeek.Thursday)
-                {
-                    string sidebarId = $"calendarEvent{calendarEvent.Id}";
-                    <div class="calendar-sidebar-event-container pointer" data-sidebar-id="@sidebarId" onclick="openCalendarSidebar(this)">
-                        @calendarEvent.CalendarEventStartTime - @calendarEvent.CalendarEventEndTime<br>
-                        @calendarEvent.CalendarEventName<br>
-                        @calendarEvent.CalendarEventDescription<br>
-                    </div>
-                }
-            }
-            </button>
-        </div>
-    </div>
-    <div id="Friday" class="calendar-sidebar-container">
-        <div class="calendar-sidebar">
-            <button onclick="closeCalendarSidebars()" class="sidebar-close-button">x</button>
-            <h3>Friday</h3>
-            @foreach (CalendarEvent calendarEvent in @Model.CalendarEvents)
-            {
-                if (calendarEvent.UserId == @Model.User.Id && calendarEvent.CalendarEventDate.DayOfWeek == DayOfWeek.Friday)
-                {
-                    string sidebarId = $"calendarEvent{calendarEvent.Id}";
-                    <div class="calendar-sidebar-event-container pointer" data-sidebar-id="@sidebarId" onclick="openCalendarSidebar(this)">
-                        @calendarEvent.CalendarEventStartTime - @calendarEvent.CalendarEventEndTime<br>
-                        @calendarEvent.CalendarEventName<br>
-                        @calendarEvent.CalendarEventDescription<br>
-                    </div>
-                }
-            }
-            </button>
-        </div>
-    </div>
-    <div id="Saturday" class="calendar-sidebar-container">
-        <div class="calendar-sidebar">
-            <button onclick="closeCalendarSidebars()" class="sidebar-close-button">x</button>
-            <h3>Saturday</h3>
-            @foreach (CalendarEvent calendarEvent in @Model.CalendarEvents)
-            {
-                if (calendarEvent.UserId == @Model.User.Id && calendarEvent.CalendarEventDate.DayOfWeek == DayOfWeek.Saturday)
-                {
-                    string sidebarId = $"calendarEvent{calendarEvent.Id}";
-                    <div class="calendar-sidebar-event-container pointer" data-sidebar-id="@sidebarId" onclick="openCalendarSidebar(this)">
-                        @calendarEvent.CalendarEventStartTime - @calendarEvent.CalendarEventEndTime<br>
-                        @calendarEvent.CalendarEventName<br>
-                        @calendarEvent.CalendarEventDescription<br>
-                    </div>
-                }
-            }
-            </button>
-        </div>
-    </div>
-    <div id="Sunday" class="calendar-sidebar-container">
-        <div class="calendar-sidebar">
-            <button onclick="closeCalendarSidebars()" class="sidebar-close-button">x</button>
-            <h3>Sunday</h3>
-            @foreach (CalendarEvent calendarEvent in @Model.CalendarEvents)
-            {
-                if (calendarEvent.UserId == @Model.User.Id && calendarEvent.CalendarEventDate.DayOfWeek == DayOfWeek.Sunday)
-                {
-                    string sidebarId = $"calendarEvent{calendarEvent.Id}";
-                    <div class="calendar-sidebar-event-container pointer" data-sidebar-id="@sidebarId" onclick="openCalendarSidebar(this)">
-                        @calendarEvent.CalendarEventStartTime - @calendarEvent.CalendarEventEndTime<br>
-                        @calendarEvent.CalendarEventName<br>
-                        @calendarEvent.CalendarEventDescription<br>
-                    </div>
-                }
-            }
-            </button>
-        </div>
-    </div>
+                @:</button>
+            @:</div>
+        @:</div>
+    }
 </div>
 
 @* calendar event sidebar *@

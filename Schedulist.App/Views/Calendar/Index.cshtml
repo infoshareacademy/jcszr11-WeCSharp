@@ -226,7 +226,7 @@
 @* day sidebar *@
 <div>
     @{
-        for (int i = 0; i <= 31; i++)
+        for (int i = 0; i < 31; i++)
         {
             drawDate = Model.FirstDayOfTheMonth.AddDays(i);
             int id = i + 1;
