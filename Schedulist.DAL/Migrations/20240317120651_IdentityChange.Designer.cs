@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Schedulist.DAL;
 
@@ -11,9 +12,11 @@ using Schedulist.DAL;
 namespace Schedulist.DAL.Migrations
 {
     [DbContext(typeof(SchedulistDbContext))]
-    partial class SchedulistDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240317120651_IdentityChange")]
+    partial class IdentityChange
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -51,13 +54,13 @@ namespace Schedulist.DAL.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "15ea88de-4e9a-42a1-b0e7-48ac1c6f9237",
+                            Id = "c3e92f9e-e8e9-4fe3-b600-ed1b055d25aa",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         },
                         new
                         {
-                            Id = "032d7d37-74ee-4fbf-8f72-6c114239aede",
+                            Id = "bc877f1b-1e44-492c-acce-ba01f7bcd77f",
                             Name = "User",
                             NormalizedName = "USER"
                         });
@@ -496,14 +499,14 @@ namespace Schedulist.DAL.Migrations
                         {
                             Id = "1",
                             AccessFailedCount = 50,
-                            ConcurrencyStamp = "8988da4d-4f4f-425d-aecf-b1244e1ceaf1",
+                            ConcurrencyStamp = "c4ddd6bb-33cd-43ef-a15b-58d0a84e4b54",
                             DepartmentId = 1,
                             EmailConfirmed = true,
                             LockoutEnabled = false,
                             Name = "Tomasz",
                             PhoneNumberConfirmed = false,
                             PositionId = 2,
-                            SecurityStamp = "23774e50-a40c-4fc2-94da-97e06a76a0ac",
+                            SecurityStamp = "3b555aee-68cb-45a3-ba27-67c6412a5c54",
                             Surname = "Tomaszewicz",
                             TwoFactorEnabled = false,
                             UserName = "Tomasz Tomaszewicz"
@@ -512,14 +515,14 @@ namespace Schedulist.DAL.Migrations
                         {
                             Id = "2",
                             AccessFailedCount = 50,
-                            ConcurrencyStamp = "df6c20b3-31fd-4ddc-bc40-5cd6f6638e21",
+                            ConcurrencyStamp = "09fadb70-2e52-492b-9e89-e75623ad8d17",
                             DepartmentId = 3,
                             EmailConfirmed = true,
                             LockoutEnabled = false,
                             Name = "Andrzej",
                             PhoneNumberConfirmed = false,
                             PositionId = 4,
-                            SecurityStamp = "e98c1f5b-ba90-4b60-9fd2-75d68cec59f6",
+                            SecurityStamp = "c2cdaa8a-3fe7-4bf5-addd-b57846835646",
                             Surname = "Andrzejewicz",
                             TwoFactorEnabled = false,
                             UserName = "Andrzej Andrzejewicz"
@@ -528,14 +531,14 @@ namespace Schedulist.DAL.Migrations
                         {
                             Id = "3",
                             AccessFailedCount = 50,
-                            ConcurrencyStamp = "d7328ece-c1eb-4470-937c-81fca5e22d17",
+                            ConcurrencyStamp = "7e551642-4a1d-4ed7-803c-1d7e6e368e63",
                             DepartmentId = 3,
                             EmailConfirmed = true,
                             LockoutEnabled = false,
                             Name = "Michael",
                             PhoneNumberConfirmed = false,
                             PositionId = 1,
-                            SecurityStamp = "aa142be7-8373-4a4b-90b2-71ed464b9476",
+                            SecurityStamp = "4e2da35d-0998-4e4d-90c7-13c7299c3a15",
                             Surname = "Jordan",
                             TwoFactorEnabled = false,
                             UserName = "kursmichaela@gmail.com"

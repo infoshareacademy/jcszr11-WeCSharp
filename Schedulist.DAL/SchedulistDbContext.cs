@@ -2,12 +2,10 @@
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Schedulist.DAL.Models;
-using System.Collections.Generic;
-using System.Reflection.Emit;
 
 namespace Schedulist.DAL
 {
-    public class SchedulistDbContext : IdentityDbContext
+    public class SchedulistDbContext : IdentityDbContext<User>
     {
         public SchedulistDbContext(DbContextOptions<SchedulistDbContext> options) : base(options) { }
 
@@ -17,7 +15,7 @@ namespace Schedulist.DAL
         public DbSet<WorkMode> WorkModes { get; set; }
         public DbSet<Department> Departments { get; set; }
         public DbSet<Position> Positions { get; set; }
-        public DbSet<User> Users { get; set; }
+        //public DbSet<User> Users { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
@@ -29,15 +27,38 @@ namespace Schedulist.DAL
                 new WorkMode() { Id = 4, Name = "Delegation" },
                 new WorkMode() { Id = 5, Name = "Holiday" },
                 new WorkMode() { Id = 6, Name = "Others" }
-            );           
-
+            );
+            builder.Entity<Position>().HasData(
+                new Position() { Id = 1, Name = "Software Developer" },
+                new Position() { Id = 2, Name = "Constructor" },
+                new Position() { Id = 3, Name = "Human Resources Manager" },
+                new Position() { Id = 4, Name = "Marketing Manager" },
+                new Position() { Id = 5, Name = "CNC Operator" },
+                new Position() { Id = 6, Name = "Financial Controller" },
+                new Position() { Id = 7, Name = "Customer Service Supporter" },
+                new Position() { Id = 8, Name = "Administrative Assistant" },
+                new Position() { Id = 9, Name = "Procurement Specialist" },
+                new Position() { Id = 10, Name = "Sales Representative" }
+            );
+            builder.Entity<Department>().HasData(
+                new Department() { Id = 1, Name = "IT" },
+                new Department() { Id = 2, Name = "Construction" },
+                new Department() { Id = 3, Name = "Human Resources" },
+                new Department() { Id = 4, Name = "Marketing" },
+                new Department() { Id = 5, Name = "Production" },
+                new Department() { Id = 6, Name = "Finance and Accounting" },
+                new Department() { Id = 7, Name = "Customer Service" },
+                new Department() { Id = 8, Name = "Administration" },
+                new Department() { Id = 9, Name = "Procurement" },
+                new Department() { Id = 10, Name = "Sales" }
+             );
             builder.Entity<User>().HasData(
                 new User
                 {
                     Id = "1",
                     Name = "Tomasz",
                     Surname = "Tomaszewicz",
-                    UserName = "kurstomasza@gmail.com",
+                    UserName = "Tomasz Tomaszewicz",
                     EmailConfirmed = true,
                     DepartmentId = 1,
                     PositionId = 2,
@@ -45,13 +66,13 @@ namespace Schedulist.DAL
                     TwoFactorEnabled = false,
                     LockoutEnabled = false,
                     AccessFailedCount = 50,
-                }, 
+                },
                 new User
                 {
                     Id = "2",
                     Name = "Andrzej",
                     Surname = "Andrzejewicz",
-                    UserName = "kursandrzeja@gmail.com",
+                    UserName = "Andrzej Andrzejewicz",
                     EmailConfirmed = true,
                     DepartmentId = 3,
                     PositionId = 4,
@@ -73,11 +94,12 @@ namespace Schedulist.DAL
                     TwoFactorEnabled = false,
                     LockoutEnabled = false,
                     AccessFailedCount = 50,
+
                 }
             );
             builder.Entity<IdentityRole>().HasData(
-                new IdentityRole { Name = "Admin", NormalizedName = "ADMIN", Id = Guid.NewGuid().ToString() },
-                new IdentityRole { Name = "User", NormalizedName = "USER", Id = Guid.NewGuid().ToString() }
+                new IdentityRole { Name = "Admin", NormalizedName = "ADMIN", Id = "c3e92f9e-e8e9-4fe3-b600-ed1b055d25aa" },
+                new IdentityRole { Name = "User", NormalizedName = "USER", Id = "bc877f1b-1e44-492c-acce-ba01f7bcd77f" }
             );
             builder.Entity<WorkModeForUser>().HasData(
                 new WorkModeForUser() { Id = 1, DateOfWorkMode = new DateOnly(2024, 01, 10), WorkModeId = 1, UserId = "1" },
@@ -88,30 +110,8 @@ namespace Schedulist.DAL
                 new WorkModeForUser() { Id = 6, DateOfWorkMode = new DateOnly(2024, 01, 14), WorkModeId = 1, UserId = "2" }
             );
 
-            builder.Entity<Department>().HasData(
-                new Department() { Id = 1, Name = "IT" },
-                new Department() { Id = 2, Name = "Construction" },
-                new Department() { Id = 3, Name = "Human Resources" },
-                new Department() { Id = 4, Name = "Marketing" },
-                new Department() { Id = 5, Name = "Production" },
-                new Department() { Id = 6, Name = "Finance and Accounting" },
-                new Department() { Id = 7, Name = "Customer Service" },
-                new Department() { Id = 8, Name = "Administration" },
-                new Department() { Id = 9, Name = "Procurement" },
-                new Department() { Id = 10, Name = "Sales" }
-            );
-            builder.Entity<Position>().HasData(
-                new Position() { Id = 1, Name = "Software Developer" },
-                new Position() { Id = 2, Name = "Constructor" },
-                new Position() { Id = 3, Name = "Human Resources Manager" },
-                new Position() { Id = 4, Name = "Marketing Manager" },
-                new Position() { Id = 5, Name = "CNC Operator" },
-                new Position() { Id = 6, Name = "Financial Controller" },
-                new Position() { Id = 7, Name = "Customer Service Supporter" },
-                new Position() { Id = 8, Name = "Administrative Assistant" },
-                new Position() { Id = 9, Name = "Procurement Specialist" },
-                new Position() { Id = 10, Name = "Sales Representative" }
-            );
+
+
             builder.Entity<CalendarEvent>().HasData(
                 new CalendarEvent() { Id = 1, CalendarEventName = "Maintenance Work", CalendarEventDescription = "Ongoing maintenance tasks in the office", CalendarEventDate = new DateOnly(2024, 01, 10), CalendarEventStartTime = new TimeOnly(08, 30, 0), CalendarEventEndTime = new TimeOnly(09, 30, 0), UserId = "1" },
                 new CalendarEvent() { Id = 2, CalendarEventName = "Office Cleaning", CalendarEventDescription = "Scheduled office cleaning day", CalendarEventDate = new DateOnly(2024, 01, 11), CalendarEventStartTime = new TimeOnly(09, 30, 0), CalendarEventEndTime = new TimeOnly(10, 30, 0), UserId = "2" },

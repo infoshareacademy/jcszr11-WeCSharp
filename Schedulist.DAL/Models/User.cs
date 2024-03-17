@@ -12,10 +12,10 @@ namespace Schedulist.DAL.Models
         //public bool AdminPrivilege { get; set; }
 
         //EntityFramework Configuration Section
-        public int DepartmentId { get; set; }
-        public Department Department { get; set; }
+        public int? DepartmentId { get; set; }
+        public Department? Department { get; set; }
 
-        public int PositionId { get; set; }
+        public int? PositionId { get; set; }
         public Position? Position { get; set; }
 
         public List<WorkModeForUser>? WorkModesForUser { get; set; }

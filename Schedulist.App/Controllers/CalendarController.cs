@@ -27,7 +27,7 @@ namespace Schedulist.App.Controllers
             _newCalendarEvent = new CalendarEvent();
             foreach (User userToAdd in _userRepository.GetAllUsers())
             {
-                _userDict.Add($"{userToAdd.Name} {userToAdd.Surname}", userToAdd.Id);
+                _userDict.Add(userToAdd.Id, $"{userToAdd.Name} {userToAdd.Surname}");
             }
         }
 
