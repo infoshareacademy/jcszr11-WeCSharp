@@ -20,11 +20,18 @@
         string sidebarId = $"calendarEvent{calendarEvent.Id}";
         @:closeCalendarSidebar('@sidebarId');
     }
-            }
+                }
 
     function closeCalendarSidebar(sidebarId) {
         var sidebarElement = document.getElementById(sidebarId);
         sidebarElement.style.display = "none";
+    }
+
+    var calendarEventDeletedMessage = localStorage.getItem('calendarEventDeletedMessage');
+
+    if (calendarEventDeletedMessage) {
+        toastr.success(calendarEventDeletedMessage);
+        localStorage.removeItem('calendarEventDeletedMessage');
     }
 
     var calendarEventDeletedMessage = localStorage.getItem('calendarEventDeletedMessage');
@@ -68,38 +75,40 @@
         </div>
     </div>
     <div class="row day-calendar-row">
-        <div class="col-1 day-calendar-row-hour calendar-header">Hour</div>
-        <div class="col-11 calendar-header" style="width: calc(100% - 100px);"></div>
+        <div class="col-1 day-calendar-row-hour calendar-header" style="width: 135px;">Hour</div>
+        <div class="col-11 calendar-header" style="width: calc(100% - 135px);"></div>
     </div>
 </div>
-@for (int i = 0; i < 24; i++)
-{
-    <div class="row day-calendar-row">
-        @if (i < 12)
-        {
-            if (i == 0)
+<div class="calendar-hour-container">
+    @for (int i = 0; i < 24; i++)
+    {
+        <div class="row day-calendar-row">
+            @if (i < 12)
             {
-                <div class="col-1 day-calendar-row-hour">12 AM</div>
+                if (i == 0)
+                {
+                    <div class="col-1 day-calendar-row-hour">12 AM</div>
+                }
+                else
+                {
+                    <div class="col-1 day-calendar-row-hour">@i AM</div>
+                }
             }
             else
             {
-                <div class="col-1 day-calendar-row-hour">@i AM</div>
+                if (i == 12)
+                {
+                    <div class="col-1 day-calendar-row-hour">12 AM</div>
+                }
+                else
+                {
+                    <div class="col-1 day-calendar-row-hour">@i PM</div>
+                }
             }
-        }
-        else
-        {
-            if (i == 12)
-            {
-                <div class="col-1 day-calendar-row-hour">12 AM</div>
-            }
-            else
-            {
-                <div class="col-1 day-calendar-row-hour">@i PM</div>
-            }
-        }
-        <div class="col-11"></div>
-    </div>
-}
+            <div class="col-11"></div>
+        </div>
+    }
+</div>
 
 <div class="calendar-calendar-event-container">
     <div class="day-calendar-event-container">
@@ -136,7 +145,8 @@
                 <button class="btn btn-primary" onclick="location.href='@Url.Action("Edit", "CalendarEvent", new { id = calendarEvent.Id })'">
                     Edit
                 </button>
-                <button class="btn btn-danger" onclick="location.href='@Url.Action("Delete", "CalendarEvent", new { id = calendarEvent.Id })'">
+                <button type="button" class="btn btn-danger" onclick="DeleteCalendarEvent('@Url.Action("Delete", "CalendarEvent")?id=@calendarEvent.Id','@calendarEvent.CalendarEventName','@calendarEvent.CalendarEventDescription',
+                        '@calendarEvent.CalendarEventDate','@calendarEvent.CalendarEventStartTime','@calendarEvent.CalendarEventEndTime','@calendarEvent.UserId')">
                     Delete
                 </button>
             </div>

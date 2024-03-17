@@ -39,6 +39,13 @@
         toastr.success(calendarEventDeletedMessage);
         localStorage.removeItem('calendarEventDeletedMessage');
     }
+
+    var calendarEventDeletedMessage = localStorage.getItem('calendarEventDeletedMessage');
+
+    if (calendarEventDeletedMessage) {
+        toastr.success(calendarEventDeletedMessage);
+        localStorage.removeItem('calendarEventDeletedMessage');
+    }
 </script>
 
 @* top menu *@
@@ -73,8 +80,8 @@
             @Model.User.Name @Model.User.Surname - @Model.WorkMode
         </div>
     </div>
-    <div class="row day-calendar-row">
-        <div class="col-1 day-calendar-row-hour calendar-header">Hour</div>
+    <div class="row day-calendar-row" style="margin-right: 23px">
+        <div class="col-1 day-calendar-row-hour calendar-header" style="width: 135px;">Hour</div>
         <div class="col day-calendar-row-hour calendar-header pointer" data-sidebar-id="Monday" onclick="openCalendarSidebar(this)">Monday</div>
         <div class="col day-calendar-row-hour calendar-header pointer" data-sidebar-id="Tuesday" onclick="openCalendarSidebar(this)">Tuesday</div>
         <div class="col day-calendar-row-hour calendar-header pointer" data-sidebar-id="Wednesday" onclick="openCalendarSidebar(this)">Wednesday</div>
@@ -86,7 +93,7 @@
 </div>
 
 @* calendar table *@
-<div>
+<div class="calendar-hour-container">
     @for (int i = 0; i < 24; i++)
     {
         <div class="row day-calendar-row">
@@ -302,7 +309,8 @@
                 <button class="btn btn-primary" onclick="location.href='@Url.Action("Edit", "CalendarEvent", new { id = calendarEvent.Id })'">
                     Edit
                 </button>
-                <button class="btn btn-danger" onclick="location.href='@Url.Action("Delete", "CalendarEvent", new { id = calendarEvent.Id })'">
+                <button type="button" class="btn btn-danger" onclick="DeleteCalendarEvent('@Url.Action("Delete", "CalendarEvent")?id=@calendarEvent.Id','@calendarEvent.CalendarEventName','@calendarEvent.CalendarEventDescription',
+                        '@calendarEvent.CalendarEventDate','@calendarEvent.CalendarEventStartTime','@calendarEvent.CalendarEventEndTime','@calendarEvent.UserId')">
                     Delete
                 </button>
             </div>
