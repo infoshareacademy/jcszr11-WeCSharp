@@ -1,5 +1,7 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using Schedulist.App.Services;
+using Schedulist.App.Services.Interfaces;
 using Schedulist.DAL;
 using Schedulist.DAL.Models;
 using Schedulist.DAL.Repositories;
@@ -32,6 +34,7 @@ namespace Schedulist.App
             builder.Services.AddSingleton<User>(user);
             builder.Services.AddTransient<IUserRepository, UserRepository>();
             builder.Services.AddTransient<ICalendarEventRepository, CalendarEventRepository>();
+            builder.Services.AddTransient<ICalendarEventService, CalendarEventService>();
             builder.Services.AddTransient<ICalendarRepository, CalendarRepository>();
             builder.Services.AddTransient<IWorkModeForUserRepository, WorkModeForUserRepository>();
             builder.Services.AddTransient<IWorkModeRepository, WorkModeRepository>();
