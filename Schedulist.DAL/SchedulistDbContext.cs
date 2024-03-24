@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Schedulist.DAL.Models;
+using Schedulist.DAL.Shared;
 
 namespace Schedulist.DAL
 {
