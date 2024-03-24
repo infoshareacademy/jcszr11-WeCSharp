@@ -5,6 +5,36 @@
 @{
     ViewData["Title"] = "Day";
 }
+
+<script>
+    function openCalendarSidebar(element) {
+        closeCalendarSidebars()
+        var sidebarId = element.getAttribute('data-sidebar-id');
+        var sidebarElement = document.getElementById(sidebarId);
+        sidebarElement.style.display = "block";
+    }
+
+    function closeCalendarSidebars() {
+    @foreach (CalendarEvent calendarEvent in @Model.CalendarEvents)
+    {
+        string sidebarId = $"calendarEvent{calendarEvent.Id}";
+        @:closeCalendarSidebar('@sidebarId');
+    }
+        }
+
+    function closeCalendarSidebar(sidebarId) {
+        var sidebarElement = document.getElementById(sidebarId);
+        sidebarElement.style.display = "none";
+    }
+
+    var calendarEventDeletedMessage = localStorage.getItem('calendarEventDeletedMessage');
+
+    if (calendarEventDeletedMessage) {
+        toastr.success(calendarEventDeletedMessage);
+        localStorage.removeItem('calendarEventDeletedMessage');
+    }
+</script>
+
 <div style="position: sticky; top: 0; z-index: 2;">
     <div class="row flex-nowrap month-name-container">
         <div class="button-field">
@@ -82,21 +112,29 @@
                     string top = $"{calendarEvent.CalendarEventStartTime.Hour * 60 + calendarEvent.CalendarEventStartTime.Minute}px";
                     var duration = calendarEvent.CalendarEventEndTime - calendarEvent.CalendarEventStartTime;
                     string height = $"{duration.Hours * 60 + duration.Minutes}px";
-                    <div class="day-calendar-event" style="top: @top; height: @height;">
-                        @calendarEvent.CalendarEventName<br>
-                        @calendarEvent.CalendarEventDescription
+                    string sidebarId = $"calendarEvent{calendarEvent.Id}";
+                    <div class="day-calendar-event" style="top: @top; height: @height;" data-sidebar-id="@sidebarId" onclick="openCalendarSidebar(this)">
+                        @calendarEvent.CalendarEventName
                     </div>
+
                 }
             }
         }
     </div>
 </div>
 
-<script>
-    var calendarEventDeletedMessage = localStorage.getItem('calendarEventDeletedMessage');
-
-    if (calendarEventDeletedMessage) {
-        toastr.success(calendarEventDeletedMessage);
-        localStorage.removeItem('calendarEventDeletedMessage');
-    }
-</script>
+@foreach (CalendarEvent calendarEvent in @Model.CalendarEvents)
+{
+    string sidebarId = $"calendarEvent{calendarEvent.Id}";
+    <div id="@sidebarId" class="calendar-sidebar-container">
+        <div class="calendar-sidebar">
+            <button onclick="closeCalendarSidebars()" class="sidebar-close-button">x</button>
+            @calendarEvent.CalendarEventStartTime - @calendarEvent.CalendarEventEndTime<br>
+            @calendarEvent.CalendarEventName<br>
+            @calendarEvent.CalendarEventDescription<br>
+            <button class="btn btn-primary" onclick="location.href='@Url.Action("Edit", "CalendarEvent", new { id = calendarEvent.Id })'">
+                Edit
+            </button>
+        </div>
+    </div>
+}

@@ -7,6 +7,7 @@ html {
         font-size: 16px;
     }
 }
+
 /*---------- Main Layout ----------*/
 .sidenav {
     padding-top: 90px;
@@ -82,8 +83,20 @@ html {
     margin-left: 10px;
 }
 
-/*calendar*/
+.sidebar-close-button {
+    background: rgba(255, 255, 255, 1);
+    line-height: 0;
+    border: 0;
+    position: absolute;
+    padding: 0;
+    width: 25px;
+    height: 25px;
+    left: 7px;
+    top: 7px;
+    font-size: 25px;
+}
 
+/*calendar*/
 .day-calendar-row {
     height: 60px;
     border-bottom: 1px solid lightgrey;
@@ -231,7 +244,6 @@ html {
 
 .day-calendar-event {
     width: 100%;
-    height: 100%;
     background-color: rgba(255, 255, 255, 0.75);
     border-radius: 15px;
     outline: 2px solid #265c95;
@@ -240,7 +252,13 @@ html {
     display: flex;
     justify-content: center;
     align-items: center;
+    cursor: pointer;
 }
+
+    .day-calendar-event:active {
+        background-color: rgba(245, 245, 245, 0.75);
+    }
+
 
 .week-calendar-event {
     width: 100%;
@@ -268,8 +286,26 @@ html {
     position: absolute;
 }
 
-    /*---------- Calendar Event list section ----------*/
-    .button-container {
+.calendar-sidebar-container {
+    display: none;
+    position: absolute;
+    height: calc(100% - 123px);
+    width: 350px;
+    right: 0;
+    top: 123px;
+}
+
+.calendar-sidebar {
+    border-left: 1px solid lightgrey;
+    background-color: white;
+    top: 123px;
+    position: sticky;
+    height: calc(100vh - 123px);
+    padding-top: 50px;
+}
+
+/*---------- Calendar Event list section ----------*/
+.button-container {
     display: flex;
     justify-content: center;
     gap: 5px;
