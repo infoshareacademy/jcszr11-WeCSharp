@@ -53,19 +53,18 @@
         <div class="month-name">
             @Model.Date.ToString("dd MMMM yyyy")
         </div>
-        <div class="calendar-dropdown">
+        <div class="calendar-dropdown" style="width: 130px">
             <div class="dropdown">
-                <button class="btn btn-primary dropdown-toggle month-view-dropdown" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    Day
+                <button class="btn btn-primary dropdown-toggle month-view-dropdown" style="width: 130px" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Change view
                 </button>
                 <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                    <a class="dropdown-item" onclick="location.href='@Url.Action("Week", "Calendar", new {@date = DateTime.Now, @userToEdit = Model.User.Id})'">Week</a>
-                    <a class="dropdown-item" onclick="location.href='@Url.Action("ChangeUser", "Calendar", new {@date = DateTime.Now, @userToEdit = Model.User.Id})'">Month</a>
+                    <a class="dropdown-item" onclick="location.href='@Url.Action("Week", "Calendar", new {@date = Model.Date, @userToEdit = Model.User.Id})'">Week</a>
+                    <a class="dropdown-item" onclick="location.href='@Url.Action("ChangeUser", "Calendar", new {@date = Model.Date, @userToEdit = Model.User.Id})'">Month</a>
                 </div>
             </div>
         </div>
         <div class="event-dropdown">
-            <input type="hidden" name="chosenDate" value="@Model.Date.ToString(" yyyy-MM-dd")" />
             <button class="btn btn-primary" onclick="location.href='@Url.Action("Create", "Calendar")'">
                 Add new event
             </button>

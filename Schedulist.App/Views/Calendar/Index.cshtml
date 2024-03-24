@@ -37,7 +37,7 @@
             <div class="month-name">
                 @Model.FirstDayOfTheMonth.ToString("MMMM yyyy")
             </div>
-            <div class="calendar-dropdown">
+            @* <div class="calendar-dropdown">
                 <div class="dropdown">
                     <button class="btn btn-primary dropdown-toggle month-view-dropdown" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         Month
@@ -47,7 +47,7 @@
                         <a class="dropdown-item" onclick="location.href='@Url.Action("Week", "Calendar", new {@date = DateTime.Now, @userToEdit = Model.UserToEdit})'">Week</a>
                     </div>
                 </div>
-            </div>
+            </div> *@
             <div class="calendar-dropdown">
                 <div class="dropdown">
                     <button class="btn btn-secondary dropdown-toggle user-dropdown" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -233,13 +233,23 @@
             @:<div id="Day-@id" class="calendar-sidebar-container">
             @:<div class="calendar-sidebar">
             @:<button onclick="closeCalendarSidebars()" class="sidebar-close-button">x</button>
+            bool doesHaveEvents = false;
             if (drawDate.Month == Model.CurrentDate.Month)
             {
-                <h3 class="pointer" onclick="location.href='@Url.Action("Day", "Calendar", new {@date = drawDate, @userToEdit = Model.UserToEdit})'">@DateOnly.FromDateTime(drawDate)</h3>
+                <h2 style="padding-bottom: 15px">@DateOnly.FromDateTime(drawDate)</h2>
+                <div class="calendar-sidebar-event-container">
+                    <button class="btn btn-primary" onclick="location.href='@Url.Action("Day", "Calendar", new {@date = drawDate, @userToEdit = Model.UserToEdit})'">
+                        Day view
+                    </button>
+                    <button class="btn btn-primary" onclick="location.href='@Url.Action("Week", "Calendar", new {@date = drawDate, @userToEdit = Model.UserToEdit})'">
+                        Week view
+                    </button>
+                </div>
                 @foreach (CalendarEvent calendarEvent in @Model.CalendarEvents)
                 {
                     if (calendarEvent.UserId == @Model.UserToEdit && calendarEvent.CalendarEventDate == DateOnly.FromDateTime(drawDate))
                     {
+                        doesHaveEvents = true;
                         <div class="calendar-sidebar-event-container">
                         @calendarEvent.CalendarEventStartTime - @calendarEvent.CalendarEventEndTime<br>
                         @calendarEvent.CalendarEventName<br>
@@ -248,7 +258,15 @@
                     }
                 }
             }
+            if (!doesHaveEvents) {
+                @:No calendar events
+            }
             @:</button>
+            <div>
+            <button class="btn btn-primary" onclick="location.href='@Url.Action("Create", "Calendar")'">
+                Add new event
+            </button>
+            </div>
             @:</div>
             @:</div>
         }
