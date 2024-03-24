@@ -37,6 +37,9 @@ html {
 .standard-border {
     border: 1px solid lightgrey;
 }
+.pointer {
+    cursor: pointer;
+}
 
 /*calendar day*/
 
