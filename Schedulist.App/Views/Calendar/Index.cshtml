@@ -30,7 +30,14 @@
             <div class="calendar-dropdown">
                 <div class="dropdown">
                     <button class="btn btn-secondary dropdown-toggle user-dropdown" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        @Model.UserDict.First(obj => obj.Key == Model.UserToEdit).Value 
+                        @if (Model.UserDict.ContainsKey(Model.UserToEdit))
+                            {
+                                @Model.UserDict[Model.UserToEdit]
+                            }
+                        else
+                            {
+                                <p class="pointer">Choose User Calendar</p>
+                            }
                     </button>
                     <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                         @foreach (KeyValuePair <string, string> DropdownUser in Model.UserDict)

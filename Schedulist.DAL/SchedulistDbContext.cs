@@ -71,35 +71,6 @@ namespace Schedulist.DAL
                     TwoFactorEnabled = false,
                     LockoutEnabled = false,
                     AccessFailedCount = 50,
-                },
-                new User
-                {
-                    Id = "2",
-                    Name = "Andrzej",
-                    Surname = "Andrzejewicz",
-                    UserName = "Andrzej Andrzejewicz",
-                    EmailConfirmed = true,
-                    DepartmentId = 3,
-                    PositionId = 4,
-                    PhoneNumberConfirmed = false,
-                    TwoFactorEnabled = false,
-                    LockoutEnabled = false,
-                    AccessFailedCount = 50,
-                },
-                new User
-                {
-                    Id = "3",
-                    Name = "Michael",
-                    Surname = "Jordan",
-                    UserName = "kursmichaela@gmail.com",
-                    EmailConfirmed = true,
-                    DepartmentId = 3,
-                    PositionId = 1,
-                    PhoneNumberConfirmed = false,
-                    TwoFactorEnabled = false,
-                    LockoutEnabled = false,
-                    AccessFailedCount = 50,
-
                 }
             );
             builder.Entity<IdentityRole>().HasData(

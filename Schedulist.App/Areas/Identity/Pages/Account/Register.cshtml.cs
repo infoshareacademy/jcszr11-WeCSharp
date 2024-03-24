@@ -99,6 +99,15 @@ namespace Schedulist.App.Areas.Identity.Pages.Account
             //[ValidateNever]
             //public IEnumerable<SelectListItem> RoleList { get; set; }
             //public string? Role { get; set; }
+            [Required]
+            [StringLength(100, ErrorMessage = "Name must be minimum length of 2 characters", MinimumLength = 2)]
+            [Display(Name = "Name")]
+            public string Name { get; set; }
+
+            [Required]
+            [StringLength(100, ErrorMessage = "Surname must be minimum length of 2 characters", MinimumLength = 2)]
+            [Display(Name = "Surname")]
+            public string Surname { get; set; }
 
         }
 
@@ -129,6 +138,10 @@ namespace Schedulist.App.Areas.Identity.Pages.Account
 
                 await _userStore.SetUserNameAsync(user, Input.Email, CancellationToken.None);
                 await _emailStore.SetEmailAsync(user, Input.Email, CancellationToken.None);
+
+                user.Name = Input.Name;
+                user.Surname = Input.Surname;
+
                 var result = await _userManager.CreateAsync(user, Input.Password);
 
                 if (result.Succeeded)

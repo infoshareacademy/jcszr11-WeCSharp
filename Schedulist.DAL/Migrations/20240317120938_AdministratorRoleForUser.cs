@@ -18,7 +18,7 @@ namespace Schedulist.DAL.Migrations
                 columns: new[] { "UserId", "RoleId"},
                 values: new object[,]
                 {
-                    { "0ca508f0-94d9-484a-90d0-421d696e971e", "c3e92f9e-e8e9-4fe3-b600-ed1b055d25aa" },
+                    { "1", "c3e92f9e-e8e9-4fe3-b600-ed1b055d25aa" },
                 });
         }
       
