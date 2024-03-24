@@ -97,7 +97,7 @@ namespace Schedulist.App.Controllers
             return View("Edit", model);
         }
 
-        //POST: CalendarEventController/Edit/5
+        //PUT: CalendarEventController/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Edit(int id, CalendarEvent calendarEvent)
@@ -105,13 +105,13 @@ namespace Schedulist.App.Controllers
             try
             {
                 SetupUserList();
-                //var validationResults = _calendarEventService.ValidateCalendarEvent(calendarEvent);
-                //if (validationResults.Any(x => x != ValidationResult.Success))
-                //{
-                //    validationResults.Where(x => x != ValidationResult.Success).ToList().ForEach(x => ModelState.AddModelError(nameof(calendarEvent.CalendarEventEndTime), x.ErrorMessage));
-                //    return View(calendarEvent);
-                //}
-                _calendarEventRepository.UpdateCalendarEvent(calendarEvent);
+                var validationResults = _calendarEventService.ValidateCalendarEvent(calendarEvent);
+                if (validationResults.Any(x => x != ValidationResult.Success))
+                {
+                    validationResults.Where(x => x != ValidationResult.Success).ToList().ForEach(x => ModelState.AddModelError(nameof(calendarEvent.CalendarEventEndTime), x.ErrorMessage));
+                    return View(calendarEvent);
+                }
+                _calendarEventRepository.UpdateCalendarEvent(id, calendarEvent);
                 logger.LogInformation($"Modified Calendar Event.");
                 PopupNotification("Calendar event has been updated successfully");
                 return RedirectToAction(nameof(Index));
@@ -140,15 +140,5 @@ namespace Schedulist.App.Controllers
                 return View();
             }
         }
-
-        //public ActionResult AssignUser()
-        //{
-        //    using (var db = new SchedulistDbContext())
-        //    {
-        //        var users = db.Users.ToList();
-        //        ViewBag.Users = new SelectList(users, "Id", "Name");
-        //    }
-        //        return View(); 
-        //}
     }
 }

@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using Schedulist.App.Middleware;
 using Schedulist.App.Services;
 using Schedulist.App.Services.Interfaces;
 using Schedulist.DAL;
@@ -38,7 +39,7 @@ namespace Schedulist.App
             builder.Services.AddTransient<ICalendarRepository, CalendarRepository>();
             builder.Services.AddTransient<IWorkModeForUserRepository, WorkModeForUserRepository>();
             builder.Services.AddTransient<IWorkModeRepository, WorkModeRepository>();
-            //builder.Services.AddScoped<DBSeed>();
+            builder.Services.AddScoped<ErrorHandlingMiddleware>();
 
             var app = builder.Build();
             using (var scope = app.Services.CreateScope())
@@ -54,6 +55,7 @@ namespace Schedulist.App
                     app.UseHsts();
                 }
 
+            app.UseMiddleware<ErrorHandlingMiddleware>();
             app.UseHttpsRedirection();
             app.UseStaticFiles();
 

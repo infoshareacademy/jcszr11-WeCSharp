@@ -110,7 +110,6 @@ namespace Schedulist.App.Controllers
             DateOnly dateOnly = DateOnly.FromDateTime(date);
             WorkModeForUser workMode = _workModeForUserRepository.GetWorkModeByUserIdAndDateOfWorkMode((string)_user.Id, dateOnly);
             string workModeString = "No work mode";
-            //if (workMode != null) workModeString = _workModeRepository.GetAllWorkModes().Where(x => x.Id == workMode.WorkModeId).FirstOrDefault().Name;
             if (workMode != null) workModeString = _workModeRepository.GetWorkModeById(workMode.WorkModeId).Name;
             List<CalendarEvent> calendarEvents = _calendarEventRepository.GetAllCalendarEvents();
             DateOnly startOfWeek = DateOnly.FromDateTime(date);
@@ -231,6 +230,40 @@ namespace Schedulist.App.Controllers
         public IActionResult Privacy()
         {
             return View();
+        }
+
+        // GET: CalendarEventController/Edit/5
+        [HttpGet]
+        [ResponseCache(Duration = 30, NoStore = true)]
+        public ActionResult Edit(int id)
+        {
+            var model = _calendarEventRepository.GetCalendarEventById(id);
+            logger.LogInformation($"Updating Calendar Event started.");
+            return View("Edit", model);
+        }
+
+        //PUT: CalendarEventController/Edit/5
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Edit(int id, CalendarEvent calendarEvent)
+        {
+            try
+            {
+                var validationResults = _calendarEventService.ValidateCalendarEvent(calendarEvent);
+                if (validationResults.Any(x => x != ValidationResult.Success))
+                {
+                    validationResults.Where(x => x != ValidationResult.Success).ToList().ForEach(x => ModelState.AddModelError(nameof(calendarEvent.CalendarEventEndTime), x.ErrorMessage));
+                    return View(calendarEvent);
+                }
+                _calendarEventRepository.UpdateCalendarEvent(id, calendarEvent);
+                logger.LogInformation($"Modified Calendar Event.");
+                PopupNotification("Calendar event has been updated successfully");
+                return RedirectToAction(nameof(Index));
+            }
+            catch
+            {
+                return View();
+            }
         }
     }
 }
