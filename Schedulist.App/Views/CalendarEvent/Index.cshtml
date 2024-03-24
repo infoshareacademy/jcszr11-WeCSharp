@@ -56,9 +56,9 @@
                 <td>
                     @Html.DisplayFor(modelItem => item.CalendarEventDescription)
                 </td>
-                <td>
+                @* <td>
                     @Html.DisplayFor(modelItem => item.UserId) @Html.DisplayFor(modelItem => item.User.Name) @Html.DisplayFor(modelItem => item.User.Surname)
-                </td>
+                </td> *@
                 <td>
                     <div class="button-container">
                         <button type="button" class="btn btn-primary"> @Html.ActionLink("Edit", "Edit", new { id = item.Id }, new { style = "color: white;" }) </button>
