@@ -1,22 +1,21 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Microsoft.AspNetCore.Identity;
+using System.ComponentModel.DataAnnotations;
 
 namespace Schedulist.DAL.Models
 {
-    public class User
+    public class User : IdentityUser
     {
-        [Key]
-        public int Id { get; set; }
         public string Name { get; set; }
         public string Surname { get; set; }
-        public string Login { get; set; }
-        public string Password { get; set; }
-        public bool AdminPrivilege { get; set; }
+        //public string Login { get; set; }
+        //public string Password { get; set; }
+        //public bool AdminPrivilege { get; set; }
 
         //EntityFramework Configuration Section
-        public int DepartmentId { get; set; }
-        public Department Department { get; set; }
+        public int? DepartmentId { get; set; }
+        public Department? Department { get; set; }
 
-        public int PositionId { get; set; }
+        public int? PositionId { get; set; }
         public Position? Position { get; set; }
 
         public List<WorkModeForUser>? WorkModesForUser { get; set; }

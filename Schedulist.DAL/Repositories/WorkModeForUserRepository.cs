@@ -25,7 +25,7 @@ namespace Schedulist.DAL.Repositories
         {
             throw new NotImplementedException();
         }
-        public WorkModeForUser GetWorkModeByUserIdAndDateOfWorkMode(int userId, DateOnly dateOfWorkMode)
+        public WorkModeForUser GetWorkModeByUserIdAndDateOfWorkMode(string userId, DateOnly dateOfWorkMode)
         {
             try
             {

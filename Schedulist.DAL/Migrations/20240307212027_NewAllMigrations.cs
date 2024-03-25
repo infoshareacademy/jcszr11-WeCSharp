@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace Schedulist.DAL.Migrations
 {
     /// <inheritdoc />
-    public partial class InitialMigration : Migration
+    public partial class NewAllMigrations : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -25,31 +25,6 @@ namespace Schedulist.DAL.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_AspNetRoles", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "AspNetUsers",
-                columns: table => new
-                {
-                    Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    UserName = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
-                    NormalizedUserName = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
-                    Email = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
-                    NormalizedEmail = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
-                    EmailConfirmed = table.Column<bool>(type: "bit", nullable: false),
-                    PasswordHash = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    SecurityStamp = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    ConcurrencyStamp = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    PhoneNumber = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    PhoneNumberConfirmed = table.Column<bool>(type: "bit", nullable: false),
-                    TwoFactorEnabled = table.Column<bool>(type: "bit", nullable: false),
-                    LockoutEnd = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: true),
-                    LockoutEnabled = table.Column<bool>(type: "bit", nullable: false),
-                    AccessFailedCount = table.Column<int>(type: "int", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_AspNetUsers", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -108,6 +83,48 @@ namespace Schedulist.DAL.Migrations
                         name: "FK_AspNetRoleClaims_AspNetRoles_RoleId",
                         column: x => x.RoleId,
                         principalTable: "AspNetRoles",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "AspNetUsers",
+                columns: table => new
+                {
+                    Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    Discriminator = table.Column<string>(type: "nvarchar(13)", maxLength: 13, nullable: false),
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Surname = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    DepartmentId = table.Column<int>(type: "int", nullable: true),
+                    PositionId = table.Column<int>(type: "int", nullable: true),
+                    UserName = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
+                    NormalizedUserName = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
+                    Email = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
+                    NormalizedEmail = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
+                    EmailConfirmed = table.Column<bool>(type: "bit", nullable: false),
+                    PasswordHash = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    SecurityStamp = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    ConcurrencyStamp = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    PhoneNumber = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    PhoneNumberConfirmed = table.Column<bool>(type: "bit", nullable: false),
+                    TwoFactorEnabled = table.Column<bool>(type: "bit", nullable: false),
+                    LockoutEnd = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: true),
+                    LockoutEnabled = table.Column<bool>(type: "bit", nullable: false),
+                    AccessFailedCount = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_AspNetUsers", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_AspNetUsers_Departments_DepartmentId",
+                        column: x => x.DepartmentId,
+                        principalTable: "Departments",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_AspNetUsers_Positions_PositionId",
+                        column: x => x.PositionId,
+                        principalTable: "Positions",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -198,37 +215,6 @@ namespace Schedulist.DAL.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Users",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Surname = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Login = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Password = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    AdminPrivilege = table.Column<bool>(type: "bit", nullable: false),
-                    DepartmentId = table.Column<int>(type: "int", nullable: false),
-                    PositionId = table.Column<int>(type: "int", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Users", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_Users_Departments_DepartmentId",
-                        column: x => x.DepartmentId,
-                        principalTable: "Departments",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_Users_Positions_PositionId",
-                        column: x => x.PositionId,
-                        principalTable: "Positions",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "CalendarEvents",
                 columns: table => new
                 {
@@ -239,15 +225,15 @@ namespace Schedulist.DAL.Migrations
                     CalendarEventDate = table.Column<DateOnly>(type: "date", nullable: false),
                     CalendarEventStartTime = table.Column<TimeOnly>(type: "time", nullable: false),
                     CalendarEventEndTime = table.Column<TimeOnly>(type: "time", nullable: false),
-                    UserId = table.Column<int>(type: "int", nullable: false)
+                    UserId = table.Column<string>(type: "nvarchar(450)", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_CalendarEvents", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_CalendarEvents_Users_UserId",
+                        name: "FK_CalendarEvents_AspNetUsers_UserId",
                         column: x => x.UserId,
-                        principalTable: "Users",
+                        principalTable: "AspNetUsers",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -259,16 +245,16 @@ namespace Schedulist.DAL.Migrations
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     DateOfWorkMode = table.Column<DateOnly>(type: "date", nullable: false),
-                    UserId = table.Column<int>(type: "int", nullable: false),
+                    UserId = table.Column<string>(type: "nvarchar(450)", nullable: false),
                     WorkModeId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_WorkModesToUsers", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_WorkModesToUsers_Users_UserId",
+                        name: "FK_WorkModesToUsers_AspNetUsers_UserId",
                         column: x => x.UserId,
-                        principalTable: "Users",
+                        principalTable: "AspNetUsers",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
@@ -277,6 +263,15 @@ namespace Schedulist.DAL.Migrations
                         principalTable: "WorkModes",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.InsertData(
+                table: "AspNetRoles",
+                columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
+                values: new object[,]
+                {
+                    { "1e68dc83-8e51-4c5d-9beb-3c5c11348716", null, "User", "USER" },
+                    { "63487da1-04f5-4000-abc7-3d1ad72029ae", null, "Admin", "ADMIN" }
                 });
 
             migrationBuilder.InsertData(
@@ -327,16 +322,13 @@ namespace Schedulist.DAL.Migrations
                 });
 
             migrationBuilder.InsertData(
-                table: "Users",
-                columns: new[] { "Id", "AdminPrivilege", "DepartmentId", "Login", "Name", "Password", "PositionId", "Surname" },
+                table: "AspNetUsers",
+                columns: new[] { "Id", "AccessFailedCount", "ConcurrencyStamp", "DepartmentId", "Discriminator", "Email", "EmailConfirmed", "LockoutEnabled", "LockoutEnd", "Name", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "PositionId", "SecurityStamp", "Surname", "TwoFactorEnabled", "UserName" },
                 values: new object[,]
                 {
-                    { 1, false, 1, "Log1", "Tomasz", "Pass1", 1, "Tomaszewicz" },
-                    { 2, false, 1, "Log2", "Andrzej", "Pass2", 1, "Andrzejewski" },
-                    { 3, false, 1, "Log3", "Romek", "Pass2", 1, "Romanowicz" },
-                    { 4, true, 1, "Log4", "Zbigniew", "Pass3", 1, "Zero" },
-                    { 5, false, 1, "Log5", "Jordan", "Pass4", 1, "Michael" },
-                    { 6, false, 1, "Log6", "Marta", "Pass5", 1, "Debowska" }
+                    { "1", 50, "7d37c3d6-10c8-4c42-bfcf-d87b38d18b35", 1, "User", null, true, false, null, "Tomasz", null, null, null, null, false, 2, "69942b06-ac6c-41f1-a7ef-b7831c702b2f", "Tomaszewicz", false, "kurstomasza@gmail.com" },
+                    { "2", 50, "7959d5e2-b41e-4726-815f-552343599554", 3, "User", null, true, false, null, "Andrzej", null, null, null, null, false, 4, "bf50612a-2d25-4b15-b30c-72b7eeefd816", "Andrzejewicz", false, "kursandrzeja@gmail.com" },
+                    { "3", 50, "86358572-4d3c-46ab-ba96-d0135907be61", 3, "User", null, true, false, null, "Michael", null, null, null, null, false, 1, "8a80f47d-8ce1-425e-88e5-d9d192e5adb7", "Jordan", false, "kursmichaela@gmail.com" }
                 });
 
             migrationBuilder.InsertData(
@@ -344,12 +336,12 @@ namespace Schedulist.DAL.Migrations
                 columns: new[] { "Id", "CalendarEventDate", "CalendarEventDescription", "CalendarEventEndTime", "CalendarEventName", "CalendarEventStartTime", "UserId" },
                 values: new object[,]
                 {
-                    { 1, new DateOnly(2024, 1, 10), "Ongoing maintenance tasks in the office", new TimeOnly(9, 30, 0), "Maintenance Work", new TimeOnly(8, 30, 0), 2 },
-                    { 2, new DateOnly(2024, 1, 11), "Scheduled office cleaning day", new TimeOnly(10, 30, 0), "Office Cleaning", new TimeOnly(9, 30, 0), 2 },
-                    { 3, new DateOnly(2024, 1, 11), "Time for a relaxed atmosphere!", new TimeOnly(11, 30, 0), "Pottering", new TimeOnly(10, 30, 0), 2 },
-                    { 4, new DateOnly(2024, 1, 11), "Team project meeting to discuss progress, challenges, and plans for project execution", new TimeOnly(12, 30, 0), "Project Meeting", new TimeOnly(11, 30, 0), 2 },
-                    { 5, new DateOnly(2024, 1, 12), "Strategic business meeting covering company development, market strategy, and key decisions", new TimeOnly(13, 30, 0), "Business Meeting", new TimeOnly(12, 30, 0), 2 },
-                    { 6, new DateOnly(2024, 1, 13), "Educational workshop aimed at enhancing employee's skills", new TimeOnly(14, 30, 0), "Training Workshop", new TimeOnly(13, 30, 0), 2 }
+                    { 1, new DateOnly(2024, 1, 10), "Ongoing maintenance tasks in the office", new TimeOnly(9, 30, 0), "Maintenance Work", new TimeOnly(8, 30, 0), "1" },
+                    { 2, new DateOnly(2024, 1, 11), "Scheduled office cleaning day", new TimeOnly(10, 30, 0), "Office Cleaning", new TimeOnly(9, 30, 0), "2" },
+                    { 3, new DateOnly(2024, 1, 11), "Time for a relaxed atmosphere!", new TimeOnly(11, 30, 0), "Pottering", new TimeOnly(10, 30, 0), "1" },
+                    { 4, new DateOnly(2024, 1, 11), "Team project meeting to discuss progress, challenges, and plans for project execution", new TimeOnly(12, 30, 0), "Project Meeting", new TimeOnly(11, 30, 0), "3" },
+                    { 5, new DateOnly(2024, 1, 12), "Strategic business meeting covering company development, market strategy, and key decisions", new TimeOnly(13, 30, 0), "Business Meeting", new TimeOnly(12, 30, 0), "2" },
+                    { 6, new DateOnly(2024, 1, 13), "Educational workshop aimed at enhancing employee's skills", new TimeOnly(14, 30, 0), "Training Workshop", new TimeOnly(13, 30, 0), "1" }
                 });
 
             migrationBuilder.InsertData(
@@ -357,12 +349,12 @@ namespace Schedulist.DAL.Migrations
                 columns: new[] { "Id", "DateOfWorkMode", "UserId", "WorkModeId" },
                 values: new object[,]
                 {
-                    { 1, new DateOnly(2024, 1, 10), 2, 1 },
-                    { 2, new DateOnly(2024, 1, 10), 2, 1 },
-                    { 3, new DateOnly(2024, 1, 11), 2, 1 },
-                    { 4, new DateOnly(2024, 1, 12), 2, 1 },
-                    { 5, new DateOnly(2024, 1, 13), 2, 1 },
-                    { 6, new DateOnly(2024, 1, 14), 2, 1 }
+                    { 1, new DateOnly(2024, 1, 10), "1", 1 },
+                    { 2, new DateOnly(2024, 1, 10), "2", 1 },
+                    { 3, new DateOnly(2024, 1, 11), "3", 1 },
+                    { 4, new DateOnly(2024, 1, 12), "1", 1 },
+                    { 5, new DateOnly(2024, 1, 13), "2", 1 },
+                    { 6, new DateOnly(2024, 1, 14), "2", 1 }
                 });
 
             migrationBuilder.CreateIndex(
@@ -398,6 +390,16 @@ namespace Schedulist.DAL.Migrations
                 column: "NormalizedEmail");
 
             migrationBuilder.CreateIndex(
+                name: "IX_AspNetUsers_DepartmentId",
+                table: "AspNetUsers",
+                column: "DepartmentId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_AspNetUsers_PositionId",
+                table: "AspNetUsers",
+                column: "PositionId");
+
+            migrationBuilder.CreateIndex(
                 name: "UserNameIndex",
                 table: "AspNetUsers",
                 column: "NormalizedUserName",
@@ -408,16 +410,6 @@ namespace Schedulist.DAL.Migrations
                 name: "IX_CalendarEvents_UserId",
                 table: "CalendarEvents",
                 column: "UserId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Users_DepartmentId",
-                table: "Users",
-                column: "DepartmentId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Users_PositionId",
-                table: "Users",
-                column: "PositionId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_WorkModesToUsers_UserId",
@@ -459,9 +451,6 @@ namespace Schedulist.DAL.Migrations
 
             migrationBuilder.DropTable(
                 name: "AspNetUsers");
-
-            migrationBuilder.DropTable(
-                name: "Users");
 
             migrationBuilder.DropTable(
                 name: "WorkModes");
