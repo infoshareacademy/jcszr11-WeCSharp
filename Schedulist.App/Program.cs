@@ -38,9 +38,9 @@ namespace Schedulist.App
             User user = new() { Id = "2", Name = "Andrzej", Surname = "Andrzejewski", DepartmentId = 3, PositionId = 4 };
             builder.Services.AddSingleton<User>(user);
             builder.Services.AddTransient<IUserRepository, UserRepository>();
-            builder.Services.AddTransient<ICalendarEventRepository, CalendarEventRepository>();
-            builder.Services.AddTransient<ICalendarEventService, CalendarEventService>();
-            builder.Services.AddTransient<ICalendarRepository, CalendarRepository>();
+            builder.Services.AddScoped<ICalendarEventRepository, CalendarEventRepository>();
+            builder.Services.AddScoped<ICalendarEventService, CalendarEventService>();
+            builder.Services.AddScoped<ICalendarRepository, CalendarRepository>();
             builder.Services.AddTransient<IWorkModeForUserRepository, WorkModeForUserRepository>();
             builder.Services.AddTransient<IWorkModeRepository, WorkModeRepository>();
             builder.Services.AddScoped<ErrorHandlingMiddleware>();
