@@ -7,6 +7,7 @@ using Schedulist.DAL;
 using Schedulist.DAL.Models;
 using Schedulist.DAL.Repositories;
 using Schedulist.DAL.Repositories.Interfaces;
+using Serilog;
 
 
 
@@ -20,6 +21,9 @@ namespace Schedulist.App
             Thread.CurrentThread.CurrentCulture = cultureInfo;
 
             var builder = WebApplication.CreateBuilder(args);
+
+            builder.Host.UseSerilog((hostingBuilderContext, loggerConfiguration) =>
+                loggerConfiguration.ReadFrom.Configuration(hostingBuilderContext.Configuration));
 
             // Add services to the container.
             var connectionString = builder.Configuration.GetConnectionString("DefaultConnection") ?? throw new InvalidOperationException("Connection string 'DefaultConnection' not found.");
