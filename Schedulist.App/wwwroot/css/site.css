@@ -10,14 +10,32 @@ html {
 
 /*---------- Main Layout ----------*/
 .sidenav {
-    padding-top: 90px;
-    background-color: grey;
-    border-radius: 10px;
+    padding-top: 5px;
+    background-color: #23272a;
+    /*border-radius: 10px;*/
     border: 1px solid #ddd;
     height: 100vh;
     width: 300px;
     position: sticky;
     top: 0;
+}
+
+.profile {
+    height: 80px;
+    position: sticky;
+    top: 0;
+    color: white;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-size: 40px;
+    width: 250px;
+    padding: 0;
+    margin: 0;
+    margin-left: 0;
+    text-align: left;
+}
+
+.footer {
+    height: 80px;
 }
 
 .row.content {
@@ -26,11 +44,12 @@ html {
 
 .col-sm-10 {
     background-color: white;
-    padding: 20px;
+    padding: 10px;
     padding-left: 40px;
     padding-right: 40px;
-    margin: 10px 0;
+    margin: 10px;
 }
+
 /*shared*/
 
 .text-center {
@@ -102,6 +121,11 @@ html {
     border-bottom: 1px solid lightgrey;
 }
 
+.calendar-hour-container {
+    margin: 35px;
+    margin-top: 0;
+}
+
 .day-calendar-row-hour {
     border-right: 1px solid lightgrey;
     height: 60px;
@@ -136,15 +160,16 @@ html {
     padding: 0;
     padding-top: 8px;
     padding-left: 10px;
+    padding-right: 10px;
     text-align: left;
     max-width: calc(100% - 900px);
+    width: fit-content;
 }
 
 .calendar-header {
     background-color: rgb(245, 245, 245);
-    border-top: 1px solid lightgrey;
-    border-bottom: 1px solid lightgrey;
-    border-right: 1px solid lightgrey;
+    border: 1px solid lightgrey;
+    border-left: none;
     min-width: 70px;
     font-size: calc(6px + 0.7vw);
     padding: 4px;
@@ -235,11 +260,11 @@ html {
 
 .calendar-calendar-event-container {
     position: absolute;
-    width: calc(100% - 398px);
+    width: calc(100% - 468px);
     height: calc(100% - 123px);
     bottom: 0;
     left: 298px;
-    margin-left: 100px;
+    margin-left: 135px;
 }
 
 .day-calendar-event {
@@ -287,12 +312,20 @@ html {
 }
 
 .calendar-sidebar-container {
+    z-index: 1;
     display: none;
     position: absolute;
     height: calc(100% - 123px);
     width: 350px;
     right: 0;
     top: 123px;
+}
+
+.calendar-sidebar-event-container {
+    width: 100%;
+    padding-top: 15px;
+    padding-bottom: 15px;
+    border-top: 1px solid lightgrey;
 }
 
 .calendar-sidebar {
@@ -302,6 +335,10 @@ html {
     position: sticky;
     height: calc(100vh - 123px);
     padding-top: 50px;
+}
+
+.main-calendar-sidebar {
+    height: calc(100vh - 123px);
 }
 
 /*---------- Calendar Event list section ----------*/
@@ -339,3 +376,82 @@ html {
     background-color: darkred;
     color: white;
 }
+/*-----Buttons------*/
+
+.button {
+    font-family: Dubai;
+    font-weight: 0;
+    color: #fff;
+    padding: 7px 30px;
+    box-shadow: rgb(0, 0, 0) 0px 0px 0px 0px;
+    border-radius: 5px;
+    transition: 661ms;
+    transform: translateY(0);
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    cursor: pointer;
+    text-align: center;
+}
+
+    .button:hover {
+        transition: 661ms;
+        padding: 7px 30px;
+        transform: translateY(-0px);
+        background-color: #fff;
+        text-align: center;
+    }
+
+/*Blue*/
+.buttonBlue {
+    background-color: #1870d5;
+    border: 1px solid #1870d5;
+    width: auto;
+    font-size: 15px;
+}
+
+    .buttonBlue:hover {
+        color: #1870d5;
+        border: solid 1px #1870d5;
+    }
+
+/*Red*/
+.buttonRed {
+    background-color: #c42121;
+    border: 1px solid #c42121;
+    width: auto;
+    font-size: 15px;
+}
+
+    .buttonRed:hover {
+        color: #c42121;
+        border: solid 1px #c42121;
+    }
+
+/*Green*/
+.buttonGreen {
+    background-color: #64ae64;
+    border: 1px solid #64ae64;
+    width: auto;
+    font-size: 15px;
+}
+
+    .buttonGreen:hover {
+        color: #64ae64;
+        border: solid 1px #64ae64;
+    }
+
+/*Navbar button*/
+.buttonNavbar {
+    background-color: #23272a;
+    border: 1px solid #23272a;
+    width: auto;
+    font-size: 20px;
+    align-items: center;
+    text-decoration: none;
+}
+
+    .buttonNavbar:hover {
+        color: #23272a;
+        border: solid 1px #23272a;
+    }
