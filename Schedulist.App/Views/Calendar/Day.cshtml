@@ -64,8 +64,9 @@
                 </div>
             </div>
         </div>
-        <div class="event-dropdown">
-            <button class="btn btn-primary" onclick="location.href='@Url.Action("Create", "Calendar")'">
+       <div class="event-dropdown">
+            <input type="hidden" name="chosenDate" value="@Model.Date.ToString(" yyyy-MM-dd")" />
+            <button class="button buttonGreen" onclick="location.href='@Url.Action("Create", "Calendar")'" style="white-space: nowrap;">
                 Add new event
             </button>
         </div>
@@ -142,10 +143,10 @@
             @calendarEvent.CalendarEventName<br>
             @calendarEvent.CalendarEventDescription<br>
             <div style="margin-top: 15px">
-                <button class="btn btn-primary" onclick="location.href='@Url.Action("Edit", "CalendarEvent", new { id = calendarEvent.Id })'">
+                <button class="button buttonBlue" onclick="location.href='@Url.Action("Edit", "CalendarEvent", new { id = calendarEvent.Id })'">
                     Edit
                 </button>
-                <button type="button" class="btn btn-danger" onclick="DeleteCalendarEvent('@Url.Action("Delete", "CalendarEvent")?id=@calendarEvent.Id','@calendarEvent.CalendarEventName','@calendarEvent.CalendarEventDescription',
+                <button type="button" class="button buttonRed" onclick="DeleteCalendarEvent('@Url.Action("Delete", "CalendarEvent")?id=@calendarEvent.Id','@calendarEvent.CalendarEventName','@calendarEvent.CalendarEventDescription',
                         '@calendarEvent.CalendarEventDate','@calendarEvent.CalendarEventStartTime','@calendarEvent.CalendarEventEndTime','@calendarEvent.UserId')">
                     Delete
                 </button>
