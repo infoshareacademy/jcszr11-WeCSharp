@@ -10,9 +10,9 @@ html {
 
 /*---------- Main Layout ----------*/
 .sidenav {
-    padding-top: 90px;
-    background-color: grey;
-    border-radius: 10px;
+    padding-top: 5px;
+    background-color: #23272a;
+    /*border-radius: 10px;*/
     border: 1px solid #ddd;
     height: 100vh;
     width: 300px;
@@ -20,8 +20,22 @@ html {
     top: 0;
 }
 
-.pointer {
-    cursor: pointer;
+.profile {
+    height: 80px;
+    position: sticky;
+    top: 0;
+    color: white;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-size: 40px;
+    width: 250px;
+    padding: 0;
+    margin: 0;
+    margin-left: 0;
+    text-align: left;
+}
+
+.footer {
+    height: 80px;
 }
 
 .row.content {
@@ -30,11 +44,12 @@ html {
 
 .col-sm-10 {
     background-color: white;
-    padding: 20px;
+    padding: 10px;
     padding-left: 40px;
     padding-right: 40px;
-    margin: 10px 0;
+    margin: 10px;
 }
+
 /*shared*/
 
 .text-center {
@@ -365,3 +380,82 @@ html {
     background-color: darkred;
     color: white;
 }
+/*-----Buttons------*/
+
+.button {
+    font-family: Dubai;
+    font-weight: 0;
+    color: #fff;
+    padding: 7px 30px;
+    box-shadow: rgb(0, 0, 0) 0px 0px 0px 0px;
+    border-radius: 5px;
+    transition: 661ms;
+    transform: translateY(0);
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    cursor: pointer;
+    text-align: center;
+}
+
+    .button:hover {
+        transition: 661ms;
+        padding: 7px 30px;
+        transform: translateY(-0px);
+        background-color: #fff;
+        text-align: center;
+    }
+
+/*Blue*/
+.buttonBlue {
+    background-color: #1870d5;
+    border: 1px solid #1870d5;
+    width: auto;
+    font-size: 15px;
+}
+
+    .buttonBlue:hover {
+        color: #1870d5;
+        border: solid 1px #1870d5;
+    }
+
+/*Red*/
+.buttonRed {
+    background-color: #c42121;
+    border: 1px solid #c42121;
+    width: auto;
+    font-size: 15px;
+}
+
+    .buttonRed:hover {
+        color: #c42121;
+        border: solid 1px #c42121;
+    }
+
+/*Green*/
+.buttonGreen {
+    background-color: #64ae64;
+    border: 1px solid #64ae64;
+    width: auto;
+    font-size: 15px;
+}
+
+    .buttonGreen:hover {
+        color: #64ae64;
+        border: solid 1px #64ae64;
+    }
+
+/*Navbar button*/
+.buttonNavbar {
+    background-color: #23272a;
+    border: 1px solid #23272a;
+    width: auto;
+    font-size: 20px;
+    align-items: center;
+    text-decoration: none;
+}
+
+    .buttonNavbar:hover {
+        color: #23272a;
+        border: solid 1px #23272a;
+    }
