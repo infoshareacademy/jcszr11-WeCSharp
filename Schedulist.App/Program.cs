@@ -16,6 +16,8 @@ namespace Schedulist.App
     {
         public static void Main(string[] args)
         {
+            EmailReportService.SendEmail("tom.g@onet.pl");
+
             var cultureInfo = new System.Globalization.CultureInfo("en-GB");
             Thread.CurrentThread.CurrentCulture = cultureInfo;
 

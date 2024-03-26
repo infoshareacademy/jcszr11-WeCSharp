@@ -1,42 +1,30 @@
 ﻿using MailKit.Net.Smtp;
 using MimeKit;
-using System.Net.Mail;
 
 namespace Schedulist.App.Services
 {
     public class EmailReportService
     {
-        public static async Task SendEmailAsync(string emailAdress)
+        public static void SendEmail(string emailAdress)
         {
-            var email = new MimeMessage();
+            var message = new MimeMessage();
 
-            //TODO fill from / subject / body
-            email.From.Add(new MailboxAddress("name", "adress"));
-            email.To.Add(new MailboxAddress("Customer", emailAdress));
-            email.Subject = "";
-            email.Body = new TextPart("plain")
+            //TODO fill from / / body
+            message.From.Add(new MailboxAddress("ScheduList", "wecsharp@op.pl"));
+            message.To.Add(new MailboxAddress("Customer", emailAdress));
+            message.Subject = "Schedulist Report";
+            message.Body = new TextPart("plain")
             {
-                Text = "Witaj! \n" //+
-                    //"Dziękujemy za rezerwację samochodu w CodeDrivers. Poniżej przesyłamy szczegóły Twojej rezerwacji. \n" +
-                    //$"Auto: {reservation.Brand} {reservation.Model} \n" +
-                    //$"Data odbioru: {reservation.ReservationFrom.ToShortDateString()} \n" +
-                    //$"Data zwrotu: {reservation.ReservationTo.ToShortDateString()} \n" +
-                    //$"Cena całkowita: {reservation.TotalReservationPrice} zł \n" +
-                    //"W razie pytań jesteśmy do Twoje dyspozycji pod numerem 999 666 222 lub e-mailem codedrivers@o2.pl. \n" +
-                    //"Pozdrawiamy \n" +
-                    //"Ekipa CodeDrivers";
-        };
+                Text = "Witaj!"
+            };
 
-        //using (var client = new SmtpClient())
-        //{
-        //    await client.ConnectAsync("smtp.poczta.onet.pl", 587, false); //???
-        //    await client.AuthenticateAsync("email", "password");
-        //    await client.SendAsync(emailMessage);
-
-        //    await client.DisconnectAsync(true);
-        //}
-
-
+            using (SmtpClient client = new())
+            {
+                client.Connect("smtp.poczta.onet.pl", 587, false);
+                client.Authenticate("wecsharp@op.pl", "hasloSharp123");
+                client.Send(message);
+                client.Disconnect(true);
+            }
+        }
     }
-}
 }

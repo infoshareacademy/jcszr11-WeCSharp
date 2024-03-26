@@ -45,10 +45,10 @@
 <div style="position: sticky; top: 0; z-index: 2;">
     <div class="row flex-nowrap month-name-container">
         <div class="button-field">
-            <button type="button" class="btn btn-light" onclick="location.href='@Url.Action("Day", "Calendar", new {@date = Model.Date.AddDays(-1), @userToEdit = Model.User})'"><</button>
+            <button type="button" class="btn btn-light" onclick="location.href='@Url.Action("Day", "Calendar", new {@date = Model.Date.AddDays(-1), @userToEdit = Model.User.Id})'"><</button>
         </div>
         <div class="button-field">
-            <button type="button" class="btn btn-light" onclick="location.href='@Url.Action("Day", "Calendar", new {@date = Model.Date.AddDays(1), @userToEdit = Model.User})'">></button>
+            <button type="button" class="btn btn-light" onclick="location.href='@Url.Action("Day", "Calendar", new {@date = Model.Date.AddDays(1), @userToEdit = Model.User.Id})'">></button>
         </div>
         <div class="month-name">
             @Model.Date.ToString("dd MMMM yyyy")
