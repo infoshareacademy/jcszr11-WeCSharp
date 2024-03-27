@@ -6,6 +6,7 @@ using Schedulist.App.Services.Interfaces;
 using Schedulist.DAL.Models;
 using Schedulist.DAL.Repositories;
 using Schedulist.DAL.Repositories.Interfaces;
+using Sieve.Services;
 using System.ComponentModel.DataAnnotations;
 using System.Diagnostics;
 using System.Drawing.Text;
@@ -15,13 +16,15 @@ namespace Schedulist.App.Controllers
     public class CalendarEventController : ControllerBase
     {
         private readonly ICalendarEventRepository _calendarEventRepository;
-        private readonly IUserRepository _userRepository;
         private readonly ICalendarEventService _calendarEventService;
-        public CalendarEventController(ILogger<CalendarEventController> logger, ICalendarEventRepository calendarEventRepository, ICalendarEventService calendarEventService, IUserRepository userRepository) : base(logger) 
+        private readonly IUserRepository _userRepository;
+        private readonly ISieveProcessor _sieveProcessor;
+        public CalendarEventController(ILogger<CalendarEventController> logger, ICalendarEventRepository calendarEventRepository, ICalendarEventService calendarEventService, IUserRepository userRepository, ISieveProcessor sieveProcessor) : base(logger) 
         {
             _calendarEventRepository = calendarEventRepository;
             _userRepository = userRepository;
             _calendarEventService = calendarEventService;
+            _sieveProcessor = sieveProcessor;
         }
 
         // GET: CalendarEventController

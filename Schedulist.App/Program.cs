@@ -7,7 +7,9 @@ using Schedulist.DAL;
 using Schedulist.DAL.Models;
 using Schedulist.DAL.Repositories;
 using Schedulist.DAL.Repositories.Interfaces;
+using Schedulist.DAL.Sieve;
 using Serilog;
+using Sieve.Services;
 
 
 
@@ -44,6 +46,7 @@ namespace Schedulist.App
             builder.Services.AddTransient<IWorkModeForUserRepository, WorkModeForUserRepository>();
             builder.Services.AddTransient<IWorkModeRepository, WorkModeRepository>();
             builder.Services.AddScoped<ErrorHandlingMiddleware>();
+            builder.Services.AddScoped<ISieveProcessor, ApplicationSieveProcessor>();
 
             var app = builder.Build();
             using (var scope = app.Services.CreateScope())
