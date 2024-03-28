@@ -1,4 +1,11 @@
-﻿<!DOCTYPE html>
+﻿@using Microsoft.AspNetCore.Identity
+@using Schedulist.DAL.Models
+
+@inject SignInManager<User> SignInManager
+@inject UserManager<User> UserManager
+
+
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
@@ -19,31 +26,34 @@
                 <div class="profile">
                   ScheduList
                 </div>
-                 <ul class="nav nav-pills flex-column mt-4">
-                    <li class="nav-item" style="margin-top: 20px;">
-                        <a class="button buttonNavbar" asp-area="" asp-controller="Calendar" asp-action="Index">
-                         <span>Calendar</span>
-                       </a>
-                       </li>
-                    <li class="nav-item" style="margin-top: 12px;">
-                        <a class="button buttonNavbar" asp-area="" asp-controller="CalendarEvent" asp-action="Index">
-                         <span >Calendar Events</span>
-                        </a>
-                    </li>
-                    <li class="nav-item" style="margin-top: 12px;">
-                        <a class="button buttonNavbar" asp-area="" asp-controller="WorkModesToUser" asp-action="Index">
-                          <span >Work Modes</span>
-                        </a>
-                    </li>
-                    <li class="nav-item" style="margin-top: 12px;">
-                        <a class="button buttonNavbar" asp-area="" asp-controller="WorkMode" asp-action="Statistics">
-                          <span>Statistics</span>
-                        </a>
-                    </li>
-                    <li class="nav-item-register mt-auto">
-                        <a class="nav-link d-flex align-items-center" style="color: white;"></a>
-                    </li>
-                </ul>
+                @if (SignInManager.IsSignedIn(User))
+                {
+                    <ul class="nav nav-pills flex-column mt-4">
+                        <li class="nav-item" style="margin-top: 20px;">
+                            <a class="button buttonNavbar" asp-area="" asp-controller="Calendar" asp-action="Index">
+                                <span>Calendar</span>
+                            </a>
+                        </li>
+                        <li class="nav-item" style="margin-top: 12px;">
+                            <a class="button buttonNavbar" asp-area="" asp-controller="CalendarEvent" asp-action="Index">
+                                <span >Calendar Events</span>
+                            </a>
+                        </li>
+                        <li class="nav-item" style="margin-top: 12px;">
+                            <a class="button buttonNavbar" asp-area="" asp-controller="WorkModesToUser" asp-action="Index">
+                                <span >Work Modes</span>
+                            </a>
+                        </li>
+                        <li class="nav-item" style="margin-top: 12px;">
+                            <a class="button buttonNavbar" asp-area="" asp-controller="WorkMode" asp-action="Statistics">
+                                <span>Statistics</span>
+                            </a>
+                        </li>
+                        <li class="nav-item-register mt-auto">
+                            <a class="nav-link d-flex align-items-center" style="color: white;"></a>
+                        </li>
+                    </ul>
+                }
                 <div class="footer" style="position: absolute; bottom: 0; width: 100%;">
                     <partial name="_LoginPartial" style="color: white;"></partial>
                 </div>

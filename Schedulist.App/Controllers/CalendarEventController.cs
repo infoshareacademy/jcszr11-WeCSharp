@@ -89,8 +89,9 @@ namespace Schedulist.App.Controllers
         // GET: CalendarEventController/Edit/5
         [HttpGet]
         [ResponseCache(Duration = 30, NoStore = true)]
-        public ActionResult Edit(int id)
+        public ActionResult Edit(int id, string returnUrl = null)
         {
+            TempData["ReturnUrl"] = returnUrl;
             SetupUserList();
             var model = _calendarEventRepository.GetCalendarEventById(id);
             logger.LogInformation($"Updating Calendar Event started.");
@@ -114,7 +115,9 @@ namespace Schedulist.App.Controllers
                 _calendarEventRepository.UpdateCalendarEvent(id, calendarEvent);
                 logger.LogInformation($"Modified Calendar Event.");
                 PopupNotification("Calendar event has been updated successfully");
-                return RedirectToAction(nameof(Index));
+                var returnUrl = TempData["ReturnUrl"] as string;
+
+                return returnUrl != null ? Redirect(returnUrl) : RedirectToAction(nameof(Index));
             }
             catch
             {
