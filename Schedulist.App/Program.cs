@@ -31,7 +31,18 @@ namespace Schedulist.App
                 options.UseSqlServer(connectionString));
             builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
-            builder.Services.AddDefaultIdentity<User>(options => options.SignIn.RequireConfirmedAccount = true).AddRoles<IdentityRole>()
+            builder.Services.AddDefaultIdentity<User>(
+                options =>
+                {
+                    options.Password.RequiredUniqueChars = 0;
+                    options.Password.RequireUppercase = true;
+                    options.Password.RequireLowercase = false;
+                    options.Password.RequiredLength = 8;
+                    options.Password.RequireNonAlphanumeric = false;
+                    options.SignIn.RequireConfirmedAccount = true;
+                }
+                )
+                .AddRoles<IdentityRole>()
                 .AddEntityFrameworkStores<SchedulistDbContext>();
             builder.Services.AddControllersWithViews();
 
@@ -51,13 +62,13 @@ namespace Schedulist.App
                 //var dbSeed = scope.ServiceProvider.GetService<DBSeed>();
                 //await dbSeed.CreateAdmin();
             }
-                // Configure the HTTP request pipeline.
-                if (!app.Environment.IsDevelopment())
-                {
-                    app.UseExceptionHandler("/Calendar/Error");
-                    // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
-                    app.UseHsts();
-                }
+            // Configure the HTTP request pipeline.
+            if (!app.Environment.IsDevelopment())
+            {
+                app.UseExceptionHandler("/Calendar/Error");
+                // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
+                app.UseHsts();
+            }
 
             app.UseMiddleware<ErrorHandlingMiddleware>();
             app.UseHttpsRedirection();

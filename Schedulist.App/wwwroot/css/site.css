@@ -459,3 +459,21 @@ html {
         color: #23272a;
         border: solid 1px #23272a;
     }
+/*Select User drop-down*/
+.dropdown-menu {
+    width: 250px;
+}
+.dropdown-menu a.pointer {
+    text-decoration: none;
+    color: black;
+    flex-wrap: wrap;
+}
+.dropdown-menu a {
+    display: block;
+    padding: 8px;
+    cursor: pointer;
+}
+.dropdown-menu a:hover {
+    background-color: gray;
+    color: white;
+}

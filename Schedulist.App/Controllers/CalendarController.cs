@@ -35,10 +35,10 @@ namespace Schedulist.App.Controllers
 
         public IActionResult Index()
         {
-            if (!User.Identity.IsAuthenticated)
-            {
-                return RedirectToPage("Identity");
-            }
+            //if (!User.Identity.IsAuthenticated)
+            //{
+            //    return RedirectToPage("Identity");
+            //}
             string userToChangeId = _user.Id;
             List<CalendarEvent> allCalendarEvents = _calendarEventRepository.GetAllCalendarEvents();
             var calendarEventsToDraw = allCalendarEvents.Where(calendarEvent => calendarEvent.UserId == userToChangeId && calendarEvent.CalendarEventDate.Month == DateTime.Now.Month).ToList();
