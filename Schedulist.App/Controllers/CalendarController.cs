@@ -40,16 +40,16 @@ namespace Schedulist.App.Controllers
 
         public IActionResult Index()
         {
-            //if (_signInManager.IsSignedIn(User))
-            //{
+            if (_signInManager.IsSignedIn(User))
+            {
                 string userToChangeId = _user.Id;
                 List<CalendarEvent> allCalendarEvents = _calendarEventRepository.GetAllCalendarEvents();
                 var calendarEventsToDraw = allCalendarEvents.Where(calendarEvent => calendarEvent.UserId == userToChangeId && calendarEvent.CalendarEventDate.Month == DateTime.Now.Month).ToList();
                 List<WorkModeForUser> workModesToDraw = _workModeForUserRepository.GetAllWorkModesForUser().Where(e => e.DateOfWorkMode.Month == DateTime.Now.Month && e.UserId == userToChangeId).ToList();
                 _calendarParams = new MonthViewModel(calendarEventsToDraw, _userDict, userToChangeId, _workModeRepository, workModesToDraw);
                 return View(_calendarParams);
-            //}
-            //else { return View("../Account/Login"); }
+            }
+            else { return View("HomePage"); }
         }
 
         public IActionResult PreviousMonth(DateTime date, string userToEdit)

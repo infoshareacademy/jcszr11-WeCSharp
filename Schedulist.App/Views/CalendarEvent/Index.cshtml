@@ -4,6 +4,9 @@
 @{
     ViewData["Title"] = "Index";
 }
+@{
+    ViewBag.Title = "AssignUser";
+}
 
 <h1>Calendar Events List</h1>
 
@@ -59,8 +62,10 @@
                     @Html.DisplayFor(modelItem => item.CalendarEventDescription)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.UserId) @* @Html.DisplayFor(modelItem => item.User.Name) @Html.DisplayFor(modelItem => item.User.Surname) *@
+                    @* @Html.DisplayFor(modelItem => item.UserId) *@
+                            @Html.Raw(ViewBag.UserName) @Html.Raw(ViewBag.UserSurname)
                 </td>
+
                 <td>
                    <div class="button-container">
                         <a href="@Url.Action("Edit", new { id = item.Id })" class="button buttonBlue" style="text-decoration: none;">Edit</a>
