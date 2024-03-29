@@ -6,22 +6,27 @@
 
 <h1>Work Modes list</h1>
 
-@* <p>
-    <a asp-action="Create">Create New</a>
-</p> *@
-<table class="table">
-    <thead>
+<p>
+    <div style="display: flex; justify-content: center; align-items: center;">
+        <a class="button buttonGreen" asp-controller="WorkModeForUser" asp-action="Create" style="font-family: 'Dubai'; text-decoration: none; width: 200px; display: flex; justify-content: center; align-items: center;">
+            Create New
+        </a>
+    </div>
+</p>
+
+<table class="table table-bordered">
+    <thead class="thead-dark">
         <tr>
-            <th>
+            <th scope="col">
                 @Html.DisplayNameFor(model => model.UserId)
             </th>
-            <th>
+            <th scope="col">
                 @Html.DisplayNameFor(model => model.DateOfWorkMode)
             </th>
           @*   <th>
                 @Html.DisplayNameFor(model => model.WorkModeToUserID)
             </th> *@
-            <th>
+            <th scope="col">
                 @Html.DisplayNameFor(model => model.WorkMode.Name)
             </th>         
             <th></th>
@@ -44,15 +49,14 @@
                     @Html.DisplayFor(modelItem => item.WorkMode.Name)
                 </td>   
             
-         @*        <td>
+                <td>
                     <div class="button-container">
                         <button type="button" class="btn btn-primary">@Html.ActionLink("Edit", "Edit", new { id = item.Id }, new { style = "color: white;" })</button>
-                         <button type="button">@Html.ActionLink("Details", "Details", new { id = item.CalendarEventId })</button> 
-                       <button type="button" onclick="DeleteWorkMode('@Url.Action("Delete", "WorkMode")?id=@item.UserId','@item.UserId','@item.WorkMode.Name','@item.UserId','@item.DateOfWorkMode')">
+                       <button type="button" onclick="DeleteWorkMode('@Url.Action("Delete", "WorkMode")?id=@item.UserId','@item.UserId','@item.UserId','@item.DateOfWorkMode')">
                             Delete
                         </button>
                     </div>
-                </td>*@
+                </td>
             </tr>
         }
     </tbody>

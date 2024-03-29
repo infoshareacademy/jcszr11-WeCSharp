@@ -10,6 +10,9 @@ namespace Schedulist.DAL.Models
         public int Id { get; set; }
 
         [Name("DateOfWorkMode")]
+        [DataType(DataType.Date)]
+        [DisplayFormat(DataFormatString = "{0:dd-MM-yyyy}")]
+        [Required]
         public DateOnly DateOfWorkMode { get; set; }
 
         //EntityFramework Configuration Section

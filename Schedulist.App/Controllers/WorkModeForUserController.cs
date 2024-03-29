@@ -101,38 +101,42 @@ namespace Schedulist.App.Controllers
         //}
 
 
-        // GET: WorkModeController/Create
-        //public ActionResult Create()
-        //{
-        //    Debug.WriteLine($"Creating Work Mode started!");
-        //    return View();
-        //}
+        //GET: WorkModeController/Create
+        [HttpGet]
+        public ActionResult Create()
+        {
+            SetupUserList();
+            SetupWorkModeList();
+            logger.LogInformation($"Creating Work Mode started!");
+            return View();
+        }
 
         // POST: WorkModeController/Create
-        //[HttpPost]
-        //[ValidateAntiForgeryToken]
+        [HttpPost]
+        [ValidateAntiForgeryToken]
         public ActionResult Create(WorkModeForUser workModeForUser)
         {
-
             try
             {
                 SetupUserList();
                 SetupWorkModeList();
-                var validationResults = _workModeForUserService.ValidateWorkMode(workModeForUser);
-                if(validationResults.Any(x => x != ValidationResult.Success))
-                {
-                    validationResults.Where(x => x != ValidationResult.Success).ToList().ForEach(x => ModelState.AddModelError(nameof(workModeForUser.DateOfWorkMode), x.ErrorMessage));
-                    return View(workModeForUser);
-                }
-                else
-                {
-                    return View();
-                }
-                
+                //var validationResults = _workModeForUserService.ValidateWorkMode(workModeForUser);
+                //if (validationResults.Any(x => x != ValidationResult.Success))
+                //{
+                //    validationResults.Where(x => x != ValidationResult.Success).ToList().ForEach(x => ModelState.AddModelError(nameof(workModeForUser.DateOfWorkMode), x.ErrorMessage));
+                //    return View(workModeForUser);
+                //}
+                //else
+                //{
+                //    return View();
+                //}
+                _workModeForUserRepository.CreateWorkModeForUser(workModeForUser);
+                return RedirectToAction(nameof(Index));
+
             }
             catch
             {
-               return Ok();
+                return Ok();
             }
 
             //var model = new WorkModeViewModel();
@@ -140,4 +144,5 @@ namespace Schedulist.App.Controllers
 
             //GET: WorkModeForUserController/Delete/5
         }
-    } }
+    }
+}

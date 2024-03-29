@@ -24,7 +24,9 @@ namespace Schedulist.DAL.Repositories
         }
         public WorkModeForUser CreateWorkModeForUser(WorkModeForUser workMode)
         {
-            throw new NotImplementedException();
+            _db.WorkModesToUsers.Add(workMode);
+            _db.SaveChanges();
+            return workMode;
         }
         public WorkModeForUser GetWorkModeByUserIdAndDateOfWorkMode(string userId, DateOnly dateOfWorkMode)
         {
