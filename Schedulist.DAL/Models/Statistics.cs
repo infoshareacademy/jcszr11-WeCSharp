@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using System.ComponentModel.DataAnnotations;
 using CsvHelper.Configuration.Attributes;
 using Schedulist.DAL;
-
+using Schedulist.App;
 
 
 namespace Schedulist.DAL.Models
