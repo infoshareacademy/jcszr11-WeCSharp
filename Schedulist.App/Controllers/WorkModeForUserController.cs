@@ -5,6 +5,7 @@ using Schedulist.App.Services.Interfaces;
 using Schedulist.DAL.Models;
 using Schedulist.DAL.Repositories;
 using Schedulist.DAL.Repositories.Interfaces;
+using System.ComponentModel.DataAnnotations;
 using System.Diagnostics;
 
 namespace Schedulist.App.Controllers
@@ -118,10 +119,14 @@ namespace Schedulist.App.Controllers
                 SetupUserList();
                 SetupWorkModeList();
                 var validationResults = _workModeForUserService.ValidateWorkMode(workModeForUser);
-                if(validationResults.Any(x => x != validationResults.Success))
+                if(validationResults.Any(x => x != ValidationResult.Success))
                 {
                     validationResults.Where(x => x != ValidationResult.Success).ToList().ForEach(x => ModelState.AddModelError(nameof(workModeForUser.DateOfWorkMode), x.ErrorMessage));
                     return View(workModeForUser);
+                }
+                else
+                {
+                    return View();
                 }
                 
             }

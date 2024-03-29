@@ -1,8 +1,10 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Schedulist.App.Controllers;
 using Schedulist.App.Services.Interfaces;
 using Schedulist.DAL.Models;
 using Schedulist.DAL.Repositories.Interfaces;
 using System.ComponentModel.DataAnnotations;
+using ControllerBase = Schedulist.App.Controllers.ControllerBase;
 
 namespace Schedulist.App.Services
 {
