@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Schedulist.App.Models.Enum;
+using Schedulist.App.Services.Interfaces;
 using Schedulist.DAL.Models;
 using Schedulist.DAL.Repositories;
 using Schedulist.DAL.Repositories.Interfaces;
@@ -13,6 +14,7 @@ namespace Schedulist.App.Controllers
         private readonly IWorkModeForUserRepository _workModeForUserRepository;
         private readonly IWorkModeRepository _workModeRepository;
         private readonly IUserRepository _userRepository;
+        private readonly IWorkModeForUserService _workModeForUserService;
         public WorkModeForUserController(ILogger<WorkModeForUserController> logger, IWorkModeForUserRepository workModeForUserRepository, IWorkModeRepository workModeRepository, IUserRepository userRepository) : base(logger)
         {
 
@@ -115,7 +117,12 @@ namespace Schedulist.App.Controllers
             {
                 SetupUserList();
                 SetupWorkModeList();
-                var validationResults = 
+                var validationResults = _workModeForUserService.ValidateWorkMode(workModeForUser);
+                if(validationResults.Any(x => x != validationResults.Success))
+                {
+                    validationResults.Where(x => x != ValidationResult.Success).ToList().ForEach(x => ModelState.AddModelError(nameof(workModeForUser.DateOfWorkMode), x.ErrorMessage));
+                    return View(workModeForUser);
+                }
                 
             }
             catch
