@@ -27,10 +27,10 @@ namespace Schedulist.App.Controllers
             _calendarEventRepository = calendarEventRepository;
             _calendarEventService = calendarEventService;
             _userRepository = userRepository;
-            foreach (User userToAdd in _userRepository.GetAllUsers())
-            {
-                _userDict.Add(userToAdd.Id, $"{userToAdd.Name} {userToAdd.Surname}");
-            }
+                foreach (User userToAdd in _userRepository.GetAllUsers())
+                {
+                    _userDict.Add(userToAdd.Id, $"{userToAdd.Name} {userToAdd.Surname}");
+                }
         }
 
         public IActionResult Index()

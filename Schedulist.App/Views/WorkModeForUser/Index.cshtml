@@ -44,16 +44,15 @@
                     @Html.DisplayFor(modelItem => item.WorkMode.Name)
                 </td>   
             
-                <td>
+         @*        <td>
                     <div class="button-container">
                         <button type="button" class="btn btn-primary">@Html.ActionLink("Edit", "Edit", new { id = item.Id }, new { style = "color: white;" })</button>
-                        @* <button type="button">@Html.ActionLink("Details", "Details", new { id = item.CalendarEventId })</button> *@
-                        <button type="button" onclick="DeleteWorkMode('@Url.Action("Delete", "WorkMode")?id=@item.UserId','@item.UserId','@item.WorkMode.Name','@item.UserId','@item.DateOfWorkMode')">
+                         <button type="button">@Html.ActionLink("Details", "Details", new { id = item.CalendarEventId })</button> 
+                       <button type="button" onclick="DeleteWorkMode('@Url.Action("Delete", "WorkMode")?id=@item.UserId','@item.UserId','@item.WorkMode.Name','@item.UserId','@item.DateOfWorkMode')">
                             Delete
                         </button>
                     </div>
-                </td>
-
+                </td>*@
             </tr>
         }
     </tbody>
