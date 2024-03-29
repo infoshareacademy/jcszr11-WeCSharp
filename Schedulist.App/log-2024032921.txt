@@ -1,0 +1,40 @@
+2024-03-29 21:14:28.649 +01:00 [INF] User profile is available. Using 'C:\Users\debow\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
+2024-03-29 21:14:28.935 +01:00 [INF] Now listening on: https://localhost:7178
+2024-03-29 21:14:28.936 +01:00 [INF] Now listening on: http://localhost:5291
+2024-03-29 21:14:28.959 +01:00 [INF] Application started. Press Ctrl+C to shut down.
+2024-03-29 21:14:28.962 +01:00 [INF] Hosting environment: Development
+2024-03-29 21:14:28.963 +01:00 [INF] Content root path: C:\Users\debow\OneDrive\Pulpit\C#\Projekt\jcszr11-WeCSharp\Schedulist.App
+2024-03-29 21:14:29.704 +01:00 [INF] Request starting HTTP/2 GET https://localhost:7178/ - null null
+2024-03-29 21:14:29.823 +01:00 [INF] Executing endpoint 'Schedulist.App.Controllers.CalendarController.Index (Schedulist.App)'
+2024-03-29 21:14:29.854 +01:00 [INF] Route matched with {action = "Index", controller = "Calendar", page = "", area = ""}. Executing controller action with signature Microsoft.AspNetCore.Mvc.IActionResult Index() on controller Schedulist.App.Controllers.CalendarController (Schedulist.App).
+2024-03-29 21:14:30.861 +01:00 [INF] Executed DbCommand (14ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [a].[Id], [a].[AccessFailedCount], [a].[ConcurrencyStamp], [a].[DepartmentId], [a].[Email], [a].[EmailConfirmed], [a].[LockoutEnabled], [a].[LockoutEnd], [a].[Name], [a].[NormalizedEmail], [a].[NormalizedUserName], [a].[PasswordHash], [a].[PhoneNumber], [a].[PhoneNumberConfirmed], [a].[PositionId], [a].[SecurityStamp], [a].[Surname], [a].[TwoFactorEnabled], [a].[UserName]
+FROM [AspNetUsers] AS [a]
+2024-03-29 21:14:30.925 +01:00 [INF] Executed DbCommand (3ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [c].[Id], [c].[CalendarEventDate], [c].[CalendarEventDescription], [c].[CalendarEventEndTime], [c].[CalendarEventName], [c].[CalendarEventStartTime], [c].[UserId]
+FROM [CalendarEvents] AS [c]
+2024-03-29 21:14:30.953 +01:00 [INF] Executed DbCommand (2ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [w].[Id], [w].[DateOfWorkMode], [w].[UserId], [w].[WorkModeId]
+FROM [WorkModesToUsers] AS [w]
+2024-03-29 21:14:30.969 +01:00 [INF] Executing ViewResult, running view Index.
+2024-03-29 21:14:31.137 +01:00 [INF] Executed DbCommand (30ms) [Parameters=[@__normalizedUserName_0='?' (Size = 256)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [a].[Id], [a].[AccessFailedCount], [a].[ConcurrencyStamp], [a].[DepartmentId], [a].[Email], [a].[EmailConfirmed], [a].[LockoutEnabled], [a].[LockoutEnd], [a].[Name], [a].[NormalizedEmail], [a].[NormalizedUserName], [a].[PasswordHash], [a].[PhoneNumber], [a].[PhoneNumberConfirmed], [a].[PositionId], [a].[SecurityStamp], [a].[Surname], [a].[TwoFactorEnabled], [a].[UserName]
+FROM [AspNetUsers] AS [a]
+WHERE [a].[NormalizedUserName] = @__normalizedUserName_0
+2024-03-29 21:14:31.190 +01:00 [INF] Executed ViewResult - view Index executed in 221.6267ms.
+2024-03-29 21:14:31.196 +01:00 [INF] Executed action Schedulist.App.Controllers.CalendarController.Index (Schedulist.App) in 1336.1241ms
+2024-03-29 21:14:31.198 +01:00 [INF] Executed endpoint 'Schedulist.App.Controllers.CalendarController.Index (Schedulist.App)'
+2024-03-29 21:14:31.212 +01:00 [INF] Request starting HTTP/2 GET https://localhost:7178/css/site.css?v=dmVax1qWe1d8WmnWSoPAXW-RhAfaxorM7QRrDw8LOrw - null null
+2024-03-29 21:14:31.217 +01:00 [INF] Request starting HTTP/2 GET https://localhost:7178/_framework/aspnetcore-browser-refresh.js - null null
+2024-03-29 21:14:31.212 +01:00 [INF] Request starting HTTP/2 GET https://localhost:7178/lib/bootstrap/dist/css/bootstrap.min.css - null null
+2024-03-29 21:14:31.212 +01:00 [INF] Request finished HTTP/2 GET https://localhost:7178/ - 200 null text/html; charset=utf-8 1511.4412ms
+2024-03-29 21:14:31.220 +01:00 [INF] Request starting HTTP/2 GET https://localhost:7178/_vs/browserLink - null null
+2024-03-29 21:14:31.245 +01:00 [INF] Request finished HTTP/2 GET https://localhost:7178/_framework/aspnetcore-browser-refresh.js - 200 13764 application/javascript; charset=utf-8 29.4518ms
+2024-03-29 21:14:31.250 +01:00 [INF] Sending file. Request path: '/lib/bootstrap/dist/css/bootstrap.min.css'. Physical path: 'C:\Users\debow\OneDrive\Pulpit\C#\Projekt\jcszr11-WeCSharp\Schedulist.App\wwwroot\lib\bootstrap\dist\css\bootstrap.min.css'
+2024-03-29 21:14:31.250 +01:00 [INF] Sending file. Request path: '/css/site.css'. Physical path: 'C:\Users\debow\OneDrive\Pulpit\C#\Projekt\jcszr11-WeCSharp\Schedulist.App\wwwroot\css\site.css'
+2024-03-29 21:14:31.260 +01:00 [INF] Request finished HTTP/2 GET https://localhost:7178/lib/bootstrap/dist/css/bootstrap.min.css - 499 162726 text/css 46.5438ms
+2024-03-29 21:14:31.262 +01:00 [INF] Request finished HTTP/2 GET https://localhost:7178/css/site.css?v=dmVax1qWe1d8WmnWSoPAXW-RhAfaxorM7QRrDw8LOrw - 499 8575 text/css 50.7108ms
+2024-03-29 21:14:31.294 +01:00 [INF] Request finished HTTP/2 GET https://localhost:7178/_vs/browserLink - 200 null text/javascript; charset=UTF-8 75.1252ms
+2024-03-29 21:14:31.329 +01:00 [INF] Request starting HTTP/2 GET https://localhost:7178/favicon.ico - null null
+2024-03-29 21:14:31.336 +01:00 [INF] Sending file. Request path: '/favicon.ico'. Physical path: 'C:\Users\debow\OneDrive\Pulpit\C#\Projekt\jcszr11-WeCSharp\Schedulist.App\wwwroot\favicon.ico'
+2024-03-29 21:14:31.339 +01:00 [INF] Request finished HTTP/2 GET https://localhost:7178/favicon.ico - 499 5430 image/x-icon 10.2146ms
