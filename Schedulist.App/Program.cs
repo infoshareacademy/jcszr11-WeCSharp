@@ -31,16 +31,7 @@ namespace Schedulist.App
                 options.UseSqlServer(connectionString));
             builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
-            builder.Services.AddIdentity<User, IdentityRole>(options =>
-                {
-                    //options.Password.RequiredUniqueChars = 0;
-                    //options.Password.RequireUppercase = true;
-                    //options.Password.RequireLowercase = false;
-                    //options.Password.RequiredLength = 8;
-                    //options.Password.RequireNonAlphanumeric = false;
-                    options.SignIn.RequireConfirmedAccount = true;
-                }
-                )
+            builder.Services.AddDefaultIdentity<User>(options => options.SignIn.RequireConfirmedAccount = true).AddRoles<IdentityRole>()
                 .AddEntityFrameworkStores<SchedulistDbContext>();
 
             builder.Services.AddControllersWithViews();

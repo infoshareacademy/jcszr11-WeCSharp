@@ -4,12 +4,12 @@
 @using Schedulist.DAL.Repositories
 @using Schedulist.DAL.Shared
 @model MonthViewModel
-@inject SignInManager<IdentityUser> SignInManager
-@inject UserManager<IdentityUser> UserManager
+@inject SignInManager<User> SignInManager
+@inject UserManager<User> UserManager
 
 @{
     var loggedInUser = await UserManager.GetUserAsync(User);
-    var userName = $"{loggedInUser.UserName}";
+    var userName = $"{loggedInUser.Name} {loggedInUser.Surname}";
 }
 
 <script>

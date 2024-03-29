@@ -10,10 +10,9 @@ namespace Schedulist.DAL
     {
         public SchedulistDbContext()
         {
+
         }
-
         public SchedulistDbContext(DbContextOptions<SchedulistDbContext> options) : base(options) { }
-
 
         public DbSet<WorkModeForUser> WorkModesToUsers { get; set; }
         public DbSet<CalendarEvent> CalendarEvents { get; set; }
@@ -25,6 +24,10 @@ namespace Schedulist.DAL
         protected override void OnModelCreating(ModelBuilder builder)
         {
             base.OnModelCreating(builder);
+
+            var hasher = new PasswordHasher<User>();
+            var hashedPassword = hasher.HashPassword(null, "Makrella1995!");
+
             builder.Entity<WorkMode>().HasData(
                 new WorkMode() { Id = 1, Name = WorkModeNames.OFFICE },
                 new WorkMode() { Id = 2, Name = WorkModeNames.HOME_OFFICE },
@@ -63,7 +66,7 @@ namespace Schedulist.DAL
                     Id = "1",
                     Name = "Tomasz",
                     Surname = "Tomaszewicz",
-                    UserName = "Tomasz Tomaszewicz",
+                    UserName = "KURSTOMASZA@GMAIL.COM",
                     EmailConfirmed = true,
                     DepartmentId = 1,
                     PositionId = 2,
@@ -71,6 +74,7 @@ namespace Schedulist.DAL
                     TwoFactorEnabled = false,
                     LockoutEnabled = false,
                     AccessFailedCount = 50,
+                    PasswordHash = hashedPassword
                 }
             );
             builder.Entity<IdentityRole>().HasData(
@@ -85,8 +89,6 @@ namespace Schedulist.DAL
                 new WorkModeForUser() { Id = 5, DateOfWorkMode = new DateOnly(2024, 01, 13), WorkModeId = 1, UserId = "2" },
                 new WorkModeForUser() { Id = 6, DateOfWorkMode = new DateOnly(2024, 01, 14), WorkModeId = 1, UserId = "2" }
             );
-
-
 
             builder.Entity<CalendarEvent>().HasData(
                 new CalendarEvent() { Id = 1, CalendarEventName = "Maintenance Work", CalendarEventDescription = "Ongoing maintenance tasks in the office", CalendarEventDate = new DateOnly(2024, 01, 10), CalendarEventStartTime = new TimeOnly(08, 30, 0), CalendarEventEndTime = new TimeOnly(09, 30, 0), UserId = "1" },

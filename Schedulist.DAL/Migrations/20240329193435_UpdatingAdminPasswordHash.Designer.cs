@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Schedulist.DAL;
 
@@ -11,9 +12,11 @@ using Schedulist.DAL;
 namespace Schedulist.DAL.Migrations
 {
     [DbContext(typeof(SchedulistDbContext))]
-    partial class SchedulistDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240329193435_UpdatingAdminPasswordHash")]
+    partial class UpdatingAdminPasswordHash
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -496,18 +499,18 @@ namespace Schedulist.DAL.Migrations
                         {
                             Id = "1",
                             AccessFailedCount = 50,
-                            ConcurrencyStamp = "f3c9abc8-66f0-446b-8e26-89aa479fb1b2",
+                            ConcurrencyStamp = "1a4a698c-13c7-49fe-800d-5c6dd24d15ec",
                             DepartmentId = 1,
                             EmailConfirmed = true,
                             LockoutEnabled = false,
                             Name = "Tomasz",
-                            PasswordHash = "AQAAAAIAAYagAAAAEPi+5dq89aiqazJ2y8C2wst5NqfavqpPIGR5CjOOg3p5aglHt6NNvYtKm7UuoCoEOA==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEOq7Oz9CZyoxQxlsQ/hEM51V5DsIvWTud8eZuWwIpAzkMsUEJnSfmP865ZIQZ+bLMw==",
                             PhoneNumberConfirmed = false,
                             PositionId = 2,
-                            SecurityStamp = "045b1d32-a16a-4a0d-8bd6-11cf196f3f74",
+                            SecurityStamp = "c46a3e71-a556-4eb4-9354-b32c7f3507b8",
                             Surname = "Tomaszewicz",
                             TwoFactorEnabled = false,
-                            UserName = "KURSTOMASZA@GMAIL.COM"
+                            UserName = "Tomasz Tomaszewicz"
                         });
                 });
 
