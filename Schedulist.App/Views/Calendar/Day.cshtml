@@ -23,10 +23,19 @@
                 </button>
                 <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                     <a class="dropdown-item" onclick="location.href='@Url.Action("Week", "Calendar", new {@date = DateTime.Now, @userToEdit = Model.User.Id})'">Week</a>
-                    <a class="dropdown-item" onclick="location.href='@Url.Action("ChangeUser", "Calendar", new {@date = DateTime.Now, @userToEdit = Model.User.Id})'">Month</a>
+                    <a class="dropdown-item" onclick="location.href='@Url.Action("ChangeUser", "Calendar", new {@date = DateTime.Now, @userToEdit = Model.User.Id})'">Month</a>                    
                 </div>
             </div>
         </div>
+        <div>
+            <div class="dropdown">
+                <button class="btn btn-primary dropdown-toggle calendar-day-work-mode" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Choose work mode
+                </button>
+                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+
+                </div>
+            </div>
         <div class="event-dropdown">
             <input type="hidden" name="chosenDate" value="@Model.Date.ToString(" yyyy-MM-dd")" />
             <button class="btn btn-primary" onclick="location.href='@Url.Action("Create", "Calendar")'">
@@ -35,7 +44,7 @@
         </div>
         <div class="month-user-name">
             @Model.User.Name @Model.User.Surname - @Model.WorkMode
-        </div>
+        </div>       
     </div>
     <div class="row day-calendar-row">
         <div class="col-1 day-calendar-row-hour calendar-header">Hour</div>

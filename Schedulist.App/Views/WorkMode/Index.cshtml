@@ -1,5 +1,5 @@
 ﻿@model IEnumerable<Schedulist.DAL.Models.WorkModeForUser>
-
+ 
 @{
     ViewData["Title"] = "Index";
 }
@@ -28,28 +28,25 @@
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model) {
-        <tr>
+        @foreach (var item in Model) 
+        {
+            <tr>
                 <td>
                     @Html.DisplayFor(modelItem => item.UserId)
                 </td>
-            <td>
+                <td>
                     @Html.DisplayFor(modelItem => item.DateOfWorkMode)
                 </td>
             @* <td>
                 @Html.DisplayFor(modelItem => item.WorkModeToUserID)
             </td> *@
-            <td>
-                @Html.DisplayFor(modelItem => item.WorkMode.Name)
-            </td>    
-@*             <td>
-                @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
-                @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
-                @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
-            </td> *@
+                <td>
+                    @Html.DisplayFor(modelItem => item.WorkMode.Name)
+                </td>   
+            
                 <td>
                     <div class="button-container">
-                        @* <button type="button">@Html.ActionLink("Edit", "Edit", new { id = item.CalendarEventId })</button> *@
+                        <button type="button" class="btn btn-primary">@Html.ActionLink("Edit", "Edit", new { id = item.Id }, new { style = "color: white;" })</button>
                         @* <button type="button">@Html.ActionLink("Details", "Details", new { id = item.CalendarEventId })</button> *@
                         <button type="button" onclick="DeleteWorkMode('@Url.Action("Delete", "WorkMode")?id=@item.UserId','@item.UserId','@item.WorkMode.Name','@item.UserId','@item.DateOfWorkMode')">
                             Delete
@@ -57,8 +54,8 @@
                     </div>
                 </td>
 
-        </tr>
-}
+            </tr>
+        }
     </tbody>
 </table>
 

@@ -1,6 +1,7 @@
 ﻿using Microsoft.Extensions.Logging;
 using Schedulist.DAL.Models;
 using Schedulist.DAL.Repositories.Interfaces;
+using System.ComponentModel.DataAnnotations;
 
 namespace Schedulist.DAL.Repositories
 {
@@ -77,5 +78,21 @@ namespace Schedulist.DAL.Repositories
                 return false;
             }
         }
+
+        public ValidationResult WorkModeForUserValidation(WorkModeForUser workMode)
+        {
+            List<WorkModeForUser> allWorkModes = GetAllWorkModesForUser();
+            var providedDateOfWorkMode = allWorkModes.FirstOrDefault(wm=>wm.UserId==workMode.UserId && wm.Id==workMode.Id && wm.DateOfWorkMode==workMode.DateOfWorkMode);
+            if (providedDateOfWorkMode != null)
+            {
+                return new ValidationResult("There is already a work mode with the provided date or that takes place at the same day. Please provide different values.");
+            }
+            return ValidationResult.Success;
+        }
+
+        /*public ValidationResult WorkModeForUserDateValidation(WorkModeForUser workMode)
+        {
+            return ValidationResult.Success();
+        }*/
     }
 }

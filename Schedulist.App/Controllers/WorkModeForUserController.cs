@@ -11,17 +11,23 @@ namespace Schedulist.App.Controllers
     public class WorkModeForUserController : ControllerBase
     {
         private readonly IWorkModeForUserRepository _workModeForUserRepository;
-        public WorkModeForUserController(ILogger<WorkModeForUserController> logger, IWorkModeForUserRepository workModeForUserRepository) : base(logger)
+        private readonly IWorkModeRepository _workModeRepository;
+        private readonly IUserRepository _userRepository;
+        public WorkModeForUserController(ILogger<WorkModeForUserController> logger, IWorkModeForUserRepository workModeForUserRepository, IWorkModeRepository workModeRepository, IUserRepository userRepository) : base(logger)
         {
+
             _workModeForUserRepository = workModeForUserRepository;
+            _workModeRepository = workModeRepository;
+            _userRepository = userRepository;
+
         }
 
         //GET: WorkModeForUserController
-       [Route("WorkModesToUser")]
+        [Route("WorkModesToUser")]
         public ActionResult Index()
         {
-            var workmode = _workModeForUserRepository.GetAllWorkModesForUser();
-            return View(workmode);
+            var workmodeForUser = _workModeForUserRepository.GetAllWorkModesForUser();
+            return View(workmodeForUser);
         }
 
         [HttpPost]
@@ -50,33 +56,39 @@ namespace Schedulist.App.Controllers
             return View(model);
         }
 
+        public void SetupWorkModeList()
+        {
+            var workModes = _workModeRepository.GetAllWorkModes();
+            var workModesItems = workModes.Select(workMode => new SelectListItem { Text = $"{workMode.Name}", Value = workMode.Id.ToString() });
+            ViewBag.WorkModes = new SelectList(workModesItems, "Value", "Text");
+        }
+
+        private void SetupUserList()
+        {
+            var users = _userRepository.GetAllUsers();
+            var usersListItems = users.Select(user => new SelectListItem { Text = $"{user.Name} {user.Surname}", Value = user.Id.ToString() });
+            ViewBag.Users = new SelectList(usersListItems, "Value", "Text");
+        }
+
         //POST: WorkModeForUserController/Edit/5
-        //[HttpPost]
-        //[ValidateAntiForgeryToken]
-        //public ActionResult Edit(WorkModeForUser workMode)
-        //{
-        //    try
-        //    {
-        //        if (!ModelState.IsValid)
-        //        {
-        //            return View();
-        //        }
-                
-        //        foreach (var name in namesWorkModes)
-        //        {
-        //            viewWorkMode.GetAllWorkModeNames.Add(new SelectListItem { Text = name.Name, Value = name.Id.ToString() });
-        //        }
-        //        //WorkModeService workModeService = new WorkModeService();
-        //        _workModeService.Edit(viewWorkMode, workModes);
-        //        Debug.WriteLine("Modified Work Mode!");
-        //        TempData["Success"] = "Work Mode has been modified successfully!";
-        //        return RedirectToAction(nameof(Index));
-        //    }
-        //    catch
-        //    {
-        //        return View();
-        //    }
-        //}
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Edit(WorkModeForUser workModeForUser)
+        {
+            try
+            {
+                SetupUserList();
+                SetupWorkModeList();
+                _workModeForUserRepository.UpdateWorkModeForUser(workModeForUser);
+                logger.LogInformation("Work mode for user has been updated successfully");
+                PopupNotification("Work mode for user has been updated successfully");
+                return RedirectToAction(nameof(Index));
+            }
+            catch
+            {
+                return View();
+            }
+        }
 
         // GET: WorkModeController/Details/5
         //public IActionResult Details(int id)
@@ -96,37 +108,24 @@ namespace Schedulist.App.Controllers
         // POST: WorkModeController/Create
         //[HttpPost]
         //[ValidateAntiForgeryToken]
-        //public ActionResult Create(WorkModeViewModel workModeView, WorkModesToUser workModesToUser)
-        //{
-        //    var workmodename = WorkModeNamesList.GetAll();
-        //    workModeView.GetAllWorkModeNames = new List<SelectListItem>();
-        //    try
-        //    {
-        //        if (!ModelState.IsValid)
-        //        {
-        //            return View(workModesToUser);
-        //        }
-        //        //foreach (var name in workmodename)
-        //        //{
-        //        //    workModeView.GetAllWorkModeNames.Add(new SelectListItem { Text = name.Name, Value = name.Id.ToString() });
-        //        //}
-        //        //DateTime selectedDate = (DateTime)TempData.Peek("SelectedDate");
-        //        //DateOnly parsedChosenDate = DateOnly.FromDateTime(selectedDate);
-        //        workModeView.WorkModeName = WorkModeNamesList.GetAll().FirstOrDefault(w => w.Id == workModeView.SelectedWorkModeId)?.Name;
+        public ActionResult Create(WorkModeForUser workModeForUser)
+        {
 
-        //        _workModeService.Create(workModeView, workModesToUser);
-        //        Debug.WriteLine("Created new work mode!");
-        //        TempData["Success"] = "Work mode has been created successfully";
-        //        return RedirectToAction(nameof(Index));
-        //    }
-        //    catch
-        //    {
-        //        return View();
-        //    }
+            try
+            {
+                SetupUserList();
+                SetupWorkModeList();
+                var validationResults = 
+                
+            }
+            catch
+            {
+               return Ok();
+            }
 
-        //    //var model = new WorkModeViewModel();
-        //}
+            //var model = new WorkModeViewModel();
+            //}
 
-        //GET: WorkModeForUserController/Delete/5
-    }
-}
+            //GET: WorkModeForUserController/Delete/5
+        }
+    } }

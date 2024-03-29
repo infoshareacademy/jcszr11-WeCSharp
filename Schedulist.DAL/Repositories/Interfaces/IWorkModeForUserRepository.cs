@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -15,6 +16,8 @@ namespace Schedulist.DAL.Repositories.Interfaces
         bool DeleteWorkModeForUser(WorkModeForUser workModeToDelete);
         WorkModeForUser GetWorkModeByUserIdAndDateOfWorkMode(int idUser, DateOnly dateWorkMode);
         public WorkModeForUser GetWorkModeById(int id);
+        public ValidationResult WorkModeForUserValidation(WorkModeForUser workMode);
+        //public ValidationResult WorkModeForUserDateValidation(WorkModeForUser workMode);
 
     }
 }
