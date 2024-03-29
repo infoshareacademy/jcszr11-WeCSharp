@@ -6,5 +6,6 @@ namespace Schedulist.App.Services.Interfaces
     public interface ICalendarEventService
     {
         public List<ValidationResult> ValidateCalendarEvent(CalendarEvent calendarEvent);
+        public List<ValidationResult> ValidateCalendarEvent(int id);
     }
 }
