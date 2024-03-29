@@ -5,6 +5,8 @@ using System.Text;
 using System.Threading.Tasks;
 using System.ComponentModel.DataAnnotations;
 using CsvHelper.Configuration.Attributes;
+using Schedulist.DAL;
+
 
 
 namespace Schedulist.DAL.Models
@@ -13,6 +15,8 @@ namespace Schedulist.DAL.Models
     {
         [Key]
         public int Id { get; set; }
-        public required string Name { get; set; }
+        public string? Name {  get; set; }
+        public string? WorkMode { get; set; }
+        public string? CalendarEvent { get; set; }
     }
 }

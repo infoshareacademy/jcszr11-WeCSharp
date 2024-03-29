@@ -1,0 +1,84 @@
+2024-03-29 12:58:06.644 +01:00 [INF] User profile is available. Using 'C:\Users\Grześko\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
+2024-03-29 12:58:06.914 +01:00 [INF] Now listening on: https://localhost:7178
+2024-03-29 12:58:06.914 +01:00 [INF] Now listening on: http://localhost:5291
+2024-03-29 12:58:06.935 +01:00 [INF] Application started. Press Ctrl+C to shut down.
+2024-03-29 12:58:06.936 +01:00 [INF] Hosting environment: Development
+2024-03-29 12:58:06.937 +01:00 [INF] Content root path: C:\Users\Grześko\Desktop\projekt\jcszr11-WeCSharp\Schedulist.App
+2024-03-29 12:58:07.466 +01:00 [INF] Request starting HTTP/2 GET https://localhost:7178/ - null null
+2024-03-29 12:58:07.579 +01:00 [INF] Executing endpoint 'Schedulist.App.Controllers.CalendarController.Index (Schedulist.App)'
+2024-03-29 12:58:07.605 +01:00 [INF] Route matched with {action = "Index", controller = "Calendar", page = "", area = ""}. Executing controller action with signature Microsoft.AspNetCore.Mvc.IActionResult Index() on controller Schedulist.App.Controllers.CalendarController (Schedulist.App).
+2024-03-29 12:58:08.495 +01:00 [INF] Executed DbCommand (13ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [a].[Id], [a].[AccessFailedCount], [a].[ConcurrencyStamp], [a].[DepartmentId], [a].[Email], [a].[EmailConfirmed], [a].[LockoutEnabled], [a].[LockoutEnd], [a].[Name], [a].[NormalizedEmail], [a].[NormalizedUserName], [a].[PasswordHash], [a].[PhoneNumber], [a].[PhoneNumberConfirmed], [a].[PositionId], [a].[SecurityStamp], [a].[Surname], [a].[TwoFactorEnabled], [a].[UserName]
+FROM [AspNetUsers] AS [a]
+2024-03-29 12:58:08.579 +01:00 [INF] Executed DbCommand (1ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [c].[Id], [c].[CalendarEventDate], [c].[CalendarEventDescription], [c].[CalendarEventEndTime], [c].[CalendarEventName], [c].[CalendarEventStartTime], [c].[UserId]
+FROM [CalendarEvents] AS [c]
+2024-03-29 12:58:08.607 +01:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [w].[Id], [w].[DateOfWorkMode], [w].[UserId], [w].[WorkModeId]
+FROM [WorkModesToUsers] AS [w]
+2024-03-29 12:58:08.621 +01:00 [INF] Executing ViewResult, running view Index.
+2024-03-29 12:58:08.769 +01:00 [INF] Executed DbCommand (22ms) [Parameters=[@__normalizedUserName_0='?' (Size = 256)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [a].[Id], [a].[AccessFailedCount], [a].[ConcurrencyStamp], [a].[DepartmentId], [a].[Email], [a].[EmailConfirmed], [a].[LockoutEnabled], [a].[LockoutEnd], [a].[Name], [a].[NormalizedEmail], [a].[NormalizedUserName], [a].[PasswordHash], [a].[PhoneNumber], [a].[PhoneNumberConfirmed], [a].[PositionId], [a].[SecurityStamp], [a].[Surname], [a].[TwoFactorEnabled], [a].[UserName]
+FROM [AspNetUsers] AS [a]
+WHERE [a].[NormalizedUserName] = @__normalizedUserName_0
+2024-03-29 12:58:08.815 +01:00 [INF] Executed ViewResult - view Index executed in 194.5357ms.
+2024-03-29 12:58:08.820 +01:00 [INF] Executed action Schedulist.App.Controllers.CalendarController.Index (Schedulist.App) in 1212.1699ms
+2024-03-29 12:58:08.820 +01:00 [INF] Request starting HTTP/2 GET https://localhost:7178/_framework/aspnetcore-browser-refresh.js - null null
+2024-03-29 12:58:08.821 +01:00 [INF] Executed endpoint 'Schedulist.App.Controllers.CalendarController.Index (Schedulist.App)'
+2024-03-29 12:58:08.827 +01:00 [INF] Request starting HTTP/2 GET https://localhost:7178/_vs/browserLink - null null
+2024-03-29 12:58:08.828 +01:00 [INF] Request finished HTTP/2 GET https://localhost:7178/_framework/aspnetcore-browser-refresh.js - 200 13764 application/javascript; charset=utf-8 8.0685ms
+2024-03-29 12:58:08.838 +01:00 [INF] Request finished HTTP/2 GET https://localhost:7178/ - 200 null text/html; charset=utf-8 1381.8151ms
+2024-03-29 12:58:08.858 +01:00 [INF] Request finished HTTP/2 GET https://localhost:7178/_vs/browserLink - 200 null text/javascript; charset=UTF-8 31.7546ms
+2024-03-29 12:58:09.620 +01:00 [INF] Request starting HTTP/2 GET https://localhost:7178/Statistics - null null
+2024-03-29 12:58:09.629 +01:00 [INF] Request finished HTTP/2 GET https://localhost:7178/Statistics - 404 0 null 9.4994ms
+2024-03-29 12:58:09.631 +01:00 [INF] Request reached the end of the middleware pipeline without being handled by application code. Request path: GET https://localhost:7178/Statistics, Response status code: 404
+2024-03-29 12:58:14.780 +01:00 [INF] Request starting HTTP/2 GET https://localhost:7178/Statistics - null null
+2024-03-29 12:58:14.788 +01:00 [INF] Request finished HTTP/2 GET https://localhost:7178/Statistics - 404 0 null 8.3164ms
+2024-03-29 12:58:14.790 +01:00 [INF] Request reached the end of the middleware pipeline without being handled by application code. Request path: GET https://localhost:7178/Statistics, Response status code: 404
+2024-03-29 12:58:15.749 +01:00 [INF] Request starting HTTP/2 GET https://localhost:7178/_framework/aspnetcore-browser-refresh.js - null null
+2024-03-29 12:58:15.753 +01:00 [INF] Request finished HTTP/2 GET https://localhost:7178/_framework/aspnetcore-browser-refresh.js - 200 13764 application/javascript; charset=utf-8 4.2641ms
+2024-03-29 12:58:15.836 +01:00 [INF] Request starting HTTP/2 GET https://localhost:7178/favicon.ico - null null
+2024-03-29 12:58:15.876 +01:00 [INF] Sending file. Request path: '/favicon.ico'. Physical path: 'C:\Users\Grześko\Desktop\projekt\jcszr11-WeCSharp\Schedulist.App\wwwroot\favicon.ico'
+2024-03-29 12:58:15.877 +01:00 [INF] Request finished HTTP/2 GET https://localhost:7178/favicon.ico - 200 5430 image/x-icon 41.6764ms
+2024-03-29 12:58:16.628 +01:00 [INF] Request starting HTTP/2 GET https://localhost:7178/WorkModesToUser - null null
+2024-03-29 12:58:16.635 +01:00 [INF] Executing endpoint 'Schedulist.App.Controllers.WorkModeForUserController.Index (Schedulist.App)'
+2024-03-29 12:58:16.638 +01:00 [INF] Route matched with {action = "Index", controller = "WorkModeForUser", page = "", area = ""}. Executing controller action with signature Microsoft.AspNetCore.Mvc.ActionResult Index() on controller Schedulist.App.Controllers.WorkModeForUserController (Schedulist.App).
+2024-03-29 12:58:16.657 +01:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [w].[Id], [w].[DateOfWorkMode], [w].[UserId], [w].[WorkModeId]
+FROM [WorkModesToUsers] AS [w]
+2024-03-29 12:58:16.660 +01:00 [INF] Executing ViewResult, running view Index.
+2024-03-29 12:58:16.662 +01:00 [ERR] The view 'Index' was not found. Searched locations: ["/Views/WorkModeForUser/Index.cshtml","/Views/Shared/Index.cshtml","/Pages/Shared/Index.cshtml"]
+2024-03-29 12:58:16.669 +01:00 [INF] Executed action Schedulist.App.Controllers.WorkModeForUserController.Index (Schedulist.App) in 27.5146ms
+2024-03-29 12:58:16.671 +01:00 [INF] Executed endpoint 'Schedulist.App.Controllers.WorkModeForUserController.Index (Schedulist.App)'
+2024-03-29 12:58:16.716 +01:00 [ERR] The view 'Index' was not found. The following locations were searched:
+/Views/WorkModeForUser/Index.cshtml
+/Views/Shared/Index.cshtml
+/Pages/Shared/Index.cshtml
+System.InvalidOperationException: The view 'Index' was not found. The following locations were searched:
+/Views/WorkModeForUser/Index.cshtml
+/Views/Shared/Index.cshtml
+/Pages/Shared/Index.cshtml
+   at Microsoft.AspNetCore.Mvc.ViewEngines.ViewEngineResult.EnsureSuccessful(IEnumerable`1 originalLocations)
+   at Microsoft.AspNetCore.Mvc.ViewFeatures.ViewResultExecutor.ExecuteAsync(ActionContext context, ViewResult result)
+   at Microsoft.AspNetCore.Mvc.ViewResult.ExecuteResultAsync(ActionContext context)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeNextResultFilterAsync>g__Awaited|30_0[TFilter,TFilterAsync](ResourceInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.Rethrow(ResultExecutedContextSealed context)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.ResultNext[TFilter,TFilterAsync](State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.InvokeResultFilters()
+--- End of stack trace from previous location ---
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeNextResourceFilter>g__Awaited|25_0(ResourceInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.Rethrow(ResourceExecutedContextSealed context)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.InvokeFilterPipelineAsync()
+--- End of stack trace from previous location ---
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Logged|17_1(ResourceInvoker invoker)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Logged|17_1(ResourceInvoker invoker)
+   at Microsoft.AspNetCore.Routing.EndpointMiddleware.<Invoke>g__AwaitRequestTask|7_0(Endpoint endpoint, Task requestTask, ILogger logger)
+   at Microsoft.AspNetCore.Authorization.AuthorizationMiddleware.Invoke(HttpContext context)
+   at Schedulist.App.Middleware.ErrorHandlingMiddleware.InvokeAsync(HttpContext context, RequestDelegate next) in C:\Users\Grześko\Desktop\projekt\jcszr11-WeCSharp\Schedulist.DAL\Middleware\ErrorHandlingMiddleware.cs:line 20
+2024-03-29 12:58:16.732 +01:00 [INF] Request finished HTTP/2 GET https://localhost:7178/WorkModesToUser - 500 null null 104.2816ms
+2024-03-29 12:58:17.632 +01:00 [INF] Request starting HTTP/2 GET https://localhost:7178/_framework/aspnetcore-browser-refresh.js - null null
+2024-03-29 12:58:17.635 +01:00 [INF] Request finished HTTP/2 GET https://localhost:7178/_framework/aspnetcore-browser-refresh.js - 200 13764 application/javascript; charset=utf-8 3.2815ms
+2024-03-29 12:58:18.243 +01:00 [INF] Request starting HTTP/2 GET https://localhost:7178/Statistics - null null
+2024-03-29 12:58:18.248 +01:00 [INF] Request finished HTTP/2 GET https://localhost:7178/Statistics - 404 0 null 5.1304ms
+2024-03-29 12:58:18.249 +01:00 [INF] Request reached the end of the middleware pipeline without being handled by application code. Request path: GET https://localhost:7178/Statistics, Response status code: 404
