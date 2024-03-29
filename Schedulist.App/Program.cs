@@ -31,20 +31,20 @@ namespace Schedulist.App
                 options.UseSqlServer(connectionString));
             builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
-            builder.Services.AddDefaultIdentity<User>(
-                options =>
+            builder.Services.AddIdentity<User, IdentityRole>(options =>
                 {
-                    options.Password.RequiredUniqueChars = 0;
-                    options.Password.RequireUppercase = true;
-                    options.Password.RequireLowercase = false;
-                    options.Password.RequiredLength = 8;
-                    options.Password.RequireNonAlphanumeric = false;
+                    //options.Password.RequiredUniqueChars = 0;
+                    //options.Password.RequireUppercase = true;
+                    //options.Password.RequireLowercase = false;
+                    //options.Password.RequiredLength = 8;
+                    //options.Password.RequireNonAlphanumeric = false;
                     options.SignIn.RequireConfirmedAccount = true;
                 }
                 )
-                .AddRoles<IdentityRole>()
                 .AddEntityFrameworkStores<SchedulistDbContext>();
+
             builder.Services.AddControllersWithViews();
+            builder.Services.AddRazorPages();
 
             User user = new() { Id = "2", Name = "Andrzej", Surname = "Andrzejewski", DepartmentId = 3, PositionId = 4 };
             builder.Services.AddSingleton<User>(user);
@@ -54,7 +54,7 @@ namespace Schedulist.App
             builder.Services.AddScoped<ICalendarRepository, CalendarRepository>();
             builder.Services.AddTransient<IWorkModeForUserRepository, WorkModeForUserRepository>();
             builder.Services.AddTransient<IWorkModeRepository, WorkModeRepository>();
-            builder.Services.AddScoped<ErrorHandlingMiddleware>();
+            //builder.Services.AddScoped<ErrorHandlingMiddleware>();
 
             var app = builder.Build();
             using (var scope = app.Services.CreateScope())
@@ -70,7 +70,7 @@ namespace Schedulist.App
                 app.UseHsts();
             }
 
-            app.UseMiddleware<ErrorHandlingMiddleware>();
+            //app.UseMiddleware<ErrorHandlingMiddleware>();
             app.UseHttpsRedirection();
             app.UseStaticFiles();
 

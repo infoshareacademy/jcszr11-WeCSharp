@@ -7,6 +7,7 @@ using Schedulist.DAL.Repositories.Interfaces;
 using System.ComponentModel.DataAnnotations;
 using System.Diagnostics;
 
+
 namespace Schedulist.App.Controllers
 {
     public class CalendarController : ControllerBase
@@ -35,10 +36,10 @@ namespace Schedulist.App.Controllers
 
         public IActionResult Index()
         {
-            //if (!User.Identity.IsAuthenticated)
-            //{
-            //    return RedirectToPage("Identity");
-            //}
+            if (!User.Identity.IsAuthenticated)
+            {
+                return Redirect("/Identity/Account/Login");
+            }
             string userToChangeId = _user.Id;
             List<CalendarEvent> allCalendarEvents = _calendarEventRepository.GetAllCalendarEvents();
             var calendarEventsToDraw = allCalendarEvents.Where(calendarEvent => calendarEvent.UserId == userToChangeId && calendarEvent.CalendarEventDate.Month == DateTime.Now.Month).ToList();

@@ -1,8 +1,16 @@
-﻿@using Schedulist.App.ViewModels
+﻿@using Microsoft.AspNetCore.Identity
+@using Schedulist.App.ViewModels
 @using Schedulist.DAL.Models
 @using Schedulist.DAL.Repositories
 @using Schedulist.DAL.Shared
 @model MonthViewModel
+@inject SignInManager<IdentityUser> SignInManager
+@inject UserManager<IdentityUser> UserManager
+
+@{
+    var loggedInUser = await UserManager.GetUserAsync(User);
+    var userName = $"{loggedInUser.UserName}";
+}
 
 <script>
     function openCalendarSidebar(element) {
@@ -40,7 +48,7 @@
 <div class="calendar-dropdown">
     <div class="dropdown">
         <button id="userButton" class="btn btn-secondary dropdown-toggle user-dropdown" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            <span id="userNameDisplay">@Model.UserDict.First().Value</span>
+            <span id="userNameDisplay">@userName</span>
         </button>
         <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
             @foreach (KeyValuePair<string, string> DropdownUser in Model.UserDict)
