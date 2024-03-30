@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Schedulist.App.Services;
 using Schedulist.App.Services.Interfaces;
@@ -6,13 +7,15 @@ using Schedulist.DAL.Models;
 using Schedulist.DAL.Repositories.Interfaces;
 using System.ComponentModel.DataAnnotations;
 using System.Diagnostics;
+using System.Security.Claims;
 
 
 namespace Schedulist.App.Controllers
 {
     public class CalendarController : ControllerBase
     {
-        private User _user;
+        private readonly IHttpContextAccessor _httpContextAccessor;
+        //private User _user;
         private readonly IWorkModeForUserRepository _workModeForUserRepository;
         private readonly IWorkModeRepository _workModeRepository;
         private readonly ICalendarEventRepository _calendarEventRepository;
@@ -20,9 +23,10 @@ namespace Schedulist.App.Controllers
         private readonly IUserRepository _userRepository;
         private Dictionary<string, string> _userDict = [];
         private MonthViewModel _calendarParams;
-        public CalendarController(ILogger<CalendarController> logger, User user, IWorkModeForUserRepository workModeForUserRepository, IWorkModeRepository workModeRepository, ICalendarEventRepository calendarEventRepository, ICalendarEventService calendarEventService, IUserRepository userRepository) : base(logger)
+        public CalendarController(IHttpContextAccessor httpContextAccessor, ILogger<CalendarController> logger, User user, IWorkModeForUserRepository workModeForUserRepository, IWorkModeRepository workModeRepository, ICalendarEventRepository calendarEventRepository, ICalendarEventService calendarEventService, IUserRepository userRepository) : base(logger)
         {
-            _user = user;
+            _httpContextAccessor = httpContextAccessor;
+            //_user = user;
             _workModeForUserRepository = workModeForUserRepository;
             _workModeRepository = workModeRepository;
             _calendarEventRepository = calendarEventRepository;
@@ -40,44 +44,56 @@ namespace Schedulist.App.Controllers
             {
                 return Redirect("/Identity/Account/Login");
             }
-            string userToChangeId = _user.Id;
+            var userManager = HttpContext.RequestServices.GetRequiredService<UserManager<User>>();
+            var user = userManager.GetUserAsync(HttpContext.User).Result;
+
+            //var user = _httpContextAccessor.HttpContext?.User;
+
+            string userToChangeId = user.Id;
             List<CalendarEvent> allCalendarEvents = _calendarEventRepository.GetAllCalendarEvents();
             var calendarEventsToDraw = allCalendarEvents.Where(calendarEvent => calendarEvent.UserId == userToChangeId && calendarEvent.CalendarEventDate.Month == DateTime.Now.Month).ToList();
             List<WorkModeForUser> workModesToDraw = _workModeForUserRepository.GetAllWorkModesForUser().Where(e => e.DateOfWorkMode.Month == DateTime.Now.Month && e.UserId == userToChangeId).ToList();
-            var userNameDisplay = $"{_user.Name} {_user.Surname}";
+            var userNameDisplay = $"{user?.Name}";
             _calendarParams = new MonthViewModel(calendarEventsToDraw, _userDict, userToChangeId, userNameDisplay, _workModeRepository, workModesToDraw);
             return View(_calendarParams);
         }
 
         public IActionResult PreviousMonth(DateTime date, string userToEdit)
         {
+            var userManager = HttpContext.RequestServices.GetRequiredService<UserManager<User>>();
+            var user = userManager.GetUserAsync(HttpContext.User).Result;
+
             List<CalendarEvent> allCalendarEvents = _calendarEventRepository.GetAllCalendarEvents();
-            _user = _userRepository.GetAllUsers().First(obj => obj.Id == userToEdit);
-            var useNameDisplay = $"{_user.Name} {_user.Surname}";
-            var calendarEventsToDraw = allCalendarEvents.Where(e => e.UserId == _user.Id && e.CalendarEventDate.Month == date.AddMonths(-1).Month).ToList();
+            user = _userRepository.GetAllUsers().First(obj => obj.Id == userToEdit);
+            var userNameDisplay = $"{user?.Name}";
+            var calendarEventsToDraw = allCalendarEvents.Where(e => e.UserId == user.Id && e.CalendarEventDate.Month == date.AddMonths(-1).Month).ToList();
             List<WorkModeForUser> workModesToDraw = _workModeForUserRepository.GetAllWorkModesForUser().Where(e => e.DateOfWorkMode.Month == date.AddMonths(-1).Month && e.UserId == userToEdit).ToList();
-            _calendarParams = new MonthViewModel(date.AddMonths(-1), calendarEventsToDraw, _userDict, userToEdit, _workModeRepository, workModesToDraw, useNameDisplay);
+            _calendarParams = new MonthViewModel(date.AddMonths(-1), calendarEventsToDraw, _userDict, userToEdit, _workModeRepository, workModesToDraw, userNameDisplay);
             return View("Index", _calendarParams);
         }
         public IActionResult NextMonth(DateTime date, string userToEdit)
         {
+            var user = _httpContextAccessor.HttpContext?.User;
+
             List<CalendarEvent> allCalendarEvents = _calendarEventRepository.GetAllCalendarEvents();
             _user = _userRepository.GetAllUsers().First(obj => obj.Id == userToEdit);
-            var useNameDisplay = $"{_user.Name} {_user.Surname}";
+            var userNameDisplay = $"{user?.Identity?.Name}";
             var calendarEventsToDraw = allCalendarEvents.Where(e => e.UserId == _user.Id && e.CalendarEventDate.Month == date.AddMonths(+1).Month).ToList();
             List<WorkModeForUser> workModesToDraw = _workModeForUserRepository.GetAllWorkModesForUser().Where(e => e.DateOfWorkMode.Month == date.AddMonths(1).Month && e.UserId == userToEdit).ToList();
-            _calendarParams = new MonthViewModel(date.AddMonths(1), calendarEventsToDraw, _userDict, userToEdit, _workModeRepository, workModesToDraw, useNameDisplay);
+            _calendarParams = new MonthViewModel(date.AddMonths(1), calendarEventsToDraw, _userDict, userToEdit, _workModeRepository, workModesToDraw, userNameDisplay);
             return View("Index", _calendarParams);
         }
 
         public IActionResult ChangeUser(DateTime date, string userToEdit)
         {
+            var user = _httpContextAccessor.HttpContext?.User;
+
             _user = _userRepository.GetAllUsers().First(obj => obj.Id == userToEdit);
             List<CalendarEvent> allCalendarEvents = _calendarEventRepository.GetAllCalendarEvents();
             var calendarEventsToDraw = allCalendarEvents.Where(e => e.UserId == _user.Id && e.CalendarEventDate.Month == date.Month).ToList();
-            var useNameDisplay = $"{_user.Name} {_user.Surname}";
+            var userNameDisplay = $"{user?.Identity?.Name}";
             List<WorkModeForUser> workModesToDraw = _workModeForUserRepository.GetAllWorkModesForUser().Where(e => e.DateOfWorkMode.Month == date.Month && e.UserId == userToEdit).ToList();
-            _calendarParams = new MonthViewModel(date, calendarEventsToDraw, _userDict, userToEdit, _workModeRepository, workModesToDraw, useNameDisplay);
+            _calendarParams = new MonthViewModel(date, calendarEventsToDraw, _userDict, userToEdit, _workModeRepository, workModesToDraw, userNameDisplay);
             return View("Index", _calendarParams);
         }
 

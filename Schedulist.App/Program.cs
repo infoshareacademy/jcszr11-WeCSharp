@@ -37,8 +37,19 @@ namespace Schedulist.App
             builder.Services.AddControllersWithViews();
             builder.Services.AddRazorPages();
 
-            User user = new() { Id = "2", Name = "Andrzej", Surname = "Andrzejewski", DepartmentId = 3, PositionId = 4 };
-            builder.Services.AddSingleton<User>(user);
+            builder.Services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>(); 
+
+            
+            builder.Services.AddScoped<User>(serviceProvider =>
+            {
+                var httpContextAccessor = serviceProvider.GetRequiredService<IHttpContextAccessor>();
+                var userManager = serviceProvider.GetRequiredService<UserManager<User>>();
+                var user = userManager.GetUserAsync(httpContextAccessor.HttpContext.User).GetAwaiter().GetResult();
+                return user;
+            });
+
+            //User user = new() { Id = "2", Name = "Andrzej", Surname = "Andrzejewski", DepartmentId = 3, PositionId = 4 };
+            //builder.Services.AddSingleton<User>(user);
             builder.Services.AddTransient<IUserRepository, UserRepository>();
             builder.Services.AddScoped<ICalendarEventRepository, CalendarEventRepository>();
             builder.Services.AddScoped<ICalendarEventService, CalendarEventService>();
