@@ -28,6 +28,7 @@ namespace Schedulist.App.Controllers
                 {
                     Id = user.Id,
                     Name = user.Name,
+                    Surname = user.Surname,
                     Email = user.Email,
                     Roles = string.Join(",", (await _userManager.GetRolesAsync(user)))
             });
@@ -42,6 +43,16 @@ namespace Schedulist.App.Controllers
             if (user != null && !await _userManager.IsInRoleAsync(user, "ADMIN"))
             {
                 await _userManager.AddToRoleAsync(user, "ADMIN");
+            }
+            return RedirectToAction("ManageUsers");
+        }
+        [HttpPost]
+        public async Task<IActionResult> AddToStandardRole(string userId)
+        {
+            var user = _userRepository.GetUserById(userId);
+            if (user != null && !await _userManager.IsInRoleAsync(user, "USER"))
+            {
+                await _userManager.AddToRoleAsync(user, "USER");
             }
             return RedirectToAction("ManageUsers");
         }

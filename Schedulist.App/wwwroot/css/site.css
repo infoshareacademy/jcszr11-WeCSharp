@@ -468,6 +468,7 @@ html {
     }
 /*Select User drop-down*/
 .dropdown-menu {
+    
     width: 250px;
 }
 .dropdown-menu a.pointer {
@@ -489,8 +490,31 @@ table {
 }
 table td{
     border: solid black 2px;
+    padding: 10px;
 }
 
 table td tr {
     border: solid black 2px;
+}
+
+.nav-pills .nav-link.active, .nav-pills .show > .nav-link {
+    background-color: white;
+}
+.nav-pills .nav-link.active, .nav-pills .show > .nav-link:hover {
+    background-color: #23272a;
+}
+.nav-pills .nav-link.active, .nav-pills .show > .nav-link a:hover {
+    color: white;
+}
+.text-black:hover {
+    color: white !important;
+}
+#logoutForm:hover {
+    background-color: #23272a;
+}
+#logout:hover {
+    color: white !important;
+}
+.adminButtom:hover {
+    outline: 2px solid black;
 }
