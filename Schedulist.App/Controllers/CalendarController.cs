@@ -44,7 +44,8 @@ namespace Schedulist.App.Controllers
             List<CalendarEvent> allCalendarEvents = _calendarEventRepository.GetAllCalendarEvents();
             var calendarEventsToDraw = allCalendarEvents.Where(calendarEvent => calendarEvent.UserId == userToChangeId && calendarEvent.CalendarEventDate.Month == DateTime.Now.Month).ToList();
             List<WorkModeForUser> workModesToDraw = _workModeForUserRepository.GetAllWorkModesForUser().Where(e => e.DateOfWorkMode.Month == DateTime.Now.Month && e.UserId == userToChangeId).ToList();
-            _calendarParams = new MonthViewModel(calendarEventsToDraw, _userDict, userToChangeId, _workModeRepository, workModesToDraw);
+            var userNameDisplay = $"{_user.Name} {_user.Surname}";
+            _calendarParams = new MonthViewModel(calendarEventsToDraw, _userDict, userToChangeId, userNameDisplay, _workModeRepository, workModesToDraw);
             return View(_calendarParams);
         }
 
@@ -52,18 +53,20 @@ namespace Schedulist.App.Controllers
         {
             List<CalendarEvent> allCalendarEvents = _calendarEventRepository.GetAllCalendarEvents();
             _user = _userRepository.GetAllUsers().First(obj => obj.Id == userToEdit);
+            var useNameDisplay = $"{_user.Name} {_user.Surname}";
             var calendarEventsToDraw = allCalendarEvents.Where(e => e.UserId == _user.Id && e.CalendarEventDate.Month == date.AddMonths(-1).Month).ToList();
             List<WorkModeForUser> workModesToDraw = _workModeForUserRepository.GetAllWorkModesForUser().Where(e => e.DateOfWorkMode.Month == date.AddMonths(-1).Month && e.UserId == userToEdit).ToList();
-            _calendarParams = new MonthViewModel(date.AddMonths(-1), calendarEventsToDraw, _userDict, userToEdit, _workModeRepository, workModesToDraw);
+            _calendarParams = new MonthViewModel(date.AddMonths(-1), calendarEventsToDraw, _userDict, userToEdit, _workModeRepository, workModesToDraw, useNameDisplay);
             return View("Index", _calendarParams);
         }
         public IActionResult NextMonth(DateTime date, string userToEdit)
         {
             List<CalendarEvent> allCalendarEvents = _calendarEventRepository.GetAllCalendarEvents();
             _user = _userRepository.GetAllUsers().First(obj => obj.Id == userToEdit);
+            var useNameDisplay = $"{_user.Name} {_user.Surname}";
             var calendarEventsToDraw = allCalendarEvents.Where(e => e.UserId == _user.Id && e.CalendarEventDate.Month == date.AddMonths(+1).Month).ToList();
             List<WorkModeForUser> workModesToDraw = _workModeForUserRepository.GetAllWorkModesForUser().Where(e => e.DateOfWorkMode.Month == date.AddMonths(1).Month && e.UserId == userToEdit).ToList();
-            _calendarParams = new MonthViewModel(date.AddMonths(1), calendarEventsToDraw, _userDict, userToEdit, _workModeRepository, workModesToDraw);
+            _calendarParams = new MonthViewModel(date.AddMonths(1), calendarEventsToDraw, _userDict, userToEdit, _workModeRepository, workModesToDraw, useNameDisplay);
             return View("Index", _calendarParams);
         }
 
@@ -72,8 +75,9 @@ namespace Schedulist.App.Controllers
             _user = _userRepository.GetAllUsers().First(obj => obj.Id == userToEdit);
             List<CalendarEvent> allCalendarEvents = _calendarEventRepository.GetAllCalendarEvents();
             var calendarEventsToDraw = allCalendarEvents.Where(e => e.UserId == _user.Id && e.CalendarEventDate.Month == date.Month).ToList();
+            var useNameDisplay = $"{_user.Name} {_user.Surname}";
             List<WorkModeForUser> workModesToDraw = _workModeForUserRepository.GetAllWorkModesForUser().Where(e => e.DateOfWorkMode.Month == date.Month && e.UserId == userToEdit).ToList();
-            _calendarParams = new MonthViewModel(date, calendarEventsToDraw, _userDict, userToEdit, _workModeRepository, workModesToDraw);
+            _calendarParams = new MonthViewModel(date, calendarEventsToDraw, _userDict, userToEdit, _workModeRepository, workModesToDraw, useNameDisplay);
             return View("Index", _calendarParams);
         }
 

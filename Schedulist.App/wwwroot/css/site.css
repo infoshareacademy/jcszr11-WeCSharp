@@ -155,7 +155,14 @@ html {
     font-size: 20px;
     padding: 0;
     padding-top: 8px;
-    width: 450px;
+    width: 400px;
+}
+.userNameDisplay {
+    font-size: 16px;
+    padding: 0;
+    padding-top: 10px;
+    width: 300px;
+    margin-right: 50px;
 }
 
 .month-user-name {

@@ -45,10 +45,13 @@
             <div class="month-name">
                 @Model.FirstDayOfTheMonth.ToString("MMMM yyyy")
             </div>
+            <div class="userNameDisplay">
+                <span><strong>Current User:</strong> @userName</span>
+            </div>
 <div class="calendar-dropdown">
     <div class="dropdown">
-        <button id="userButton" class="btn btn-secondary dropdown-toggle user-dropdown" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            <span id="userNameDisplay">@userName</span>
+        <button id="userButton" class="btn btn-secondary dropdown-toggle user-dropdown" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="width: auto;">
+            <span style="color:black">Select User Calendar:</span><span id="userNameDisplay"> @Model.UserNameDisplay</span>
         </button>
         <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
             @foreach (KeyValuePair<string, string> DropdownUser in Model.UserDict)
