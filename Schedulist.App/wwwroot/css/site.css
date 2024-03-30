@@ -484,3 +484,13 @@ html {
     background-color: gray;
     color: white;
 }
+table {
+    border: solid black 2px;
+}
+table td{
+    border: solid black 2px;
+}
+
+table td tr {
+    border: solid black 2px;
+}

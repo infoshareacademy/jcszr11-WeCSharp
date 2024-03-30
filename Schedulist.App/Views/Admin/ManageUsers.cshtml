@@ -1,7 +1,7 @@
 ﻿@model Schedulist.App.ViewModels.Admin.IndexViewModel
 
 
-<table id="table">
+<table id="table" @* style="border: solid black 2px" *@>
     <thead>
         <tr>
             <th class="text-indicator">Id</th>
@@ -14,7 +14,7 @@
     <tbody>
         @foreach (var user in Model.Users)
         {
-            <tr>
+            <tr @* style="border: solid black 2px" *@>
                 <td>
                     <span class="pointer">@user.Id</span>
                 </td>

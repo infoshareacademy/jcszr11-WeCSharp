@@ -17,7 +17,7 @@ namespace Schedulist.App.Controllers
             _userRepository = userRepository;
             _userManager = userManager;
         }
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> ManageUsers()
         {
             //await _userManager.GetRolesAsync();
             var userListItems = new List<UserListItemModel>();
@@ -43,7 +43,7 @@ namespace Schedulist.App.Controllers
             {
                 await _userManager.AddToRoleAsync(user, "ADMIN");
             }
-            return RedirectToAction("Index");
+            return RedirectToAction("ManageUsers");
         }
     }
 }
