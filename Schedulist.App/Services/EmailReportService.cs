@@ -9,8 +9,7 @@ namespace Schedulist.App.Services
         {
             var message = new MimeMessage();
 
-            //TODO fill from / / body
-            message.From.Add(new MailboxAddress("ScheduList", "tom.gancar@gmail.com"));
+            message.From.Add(new MailboxAddress("ScheduList", "schedulistapp@gmail.com"));
             message.To.Add(new MailboxAddress("Customer", emailAdress));
             message.Subject = "Schedulist Report";
             message.Body = new TextPart("plain")
