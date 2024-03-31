@@ -12,8 +12,8 @@ using Schedulist.DAL;
 namespace Schedulist.DAL.Migrations
 {
     [DbContext(typeof(SchedulistDbContext))]
-    [Migration("20240326193937_AllMigrations")]
-    partial class AllMigrations
+    [Migration("20240331010107_additional-migration2")]
+    partial class additionalmigration2
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -499,17 +499,41 @@ namespace Schedulist.DAL.Migrations
                         {
                             Id = "1",
                             AccessFailedCount = 50,
-                            ConcurrencyStamp = "73337519-3c97-45a0-907d-5e389e2823db",
+                            ConcurrencyStamp = "97f9c9ce-6f3b-4231-a3da-ffdb9e340ce8",
                             DepartmentId = 1,
+                            Email = "kurstomasza@gmail.com",
                             EmailConfirmed = true,
                             LockoutEnabled = false,
                             Name = "Tomasz",
+                            NormalizedEmail = "KURSTOMASZA@GMAIL.COM",
+                            NormalizedUserName = "KURSTOMASZA@GMAIL.COM",
+                            PasswordHash = "AQAAAAIAAYagAAAAEMkp6ZgI7B0CvWNq7cpXxQLfp7JOOxqYJlMMp1bU4SUbCSSGgZScHqnwn+DCs48pvg==",
                             PhoneNumberConfirmed = false,
                             PositionId = 2,
-                            SecurityStamp = "a5e19c4b-af82-4d0d-ba7d-d26edae16001",
+                            SecurityStamp = "518336dd-50dc-463c-893c-b5f630eba94b",
                             Surname = "Tomaszewicz",
                             TwoFactorEnabled = false,
-                            UserName = "Tomasz Tomaszewicz"
+                            UserName = "kurstomasza@gmail.com"
+                        },
+                        new
+                        {
+                            Id = "2",
+                            AccessFailedCount = 50,
+                            ConcurrencyStamp = "e03d22d8-92e6-4014-95f4-f94624339ecf",
+                            DepartmentId = 2,
+                            Email = "kursandrzeja@gmail.com",
+                            EmailConfirmed = true,
+                            LockoutEnabled = false,
+                            Name = "Andrzej",
+                            NormalizedEmail = "KURSANDRZEJA@GMAIL.COM",
+                            NormalizedUserName = "KURSANDRZEJA@GMAIL.COM",
+                            PasswordHash = "AQAAAAIAAYagAAAAEMkp6ZgI7B0CvWNq7cpXxQLfp7JOOxqYJlMMp1bU4SUbCSSGgZScHqnwn+DCs48pvg==",
+                            PhoneNumberConfirmed = false,
+                            PositionId = 3,
+                            SecurityStamp = "68070611-8b1a-4521-9b41-29209ea21f6f",
+                            Surname = "Andrzejewski",
+                            TwoFactorEnabled = false,
+                            UserName = "kursandrzeja@gmail.com"
                         });
                 });
 
