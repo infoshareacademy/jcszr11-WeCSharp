@@ -1,0 +1,1421 @@
+2024-03-31 11:05:37.603 +02:00 [INF] Executed DbCommand (115ms) [Parameters=[], CommandType='"Text"', CommandTimeout='60']
+CREATE DATABASE [Schedulist];
+2024-03-31 11:05:37.660 +02:00 [INF] Executed DbCommand (34ms) [Parameters=[], CommandType='"Text"', CommandTimeout='60']
+IF SERVERPROPERTY('EngineEdition') <> 5
+BEGIN
+    ALTER DATABASE [Schedulist] SET READ_COMMITTED_SNAPSHOT ON;
+END;
+2024-03-31 11:05:37.673 +02:00 [INF] Executed DbCommand (4ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT 1
+2024-03-31 11:05:37.718 +02:00 [INF] Executed DbCommand (8ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE TABLE [__EFMigrationsHistory] (
+    [MigrationId] nvarchar(150) NOT NULL,
+    [ProductVersion] nvarchar(32) NOT NULL,
+    CONSTRAINT [PK___EFMigrationsHistory] PRIMARY KEY ([MigrationId])
+);
+2024-03-31 11:05:37.719 +02:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT 1
+2024-03-31 11:05:37.731 +02:00 [INF] Executed DbCommand (10ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT OBJECT_ID(N'[__EFMigrationsHistory]');
+2024-03-31 11:05:37.739 +02:00 [INF] Executed DbCommand (6ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [MigrationId], [ProductVersion]
+FROM [__EFMigrationsHistory]
+ORDER BY [MigrationId];
+2024-03-31 11:05:37.751 +02:00 [INF] Applying migration '20240331090522_AllMigrations'.
+2024-03-31 11:05:37.817 +02:00 [INF] Executed DbCommand (2ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE TABLE [AspNetRoles] (
+    [Id] nvarchar(450) NOT NULL,
+    [Name] nvarchar(256) NULL,
+    [NormalizedName] nvarchar(256) NULL,
+    [ConcurrencyStamp] nvarchar(max) NULL,
+    CONSTRAINT [PK_AspNetRoles] PRIMARY KEY ([Id])
+);
+2024-03-31 11:05:37.819 +02:00 [INF] Executed DbCommand (1ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE TABLE [Departments] (
+    [Id] int NOT NULL IDENTITY,
+    [Name] nvarchar(max) NOT NULL,
+    CONSTRAINT [PK_Departments] PRIMARY KEY ([Id])
+);
+2024-03-31 11:05:37.821 +02:00 [INF] Executed DbCommand (1ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE TABLE [Positions] (
+    [Id] int NOT NULL IDENTITY,
+    [Name] nvarchar(max) NOT NULL,
+    CONSTRAINT [PK_Positions] PRIMARY KEY ([Id])
+);
+2024-03-31 11:05:37.822 +02:00 [INF] Executed DbCommand (1ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE TABLE [WorkModes] (
+    [Id] int NOT NULL IDENTITY,
+    [Name] nvarchar(max) NOT NULL,
+    CONSTRAINT [PK_WorkModes] PRIMARY KEY ([Id])
+);
+2024-03-31 11:05:37.824 +02:00 [INF] Executed DbCommand (2ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE TABLE [AspNetRoleClaims] (
+    [Id] int NOT NULL IDENTITY,
+    [RoleId] nvarchar(450) NOT NULL,
+    [ClaimType] nvarchar(max) NULL,
+    [ClaimValue] nvarchar(max) NULL,
+    CONSTRAINT [PK_AspNetRoleClaims] PRIMARY KEY ([Id]),
+    CONSTRAINT [FK_AspNetRoleClaims_AspNetRoles_RoleId] FOREIGN KEY ([RoleId]) REFERENCES [AspNetRoles] ([Id]) ON DELETE CASCADE
+);
+2024-03-31 11:05:37.827 +02:00 [INF] Executed DbCommand (2ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE TABLE [AspNetUsers] (
+    [Id] nvarchar(450) NOT NULL,
+    [Name] nvarchar(max) NOT NULL,
+    [Surname] nvarchar(max) NOT NULL,
+    [DepartmentId] int NULL,
+    [PositionId] int NULL,
+    [UserName] nvarchar(256) NULL,
+    [NormalizedUserName] nvarchar(256) NULL,
+    [Email] nvarchar(256) NULL,
+    [NormalizedEmail] nvarchar(256) NULL,
+    [EmailConfirmed] bit NOT NULL,
+    [PasswordHash] nvarchar(max) NULL,
+    [SecurityStamp] nvarchar(max) NULL,
+    [ConcurrencyStamp] nvarchar(max) NULL,
+    [PhoneNumber] nvarchar(max) NULL,
+    [PhoneNumberConfirmed] bit NOT NULL,
+    [TwoFactorEnabled] bit NOT NULL,
+    [LockoutEnd] datetimeoffset NULL,
+    [LockoutEnabled] bit NOT NULL,
+    [AccessFailedCount] int NOT NULL,
+    CONSTRAINT [PK_AspNetUsers] PRIMARY KEY ([Id]),
+    CONSTRAINT [FK_AspNetUsers_Departments_DepartmentId] FOREIGN KEY ([DepartmentId]) REFERENCES [Departments] ([Id]),
+    CONSTRAINT [FK_AspNetUsers_Positions_PositionId] FOREIGN KEY ([PositionId]) REFERENCES [Positions] ([Id])
+);
+2024-03-31 11:05:37.829 +02:00 [INF] Executed DbCommand (2ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE TABLE [AspNetUserClaims] (
+    [Id] int NOT NULL IDENTITY,
+    [UserId] nvarchar(450) NOT NULL,
+    [ClaimType] nvarchar(max) NULL,
+    [ClaimValue] nvarchar(max) NULL,
+    CONSTRAINT [PK_AspNetUserClaims] PRIMARY KEY ([Id]),
+    CONSTRAINT [FK_AspNetUserClaims_AspNetUsers_UserId] FOREIGN KEY ([UserId]) REFERENCES [AspNetUsers] ([Id]) ON DELETE CASCADE
+);
+2024-03-31 11:05:37.830 +02:00 [INF] Executed DbCommand (1ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE TABLE [AspNetUserLogins] (
+    [LoginProvider] nvarchar(128) NOT NULL,
+    [ProviderKey] nvarchar(128) NOT NULL,
+    [ProviderDisplayName] nvarchar(max) NULL,
+    [UserId] nvarchar(450) NOT NULL,
+    CONSTRAINT [PK_AspNetUserLogins] PRIMARY KEY ([LoginProvider], [ProviderKey]),
+    CONSTRAINT [FK_AspNetUserLogins_AspNetUsers_UserId] FOREIGN KEY ([UserId]) REFERENCES [AspNetUsers] ([Id]) ON DELETE CASCADE
+);
+2024-03-31 11:05:37.833 +02:00 [INF] Executed DbCommand (2ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE TABLE [AspNetUserRoles] (
+    [UserId] nvarchar(450) NOT NULL,
+    [RoleId] nvarchar(450) NOT NULL,
+    CONSTRAINT [PK_AspNetUserRoles] PRIMARY KEY ([UserId], [RoleId]),
+    CONSTRAINT [FK_AspNetUserRoles_AspNetRoles_RoleId] FOREIGN KEY ([RoleId]) REFERENCES [AspNetRoles] ([Id]) ON DELETE CASCADE,
+    CONSTRAINT [FK_AspNetUserRoles_AspNetUsers_UserId] FOREIGN KEY ([UserId]) REFERENCES [AspNetUsers] ([Id]) ON DELETE CASCADE
+);
+2024-03-31 11:05:38.384 +02:00 [INF] Executed DbCommand (2ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE TABLE [AspNetUserTokens] (
+    [UserId] nvarchar(450) NOT NULL,
+    [LoginProvider] nvarchar(128) NOT NULL,
+    [Name] nvarchar(128) NOT NULL,
+    [Value] nvarchar(max) NULL,
+    CONSTRAINT [PK_AspNetUserTokens] PRIMARY KEY ([UserId], [LoginProvider], [Name]),
+    CONSTRAINT [FK_AspNetUserTokens_AspNetUsers_UserId] FOREIGN KEY ([UserId]) REFERENCES [AspNetUsers] ([Id]) ON DELETE CASCADE
+);
+2024-03-31 11:05:38.386 +02:00 [INF] Executed DbCommand (1ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE TABLE [CalendarEvents] (
+    [Id] int NOT NULL IDENTITY,
+    [CalendarEventName] nvarchar(max) NOT NULL,
+    [CalendarEventDescription] nvarchar(max) NOT NULL,
+    [CalendarEventDate] date NOT NULL,
+    [CalendarEventStartTime] time NOT NULL,
+    [CalendarEventEndTime] time NOT NULL,
+    [UserId] nvarchar(450) NOT NULL,
+    CONSTRAINT [PK_CalendarEvents] PRIMARY KEY ([Id]),
+    CONSTRAINT [FK_CalendarEvents_AspNetUsers_UserId] FOREIGN KEY ([UserId]) REFERENCES [AspNetUsers] ([Id]) ON DELETE CASCADE
+);
+2024-03-31 11:05:38.387 +02:00 [INF] Executed DbCommand (1ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE TABLE [WorkModesToUsers] (
+    [Id] int NOT NULL IDENTITY,
+    [DateOfWorkMode] date NOT NULL,
+    [UserId] nvarchar(450) NOT NULL,
+    [WorkModeId] int NOT NULL,
+    CONSTRAINT [PK_WorkModesToUsers] PRIMARY KEY ([Id]),
+    CONSTRAINT [FK_WorkModesToUsers_AspNetUsers_UserId] FOREIGN KEY ([UserId]) REFERENCES [AspNetUsers] ([Id]) ON DELETE CASCADE,
+    CONSTRAINT [FK_WorkModesToUsers_WorkModes_WorkModeId] FOREIGN KEY ([WorkModeId]) REFERENCES [WorkModes] ([Id]) ON DELETE CASCADE
+);
+2024-03-31 11:05:38.422 +02:00 [INF] Executed DbCommand (34ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+IF EXISTS (SELECT * FROM [sys].[identity_columns] WHERE [name] IN (N'Id', N'ConcurrencyStamp', N'Name', N'NormalizedName') AND [object_id] = OBJECT_ID(N'[AspNetRoles]'))
+    SET IDENTITY_INSERT [AspNetRoles] ON;
+INSERT INTO [AspNetRoles] ([Id], [ConcurrencyStamp], [Name], [NormalizedName])
+VALUES (N'bc877f1b-1e44-492c-acce-ba01f7bcd77f', NULL, N'User', N'USER'),
+(N'c3e92f9e-e8e9-4fe3-b600-ed1b055d25aa', NULL, N'Admin', N'ADMIN');
+IF EXISTS (SELECT * FROM [sys].[identity_columns] WHERE [name] IN (N'Id', N'ConcurrencyStamp', N'Name', N'NormalizedName') AND [object_id] = OBJECT_ID(N'[AspNetRoles]'))
+    SET IDENTITY_INSERT [AspNetRoles] OFF;
+2024-03-31 11:05:38.441 +02:00 [ERR] Failed executing DbCommand (18ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+IF EXISTS (SELECT * FROM [sys].[identity_columns] WHERE [name] IN (N'Id', N'CalendarEventDate', N'CalendarEventDescription', N'CalendarEventEndTime', N'CalendarEventName', N'CalendarEventStartTime', N'UserId') AND [object_id] = OBJECT_ID(N'[CalendarEvents]'))
+    SET IDENTITY_INSERT [CalendarEvents] ON;
+INSERT INTO [CalendarEvents] ([Id], [CalendarEventDate], [CalendarEventDescription], [CalendarEventEndTime], [CalendarEventName], [CalendarEventStartTime], [UserId])
+VALUES (4, '2024-01-11', N'Team project meeting to discuss progress, challenges, and plans for project execution', '12:30:00', N'Project Meeting', '11:30:00', N'3');
+IF EXISTS (SELECT * FROM [sys].[identity_columns] WHERE [name] IN (N'Id', N'CalendarEventDate', N'CalendarEventDescription', N'CalendarEventEndTime', N'CalendarEventName', N'CalendarEventStartTime', N'UserId') AND [object_id] = OBJECT_ID(N'[CalendarEvents]'))
+    SET IDENTITY_INSERT [CalendarEvents] OFF;
+2024-03-31 11:11:54.731 +02:00 [INF] Executed DbCommand (11ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT 1
+2024-03-31 11:11:54.775 +02:00 [INF] Executed DbCommand (13ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT OBJECT_ID(N'[__EFMigrationsHistory]');
+2024-03-31 11:11:54.777 +02:00 [INF] Executed DbCommand (1ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT 1
+2024-03-31 11:11:54.778 +02:00 [INF] Executed DbCommand (1ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT OBJECT_ID(N'[__EFMigrationsHistory]');
+2024-03-31 11:11:54.790 +02:00 [INF] Executed DbCommand (5ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [MigrationId], [ProductVersion]
+FROM [__EFMigrationsHistory]
+ORDER BY [MigrationId];
+2024-03-31 11:11:54.799 +02:00 [INF] Applying migration '20240307212027_NewAllMigrations'.
+2024-03-31 11:11:54.878 +02:00 [INF] Executed DbCommand (6ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE TABLE [AspNetRoles] (
+    [Id] nvarchar(450) NOT NULL,
+    [Name] nvarchar(256) NULL,
+    [NormalizedName] nvarchar(256) NULL,
+    [ConcurrencyStamp] nvarchar(max) NULL,
+    CONSTRAINT [PK_AspNetRoles] PRIMARY KEY ([Id])
+);
+2024-03-31 11:11:54.880 +02:00 [INF] Executed DbCommand (2ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE TABLE [Departments] (
+    [Id] int NOT NULL IDENTITY,
+    [Name] nvarchar(max) NOT NULL,
+    CONSTRAINT [PK_Departments] PRIMARY KEY ([Id])
+);
+2024-03-31 11:11:54.882 +02:00 [INF] Executed DbCommand (1ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE TABLE [Positions] (
+    [Id] int NOT NULL IDENTITY,
+    [Name] nvarchar(max) NOT NULL,
+    CONSTRAINT [PK_Positions] PRIMARY KEY ([Id])
+);
+2024-03-31 11:11:54.883 +02:00 [INF] Executed DbCommand (1ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE TABLE [WorkModes] (
+    [Id] int NOT NULL IDENTITY,
+    [Name] nvarchar(max) NOT NULL,
+    CONSTRAINT [PK_WorkModes] PRIMARY KEY ([Id])
+);
+2024-03-31 11:11:54.885 +02:00 [INF] Executed DbCommand (2ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE TABLE [AspNetRoleClaims] (
+    [Id] int NOT NULL IDENTITY,
+    [RoleId] nvarchar(450) NOT NULL,
+    [ClaimType] nvarchar(max) NULL,
+    [ClaimValue] nvarchar(max) NULL,
+    CONSTRAINT [PK_AspNetRoleClaims] PRIMARY KEY ([Id]),
+    CONSTRAINT [FK_AspNetRoleClaims_AspNetRoles_RoleId] FOREIGN KEY ([RoleId]) REFERENCES [AspNetRoles] ([Id]) ON DELETE CASCADE
+);
+2024-03-31 11:11:54.887 +02:00 [INF] Executed DbCommand (1ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE TABLE [AspNetUsers] (
+    [Id] nvarchar(450) NOT NULL,
+    [Discriminator] nvarchar(13) NOT NULL,
+    [Name] nvarchar(max) NULL,
+    [Surname] nvarchar(max) NULL,
+    [DepartmentId] int NULL,
+    [PositionId] int NULL,
+    [UserName] nvarchar(256) NULL,
+    [NormalizedUserName] nvarchar(256) NULL,
+    [Email] nvarchar(256) NULL,
+    [NormalizedEmail] nvarchar(256) NULL,
+    [EmailConfirmed] bit NOT NULL,
+    [PasswordHash] nvarchar(max) NULL,
+    [SecurityStamp] nvarchar(max) NULL,
+    [ConcurrencyStamp] nvarchar(max) NULL,
+    [PhoneNumber] nvarchar(max) NULL,
+    [PhoneNumberConfirmed] bit NOT NULL,
+    [TwoFactorEnabled] bit NOT NULL,
+    [LockoutEnd] datetimeoffset NULL,
+    [LockoutEnabled] bit NOT NULL,
+    [AccessFailedCount] int NOT NULL,
+    CONSTRAINT [PK_AspNetUsers] PRIMARY KEY ([Id]),
+    CONSTRAINT [FK_AspNetUsers_Departments_DepartmentId] FOREIGN KEY ([DepartmentId]) REFERENCES [Departments] ([Id]) ON DELETE CASCADE,
+    CONSTRAINT [FK_AspNetUsers_Positions_PositionId] FOREIGN KEY ([PositionId]) REFERENCES [Positions] ([Id]) ON DELETE CASCADE
+);
+2024-03-31 11:11:54.888 +02:00 [INF] Executed DbCommand (1ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE TABLE [AspNetUserClaims] (
+    [Id] int NOT NULL IDENTITY,
+    [UserId] nvarchar(450) NOT NULL,
+    [ClaimType] nvarchar(max) NULL,
+    [ClaimValue] nvarchar(max) NULL,
+    CONSTRAINT [PK_AspNetUserClaims] PRIMARY KEY ([Id]),
+    CONSTRAINT [FK_AspNetUserClaims_AspNetUsers_UserId] FOREIGN KEY ([UserId]) REFERENCES [AspNetUsers] ([Id]) ON DELETE CASCADE
+);
+2024-03-31 11:11:54.890 +02:00 [INF] Executed DbCommand (1ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE TABLE [AspNetUserLogins] (
+    [LoginProvider] nvarchar(128) NOT NULL,
+    [ProviderKey] nvarchar(128) NOT NULL,
+    [ProviderDisplayName] nvarchar(max) NULL,
+    [UserId] nvarchar(450) NOT NULL,
+    CONSTRAINT [PK_AspNetUserLogins] PRIMARY KEY ([LoginProvider], [ProviderKey]),
+    CONSTRAINT [FK_AspNetUserLogins_AspNetUsers_UserId] FOREIGN KEY ([UserId]) REFERENCES [AspNetUsers] ([Id]) ON DELETE CASCADE
+);
+2024-03-31 11:11:54.893 +02:00 [INF] Executed DbCommand (3ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE TABLE [AspNetUserRoles] (
+    [UserId] nvarchar(450) NOT NULL,
+    [RoleId] nvarchar(450) NOT NULL,
+    CONSTRAINT [PK_AspNetUserRoles] PRIMARY KEY ([UserId], [RoleId]),
+    CONSTRAINT [FK_AspNetUserRoles_AspNetRoles_RoleId] FOREIGN KEY ([RoleId]) REFERENCES [AspNetRoles] ([Id]) ON DELETE CASCADE,
+    CONSTRAINT [FK_AspNetUserRoles_AspNetUsers_UserId] FOREIGN KEY ([UserId]) REFERENCES [AspNetUsers] ([Id]) ON DELETE CASCADE
+);
+2024-03-31 11:11:54.989 +02:00 [INF] Executed DbCommand (3ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE TABLE [AspNetUserTokens] (
+    [UserId] nvarchar(450) NOT NULL,
+    [LoginProvider] nvarchar(128) NOT NULL,
+    [Name] nvarchar(128) NOT NULL,
+    [Value] nvarchar(max) NULL,
+    CONSTRAINT [PK_AspNetUserTokens] PRIMARY KEY ([UserId], [LoginProvider], [Name]),
+    CONSTRAINT [FK_AspNetUserTokens_AspNetUsers_UserId] FOREIGN KEY ([UserId]) REFERENCES [AspNetUsers] ([Id]) ON DELETE CASCADE
+);
+2024-03-31 11:11:54.991 +02:00 [INF] Executed DbCommand (2ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE TABLE [CalendarEvents] (
+    [Id] int NOT NULL IDENTITY,
+    [CalendarEventName] nvarchar(max) NOT NULL,
+    [CalendarEventDescription] nvarchar(max) NOT NULL,
+    [CalendarEventDate] date NOT NULL,
+    [CalendarEventStartTime] time NOT NULL,
+    [CalendarEventEndTime] time NOT NULL,
+    [UserId] nvarchar(450) NOT NULL,
+    CONSTRAINT [PK_CalendarEvents] PRIMARY KEY ([Id]),
+    CONSTRAINT [FK_CalendarEvents_AspNetUsers_UserId] FOREIGN KEY ([UserId]) REFERENCES [AspNetUsers] ([Id]) ON DELETE CASCADE
+);
+2024-03-31 11:11:54.992 +02:00 [INF] Executed DbCommand (1ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE TABLE [WorkModesToUsers] (
+    [Id] int NOT NULL IDENTITY,
+    [DateOfWorkMode] date NOT NULL,
+    [UserId] nvarchar(450) NOT NULL,
+    [WorkModeId] int NOT NULL,
+    CONSTRAINT [PK_WorkModesToUsers] PRIMARY KEY ([Id]),
+    CONSTRAINT [FK_WorkModesToUsers_AspNetUsers_UserId] FOREIGN KEY ([UserId]) REFERENCES [AspNetUsers] ([Id]) ON DELETE CASCADE,
+    CONSTRAINT [FK_WorkModesToUsers_WorkModes_WorkModeId] FOREIGN KEY ([WorkModeId]) REFERENCES [WorkModes] ([Id]) ON DELETE CASCADE
+);
+2024-03-31 11:11:55.019 +02:00 [INF] Executed DbCommand (26ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+IF EXISTS (SELECT * FROM [sys].[identity_columns] WHERE [name] IN (N'Id', N'ConcurrencyStamp', N'Name', N'NormalizedName') AND [object_id] = OBJECT_ID(N'[AspNetRoles]'))
+    SET IDENTITY_INSERT [AspNetRoles] ON;
+INSERT INTO [AspNetRoles] ([Id], [ConcurrencyStamp], [Name], [NormalizedName])
+VALUES (N'1e68dc83-8e51-4c5d-9beb-3c5c11348716', NULL, N'User', N'USER'),
+(N'63487da1-04f5-4000-abc7-3d1ad72029ae', NULL, N'Admin', N'ADMIN');
+IF EXISTS (SELECT * FROM [sys].[identity_columns] WHERE [name] IN (N'Id', N'ConcurrencyStamp', N'Name', N'NormalizedName') AND [object_id] = OBJECT_ID(N'[AspNetRoles]'))
+    SET IDENTITY_INSERT [AspNetRoles] OFF;
+2024-03-31 11:11:55.028 +02:00 [INF] Executed DbCommand (9ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+IF EXISTS (SELECT * FROM [sys].[identity_columns] WHERE [name] IN (N'Id', N'Name') AND [object_id] = OBJECT_ID(N'[Departments]'))
+    SET IDENTITY_INSERT [Departments] ON;
+INSERT INTO [Departments] ([Id], [Name])
+VALUES (1, N'IT'),
+(2, N'Construction'),
+(3, N'Human Resources'),
+(4, N'Marketing'),
+(5, N'Production'),
+(6, N'Finance and Accounting'),
+(7, N'Customer Service'),
+(8, N'Administration'),
+(9, N'Procurement'),
+(10, N'Sales');
+IF EXISTS (SELECT * FROM [sys].[identity_columns] WHERE [name] IN (N'Id', N'Name') AND [object_id] = OBJECT_ID(N'[Departments]'))
+    SET IDENTITY_INSERT [Departments] OFF;
+2024-03-31 11:11:55.038 +02:00 [INF] Executed DbCommand (9ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+IF EXISTS (SELECT * FROM [sys].[identity_columns] WHERE [name] IN (N'Id', N'Name') AND [object_id] = OBJECT_ID(N'[Positions]'))
+    SET IDENTITY_INSERT [Positions] ON;
+INSERT INTO [Positions] ([Id], [Name])
+VALUES (1, N'Software Developer'),
+(2, N'Constructor'),
+(3, N'Human Resources Manager'),
+(4, N'Marketing Manager'),
+(5, N'CNC Operator'),
+(6, N'Financial Controller'),
+(7, N'Customer Service Supporter'),
+(8, N'Administrative Assistant'),
+(9, N'Procurement Specialist'),
+(10, N'Sales Representative');
+IF EXISTS (SELECT * FROM [sys].[identity_columns] WHERE [name] IN (N'Id', N'Name') AND [object_id] = OBJECT_ID(N'[Positions]'))
+    SET IDENTITY_INSERT [Positions] OFF;
+2024-03-31 11:11:58.411 +02:00 [INF] Executed DbCommand (10ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+IF EXISTS (SELECT * FROM [sys].[identity_columns] WHERE [name] IN (N'Id', N'Name') AND [object_id] = OBJECT_ID(N'[WorkModes]'))
+    SET IDENTITY_INSERT [WorkModes] ON;
+INSERT INTO [WorkModes] ([Id], [Name])
+VALUES (1, N'Office'),
+(2, N'HomeOffice'),
+(3, N'SickLeave'),
+(4, N'Delegation'),
+(5, N'Holiday'),
+(6, N'Others');
+IF EXISTS (SELECT * FROM [sys].[identity_columns] WHERE [name] IN (N'Id', N'Name') AND [object_id] = OBJECT_ID(N'[WorkModes]'))
+    SET IDENTITY_INSERT [WorkModes] OFF;
+2024-03-31 11:11:58.427 +02:00 [INF] Executed DbCommand (15ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+IF EXISTS (SELECT * FROM [sys].[identity_columns] WHERE [name] IN (N'Id', N'AccessFailedCount', N'ConcurrencyStamp', N'DepartmentId', N'Discriminator', N'Email', N'EmailConfirmed', N'LockoutEnabled', N'LockoutEnd', N'Name', N'NormalizedEmail', N'NormalizedUserName', N'PasswordHash', N'PhoneNumber', N'PhoneNumberConfirmed', N'PositionId', N'SecurityStamp', N'Surname', N'TwoFactorEnabled', N'UserName') AND [object_id] = OBJECT_ID(N'[AspNetUsers]'))
+    SET IDENTITY_INSERT [AspNetUsers] ON;
+INSERT INTO [AspNetUsers] ([Id], [AccessFailedCount], [ConcurrencyStamp], [DepartmentId], [Discriminator], [Email], [EmailConfirmed], [LockoutEnabled], [LockoutEnd], [Name], [NormalizedEmail], [NormalizedUserName], [PasswordHash], [PhoneNumber], [PhoneNumberConfirmed], [PositionId], [SecurityStamp], [Surname], [TwoFactorEnabled], [UserName])
+VALUES (N'1', 50, N'7d37c3d6-10c8-4c42-bfcf-d87b38d18b35', 1, N'User', NULL, CAST(1 AS bit), CAST(0 AS bit), NULL, N'Tomasz', NULL, NULL, NULL, NULL, CAST(0 AS bit), 2, N'69942b06-ac6c-41f1-a7ef-b7831c702b2f', N'Tomaszewicz', CAST(0 AS bit), N'kurstomasza@gmail.com'),
+(N'2', 50, N'7959d5e2-b41e-4726-815f-552343599554', 3, N'User', NULL, CAST(1 AS bit), CAST(0 AS bit), NULL, N'Andrzej', NULL, NULL, NULL, NULL, CAST(0 AS bit), 4, N'bf50612a-2d25-4b15-b30c-72b7eeefd816', N'Andrzejewicz', CAST(0 AS bit), N'kursandrzeja@gmail.com'),
+(N'3', 50, N'86358572-4d3c-46ab-ba96-d0135907be61', 3, N'User', NULL, CAST(1 AS bit), CAST(0 AS bit), NULL, N'Michael', NULL, NULL, NULL, NULL, CAST(0 AS bit), 1, N'8a80f47d-8ce1-425e-88e5-d9d192e5adb7', N'Jordan', CAST(0 AS bit), N'kursmichaela@gmail.com');
+IF EXISTS (SELECT * FROM [sys].[identity_columns] WHERE [name] IN (N'Id', N'AccessFailedCount', N'ConcurrencyStamp', N'DepartmentId', N'Discriminator', N'Email', N'EmailConfirmed', N'LockoutEnabled', N'LockoutEnd', N'Name', N'NormalizedEmail', N'NormalizedUserName', N'PasswordHash', N'PhoneNumber', N'PhoneNumberConfirmed', N'PositionId', N'SecurityStamp', N'Surname', N'TwoFactorEnabled', N'UserName') AND [object_id] = OBJECT_ID(N'[AspNetUsers]'))
+    SET IDENTITY_INSERT [AspNetUsers] OFF;
+2024-03-31 11:11:58.441 +02:00 [INF] Executed DbCommand (14ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+IF EXISTS (SELECT * FROM [sys].[identity_columns] WHERE [name] IN (N'Id', N'CalendarEventDate', N'CalendarEventDescription', N'CalendarEventEndTime', N'CalendarEventName', N'CalendarEventStartTime', N'UserId') AND [object_id] = OBJECT_ID(N'[CalendarEvents]'))
+    SET IDENTITY_INSERT [CalendarEvents] ON;
+INSERT INTO [CalendarEvents] ([Id], [CalendarEventDate], [CalendarEventDescription], [CalendarEventEndTime], [CalendarEventName], [CalendarEventStartTime], [UserId])
+VALUES (1, '2024-01-10', N'Ongoing maintenance tasks in the office', '09:30:00', N'Maintenance Work', '08:30:00', N'1'),
+(2, '2024-01-11', N'Scheduled office cleaning day', '10:30:00', N'Office Cleaning', '09:30:00', N'2'),
+(3, '2024-01-11', N'Time for a relaxed atmosphere!', '11:30:00', N'Pottering', '10:30:00', N'1'),
+(4, '2024-01-11', N'Team project meeting to discuss progress, challenges, and plans for project execution', '12:30:00', N'Project Meeting', '11:30:00', N'3'),
+(5, '2024-01-12', N'Strategic business meeting covering company development, market strategy, and key decisions', '13:30:00', N'Business Meeting', '12:30:00', N'2'),
+(6, '2024-01-13', N'Educational workshop aimed at enhancing employee''s skills', '14:30:00', N'Training Workshop', '13:30:00', N'1');
+IF EXISTS (SELECT * FROM [sys].[identity_columns] WHERE [name] IN (N'Id', N'CalendarEventDate', N'CalendarEventDescription', N'CalendarEventEndTime', N'CalendarEventName', N'CalendarEventStartTime', N'UserId') AND [object_id] = OBJECT_ID(N'[CalendarEvents]'))
+    SET IDENTITY_INSERT [CalendarEvents] OFF;
+2024-03-31 11:12:01.104 +02:00 [INF] Executed DbCommand (13ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+IF EXISTS (SELECT * FROM [sys].[identity_columns] WHERE [name] IN (N'Id', N'DateOfWorkMode', N'UserId', N'WorkModeId') AND [object_id] = OBJECT_ID(N'[WorkModesToUsers]'))
+    SET IDENTITY_INSERT [WorkModesToUsers] ON;
+INSERT INTO [WorkModesToUsers] ([Id], [DateOfWorkMode], [UserId], [WorkModeId])
+VALUES (1, '2024-01-10', N'1', 1),
+(2, '2024-01-10', N'2', 1),
+(3, '2024-01-11', N'3', 1),
+(4, '2024-01-12', N'1', 1),
+(5, '2024-01-13', N'2', 1),
+(6, '2024-01-14', N'2', 1);
+IF EXISTS (SELECT * FROM [sys].[identity_columns] WHERE [name] IN (N'Id', N'DateOfWorkMode', N'UserId', N'WorkModeId') AND [object_id] = OBJECT_ID(N'[WorkModesToUsers]'))
+    SET IDENTITY_INSERT [WorkModesToUsers] OFF;
+2024-03-31 11:12:01.105 +02:00 [INF] Executed DbCommand (1ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE INDEX [IX_AspNetRoleClaims_RoleId] ON [AspNetRoleClaims] ([RoleId]);
+2024-03-31 11:12:01.108 +02:00 [INF] Executed DbCommand (3ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE UNIQUE INDEX [RoleNameIndex] ON [AspNetRoles] ([NormalizedName]) WHERE [NormalizedName] IS NOT NULL;
+2024-03-31 11:12:01.109 +02:00 [INF] Executed DbCommand (1ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE INDEX [IX_AspNetUserClaims_UserId] ON [AspNetUserClaims] ([UserId]);
+2024-03-31 11:12:01.110 +02:00 [INF] Executed DbCommand (1ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE INDEX [IX_AspNetUserLogins_UserId] ON [AspNetUserLogins] ([UserId]);
+2024-03-31 11:12:01.111 +02:00 [INF] Executed DbCommand (1ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE INDEX [IX_AspNetUserRoles_RoleId] ON [AspNetUserRoles] ([RoleId]);
+2024-03-31 11:12:01.113 +02:00 [INF] Executed DbCommand (2ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE INDEX [EmailIndex] ON [AspNetUsers] ([NormalizedEmail]);
+2024-03-31 11:12:01.115 +02:00 [INF] Executed DbCommand (2ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE INDEX [IX_AspNetUsers_DepartmentId] ON [AspNetUsers] ([DepartmentId]);
+2024-03-31 11:12:01.117 +02:00 [INF] Executed DbCommand (2ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE INDEX [IX_AspNetUsers_PositionId] ON [AspNetUsers] ([PositionId]);
+2024-03-31 11:12:01.120 +02:00 [INF] Executed DbCommand (3ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE UNIQUE INDEX [UserNameIndex] ON [AspNetUsers] ([NormalizedUserName]) WHERE [NormalizedUserName] IS NOT NULL;
+2024-03-31 11:12:01.122 +02:00 [INF] Executed DbCommand (2ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE INDEX [IX_CalendarEvents_UserId] ON [CalendarEvents] ([UserId]);
+2024-03-31 11:12:01.124 +02:00 [INF] Executed DbCommand (2ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE INDEX [IX_WorkModesToUsers_UserId] ON [WorkModesToUsers] ([UserId]);
+2024-03-31 11:12:01.126 +02:00 [INF] Executed DbCommand (2ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE INDEX [IX_WorkModesToUsers_WorkModeId] ON [WorkModesToUsers] ([WorkModeId]);
+2024-03-31 11:12:01.128 +02:00 [INF] Executed DbCommand (2ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+INSERT INTO [__EFMigrationsHistory] ([MigrationId], [ProductVersion])
+VALUES (N'20240307212027_NewAllMigrations', N'8.0.3');
+2024-03-31 11:12:01.133 +02:00 [INF] Applying migration '20240317120651_IdentityChange'.
+2024-03-31 11:12:01.168 +02:00 [INF] Executed DbCommand (4ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+ALTER TABLE [AspNetUsers] DROP CONSTRAINT [FK_AspNetUsers_Departments_DepartmentId];
+2024-03-31 11:12:02.383 +02:00 [INF] Executed DbCommand (1ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+ALTER TABLE [AspNetUsers] DROP CONSTRAINT [FK_AspNetUsers_Positions_PositionId];
+2024-03-31 11:12:02.389 +02:00 [INF] Executed DbCommand (6ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+DELETE FROM [AspNetRoles]
+WHERE [Id] = N'1e68dc83-8e51-4c5d-9beb-3c5c11348716';
+SELECT @@ROWCOUNT;
+2024-03-31 11:12:02.392 +02:00 [INF] Executed DbCommand (3ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+DELETE FROM [AspNetRoles]
+WHERE [Id] = N'63487da1-04f5-4000-abc7-3d1ad72029ae';
+SELECT @@ROWCOUNT;
+2024-03-31 11:12:02.427 +02:00 [INF] Executed DbCommand (35ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+DECLARE @var0 sysname;
+SELECT @var0 = [d].[name]
+FROM [sys].[default_constraints] [d]
+INNER JOIN [sys].[columns] [c] ON [d].[parent_column_id] = [c].[column_id] AND [d].[parent_object_id] = [c].[object_id]
+WHERE ([d].[parent_object_id] = OBJECT_ID(N'[AspNetUsers]') AND [c].[name] = N'Discriminator');
+IF @var0 IS NOT NULL EXEC(N'ALTER TABLE [AspNetUsers] DROP CONSTRAINT [' + @var0 + '];');
+ALTER TABLE [AspNetUsers] DROP COLUMN [Discriminator];
+2024-03-31 11:12:02.444 +02:00 [INF] Executed DbCommand (17ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+DECLARE @var1 sysname;
+SELECT @var1 = [d].[name]
+FROM [sys].[default_constraints] [d]
+INNER JOIN [sys].[columns] [c] ON [d].[parent_column_id] = [c].[column_id] AND [d].[parent_object_id] = [c].[object_id]
+WHERE ([d].[parent_object_id] = OBJECT_ID(N'[AspNetUsers]') AND [c].[name] = N'Surname');
+IF @var1 IS NOT NULL EXEC(N'ALTER TABLE [AspNetUsers] DROP CONSTRAINT [' + @var1 + '];');
+UPDATE [AspNetUsers] SET [Surname] = N'' WHERE [Surname] IS NULL;
+ALTER TABLE [AspNetUsers] ALTER COLUMN [Surname] nvarchar(max) NOT NULL;
+ALTER TABLE [AspNetUsers] ADD DEFAULT N'' FOR [Surname];
+2024-03-31 11:12:02.460 +02:00 [INF] Executed DbCommand (16ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+DECLARE @var2 sysname;
+SELECT @var2 = [d].[name]
+FROM [sys].[default_constraints] [d]
+INNER JOIN [sys].[columns] [c] ON [d].[parent_column_id] = [c].[column_id] AND [d].[parent_object_id] = [c].[object_id]
+WHERE ([d].[parent_object_id] = OBJECT_ID(N'[AspNetUsers]') AND [c].[name] = N'Name');
+IF @var2 IS NOT NULL EXEC(N'ALTER TABLE [AspNetUsers] DROP CONSTRAINT [' + @var2 + '];');
+UPDATE [AspNetUsers] SET [Name] = N'' WHERE [Name] IS NULL;
+ALTER TABLE [AspNetUsers] ALTER COLUMN [Name] nvarchar(max) NOT NULL;
+ALTER TABLE [AspNetUsers] ADD DEFAULT N'' FOR [Name];
+2024-03-31 11:12:02.470 +02:00 [INF] Executed DbCommand (10ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+IF EXISTS (SELECT * FROM [sys].[identity_columns] WHERE [name] IN (N'Id', N'ConcurrencyStamp', N'Name', N'NormalizedName') AND [object_id] = OBJECT_ID(N'[AspNetRoles]'))
+    SET IDENTITY_INSERT [AspNetRoles] ON;
+INSERT INTO [AspNetRoles] ([Id], [ConcurrencyStamp], [Name], [NormalizedName])
+VALUES (N'bc877f1b-1e44-492c-acce-ba01f7bcd77f', NULL, N'User', N'USER'),
+(N'c3e92f9e-e8e9-4fe3-b600-ed1b055d25aa', NULL, N'Admin', N'ADMIN');
+IF EXISTS (SELECT * FROM [sys].[identity_columns] WHERE [name] IN (N'Id', N'ConcurrencyStamp', N'Name', N'NormalizedName') AND [object_id] = OBJECT_ID(N'[AspNetRoles]'))
+    SET IDENTITY_INSERT [AspNetRoles] OFF;
+2024-03-31 11:12:02.472 +02:00 [INF] Executed DbCommand (2ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+UPDATE [AspNetUsers] SET [ConcurrencyStamp] = N'c4ddd6bb-33cd-43ef-a15b-58d0a84e4b54', [SecurityStamp] = N'3b555aee-68cb-45a3-ba27-67c6412a5c54', [UserName] = N'Tomasz Tomaszewicz'
+WHERE [Id] = N'1';
+SELECT @@ROWCOUNT;
+2024-03-31 11:12:02.473 +02:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+UPDATE [AspNetUsers] SET [ConcurrencyStamp] = N'09fadb70-2e52-492b-9e89-e75623ad8d17', [SecurityStamp] = N'c2cdaa8a-3fe7-4bf5-addd-b57846835646', [UserName] = N'Andrzej Andrzejewicz'
+WHERE [Id] = N'2';
+SELECT @@ROWCOUNT;
+2024-03-31 11:12:02.474 +02:00 [INF] Executed DbCommand (1ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+UPDATE [AspNetUsers] SET [ConcurrencyStamp] = N'7e551642-4a1d-4ed7-803c-1d7e6e368e63', [SecurityStamp] = N'4e2da35d-0998-4e4d-90c7-13c7299c3a15'
+WHERE [Id] = N'3';
+SELECT @@ROWCOUNT;
+2024-03-31 11:12:04.045 +02:00 [INF] Executed DbCommand (3ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+ALTER TABLE [AspNetUsers] ADD CONSTRAINT [FK_AspNetUsers_Departments_DepartmentId] FOREIGN KEY ([DepartmentId]) REFERENCES [Departments] ([Id]);
+2024-03-31 11:12:04.048 +02:00 [INF] Executed DbCommand (3ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+ALTER TABLE [AspNetUsers] ADD CONSTRAINT [FK_AspNetUsers_Positions_PositionId] FOREIGN KEY ([PositionId]) REFERENCES [Positions] ([Id]);
+2024-03-31 11:12:04.048 +02:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+INSERT INTO [__EFMigrationsHistory] ([MigrationId], [ProductVersion])
+VALUES (N'20240317120651_IdentityChange', N'8.0.3');
+2024-03-31 11:12:04.049 +02:00 [INF] Applying migration '20240317120938_AdministratorRoleForUser'.
+2024-03-31 11:12:04.074 +02:00 [INF] Executed DbCommand (9ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+IF EXISTS (SELECT * FROM [sys].[identity_columns] WHERE [name] IN (N'UserId', N'RoleId') AND [object_id] = OBJECT_ID(N'[AspNetUserRoles]'))
+    SET IDENTITY_INSERT [AspNetUserRoles] ON;
+INSERT INTO [AspNetUserRoles] ([UserId], [RoleId])
+VALUES (N'1', N'c3e92f9e-e8e9-4fe3-b600-ed1b055d25aa');
+IF EXISTS (SELECT * FROM [sys].[identity_columns] WHERE [name] IN (N'UserId', N'RoleId') AND [object_id] = OBJECT_ID(N'[AspNetUserRoles]'))
+    SET IDENTITY_INSERT [AspNetUserRoles] OFF;
+2024-03-31 11:12:04.075 +02:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+INSERT INTO [__EFMigrationsHistory] ([MigrationId], [ProductVersion])
+VALUES (N'20240317120938_AdministratorRoleForUser', N'8.0.3');
+2024-03-31 11:12:04.076 +02:00 [INF] Applying migration '20240331005408_UserAdminUpdate'.
+2024-03-31 11:12:04.094 +02:00 [INF] Executed DbCommand (1ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+UPDATE [AspNetUsers] SET [ConcurrencyStamp] = N'23a83bb9-86f9-4bfc-bda8-0e23601e4f51', [PasswordHash] = N'AQAAAAIAAYagAAAAEA14Ca4Qxi1aLPhhX//QlyWzbRxLXzvnr+15a91K8Gm2wm4aJm8WmvYvHNbF5Uy/2Q==', [SecurityStamp] = N'b047864c-3535-47b2-bb55-d8ba2ec4383c'
+WHERE [Id] = N'1';
+SELECT @@ROWCOUNT;
+2024-03-31 11:12:04.094 +02:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+UPDATE [AspNetUsers] SET [ConcurrencyStamp] = N'f408323a-6f7b-4c2d-97ac-8a0911ac231c', [PasswordHash] = N'AQAAAAIAAYagAAAAEA14Ca4Qxi1aLPhhX//QlyWzbRxLXzvnr+15a91K8Gm2wm4aJm8WmvYvHNbF5Uy/2Q==', [SecurityStamp] = N'a55540bb-c4ac-4d78-bfbb-d88cb0bffb11'
+WHERE [Id] = N'2';
+SELECT @@ROWCOUNT;
+2024-03-31 11:12:04.095 +02:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+INSERT INTO [__EFMigrationsHistory] ([MigrationId], [ProductVersion])
+VALUES (N'20240331005408_UserAdminUpdate', N'8.0.3');
+2024-03-31 11:12:04.095 +02:00 [INF] Applying migration '20240331005605_additional-migration'.
+2024-03-31 11:12:04.116 +02:00 [INF] Executed DbCommand (7ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+IF EXISTS (SELECT * FROM [sys].[identity_columns] WHERE [name] IN (N'UserId', N'RoleId') AND [object_id] = OBJECT_ID(N'[AspNetUserRoles]'))
+    SET IDENTITY_INSERT [AspNetUserRoles] ON;
+INSERT INTO [AspNetUserRoles] ([UserId], [RoleId])
+VALUES (N'2', N'bc877f1b-1e44-492c-acce-ba01f7bcd77f');
+IF EXISTS (SELECT * FROM [sys].[identity_columns] WHERE [name] IN (N'UserId', N'RoleId') AND [object_id] = OBJECT_ID(N'[AspNetUserRoles]'))
+    SET IDENTITY_INSERT [AspNetUserRoles] OFF;
+2024-03-31 11:12:04.117 +02:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+INSERT INTO [__EFMigrationsHistory] ([MigrationId], [ProductVersion])
+VALUES (N'20240331005605_additional-migration', N'8.0.3');
+2024-03-31 11:12:04.117 +02:00 [INF] Applying migration '20240331010107_additional-migration2'.
+2024-03-31 11:12:04.132 +02:00 [INF] Executed DbCommand (1ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+UPDATE [AspNetUsers] SET [ConcurrencyStamp] = N'97f9c9ce-6f3b-4231-a3da-ffdb9e340ce8', [PasswordHash] = N'AQAAAAIAAYagAAAAEMkp6ZgI7B0CvWNq7cpXxQLfp7JOOxqYJlMMp1bU4SUbCSSGgZScHqnwn+DCs48pvg==', [SecurityStamp] = N'518336dd-50dc-463c-893c-b5f630eba94b'
+WHERE [Id] = N'1';
+SELECT @@ROWCOUNT;
+2024-03-31 11:12:05.895 +02:00 [INF] Executed DbCommand (1ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+UPDATE [AspNetUsers] SET [ConcurrencyStamp] = N'e03d22d8-92e6-4014-95f4-f94624339ecf', [PasswordHash] = N'AQAAAAIAAYagAAAAEMkp6ZgI7B0CvWNq7cpXxQLfp7JOOxqYJlMMp1bU4SUbCSSGgZScHqnwn+DCs48pvg==', [SecurityStamp] = N'68070611-8b1a-4521-9b41-29209ea21f6f'
+WHERE [Id] = N'2';
+SELECT @@ROWCOUNT;
+2024-03-31 11:12:05.895 +02:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+INSERT INTO [__EFMigrationsHistory] ([MigrationId], [ProductVersion])
+VALUES (N'20240331010107_additional-migration2', N'8.0.3');
+2024-03-31 11:17:12.663 +02:00 [INF] User profile is available. Using 'C:\Users\Mariusz\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
+2024-03-31 11:17:13.106 +02:00 [INF] Now listening on: https://localhost:7178
+2024-03-31 11:17:13.107 +02:00 [INF] Now listening on: http://localhost:5291
+2024-03-31 11:17:13.132 +02:00 [INF] Application started. Press Ctrl+C to shut down.
+2024-03-31 11:17:13.133 +02:00 [INF] Hosting environment: Development
+2024-03-31 11:17:13.134 +02:00 [INF] Content root path: C:\Users\Mariusz\Desktop\InfoShare\#4 Projekt grupowy Work-Schedule\jcszr11-WeCSharp\Schedulist.App
+2024-03-31 11:17:15.822 +02:00 [INF] Request starting HTTP/2 GET https://localhost:7178/ - null null
+2024-03-31 11:17:16.085 +02:00 [INF] Executing endpoint 'Schedulist.App.Controllers.CalendarController.Index (Schedulist.App)'
+2024-03-31 11:17:16.133 +02:00 [INF] Route matched with {action = "Index", controller = "Calendar", page = "", area = ""}. Executing controller action with signature Microsoft.AspNetCore.Mvc.IActionResult Index() on controller Schedulist.App.Controllers.CalendarController (Schedulist.App).
+2024-03-31 11:17:17.398 +02:00 [INF] Executed DbCommand (21ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [a].[Id], [a].[AccessFailedCount], [a].[ConcurrencyStamp], [a].[DepartmentId], [a].[Email], [a].[EmailConfirmed], [a].[LockoutEnabled], [a].[LockoutEnd], [a].[Name], [a].[NormalizedEmail], [a].[NormalizedUserName], [a].[PasswordHash], [a].[PhoneNumber], [a].[PhoneNumberConfirmed], [a].[PositionId], [a].[SecurityStamp], [a].[Surname], [a].[TwoFactorEnabled], [a].[UserName]
+FROM [AspNetUsers] AS [a]
+2024-03-31 11:17:17.473 +02:00 [INF] Executing RedirectResult, redirecting to /Identity/Account/Login.
+2024-03-31 11:17:17.477 +02:00 [INF] Executed action Schedulist.App.Controllers.CalendarController.Index (Schedulist.App) in 1340.0858ms
+2024-03-31 11:17:17.479 +02:00 [INF] Executed endpoint 'Schedulist.App.Controllers.CalendarController.Index (Schedulist.App)'
+2024-03-31 11:17:17.488 +02:00 [INF] Request starting HTTP/2 GET https://localhost:7178/Identity/Account/Login - null null
+2024-03-31 11:17:17.490 +02:00 [INF] Request finished HTTP/2 GET https://localhost:7178/ - 302 0 null 1679.9222ms
+2024-03-31 11:17:17.496 +02:00 [INF] Executing endpoint '/Account/Login'
+2024-03-31 11:17:17.528 +02:00 [INF] Route matched with {page = "/Account/Login", area = "Identity", action = "", controller = ""}. Executing page /Account/Login
+2024-03-31 11:17:17.550 +02:00 [INF] Executing handler method Schedulist.App.Areas.Identity.Pages.Account.LoginModel.OnGetAsync - ModelState is "Valid"
+2024-03-31 11:17:17.559 +02:00 [INF] AuthenticationScheme: Identity.External signed out.
+2024-03-31 11:17:17.562 +02:00 [INF] Executed handler method OnGetAsync, returned result .
+2024-03-31 11:17:17.565 +02:00 [INF] Executing an implicit handler method - ModelState is "Valid"
+2024-03-31 11:17:17.566 +02:00 [INF] Executed an implicit handler method, returned result Microsoft.AspNetCore.Mvc.RazorPages.PageResult.
+2024-03-31 11:17:17.811 +02:00 [INF] Executed DbCommand (42ms) [Parameters=[@__normalizedUserName_0='?' (Size = 256)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [a].[Id], [a].[AccessFailedCount], [a].[ConcurrencyStamp], [a].[DepartmentId], [a].[Email], [a].[EmailConfirmed], [a].[LockoutEnabled], [a].[LockoutEnd], [a].[Name], [a].[NormalizedEmail], [a].[NormalizedUserName], [a].[PasswordHash], [a].[PhoneNumber], [a].[PhoneNumberConfirmed], [a].[PositionId], [a].[SecurityStamp], [a].[Surname], [a].[TwoFactorEnabled], [a].[UserName]
+FROM [AspNetUsers] AS [a]
+WHERE [a].[NormalizedUserName] = @__normalizedUserName_0
+2024-03-31 11:17:17.860 +02:00 [INF] Executed page /Account/Login in 330.455ms
+2024-03-31 11:17:17.862 +02:00 [INF] Executed endpoint '/Account/Login'
+2024-03-31 11:17:17.869 +02:00 [INF] Request starting HTTP/2 GET https://localhost:7178/_framework/aspnetcore-browser-refresh.js - null null
+2024-03-31 11:17:17.869 +02:00 [INF] Request starting HTTP/2 GET https://localhost:7178/css/site.css?v=At-3ZBW6L4aagbta0Uy5jgayL6qsXbHjN8hPuKG8IMo - null null
+2024-03-31 11:17:17.871 +02:00 [INF] Request finished HTTP/2 GET https://localhost:7178/Identity/Account/Login - 200 null text/html; charset=utf-8 382.8487ms
+2024-03-31 11:17:17.886 +02:00 [INF] Request finished HTTP/2 GET https://localhost:7178/_framework/aspnetcore-browser-refresh.js - 200 13764 application/javascript; charset=utf-8 16.5417ms
+2024-03-31 11:17:17.891 +02:00 [INF] The file /css/site.css was not modified
+2024-03-31 11:17:17.893 +02:00 [INF] Request finished HTTP/2 GET https://localhost:7178/css/site.css?v=At-3ZBW6L4aagbta0Uy5jgayL6qsXbHjN8hPuKG8IMo - 304 null text/css 24.0171ms
+2024-03-31 11:17:17.911 +02:00 [INF] Request starting HTTP/2 GET https://localhost:7178/_vs/browserLink - null null
+2024-03-31 11:17:17.970 +02:00 [INF] Request finished HTTP/2 GET https://localhost:7178/_vs/browserLink - 200 null text/javascript; charset=UTF-8 59.9284ms
+2024-03-31 11:17:18.102 +02:00 [INF] Request starting HTTP/1.1 GET https://localhost:7178/lib/bootstrap/dist/js/bootstrap.bundle.min.js.map - null null
+2024-03-31 11:17:18.137 +02:00 [INF] Sending file. Request path: '/lib/bootstrap/dist/js/bootstrap.bundle.min.js.map'. Physical path: 'C:\Users\Mariusz\Desktop\InfoShare\#4 Projekt grupowy Work-Schedule\jcszr11-WeCSharp\Schedulist.App\wwwroot\lib\bootstrap\dist\js\bootstrap.bundle.min.js.map'
+2024-03-31 11:17:18.140 +02:00 [INF] Request finished HTTP/1.1 GET https://localhost:7178/lib/bootstrap/dist/js/bootstrap.bundle.min.js.map - 200 327261 text/plain 38.5829ms
+2024-03-31 11:17:21.551 +02:00 [INF] Request starting HTTP/2 GET https://localhost:7178/Identity/Account/Register?returnUrl=%2F - null null
+2024-03-31 11:17:21.559 +02:00 [INF] Executing endpoint '/Account/Register'
+2024-03-31 11:17:21.567 +02:00 [INF] Route matched with {page = "/Account/Register", area = "Identity", action = "", controller = ""}. Executing page /Account/Register
+2024-03-31 11:17:21.582 +02:00 [INF] Executing handler method Schedulist.App.Areas.Identity.Pages.Account.RegisterModel.OnGetAsync - ModelState is "Valid"
+2024-03-31 11:17:21.584 +02:00 [INF] Executed handler method OnGetAsync, returned result .
+2024-03-31 11:17:21.585 +02:00 [INF] Executing an implicit handler method - ModelState is "Valid"
+2024-03-31 11:17:21.586 +02:00 [INF] Executed an implicit handler method, returned result Microsoft.AspNetCore.Mvc.RazorPages.PageResult.
+2024-03-31 11:17:21.657 +02:00 [INF] Executed DbCommand (8ms) [Parameters=[@__normalizedUserName_0='?' (Size = 256)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [a].[Id], [a].[AccessFailedCount], [a].[ConcurrencyStamp], [a].[DepartmentId], [a].[Email], [a].[EmailConfirmed], [a].[LockoutEnabled], [a].[LockoutEnd], [a].[Name], [a].[NormalizedEmail], [a].[NormalizedUserName], [a].[PasswordHash], [a].[PhoneNumber], [a].[PhoneNumberConfirmed], [a].[PositionId], [a].[SecurityStamp], [a].[Surname], [a].[TwoFactorEnabled], [a].[UserName]
+FROM [AspNetUsers] AS [a]
+WHERE [a].[NormalizedUserName] = @__normalizedUserName_0
+2024-03-31 11:17:21.662 +02:00 [INF] Executed page /Account/Register in 93.4324ms
+2024-03-31 11:17:21.663 +02:00 [INF] Executed endpoint '/Account/Register'
+2024-03-31 11:17:21.664 +02:00 [INF] Request finished HTTP/2 GET https://localhost:7178/Identity/Account/Register?returnUrl=%2F - 200 null text/html; charset=utf-8 113.9172ms
+2024-03-31 11:17:21.670 +02:00 [INF] Request starting HTTP/2 GET https://localhost:7178/_framework/aspnetcore-browser-refresh.js - null null
+2024-03-31 11:17:21.670 +02:00 [INF] Request starting HTTP/2 GET https://localhost:7178/_vs/browserLink - null null
+2024-03-31 11:17:21.673 +02:00 [INF] Request finished HTTP/2 GET https://localhost:7178/_framework/aspnetcore-browser-refresh.js - 200 13764 application/javascript; charset=utf-8 3.4392ms
+2024-03-31 11:17:21.691 +02:00 [INF] Request finished HTTP/2 GET https://localhost:7178/_vs/browserLink - 200 null text/javascript; charset=UTF-8 21.9655ms
+2024-03-31 11:17:47.584 +02:00 [INF] Request starting HTTP/2 POST https://localhost:7178/Identity/Account/Register?returnUrl=%2F - application/x-www-form-urlencoded 329
+2024-03-31 11:17:47.589 +02:00 [INF] Executing endpoint '/Account/Register'
+2024-03-31 11:17:47.590 +02:00 [INF] Route matched with {page = "/Account/Register", area = "Identity", action = "", controller = ""}. Executing page /Account/Register
+2024-03-31 11:17:47.610 +02:00 [INF] Executing handler method Schedulist.App.Areas.Identity.Pages.Account.RegisterModel.OnPostAsync - ModelState is "Valid"
+2024-03-31 11:17:47.685 +02:00 [INF] Executed DbCommand (4ms) [Parameters=[@__normalizedUserName_0='?' (Size = 256)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [a].[Id], [a].[AccessFailedCount], [a].[ConcurrencyStamp], [a].[DepartmentId], [a].[Email], [a].[EmailConfirmed], [a].[LockoutEnabled], [a].[LockoutEnd], [a].[Name], [a].[NormalizedEmail], [a].[NormalizedUserName], [a].[PasswordHash], [a].[PhoneNumber], [a].[PhoneNumberConfirmed], [a].[PositionId], [a].[SecurityStamp], [a].[Surname], [a].[TwoFactorEnabled], [a].[UserName]
+FROM [AspNetUsers] AS [a]
+WHERE [a].[NormalizedUserName] = @__normalizedUserName_0
+2024-03-31 11:17:47.785 +02:00 [INF] Executed DbCommand (6ms) [Parameters=[@p0='?' (Size = 450), @p1='?' (DbType = Int32), @p2='?' (Size = 4000), @p3='?' (DbType = Int32), @p4='?' (Size = 256), @p5='?' (DbType = Boolean), @p6='?' (DbType = Boolean), @p7='?' (DbType = DateTimeOffset), @p8='?' (Size = 4000), @p9='?' (Size = 256), @p10='?' (Size = 256), @p11='?' (Size = 4000), @p12='?' (Size = 4000), @p13='?' (DbType = Boolean), @p14='?' (DbType = Int32), @p15='?' (Size = 4000), @p16='?' (Size = 4000), @p17='?' (DbType = Boolean), @p18='?' (Size = 256)], CommandType='"Text"', CommandTimeout='30']
+SET IMPLICIT_TRANSACTIONS OFF;
+SET NOCOUNT ON;
+INSERT INTO [AspNetUsers] ([Id], [AccessFailedCount], [ConcurrencyStamp], [DepartmentId], [Email], [EmailConfirmed], [LockoutEnabled], [LockoutEnd], [Name], [NormalizedEmail], [NormalizedUserName], [PasswordHash], [PhoneNumber], [PhoneNumberConfirmed], [PositionId], [SecurityStamp], [Surname], [TwoFactorEnabled], [UserName])
+VALUES (@p0, @p1, @p2, @p3, @p4, @p5, @p6, @p7, @p8, @p9, @p10, @p11, @p12, @p13, @p14, @p15, @p16, @p17, @p18);
+2024-03-31 11:17:47.795 +02:00 [INF] User created a new account with password.
+2024-03-31 11:17:47.809 +02:00 [INF] Executed DbCommand (5ms) [Parameters=[@__normalizedRoleName_0='?' (Size = 256)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(2) [a].[Id], [a].[ConcurrencyStamp], [a].[Name], [a].[NormalizedName]
+FROM [AspNetRoles] AS [a]
+WHERE [a].[NormalizedName] = @__normalizedRoleName_0
+2024-03-31 11:17:47.845 +02:00 [INF] Executed DbCommand (2ms) [Parameters=[@__p_0='?' (Size = 450), @__p_1='?' (Size = 450)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [a].[UserId], [a].[RoleId]
+FROM [AspNetUserRoles] AS [a]
+WHERE [a].[UserId] = @__p_0 AND [a].[RoleId] = @__p_1
+2024-03-31 11:17:47.850 +02:00 [INF] Executed DbCommand (1ms) [Parameters=[@__normalizedRoleName_0='?' (Size = 256)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(2) [a].[Id], [a].[ConcurrencyStamp], [a].[Name], [a].[NormalizedName]
+FROM [AspNetRoles] AS [a]
+WHERE [a].[NormalizedName] = @__normalizedRoleName_0
+2024-03-31 11:17:47.862 +02:00 [INF] Executed DbCommand (1ms) [Parameters=[@__normalizedUserName_0='?' (Size = 256)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [a].[Id], [a].[AccessFailedCount], [a].[ConcurrencyStamp], [a].[DepartmentId], [a].[Email], [a].[EmailConfirmed], [a].[LockoutEnabled], [a].[LockoutEnd], [a].[Name], [a].[NormalizedEmail], [a].[NormalizedUserName], [a].[PasswordHash], [a].[PhoneNumber], [a].[PhoneNumberConfirmed], [a].[PositionId], [a].[SecurityStamp], [a].[Surname], [a].[TwoFactorEnabled], [a].[UserName]
+FROM [AspNetUsers] AS [a]
+WHERE [a].[NormalizedUserName] = @__normalizedUserName_0
+2024-03-31 11:17:47.901 +02:00 [INF] Executed DbCommand (9ms) [Parameters=[@p0='?' (Size = 450), @p1='?' (Size = 450), @p20='?' (Size = 450), @p2='?' (DbType = Int32), @p3='?' (Size = 4000), @p21='?' (Size = 4000), @p4='?' (DbType = Int32), @p5='?' (Size = 256), @p6='?' (DbType = Boolean), @p7='?' (DbType = Boolean), @p8='?' (DbType = DateTimeOffset), @p9='?' (Size = 4000), @p10='?' (Size = 256), @p11='?' (Size = 256), @p12='?' (Size = 4000), @p13='?' (Size = 4000), @p14='?' (DbType = Boolean), @p15='?' (DbType = Int32), @p16='?' (Size = 4000), @p17='?' (Size = 4000), @p18='?' (DbType = Boolean), @p19='?' (Size = 256)], CommandType='"Text"', CommandTimeout='30']
+SET NOCOUNT ON;
+INSERT INTO [AspNetUserRoles] ([RoleId], [UserId])
+VALUES (@p0, @p1);
+UPDATE [AspNetUsers] SET [AccessFailedCount] = @p2, [ConcurrencyStamp] = @p3, [DepartmentId] = @p4, [Email] = @p5, [EmailConfirmed] = @p6, [LockoutEnabled] = @p7, [LockoutEnd] = @p8, [Name] = @p9, [NormalizedEmail] = @p10, [NormalizedUserName] = @p11, [PasswordHash] = @p12, [PhoneNumber] = @p13, [PhoneNumberConfirmed] = @p14, [PositionId] = @p15, [SecurityStamp] = @p16, [Surname] = @p17, [TwoFactorEnabled] = @p18, [UserName] = @p19
+OUTPUT 1
+WHERE [Id] = @p20 AND [ConcurrencyStamp] = @p21;
+2024-03-31 11:17:47.915 +02:00 [INF] Executed handler method OnPostAsync, returned result Microsoft.AspNetCore.Mvc.RedirectToPageResult.
+2024-03-31 11:17:47.917 +02:00 [INF] Executing RedirectToPageResult, redirecting to RegisterConfirmation.
+2024-03-31 11:17:47.917 +02:00 [INF] Executed page /Account/Register in 326.9704ms
+2024-03-31 11:17:47.918 +02:00 [INF] Executed endpoint '/Account/Register'
+2024-03-31 11:17:47.919 +02:00 [INF] Request finished HTTP/2 POST https://localhost:7178/Identity/Account/Register?returnUrl=%2F - 302 0 null 335.142ms
+2024-03-31 11:17:47.922 +02:00 [INF] Request starting HTTP/2 GET https://localhost:7178/Identity/Account/RegisterConfirmation?email=kurstestera@gmail.com&returnUrl=%2F - null null
+2024-03-31 11:17:47.926 +02:00 [INF] Executing endpoint '/Account/RegisterConfirmation'
+2024-03-31 11:17:47.930 +02:00 [INF] Route matched with {page = "/Account/RegisterConfirmation", area = "Identity", action = "", controller = ""}. Executing page /Account/RegisterConfirmation
+2024-03-31 11:17:47.932 +02:00 [INF] Executing handler method Microsoft.AspNetCore.Identity.UI.V5.Pages.Account.Internal.RegisterConfirmationModel.OnGetAsync - ModelState is "Valid"
+2024-03-31 11:17:47.943 +02:00 [INF] Executed DbCommand (2ms) [Parameters=[@__normalizedEmail_0='?' (Size = 256)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(2) [a].[Id], [a].[AccessFailedCount], [a].[ConcurrencyStamp], [a].[DepartmentId], [a].[Email], [a].[EmailConfirmed], [a].[LockoutEnabled], [a].[LockoutEnd], [a].[Name], [a].[NormalizedEmail], [a].[NormalizedUserName], [a].[PasswordHash], [a].[PhoneNumber], [a].[PhoneNumberConfirmed], [a].[PositionId], [a].[SecurityStamp], [a].[Surname], [a].[TwoFactorEnabled], [a].[UserName]
+FROM [AspNetUsers] AS [a]
+WHERE [a].[NormalizedEmail] = @__normalizedEmail_0
+2024-03-31 11:17:47.947 +02:00 [INF] Executed handler method OnGetAsync, returned result Microsoft.AspNetCore.Mvc.RazorPages.PageResult.
+2024-03-31 11:17:47.954 +02:00 [INF] Executed DbCommand (2ms) [Parameters=[@__normalizedUserName_0='?' (Size = 256)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [a].[Id], [a].[AccessFailedCount], [a].[ConcurrencyStamp], [a].[DepartmentId], [a].[Email], [a].[EmailConfirmed], [a].[LockoutEnabled], [a].[LockoutEnd], [a].[Name], [a].[NormalizedEmail], [a].[NormalizedUserName], [a].[PasswordHash], [a].[PhoneNumber], [a].[PhoneNumberConfirmed], [a].[PositionId], [a].[SecurityStamp], [a].[Surname], [a].[TwoFactorEnabled], [a].[UserName]
+FROM [AspNetUsers] AS [a]
+WHERE [a].[NormalizedUserName] = @__normalizedUserName_0
+2024-03-31 11:17:47.957 +02:00 [INF] Executed page /Account/RegisterConfirmation in 25.7614ms
+2024-03-31 11:17:47.958 +02:00 [INF] Executed endpoint '/Account/RegisterConfirmation'
+2024-03-31 11:17:47.959 +02:00 [INF] Request finished HTTP/2 GET https://localhost:7178/Identity/Account/RegisterConfirmation?email=kurstestera@gmail.com&returnUrl=%2F - 200 null text/html; charset=utf-8 36.2463ms
+2024-03-31 11:17:47.965 +02:00 [INF] Request starting HTTP/2 GET https://localhost:7178/_framework/aspnetcore-browser-refresh.js - null null
+2024-03-31 11:17:47.965 +02:00 [INF] Request starting HTTP/2 GET https://localhost:7178/_vs/browserLink - null null
+2024-03-31 11:17:47.969 +02:00 [INF] Request finished HTTP/2 GET https://localhost:7178/_framework/aspnetcore-browser-refresh.js - 200 13764 application/javascript; charset=utf-8 3.3749ms
+2024-03-31 11:17:47.990 +02:00 [INF] Request finished HTTP/2 GET https://localhost:7178/_vs/browserLink - 200 null text/javascript; charset=UTF-8 25.3263ms
+2024-03-31 11:17:49.324 +02:00 [INF] Request starting HTTP/2 GET https://localhost:7178/Identity/Account/ConfirmEmail?userId=269ac96f-db61-4c63-b7bd-5edae0132779&code=Q2ZESjhNVnpjNEZ4TjdwQXJoTHBDbmZlaTErLzJsMTRpZTFhTkJNYTRneU9kUXhBdjBza2JIRWpnWFNmZDhZUzUwdmxFd1NzbzE5NzB1cytTdVN2SUVjNGwzZ09ZaEgyL3VCWlIxNm82YWdLRUFnNGVXek9vNG54K253S3RhRTlpYmFuM3FmSk1QVm9iUWkwQWxlbXppNlFFNllkc29MbWZTNE9uV1ZaK20ybEhIMXRnZTZyb1VXbWl5MFZwSVlqTGsveVJRZ0NQWGQxS2loRTUxS2k4OGMrUjI5bXZMVlRIWTFob3gza0xHMXhjK3ltYmFpanFqNHZjK1hNM0R5U3paTjh3UT09&returnUrl=%2F - null null
+2024-03-31 11:17:49.328 +02:00 [INF] Executing endpoint '/Account/ConfirmEmail'
+2024-03-31 11:17:49.332 +02:00 [INF] Route matched with {page = "/Account/ConfirmEmail", area = "Identity", action = "", controller = ""}. Executing page /Account/ConfirmEmail
+2024-03-31 11:17:49.334 +02:00 [INF] Executing handler method Microsoft.AspNetCore.Identity.UI.V5.Pages.Account.Internal.ConfirmEmailModel.OnGetAsync - ModelState is "Valid"
+2024-03-31 11:17:49.345 +02:00 [INF] Executed DbCommand (3ms) [Parameters=[@__p_0='?' (Size = 450)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [a].[Id], [a].[AccessFailedCount], [a].[ConcurrencyStamp], [a].[DepartmentId], [a].[Email], [a].[EmailConfirmed], [a].[LockoutEnabled], [a].[LockoutEnd], [a].[Name], [a].[NormalizedEmail], [a].[NormalizedUserName], [a].[PasswordHash], [a].[PhoneNumber], [a].[PhoneNumberConfirmed], [a].[PositionId], [a].[SecurityStamp], [a].[Surname], [a].[TwoFactorEnabled], [a].[UserName]
+FROM [AspNetUsers] AS [a]
+WHERE [a].[Id] = @__p_0
+2024-03-31 11:17:49.354 +02:00 [INF] Executed DbCommand (4ms) [Parameters=[@__normalizedUserName_0='?' (Size = 256)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [a].[Id], [a].[AccessFailedCount], [a].[ConcurrencyStamp], [a].[DepartmentId], [a].[Email], [a].[EmailConfirmed], [a].[LockoutEnabled], [a].[LockoutEnd], [a].[Name], [a].[NormalizedEmail], [a].[NormalizedUserName], [a].[PasswordHash], [a].[PhoneNumber], [a].[PhoneNumberConfirmed], [a].[PositionId], [a].[SecurityStamp], [a].[Surname], [a].[TwoFactorEnabled], [a].[UserName]
+FROM [AspNetUsers] AS [a]
+WHERE [a].[NormalizedUserName] = @__normalizedUserName_0
+2024-03-31 11:17:49.362 +02:00 [INF] Executed DbCommand (5ms) [Parameters=[@p18='?' (Size = 450), @p0='?' (DbType = Int32), @p1='?' (Size = 4000), @p19='?' (Size = 4000), @p2='?' (DbType = Int32), @p3='?' (Size = 256), @p4='?' (DbType = Boolean), @p5='?' (DbType = Boolean), @p6='?' (DbType = DateTimeOffset), @p7='?' (Size = 4000), @p8='?' (Size = 256), @p9='?' (Size = 256), @p10='?' (Size = 4000), @p11='?' (Size = 4000), @p12='?' (DbType = Boolean), @p13='?' (DbType = Int32), @p14='?' (Size = 4000), @p15='?' (Size = 4000), @p16='?' (DbType = Boolean), @p17='?' (Size = 256)], CommandType='"Text"', CommandTimeout='30']
+SET IMPLICIT_TRANSACTIONS OFF;
+SET NOCOUNT ON;
+UPDATE [AspNetUsers] SET [AccessFailedCount] = @p0, [ConcurrencyStamp] = @p1, [DepartmentId] = @p2, [Email] = @p3, [EmailConfirmed] = @p4, [LockoutEnabled] = @p5, [LockoutEnd] = @p6, [Name] = @p7, [NormalizedEmail] = @p8, [NormalizedUserName] = @p9, [PasswordHash] = @p10, [PhoneNumber] = @p11, [PhoneNumberConfirmed] = @p12, [PositionId] = @p13, [SecurityStamp] = @p14, [Surname] = @p15, [TwoFactorEnabled] = @p16, [UserName] = @p17
+OUTPUT 1
+WHERE [Id] = @p18 AND [ConcurrencyStamp] = @p19;
+2024-03-31 11:17:49.365 +02:00 [INF] Executed handler method OnGetAsync, returned result Microsoft.AspNetCore.Mvc.RazorPages.PageResult.
+2024-03-31 11:17:49.372 +02:00 [INF] Executed DbCommand (2ms) [Parameters=[@__normalizedUserName_0='?' (Size = 256)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [a].[Id], [a].[AccessFailedCount], [a].[ConcurrencyStamp], [a].[DepartmentId], [a].[Email], [a].[EmailConfirmed], [a].[LockoutEnabled], [a].[LockoutEnd], [a].[Name], [a].[NormalizedEmail], [a].[NormalizedUserName], [a].[PasswordHash], [a].[PhoneNumber], [a].[PhoneNumberConfirmed], [a].[PositionId], [a].[SecurityStamp], [a].[Surname], [a].[TwoFactorEnabled], [a].[UserName]
+FROM [AspNetUsers] AS [a]
+WHERE [a].[NormalizedUserName] = @__normalizedUserName_0
+2024-03-31 11:17:49.376 +02:00 [INF] Executed page /Account/ConfirmEmail in 42.4525ms
+2024-03-31 11:17:49.377 +02:00 [INF] Executed endpoint '/Account/ConfirmEmail'
+2024-03-31 11:17:49.378 +02:00 [INF] Request finished HTTP/2 GET https://localhost:7178/Identity/Account/ConfirmEmail?userId=269ac96f-db61-4c63-b7bd-5edae0132779&code=Q2ZESjhNVnpjNEZ4TjdwQXJoTHBDbmZlaTErLzJsMTRpZTFhTkJNYTRneU9kUXhBdjBza2JIRWpnWFNmZDhZUzUwdmxFd1NzbzE5NzB1cytTdVN2SUVjNGwzZ09ZaEgyL3VCWlIxNm82YWdLRUFnNGVXek9vNG54K253S3RhRTlpYmFuM3FmSk1QVm9iUWkwQWxlbXppNlFFNllkc29MbWZTNE9uV1ZaK20ybEhIMXRnZTZyb1VXbWl5MFZwSVlqTGsveVJRZ0NQWGQxS2loRTUxS2k4OGMrUjI5bXZMVlRIWTFob3gza0xHMXhjK3ltYmFpanFqNHZjK1hNM0R5U3paTjh3UT09&returnUrl=%2F - 200 null text/html; charset=utf-8 53.9279ms
+2024-03-31 11:17:49.382 +02:00 [INF] Request starting HTTP/2 GET https://localhost:7178/_framework/aspnetcore-browser-refresh.js - null null
+2024-03-31 11:17:49.382 +02:00 [INF] Request starting HTTP/2 GET https://localhost:7178/_vs/browserLink - null null
+2024-03-31 11:17:49.385 +02:00 [INF] Request finished HTTP/2 GET https://localhost:7178/_framework/aspnetcore-browser-refresh.js - 200 13764 application/javascript; charset=utf-8 2.4339ms
+2024-03-31 11:17:49.398 +02:00 [INF] Request finished HTTP/2 GET https://localhost:7178/_vs/browserLink - 200 null text/javascript; charset=UTF-8 15.3471ms
+2024-03-31 11:17:52.079 +02:00 [INF] Request starting HTTP/2 GET https://localhost:7178/Identity/Account/Login - null null
+2024-03-31 11:17:52.082 +02:00 [INF] Executing endpoint '/Account/Login'
+2024-03-31 11:17:52.084 +02:00 [INF] Route matched with {page = "/Account/Login", area = "Identity", action = "", controller = ""}. Executing page /Account/Login
+2024-03-31 11:17:52.086 +02:00 [INF] Executing handler method Schedulist.App.Areas.Identity.Pages.Account.LoginModel.OnGetAsync - ModelState is "Valid"
+2024-03-31 11:17:52.088 +02:00 [INF] AuthenticationScheme: Identity.External signed out.
+2024-03-31 11:17:52.088 +02:00 [INF] Executed handler method OnGetAsync, returned result .
+2024-03-31 11:17:52.090 +02:00 [INF] Executing an implicit handler method - ModelState is "Valid"
+2024-03-31 11:17:52.090 +02:00 [INF] Executed an implicit handler method, returned result Microsoft.AspNetCore.Mvc.RazorPages.PageResult.
+2024-03-31 11:17:52.098 +02:00 [INF] Executed DbCommand (3ms) [Parameters=[@__normalizedUserName_0='?' (Size = 256)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [a].[Id], [a].[AccessFailedCount], [a].[ConcurrencyStamp], [a].[DepartmentId], [a].[Email], [a].[EmailConfirmed], [a].[LockoutEnabled], [a].[LockoutEnd], [a].[Name], [a].[NormalizedEmail], [a].[NormalizedUserName], [a].[PasswordHash], [a].[PhoneNumber], [a].[PhoneNumberConfirmed], [a].[PositionId], [a].[SecurityStamp], [a].[Surname], [a].[TwoFactorEnabled], [a].[UserName]
+FROM [AspNetUsers] AS [a]
+WHERE [a].[NormalizedUserName] = @__normalizedUserName_0
+2024-03-31 11:17:52.100 +02:00 [INF] Executed page /Account/Login in 15.7704ms
+2024-03-31 11:17:52.102 +02:00 [INF] Executed endpoint '/Account/Login'
+2024-03-31 11:17:52.103 +02:00 [INF] Request finished HTTP/2 GET https://localhost:7178/Identity/Account/Login - 200 null text/html; charset=utf-8 24.4854ms
+2024-03-31 11:17:52.108 +02:00 [INF] Request starting HTTP/2 GET https://localhost:7178/_framework/aspnetcore-browser-refresh.js - null null
+2024-03-31 11:17:52.110 +02:00 [INF] Request finished HTTP/2 GET https://localhost:7178/_framework/aspnetcore-browser-refresh.js - 200 13764 application/javascript; charset=utf-8 2.4326ms
+2024-03-31 11:17:52.114 +02:00 [INF] Request starting HTTP/2 GET https://localhost:7178/_vs/browserLink - null null
+2024-03-31 11:17:52.126 +02:00 [INF] Request finished HTTP/2 GET https://localhost:7178/_vs/browserLink - 200 null text/javascript; charset=UTF-8 12.608ms
+2024-03-31 11:23:49.753 +02:00 [INF] Executed DbCommand (10ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT 1
+2024-03-31 11:23:49.793 +02:00 [INF] Executed DbCommand (11ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT OBJECT_ID(N'[__EFMigrationsHistory]');
+2024-03-31 11:23:49.795 +02:00 [INF] Executed DbCommand (1ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT 1
+2024-03-31 11:23:49.795 +02:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT OBJECT_ID(N'[__EFMigrationsHistory]');
+2024-03-31 11:23:49.805 +02:00 [INF] Executed DbCommand (3ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [MigrationId], [ProductVersion]
+FROM [__EFMigrationsHistory]
+ORDER BY [MigrationId];
+2024-03-31 11:23:49.816 +02:00 [INF] No migrations were applied. The database is already up to date.
+2024-03-31 11:24:44.478 +02:00 [INF] Executed DbCommand (11ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT 1
+2024-03-31 11:24:44.515 +02:00 [INF] Executed DbCommand (7ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT OBJECT_ID(N'[__EFMigrationsHistory]');
+2024-03-31 11:24:44.516 +02:00 [INF] Executed DbCommand (1ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT 1
+2024-03-31 11:24:44.517 +02:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT OBJECT_ID(N'[__EFMigrationsHistory]');
+2024-03-31 11:24:44.525 +02:00 [INF] Executed DbCommand (2ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [MigrationId], [ProductVersion]
+FROM [__EFMigrationsHistory]
+ORDER BY [MigrationId];
+2024-03-31 11:24:44.534 +02:00 [INF] Applying migration '20240331092425_UpdatingMigration'.
+2024-03-31 11:24:44.575 +02:00 [INF] Executed DbCommand (5ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+UPDATE [AspNetUsers] SET [ConcurrencyStamp] = N'3d87c092-301f-41a6-bd38-a2f53709992d', [PasswordHash] = N'AQAAAAIAAYagAAAAEIxGzZDGB+hg8ohRYk/hnlwJ4nbD7d6/9WZRWlqc0+RAuu0PIlfXEyDU0c35EoLaJw==', [SecurityStamp] = N'a6a3a4f2-2f6e-44e9-982a-d91a1e278771'
+WHERE [Id] = N'1';
+SELECT @@ROWCOUNT;
+2024-03-31 11:24:44.576 +02:00 [INF] Executed DbCommand (1ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+UPDATE [AspNetUsers] SET [ConcurrencyStamp] = N'04e5c905-3b8e-4fa4-a458-ce892bb9a71a', [PasswordHash] = N'AQAAAAIAAYagAAAAEIxGzZDGB+hg8ohRYk/hnlwJ4nbD7d6/9WZRWlqc0+RAuu0PIlfXEyDU0c35EoLaJw==', [SecurityStamp] = N'4944b0c9-1454-4e3c-9273-8e85835864c9'
+WHERE [Id] = N'2';
+SELECT @@ROWCOUNT;
+2024-03-31 11:24:44.578 +02:00 [INF] Executed DbCommand (1ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+INSERT INTO [__EFMigrationsHistory] ([MigrationId], [ProductVersion])
+VALUES (N'20240331092425_UpdatingMigration', N'8.0.3');
+2024-03-31 11:25:58.731 +02:00 [INF] Executed DbCommand (112ms) [Parameters=[], CommandType='"Text"', CommandTimeout='60']
+CREATE DATABASE [Schedulist];
+2024-03-31 11:25:58.792 +02:00 [INF] Executed DbCommand (37ms) [Parameters=[], CommandType='"Text"', CommandTimeout='60']
+IF SERVERPROPERTY('EngineEdition') <> 5
+BEGIN
+    ALTER DATABASE [Schedulist] SET READ_COMMITTED_SNAPSHOT ON;
+END;
+2024-03-31 11:25:58.804 +02:00 [INF] Executed DbCommand (4ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT 1
+2024-03-31 11:25:58.846 +02:00 [INF] Executed DbCommand (8ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE TABLE [__EFMigrationsHistory] (
+    [MigrationId] nvarchar(150) NOT NULL,
+    [ProductVersion] nvarchar(32) NOT NULL,
+    CONSTRAINT [PK___EFMigrationsHistory] PRIMARY KEY ([MigrationId])
+);
+2024-03-31 11:25:58.847 +02:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT 1
+2024-03-31 11:25:58.856 +02:00 [INF] Executed DbCommand (7ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT OBJECT_ID(N'[__EFMigrationsHistory]');
+2024-03-31 11:25:58.863 +02:00 [INF] Executed DbCommand (6ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [MigrationId], [ProductVersion]
+FROM [__EFMigrationsHistory]
+ORDER BY [MigrationId];
+2024-03-31 11:25:58.874 +02:00 [INF] Applying migration '20240307212027_NewAllMigrations'.
+2024-03-31 11:25:58.945 +02:00 [INF] Executed DbCommand (2ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE TABLE [AspNetRoles] (
+    [Id] nvarchar(450) NOT NULL,
+    [Name] nvarchar(256) NULL,
+    [NormalizedName] nvarchar(256) NULL,
+    [ConcurrencyStamp] nvarchar(max) NULL,
+    CONSTRAINT [PK_AspNetRoles] PRIMARY KEY ([Id])
+);
+2024-03-31 11:25:58.947 +02:00 [INF] Executed DbCommand (1ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE TABLE [Departments] (
+    [Id] int NOT NULL IDENTITY,
+    [Name] nvarchar(max) NOT NULL,
+    CONSTRAINT [PK_Departments] PRIMARY KEY ([Id])
+);
+2024-03-31 11:25:58.949 +02:00 [INF] Executed DbCommand (2ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE TABLE [Positions] (
+    [Id] int NOT NULL IDENTITY,
+    [Name] nvarchar(max) NOT NULL,
+    CONSTRAINT [PK_Positions] PRIMARY KEY ([Id])
+);
+2024-03-31 11:25:58.952 +02:00 [INF] Executed DbCommand (3ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE TABLE [WorkModes] (
+    [Id] int NOT NULL IDENTITY,
+    [Name] nvarchar(max) NOT NULL,
+    CONSTRAINT [PK_WorkModes] PRIMARY KEY ([Id])
+);
+2024-03-31 11:25:58.954 +02:00 [INF] Executed DbCommand (2ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE TABLE [AspNetRoleClaims] (
+    [Id] int NOT NULL IDENTITY,
+    [RoleId] nvarchar(450) NOT NULL,
+    [ClaimType] nvarchar(max) NULL,
+    [ClaimValue] nvarchar(max) NULL,
+    CONSTRAINT [PK_AspNetRoleClaims] PRIMARY KEY ([Id]),
+    CONSTRAINT [FK_AspNetRoleClaims_AspNetRoles_RoleId] FOREIGN KEY ([RoleId]) REFERENCES [AspNetRoles] ([Id]) ON DELETE CASCADE
+);
+2024-03-31 11:25:58.956 +02:00 [INF] Executed DbCommand (2ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE TABLE [AspNetUsers] (
+    [Id] nvarchar(450) NOT NULL,
+    [Discriminator] nvarchar(13) NOT NULL,
+    [Name] nvarchar(max) NULL,
+    [Surname] nvarchar(max) NULL,
+    [DepartmentId] int NULL,
+    [PositionId] int NULL,
+    [UserName] nvarchar(256) NULL,
+    [NormalizedUserName] nvarchar(256) NULL,
+    [Email] nvarchar(256) NULL,
+    [NormalizedEmail] nvarchar(256) NULL,
+    [EmailConfirmed] bit NOT NULL,
+    [PasswordHash] nvarchar(max) NULL,
+    [SecurityStamp] nvarchar(max) NULL,
+    [ConcurrencyStamp] nvarchar(max) NULL,
+    [PhoneNumber] nvarchar(max) NULL,
+    [PhoneNumberConfirmed] bit NOT NULL,
+    [TwoFactorEnabled] bit NOT NULL,
+    [LockoutEnd] datetimeoffset NULL,
+    [LockoutEnabled] bit NOT NULL,
+    [AccessFailedCount] int NOT NULL,
+    CONSTRAINT [PK_AspNetUsers] PRIMARY KEY ([Id]),
+    CONSTRAINT [FK_AspNetUsers_Departments_DepartmentId] FOREIGN KEY ([DepartmentId]) REFERENCES [Departments] ([Id]) ON DELETE CASCADE,
+    CONSTRAINT [FK_AspNetUsers_Positions_PositionId] FOREIGN KEY ([PositionId]) REFERENCES [Positions] ([Id]) ON DELETE CASCADE
+);
+2024-03-31 11:25:58.958 +02:00 [INF] Executed DbCommand (2ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE TABLE [AspNetUserClaims] (
+    [Id] int NOT NULL IDENTITY,
+    [UserId] nvarchar(450) NOT NULL,
+    [ClaimType] nvarchar(max) NULL,
+    [ClaimValue] nvarchar(max) NULL,
+    CONSTRAINT [PK_AspNetUserClaims] PRIMARY KEY ([Id]),
+    CONSTRAINT [FK_AspNetUserClaims_AspNetUsers_UserId] FOREIGN KEY ([UserId]) REFERENCES [AspNetUsers] ([Id]) ON DELETE CASCADE
+);
+2024-03-31 11:25:58.981 +02:00 [INF] Executed DbCommand (1ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE TABLE [AspNetUserLogins] (
+    [LoginProvider] nvarchar(128) NOT NULL,
+    [ProviderKey] nvarchar(128) NOT NULL,
+    [ProviderDisplayName] nvarchar(max) NULL,
+    [UserId] nvarchar(450) NOT NULL,
+    CONSTRAINT [PK_AspNetUserLogins] PRIMARY KEY ([LoginProvider], [ProviderKey]),
+    CONSTRAINT [FK_AspNetUserLogins_AspNetUsers_UserId] FOREIGN KEY ([UserId]) REFERENCES [AspNetUsers] ([Id]) ON DELETE CASCADE
+);
+2024-03-31 11:25:58.983 +02:00 [INF] Executed DbCommand (3ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE TABLE [AspNetUserRoles] (
+    [UserId] nvarchar(450) NOT NULL,
+    [RoleId] nvarchar(450) NOT NULL,
+    CONSTRAINT [PK_AspNetUserRoles] PRIMARY KEY ([UserId], [RoleId]),
+    CONSTRAINT [FK_AspNetUserRoles_AspNetRoles_RoleId] FOREIGN KEY ([RoleId]) REFERENCES [AspNetRoles] ([Id]) ON DELETE CASCADE,
+    CONSTRAINT [FK_AspNetUserRoles_AspNetUsers_UserId] FOREIGN KEY ([UserId]) REFERENCES [AspNetUsers] ([Id]) ON DELETE CASCADE
+);
+2024-03-31 11:25:58.985 +02:00 [INF] Executed DbCommand (2ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE TABLE [AspNetUserTokens] (
+    [UserId] nvarchar(450) NOT NULL,
+    [LoginProvider] nvarchar(128) NOT NULL,
+    [Name] nvarchar(128) NOT NULL,
+    [Value] nvarchar(max) NULL,
+    CONSTRAINT [PK_AspNetUserTokens] PRIMARY KEY ([UserId], [LoginProvider], [Name]),
+    CONSTRAINT [FK_AspNetUserTokens_AspNetUsers_UserId] FOREIGN KEY ([UserId]) REFERENCES [AspNetUsers] ([Id]) ON DELETE CASCADE
+);
+2024-03-31 11:25:58.988 +02:00 [INF] Executed DbCommand (2ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE TABLE [CalendarEvents] (
+    [Id] int NOT NULL IDENTITY,
+    [CalendarEventName] nvarchar(max) NOT NULL,
+    [CalendarEventDescription] nvarchar(max) NOT NULL,
+    [CalendarEventDate] date NOT NULL,
+    [CalendarEventStartTime] time NOT NULL,
+    [CalendarEventEndTime] time NOT NULL,
+    [UserId] nvarchar(450) NOT NULL,
+    CONSTRAINT [PK_CalendarEvents] PRIMARY KEY ([Id]),
+    CONSTRAINT [FK_CalendarEvents_AspNetUsers_UserId] FOREIGN KEY ([UserId]) REFERENCES [AspNetUsers] ([Id]) ON DELETE CASCADE
+);
+2024-03-31 11:25:58.989 +02:00 [INF] Executed DbCommand (1ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE TABLE [WorkModesToUsers] (
+    [Id] int NOT NULL IDENTITY,
+    [DateOfWorkMode] date NOT NULL,
+    [UserId] nvarchar(450) NOT NULL,
+    [WorkModeId] int NOT NULL,
+    CONSTRAINT [PK_WorkModesToUsers] PRIMARY KEY ([Id]),
+    CONSTRAINT [FK_WorkModesToUsers_AspNetUsers_UserId] FOREIGN KEY ([UserId]) REFERENCES [AspNetUsers] ([Id]) ON DELETE CASCADE,
+    CONSTRAINT [FK_WorkModesToUsers_WorkModes_WorkModeId] FOREIGN KEY ([WorkModeId]) REFERENCES [WorkModes] ([Id]) ON DELETE CASCADE
+);
+2024-03-31 11:25:59.018 +02:00 [INF] Executed DbCommand (28ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+IF EXISTS (SELECT * FROM [sys].[identity_columns] WHERE [name] IN (N'Id', N'ConcurrencyStamp', N'Name', N'NormalizedName') AND [object_id] = OBJECT_ID(N'[AspNetRoles]'))
+    SET IDENTITY_INSERT [AspNetRoles] ON;
+INSERT INTO [AspNetRoles] ([Id], [ConcurrencyStamp], [Name], [NormalizedName])
+VALUES (N'1e68dc83-8e51-4c5d-9beb-3c5c11348716', NULL, N'User', N'USER'),
+(N'63487da1-04f5-4000-abc7-3d1ad72029ae', NULL, N'Admin', N'ADMIN');
+IF EXISTS (SELECT * FROM [sys].[identity_columns] WHERE [name] IN (N'Id', N'ConcurrencyStamp', N'Name', N'NormalizedName') AND [object_id] = OBJECT_ID(N'[AspNetRoles]'))
+    SET IDENTITY_INSERT [AspNetRoles] OFF;
+2024-03-31 11:25:59.027 +02:00 [INF] Executed DbCommand (9ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+IF EXISTS (SELECT * FROM [sys].[identity_columns] WHERE [name] IN (N'Id', N'Name') AND [object_id] = OBJECT_ID(N'[Departments]'))
+    SET IDENTITY_INSERT [Departments] ON;
+INSERT INTO [Departments] ([Id], [Name])
+VALUES (1, N'IT'),
+(2, N'Construction'),
+(3, N'Human Resources'),
+(4, N'Marketing'),
+(5, N'Production'),
+(6, N'Finance and Accounting'),
+(7, N'Customer Service'),
+(8, N'Administration'),
+(9, N'Procurement'),
+(10, N'Sales');
+IF EXISTS (SELECT * FROM [sys].[identity_columns] WHERE [name] IN (N'Id', N'Name') AND [object_id] = OBJECT_ID(N'[Departments]'))
+    SET IDENTITY_INSERT [Departments] OFF;
+2024-03-31 11:26:01.901 +02:00 [INF] Executed DbCommand (10ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+IF EXISTS (SELECT * FROM [sys].[identity_columns] WHERE [name] IN (N'Id', N'Name') AND [object_id] = OBJECT_ID(N'[Positions]'))
+    SET IDENTITY_INSERT [Positions] ON;
+INSERT INTO [Positions] ([Id], [Name])
+VALUES (1, N'Software Developer'),
+(2, N'Constructor'),
+(3, N'Human Resources Manager'),
+(4, N'Marketing Manager'),
+(5, N'CNC Operator'),
+(6, N'Financial Controller'),
+(7, N'Customer Service Supporter'),
+(8, N'Administrative Assistant'),
+(9, N'Procurement Specialist'),
+(10, N'Sales Representative');
+IF EXISTS (SELECT * FROM [sys].[identity_columns] WHERE [name] IN (N'Id', N'Name') AND [object_id] = OBJECT_ID(N'[Positions]'))
+    SET IDENTITY_INSERT [Positions] OFF;
+2024-03-31 11:26:01.911 +02:00 [INF] Executed DbCommand (10ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+IF EXISTS (SELECT * FROM [sys].[identity_columns] WHERE [name] IN (N'Id', N'Name') AND [object_id] = OBJECT_ID(N'[WorkModes]'))
+    SET IDENTITY_INSERT [WorkModes] ON;
+INSERT INTO [WorkModes] ([Id], [Name])
+VALUES (1, N'Office'),
+(2, N'HomeOffice'),
+(3, N'SickLeave'),
+(4, N'Delegation'),
+(5, N'Holiday'),
+(6, N'Others');
+IF EXISTS (SELECT * FROM [sys].[identity_columns] WHERE [name] IN (N'Id', N'Name') AND [object_id] = OBJECT_ID(N'[WorkModes]'))
+    SET IDENTITY_INSERT [WorkModes] OFF;
+2024-03-31 11:26:01.928 +02:00 [INF] Executed DbCommand (17ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+IF EXISTS (SELECT * FROM [sys].[identity_columns] WHERE [name] IN (N'Id', N'AccessFailedCount', N'ConcurrencyStamp', N'DepartmentId', N'Discriminator', N'Email', N'EmailConfirmed', N'LockoutEnabled', N'LockoutEnd', N'Name', N'NormalizedEmail', N'NormalizedUserName', N'PasswordHash', N'PhoneNumber', N'PhoneNumberConfirmed', N'PositionId', N'SecurityStamp', N'Surname', N'TwoFactorEnabled', N'UserName') AND [object_id] = OBJECT_ID(N'[AspNetUsers]'))
+    SET IDENTITY_INSERT [AspNetUsers] ON;
+INSERT INTO [AspNetUsers] ([Id], [AccessFailedCount], [ConcurrencyStamp], [DepartmentId], [Discriminator], [Email], [EmailConfirmed], [LockoutEnabled], [LockoutEnd], [Name], [NormalizedEmail], [NormalizedUserName], [PasswordHash], [PhoneNumber], [PhoneNumberConfirmed], [PositionId], [SecurityStamp], [Surname], [TwoFactorEnabled], [UserName])
+VALUES (N'1', 50, N'7d37c3d6-10c8-4c42-bfcf-d87b38d18b35', 1, N'User', NULL, CAST(1 AS bit), CAST(0 AS bit), NULL, N'Tomasz', NULL, NULL, NULL, NULL, CAST(0 AS bit), 2, N'69942b06-ac6c-41f1-a7ef-b7831c702b2f', N'Tomaszewicz', CAST(0 AS bit), N'kurstomasza@gmail.com'),
+(N'2', 50, N'7959d5e2-b41e-4726-815f-552343599554', 3, N'User', NULL, CAST(1 AS bit), CAST(0 AS bit), NULL, N'Andrzej', NULL, NULL, NULL, NULL, CAST(0 AS bit), 4, N'bf50612a-2d25-4b15-b30c-72b7eeefd816', N'Andrzejewicz', CAST(0 AS bit), N'kursandrzeja@gmail.com'),
+(N'3', 50, N'86358572-4d3c-46ab-ba96-d0135907be61', 3, N'User', NULL, CAST(1 AS bit), CAST(0 AS bit), NULL, N'Michael', NULL, NULL, NULL, NULL, CAST(0 AS bit), 1, N'8a80f47d-8ce1-425e-88e5-d9d192e5adb7', N'Jordan', CAST(0 AS bit), N'kursmichaela@gmail.com');
+IF EXISTS (SELECT * FROM [sys].[identity_columns] WHERE [name] IN (N'Id', N'AccessFailedCount', N'ConcurrencyStamp', N'DepartmentId', N'Discriminator', N'Email', N'EmailConfirmed', N'LockoutEnabled', N'LockoutEnd', N'Name', N'NormalizedEmail', N'NormalizedUserName', N'PasswordHash', N'PhoneNumber', N'PhoneNumberConfirmed', N'PositionId', N'SecurityStamp', N'Surname', N'TwoFactorEnabled', N'UserName') AND [object_id] = OBJECT_ID(N'[AspNetUsers]'))
+    SET IDENTITY_INSERT [AspNetUsers] OFF;
+2024-03-31 11:26:01.943 +02:00 [INF] Executed DbCommand (14ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+IF EXISTS (SELECT * FROM [sys].[identity_columns] WHERE [name] IN (N'Id', N'CalendarEventDate', N'CalendarEventDescription', N'CalendarEventEndTime', N'CalendarEventName', N'CalendarEventStartTime', N'UserId') AND [object_id] = OBJECT_ID(N'[CalendarEvents]'))
+    SET IDENTITY_INSERT [CalendarEvents] ON;
+INSERT INTO [CalendarEvents] ([Id], [CalendarEventDate], [CalendarEventDescription], [CalendarEventEndTime], [CalendarEventName], [CalendarEventStartTime], [UserId])
+VALUES (1, '2024-01-10', N'Ongoing maintenance tasks in the office', '09:30:00', N'Maintenance Work', '08:30:00', N'1'),
+(2, '2024-01-11', N'Scheduled office cleaning day', '10:30:00', N'Office Cleaning', '09:30:00', N'2'),
+(3, '2024-01-11', N'Time for a relaxed atmosphere!', '11:30:00', N'Pottering', '10:30:00', N'1'),
+(4, '2024-01-11', N'Team project meeting to discuss progress, challenges, and plans for project execution', '12:30:00', N'Project Meeting', '11:30:00', N'3'),
+(5, '2024-01-12', N'Strategic business meeting covering company development, market strategy, and key decisions', '13:30:00', N'Business Meeting', '12:30:00', N'2'),
+(6, '2024-01-13', N'Educational workshop aimed at enhancing employee''s skills', '14:30:00', N'Training Workshop', '13:30:00', N'1');
+IF EXISTS (SELECT * FROM [sys].[identity_columns] WHERE [name] IN (N'Id', N'CalendarEventDate', N'CalendarEventDescription', N'CalendarEventEndTime', N'CalendarEventName', N'CalendarEventStartTime', N'UserId') AND [object_id] = OBJECT_ID(N'[CalendarEvents]'))
+    SET IDENTITY_INSERT [CalendarEvents] OFF;
+2024-03-31 11:26:04.585 +02:00 [INF] Executed DbCommand (13ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+IF EXISTS (SELECT * FROM [sys].[identity_columns] WHERE [name] IN (N'Id', N'DateOfWorkMode', N'UserId', N'WorkModeId') AND [object_id] = OBJECT_ID(N'[WorkModesToUsers]'))
+    SET IDENTITY_INSERT [WorkModesToUsers] ON;
+INSERT INTO [WorkModesToUsers] ([Id], [DateOfWorkMode], [UserId], [WorkModeId])
+VALUES (1, '2024-01-10', N'1', 1),
+(2, '2024-01-10', N'2', 1),
+(3, '2024-01-11', N'3', 1),
+(4, '2024-01-12', N'1', 1),
+(5, '2024-01-13', N'2', 1),
+(6, '2024-01-14', N'2', 1);
+IF EXISTS (SELECT * FROM [sys].[identity_columns] WHERE [name] IN (N'Id', N'DateOfWorkMode', N'UserId', N'WorkModeId') AND [object_id] = OBJECT_ID(N'[WorkModesToUsers]'))
+    SET IDENTITY_INSERT [WorkModesToUsers] OFF;
+2024-03-31 11:26:04.586 +02:00 [INF] Executed DbCommand (1ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE INDEX [IX_AspNetRoleClaims_RoleId] ON [AspNetRoleClaims] ([RoleId]);
+2024-03-31 11:26:04.589 +02:00 [INF] Executed DbCommand (3ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE UNIQUE INDEX [RoleNameIndex] ON [AspNetRoles] ([NormalizedName]) WHERE [NormalizedName] IS NOT NULL;
+2024-03-31 11:26:04.590 +02:00 [INF] Executed DbCommand (1ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE INDEX [IX_AspNetUserClaims_UserId] ON [AspNetUserClaims] ([UserId]);
+2024-03-31 11:26:04.591 +02:00 [INF] Executed DbCommand (1ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE INDEX [IX_AspNetUserLogins_UserId] ON [AspNetUserLogins] ([UserId]);
+2024-03-31 11:26:04.592 +02:00 [INF] Executed DbCommand (1ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE INDEX [IX_AspNetUserRoles_RoleId] ON [AspNetUserRoles] ([RoleId]);
+2024-03-31 11:26:04.594 +02:00 [INF] Executed DbCommand (2ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE INDEX [EmailIndex] ON [AspNetUsers] ([NormalizedEmail]);
+2024-03-31 11:26:04.596 +02:00 [INF] Executed DbCommand (2ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE INDEX [IX_AspNetUsers_DepartmentId] ON [AspNetUsers] ([DepartmentId]);
+2024-03-31 11:26:04.598 +02:00 [INF] Executed DbCommand (2ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE INDEX [IX_AspNetUsers_PositionId] ON [AspNetUsers] ([PositionId]);
+2024-03-31 11:26:04.601 +02:00 [INF] Executed DbCommand (2ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE UNIQUE INDEX [UserNameIndex] ON [AspNetUsers] ([NormalizedUserName]) WHERE [NormalizedUserName] IS NOT NULL;
+2024-03-31 11:26:04.603 +02:00 [INF] Executed DbCommand (2ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE INDEX [IX_CalendarEvents_UserId] ON [CalendarEvents] ([UserId]);
+2024-03-31 11:26:04.605 +02:00 [INF] Executed DbCommand (2ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE INDEX [IX_WorkModesToUsers_UserId] ON [WorkModesToUsers] ([UserId]);
+2024-03-31 11:26:06.004 +02:00 [INF] Executed DbCommand (2ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE INDEX [IX_WorkModesToUsers_WorkModeId] ON [WorkModesToUsers] ([WorkModeId]);
+2024-03-31 11:26:06.005 +02:00 [INF] Executed DbCommand (1ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+INSERT INTO [__EFMigrationsHistory] ([MigrationId], [ProductVersion])
+VALUES (N'20240307212027_NewAllMigrations', N'8.0.3');
+2024-03-31 11:26:06.011 +02:00 [INF] Applying migration '20240317120651_IdentityChange'.
+2024-03-31 11:26:06.041 +02:00 [INF] Executed DbCommand (3ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+ALTER TABLE [AspNetUsers] DROP CONSTRAINT [FK_AspNetUsers_Departments_DepartmentId];
+2024-03-31 11:26:06.042 +02:00 [INF] Executed DbCommand (1ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+ALTER TABLE [AspNetUsers] DROP CONSTRAINT [FK_AspNetUsers_Positions_PositionId];
+2024-03-31 11:26:06.047 +02:00 [INF] Executed DbCommand (5ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+DELETE FROM [AspNetRoles]
+WHERE [Id] = N'1e68dc83-8e51-4c5d-9beb-3c5c11348716';
+SELECT @@ROWCOUNT;
+2024-03-31 11:26:06.049 +02:00 [INF] Executed DbCommand (2ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+DELETE FROM [AspNetRoles]
+WHERE [Id] = N'63487da1-04f5-4000-abc7-3d1ad72029ae';
+SELECT @@ROWCOUNT;
+2024-03-31 11:26:06.081 +02:00 [INF] Executed DbCommand (32ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+DECLARE @var0 sysname;
+SELECT @var0 = [d].[name]
+FROM [sys].[default_constraints] [d]
+INNER JOIN [sys].[columns] [c] ON [d].[parent_column_id] = [c].[column_id] AND [d].[parent_object_id] = [c].[object_id]
+WHERE ([d].[parent_object_id] = OBJECT_ID(N'[AspNetUsers]') AND [c].[name] = N'Discriminator');
+IF @var0 IS NOT NULL EXEC(N'ALTER TABLE [AspNetUsers] DROP CONSTRAINT [' + @var0 + '];');
+ALTER TABLE [AspNetUsers] DROP COLUMN [Discriminator];
+2024-03-31 11:26:06.100 +02:00 [INF] Executed DbCommand (19ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+DECLARE @var1 sysname;
+SELECT @var1 = [d].[name]
+FROM [sys].[default_constraints] [d]
+INNER JOIN [sys].[columns] [c] ON [d].[parent_column_id] = [c].[column_id] AND [d].[parent_object_id] = [c].[object_id]
+WHERE ([d].[parent_object_id] = OBJECT_ID(N'[AspNetUsers]') AND [c].[name] = N'Surname');
+IF @var1 IS NOT NULL EXEC(N'ALTER TABLE [AspNetUsers] DROP CONSTRAINT [' + @var1 + '];');
+UPDATE [AspNetUsers] SET [Surname] = N'' WHERE [Surname] IS NULL;
+ALTER TABLE [AspNetUsers] ALTER COLUMN [Surname] nvarchar(max) NOT NULL;
+ALTER TABLE [AspNetUsers] ADD DEFAULT N'' FOR [Surname];
+2024-03-31 11:26:06.118 +02:00 [INF] Executed DbCommand (18ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+DECLARE @var2 sysname;
+SELECT @var2 = [d].[name]
+FROM [sys].[default_constraints] [d]
+INNER JOIN [sys].[columns] [c] ON [d].[parent_column_id] = [c].[column_id] AND [d].[parent_object_id] = [c].[object_id]
+WHERE ([d].[parent_object_id] = OBJECT_ID(N'[AspNetUsers]') AND [c].[name] = N'Name');
+IF @var2 IS NOT NULL EXEC(N'ALTER TABLE [AspNetUsers] DROP CONSTRAINT [' + @var2 + '];');
+UPDATE [AspNetUsers] SET [Name] = N'' WHERE [Name] IS NULL;
+ALTER TABLE [AspNetUsers] ALTER COLUMN [Name] nvarchar(max) NOT NULL;
+ALTER TABLE [AspNetUsers] ADD DEFAULT N'' FOR [Name];
+2024-03-31 11:26:06.129 +02:00 [INF] Executed DbCommand (10ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+IF EXISTS (SELECT * FROM [sys].[identity_columns] WHERE [name] IN (N'Id', N'ConcurrencyStamp', N'Name', N'NormalizedName') AND [object_id] = OBJECT_ID(N'[AspNetRoles]'))
+    SET IDENTITY_INSERT [AspNetRoles] ON;
+INSERT INTO [AspNetRoles] ([Id], [ConcurrencyStamp], [Name], [NormalizedName])
+VALUES (N'bc877f1b-1e44-492c-acce-ba01f7bcd77f', NULL, N'User', N'USER'),
+(N'c3e92f9e-e8e9-4fe3-b600-ed1b055d25aa', NULL, N'Admin', N'ADMIN');
+IF EXISTS (SELECT * FROM [sys].[identity_columns] WHERE [name] IN (N'Id', N'ConcurrencyStamp', N'Name', N'NormalizedName') AND [object_id] = OBJECT_ID(N'[AspNetRoles]'))
+    SET IDENTITY_INSERT [AspNetRoles] OFF;
+2024-03-31 11:26:06.130 +02:00 [INF] Executed DbCommand (1ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+UPDATE [AspNetUsers] SET [ConcurrencyStamp] = N'c4ddd6bb-33cd-43ef-a15b-58d0a84e4b54', [SecurityStamp] = N'3b555aee-68cb-45a3-ba27-67c6412a5c54', [UserName] = N'Tomasz Tomaszewicz'
+WHERE [Id] = N'1';
+SELECT @@ROWCOUNT;
+2024-03-31 11:26:07.649 +02:00 [INF] Executed DbCommand (1ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+UPDATE [AspNetUsers] SET [ConcurrencyStamp] = N'09fadb70-2e52-492b-9e89-e75623ad8d17', [SecurityStamp] = N'c2cdaa8a-3fe7-4bf5-addd-b57846835646', [UserName] = N'Andrzej Andrzejewicz'
+WHERE [Id] = N'2';
+SELECT @@ROWCOUNT;
+2024-03-31 11:26:07.651 +02:00 [INF] Executed DbCommand (1ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+UPDATE [AspNetUsers] SET [ConcurrencyStamp] = N'7e551642-4a1d-4ed7-803c-1d7e6e368e63', [SecurityStamp] = N'4e2da35d-0998-4e4d-90c7-13c7299c3a15'
+WHERE [Id] = N'3';
+SELECT @@ROWCOUNT;
+2024-03-31 11:26:07.654 +02:00 [INF] Executed DbCommand (3ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+ALTER TABLE [AspNetUsers] ADD CONSTRAINT [FK_AspNetUsers_Departments_DepartmentId] FOREIGN KEY ([DepartmentId]) REFERENCES [Departments] ([Id]);
+2024-03-31 11:26:07.657 +02:00 [INF] Executed DbCommand (2ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+ALTER TABLE [AspNetUsers] ADD CONSTRAINT [FK_AspNetUsers_Positions_PositionId] FOREIGN KEY ([PositionId]) REFERENCES [Positions] ([Id]);
+2024-03-31 11:26:07.658 +02:00 [INF] Executed DbCommand (1ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+INSERT INTO [__EFMigrationsHistory] ([MigrationId], [ProductVersion])
+VALUES (N'20240317120651_IdentityChange', N'8.0.3');
+2024-03-31 11:26:07.659 +02:00 [INF] Applying migration '20240317120938_AdministratorRoleForUser'.
+2024-03-31 11:26:07.685 +02:00 [INF] Executed DbCommand (9ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+IF EXISTS (SELECT * FROM [sys].[identity_columns] WHERE [name] IN (N'UserId', N'RoleId') AND [object_id] = OBJECT_ID(N'[AspNetUserRoles]'))
+    SET IDENTITY_INSERT [AspNetUserRoles] ON;
+INSERT INTO [AspNetUserRoles] ([UserId], [RoleId])
+VALUES (N'1', N'c3e92f9e-e8e9-4fe3-b600-ed1b055d25aa');
+IF EXISTS (SELECT * FROM [sys].[identity_columns] WHERE [name] IN (N'UserId', N'RoleId') AND [object_id] = OBJECT_ID(N'[AspNetUserRoles]'))
+    SET IDENTITY_INSERT [AspNetUserRoles] OFF;
+2024-03-31 11:26:07.686 +02:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+INSERT INTO [__EFMigrationsHistory] ([MigrationId], [ProductVersion])
+VALUES (N'20240317120938_AdministratorRoleForUser', N'8.0.3');
+2024-03-31 11:26:07.686 +02:00 [INF] Applying migration '20240331005408_UserAdminUpdate'.
+2024-03-31 11:26:07.704 +02:00 [INF] Executed DbCommand (1ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+UPDATE [AspNetUsers] SET [ConcurrencyStamp] = N'23a83bb9-86f9-4bfc-bda8-0e23601e4f51', [PasswordHash] = N'AQAAAAIAAYagAAAAEA14Ca4Qxi1aLPhhX//QlyWzbRxLXzvnr+15a91K8Gm2wm4aJm8WmvYvHNbF5Uy/2Q==', [SecurityStamp] = N'b047864c-3535-47b2-bb55-d8ba2ec4383c'
+WHERE [Id] = N'1';
+SELECT @@ROWCOUNT;
+2024-03-31 11:26:07.705 +02:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+UPDATE [AspNetUsers] SET [ConcurrencyStamp] = N'f408323a-6f7b-4c2d-97ac-8a0911ac231c', [PasswordHash] = N'AQAAAAIAAYagAAAAEA14Ca4Qxi1aLPhhX//QlyWzbRxLXzvnr+15a91K8Gm2wm4aJm8WmvYvHNbF5Uy/2Q==', [SecurityStamp] = N'a55540bb-c4ac-4d78-bfbb-d88cb0bffb11'
+WHERE [Id] = N'2';
+SELECT @@ROWCOUNT;
+2024-03-31 11:26:07.705 +02:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+INSERT INTO [__EFMigrationsHistory] ([MigrationId], [ProductVersion])
+VALUES (N'20240331005408_UserAdminUpdate', N'8.0.3');
+2024-03-31 11:26:07.706 +02:00 [INF] Applying migration '20240331005605_additional-migration'.
+2024-03-31 11:26:07.730 +02:00 [INF] Executed DbCommand (9ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+IF EXISTS (SELECT * FROM [sys].[identity_columns] WHERE [name] IN (N'UserId', N'RoleId') AND [object_id] = OBJECT_ID(N'[AspNetUserRoles]'))
+    SET IDENTITY_INSERT [AspNetUserRoles] ON;
+INSERT INTO [AspNetUserRoles] ([UserId], [RoleId])
+VALUES (N'2', N'bc877f1b-1e44-492c-acce-ba01f7bcd77f');
+IF EXISTS (SELECT * FROM [sys].[identity_columns] WHERE [name] IN (N'UserId', N'RoleId') AND [object_id] = OBJECT_ID(N'[AspNetUserRoles]'))
+    SET IDENTITY_INSERT [AspNetUserRoles] OFF;
+2024-03-31 11:26:09.678 +02:00 [INF] Executed DbCommand (8ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+INSERT INTO [__EFMigrationsHistory] ([MigrationId], [ProductVersion])
+VALUES (N'20240331005605_additional-migration', N'8.0.3');
+2024-03-31 11:26:09.678 +02:00 [INF] Applying migration '20240331010107_additional-migration2'.
+2024-03-31 11:26:09.692 +02:00 [INF] Executed DbCommand (5ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+UPDATE [AspNetUsers] SET [ConcurrencyStamp] = N'97f9c9ce-6f3b-4231-a3da-ffdb9e340ce8', [PasswordHash] = N'AQAAAAIAAYagAAAAEMkp6ZgI7B0CvWNq7cpXxQLfp7JOOxqYJlMMp1bU4SUbCSSGgZScHqnwn+DCs48pvg==', [SecurityStamp] = N'518336dd-50dc-463c-893c-b5f630eba94b', [UserName] = N'kurstomasza@gmail.com', [NormalizedUserName] = N'KURSTOMASZA@GMAIL.COM', [Email] = N'kurstomasza@gmail.com', [NormalizedEmail] = N'KURSTOMASZA@GMAIL.COM'
+WHERE [Id] = N'1';
+SELECT @@ROWCOUNT;
+2024-03-31 11:26:09.693 +02:00 [INF] Executed DbCommand (1ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+UPDATE [AspNetUsers] SET [ConcurrencyStamp] = N'e03d22d8-92e6-4014-95f4-f94624339ecf', [PasswordHash] = N'AQAAAAIAAYagAAAAEMkp6ZgI7B0CvWNq7cpXxQLfp7JOOxqYJlMMp1bU4SUbCSSGgZScHqnwn+DCs48pvg==', [SecurityStamp] = N'68070611-8b1a-4521-9b41-29209ea21f6f', [UserName] = N'kursandrzeja@gmail.com', [NormalizedUserName] = N'KURSANDRZEJA@GMAIL.COM', [Email] = N'kursandrzeja@gmail.com', [NormalizedEmail] = N'KURSANDRZEJA@GMAIL.COM'
+WHERE [Id] = N'2';
+SELECT @@ROWCOUNT;
+2024-03-31 11:26:09.694 +02:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+INSERT INTO [__EFMigrationsHistory] ([MigrationId], [ProductVersion])
+VALUES (N'20240331010107_additional-migration2', N'8.0.3');
+2024-03-31 11:26:42.861 +02:00 [INF] User profile is available. Using 'C:\Users\Mariusz\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
+2024-03-31 11:26:43.167 +02:00 [INF] Now listening on: https://localhost:7178
+2024-03-31 11:26:43.168 +02:00 [INF] Now listening on: http://localhost:5291
+2024-03-31 11:26:43.192 +02:00 [INF] Application started. Press Ctrl+C to shut down.
+2024-03-31 11:26:43.194 +02:00 [INF] Hosting environment: Development
+2024-03-31 11:26:43.194 +02:00 [INF] Content root path: C:\Users\Mariusz\Desktop\InfoShare\#4 Projekt grupowy Work-Schedule\jcszr11-WeCSharp\Schedulist.App
+2024-03-31 11:26:44.077 +02:00 [INF] Request starting HTTP/2 GET https://localhost:7178/ - null null
+2024-03-31 11:26:44.203 +02:00 [INF] Executing endpoint 'Schedulist.App.Controllers.CalendarController.Index (Schedulist.App)'
+2024-03-31 11:26:44.232 +02:00 [INF] Route matched with {action = "Index", controller = "Calendar", page = "", area = ""}. Executing controller action with signature Microsoft.AspNetCore.Mvc.IActionResult Index() on controller Schedulist.App.Controllers.CalendarController (Schedulist.App).
+2024-03-31 11:26:45.305 +02:00 [INF] Executed DbCommand (15ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [a].[Id], [a].[AccessFailedCount], [a].[ConcurrencyStamp], [a].[DepartmentId], [a].[Email], [a].[EmailConfirmed], [a].[LockoutEnabled], [a].[LockoutEnd], [a].[Name], [a].[NormalizedEmail], [a].[NormalizedUserName], [a].[PasswordHash], [a].[PhoneNumber], [a].[PhoneNumberConfirmed], [a].[PositionId], [a].[SecurityStamp], [a].[Surname], [a].[TwoFactorEnabled], [a].[UserName]
+FROM [AspNetUsers] AS [a]
+2024-03-31 11:26:45.378 +02:00 [INF] Executing RedirectResult, redirecting to /Identity/Account/Login.
+2024-03-31 11:26:45.382 +02:00 [INF] Executed action Schedulist.App.Controllers.CalendarController.Index (Schedulist.App) in 1145.7659ms
+2024-03-31 11:26:45.384 +02:00 [INF] Executed endpoint 'Schedulist.App.Controllers.CalendarController.Index (Schedulist.App)'
+2024-03-31 11:26:45.394 +02:00 [INF] Request starting HTTP/2 GET https://localhost:7178/Identity/Account/Login - null null
+2024-03-31 11:26:45.395 +02:00 [INF] Request finished HTTP/2 GET https://localhost:7178/ - 302 0 null 1326.6089ms
+2024-03-31 11:26:45.403 +02:00 [INF] Executing endpoint '/Account/Login'
+2024-03-31 11:26:45.435 +02:00 [INF] Route matched with {page = "/Account/Login", area = "Identity", action = "", controller = ""}. Executing page /Account/Login
+2024-03-31 11:26:45.454 +02:00 [INF] Executing handler method Schedulist.App.Areas.Identity.Pages.Account.LoginModel.OnGetAsync - ModelState is "Valid"
+2024-03-31 11:26:45.463 +02:00 [INF] AuthenticationScheme: Identity.External signed out.
+2024-03-31 11:26:45.465 +02:00 [INF] Executed handler method OnGetAsync, returned result .
+2024-03-31 11:26:45.467 +02:00 [INF] Executing an implicit handler method - ModelState is "Valid"
+2024-03-31 11:26:45.468 +02:00 [INF] Executed an implicit handler method, returned result Microsoft.AspNetCore.Mvc.RazorPages.PageResult.
+2024-03-31 11:26:45.688 +02:00 [INF] Executed DbCommand (40ms) [Parameters=[@__normalizedUserName_0='?' (Size = 256)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [a].[Id], [a].[AccessFailedCount], [a].[ConcurrencyStamp], [a].[DepartmentId], [a].[Email], [a].[EmailConfirmed], [a].[LockoutEnabled], [a].[LockoutEnd], [a].[Name], [a].[NormalizedEmail], [a].[NormalizedUserName], [a].[PasswordHash], [a].[PhoneNumber], [a].[PhoneNumberConfirmed], [a].[PositionId], [a].[SecurityStamp], [a].[Surname], [a].[TwoFactorEnabled], [a].[UserName]
+FROM [AspNetUsers] AS [a]
+WHERE [a].[NormalizedUserName] = @__normalizedUserName_0
+2024-03-31 11:26:45.733 +02:00 [INF] Executed page /Account/Login in 296.1624ms
+2024-03-31 11:26:45.735 +02:00 [INF] Executed endpoint '/Account/Login'
+2024-03-31 11:26:45.741 +02:00 [INF] Request starting HTTP/2 GET https://localhost:7178/_framework/aspnetcore-browser-refresh.js - null null
+2024-03-31 11:26:45.742 +02:00 [INF] Request finished HTTP/2 GET https://localhost:7178/Identity/Account/Login - 200 null text/html; charset=utf-8 348.5297ms
+2024-03-31 11:26:45.749 +02:00 [INF] Request finished HTTP/2 GET https://localhost:7178/_framework/aspnetcore-browser-refresh.js - 200 13764 application/javascript; charset=utf-8 8.5531ms
+2024-03-31 11:26:45.770 +02:00 [INF] Request starting HTTP/2 GET https://localhost:7178/_vs/browserLink - null null
+2024-03-31 11:26:45.814 +02:00 [INF] Request finished HTTP/2 GET https://localhost:7178/_vs/browserLink - 200 null text/javascript; charset=UTF-8 44.5581ms
+2024-03-31 11:26:45.884 +02:00 [INF] Request starting HTTP/1.1 GET https://localhost:7178/lib/bootstrap/dist/js/bootstrap.bundle.min.js.map - null null
+2024-03-31 11:26:45.906 +02:00 [INF] Sending file. Request path: '/lib/bootstrap/dist/js/bootstrap.bundle.min.js.map'. Physical path: 'C:\Users\Mariusz\Desktop\InfoShare\#4 Projekt grupowy Work-Schedule\jcszr11-WeCSharp\Schedulist.App\wwwroot\lib\bootstrap\dist\js\bootstrap.bundle.min.js.map'
+2024-03-31 11:26:45.907 +02:00 [INF] Request finished HTTP/1.1 GET https://localhost:7178/lib/bootstrap/dist/js/bootstrap.bundle.min.js.map - 200 327261 text/plain 23.3212ms
+2024-03-31 11:26:58.573 +02:00 [INF] Request starting HTTP/2 POST https://localhost:7178/Identity/Account/Login - application/x-www-form-urlencoded 272
+2024-03-31 11:26:58.582 +02:00 [INF] Executing endpoint '/Account/Login'
+2024-03-31 11:26:58.583 +02:00 [INF] Route matched with {page = "/Account/Login", area = "Identity", action = "", controller = ""}. Executing page /Account/Login
+2024-03-31 11:26:58.609 +02:00 [INF] Executing handler method Schedulist.App.Areas.Identity.Pages.Account.LoginModel.OnPostAsync - ModelState is "Valid"
+2024-03-31 11:26:58.652 +02:00 [INF] Executed DbCommand (1ms) [Parameters=[@__normalizedUserName_0='?' (Size = 256)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [a].[Id], [a].[AccessFailedCount], [a].[ConcurrencyStamp], [a].[DepartmentId], [a].[Email], [a].[EmailConfirmed], [a].[LockoutEnabled], [a].[LockoutEnd], [a].[Name], [a].[NormalizedEmail], [a].[NormalizedUserName], [a].[PasswordHash], [a].[PhoneNumber], [a].[PhoneNumberConfirmed], [a].[PositionId], [a].[SecurityStamp], [a].[Surname], [a].[TwoFactorEnabled], [a].[UserName]
+FROM [AspNetUsers] AS [a]
+WHERE [a].[NormalizedUserName] = @__normalizedUserName_0
+2024-03-31 11:26:58.729 +02:00 [INF] Executed DbCommand (1ms) [Parameters=[@__normalizedUserName_0='?' (Size = 256)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [a].[Id], [a].[AccessFailedCount], [a].[ConcurrencyStamp], [a].[DepartmentId], [a].[Email], [a].[EmailConfirmed], [a].[LockoutEnabled], [a].[LockoutEnd], [a].[Name], [a].[NormalizedEmail], [a].[NormalizedUserName], [a].[PasswordHash], [a].[PhoneNumber], [a].[PhoneNumberConfirmed], [a].[PositionId], [a].[SecurityStamp], [a].[Surname], [a].[TwoFactorEnabled], [a].[UserName]
+FROM [AspNetUsers] AS [a]
+WHERE [a].[NormalizedUserName] = @__normalizedUserName_0
+2024-03-31 11:26:58.837 +02:00 [INF] Executed DbCommand (19ms) [Parameters=[@p18='?' (Size = 450), @p0='?' (DbType = Int32), @p1='?' (Size = 4000), @p19='?' (Size = 4000), @p2='?' (DbType = Int32), @p3='?' (Size = 256), @p4='?' (DbType = Boolean), @p5='?' (DbType = Boolean), @p6='?' (DbType = DateTimeOffset), @p7='?' (Size = 4000), @p8='?' (Size = 256), @p9='?' (Size = 256), @p10='?' (Size = 4000), @p11='?' (Size = 4000), @p12='?' (DbType = Boolean), @p13='?' (DbType = Int32), @p14='?' (Size = 4000), @p15='?' (Size = 4000), @p16='?' (DbType = Boolean), @p17='?' (Size = 256)], CommandType='"Text"', CommandTimeout='30']
+SET IMPLICIT_TRANSACTIONS OFF;
+SET NOCOUNT ON;
+UPDATE [AspNetUsers] SET [AccessFailedCount] = @p0, [ConcurrencyStamp] = @p1, [DepartmentId] = @p2, [Email] = @p3, [EmailConfirmed] = @p4, [LockoutEnabled] = @p5, [LockoutEnd] = @p6, [Name] = @p7, [NormalizedEmail] = @p8, [NormalizedUserName] = @p9, [PasswordHash] = @p10, [PhoneNumber] = @p11, [PhoneNumberConfirmed] = @p12, [PositionId] = @p13, [SecurityStamp] = @p14, [Surname] = @p15, [TwoFactorEnabled] = @p16, [UserName] = @p17
+OUTPUT 1
+WHERE [Id] = @p18 AND [ConcurrencyStamp] = @p19;
+2024-03-31 11:26:58.916 +02:00 [INF] Executed DbCommand (3ms) [Parameters=[@__user_Id_0='?' (Size = 450)], CommandType='"Text"', CommandTimeout='30']
+SELECT [a].[Id], [a].[ClaimType], [a].[ClaimValue], [a].[UserId]
+FROM [AspNetUserClaims] AS [a]
+WHERE [a].[UserId] = @__user_Id_0
+2024-03-31 11:26:58.966 +02:00 [INF] Executed DbCommand (2ms) [Parameters=[@__userId_0='?' (Size = 450)], CommandType='"Text"', CommandTimeout='30']
+SELECT [a0].[Name]
+FROM [AspNetUserRoles] AS [a]
+INNER JOIN [AspNetRoles] AS [a0] ON [a].[RoleId] = [a0].[Id]
+WHERE [a].[UserId] = @__userId_0
+2024-03-31 11:26:58.978 +02:00 [INF] Executed DbCommand (3ms) [Parameters=[@__normalizedName_0='?' (Size = 256)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [a].[Id], [a].[ConcurrencyStamp], [a].[Name], [a].[NormalizedName]
+FROM [AspNetRoles] AS [a]
+WHERE [a].[NormalizedName] = @__normalizedName_0
+2024-03-31 11:26:58.994 +02:00 [INF] Executed DbCommand (2ms) [Parameters=[@__role_Id_0='?' (Size = 450)], CommandType='"Text"', CommandTimeout='30']
+SELECT [a].[ClaimType], [a].[ClaimValue]
+FROM [AspNetRoleClaims] AS [a]
+WHERE [a].[RoleId] = @__role_Id_0
+2024-03-31 11:26:59.001 +02:00 [INF] AuthenticationScheme: Identity.Application signed in.
+2024-03-31 11:26:59.002 +02:00 [INF] User logged in.
+2024-03-31 11:26:59.004 +02:00 [INF] Executed handler method OnPostAsync, returned result Microsoft.AspNetCore.Mvc.LocalRedirectResult.
+2024-03-31 11:26:59.006 +02:00 [INF] Executing LocalRedirectResult, redirecting to /.
+2024-03-31 11:26:59.007 +02:00 [INF] Executed page /Account/Login in 422.4022ms
+2024-03-31 11:26:59.007 +02:00 [INF] Executed endpoint '/Account/Login'
+2024-03-31 11:26:59.008 +02:00 [INF] Request finished HTTP/2 POST https://localhost:7178/Identity/Account/Login - 302 0 null 435.0574ms
+2024-03-31 11:26:59.011 +02:00 [INF] Request starting HTTP/2 GET https://localhost:7178/ - null null
+2024-03-31 11:26:59.018 +02:00 [INF] Executing endpoint 'Schedulist.App.Controllers.CalendarController.Index (Schedulist.App)'
+2024-03-31 11:26:59.020 +02:00 [INF] Route matched with {action = "Index", controller = "Calendar", page = "", area = ""}. Executing controller action with signature Microsoft.AspNetCore.Mvc.IActionResult Index() on controller Schedulist.App.Controllers.CalendarController (Schedulist.App).
+2024-03-31 11:26:59.024 +02:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [a].[Id], [a].[AccessFailedCount], [a].[ConcurrencyStamp], [a].[DepartmentId], [a].[Email], [a].[EmailConfirmed], [a].[LockoutEnabled], [a].[LockoutEnd], [a].[Name], [a].[NormalizedEmail], [a].[NormalizedUserName], [a].[PasswordHash], [a].[PhoneNumber], [a].[PhoneNumberConfirmed], [a].[PositionId], [a].[SecurityStamp], [a].[Surname], [a].[TwoFactorEnabled], [a].[UserName]
+FROM [AspNetUsers] AS [a]
+2024-03-31 11:26:59.047 +02:00 [INF] Executed DbCommand (14ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [c].[Id], [c].[CalendarEventDate], [c].[CalendarEventDescription], [c].[CalendarEventEndTime], [c].[CalendarEventName], [c].[CalendarEventStartTime], [c].[UserId]
+FROM [CalendarEvents] AS [c]
+2024-03-31 11:26:59.100 +02:00 [INF] Executed DbCommand (5ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [w].[Id], [w].[DateOfWorkMode], [w].[UserId], [w].[WorkModeId]
+FROM [WorkModesToUsers] AS [w]
+2024-03-31 11:26:59.115 +02:00 [INF] Executing ViewResult, running view Index.
+2024-03-31 11:26:59.162 +02:00 [INF] Executed DbCommand (1ms) [Parameters=[@__normalizedUserName_0='?' (Size = 256)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [a].[Id], [a].[AccessFailedCount], [a].[ConcurrencyStamp], [a].[DepartmentId], [a].[Email], [a].[EmailConfirmed], [a].[LockoutEnabled], [a].[LockoutEnd], [a].[Name], [a].[NormalizedEmail], [a].[NormalizedUserName], [a].[PasswordHash], [a].[PhoneNumber], [a].[PhoneNumberConfirmed], [a].[PositionId], [a].[SecurityStamp], [a].[Surname], [a].[TwoFactorEnabled], [a].[UserName]
+FROM [AspNetUsers] AS [a]
+WHERE [a].[NormalizedUserName] = @__normalizedUserName_0
+2024-03-31 11:26:59.175 +02:00 [INF] Executed ViewResult - view Index executed in 61.4402ms.
+2024-03-31 11:26:59.177 +02:00 [INF] Executed action Schedulist.App.Controllers.CalendarController.Index (Schedulist.App) in 154.8037ms
+2024-03-31 11:26:59.177 +02:00 [INF] Executed endpoint 'Schedulist.App.Controllers.CalendarController.Index (Schedulist.App)'
+2024-03-31 11:26:59.179 +02:00 [INF] Request finished HTTP/2 GET https://localhost:7178/ - 200 null text/html; charset=utf-8 168.0527ms
+2024-03-31 11:26:59.218 +02:00 [INF] Request starting HTTP/2 GET https://localhost:7178/_framework/aspnetcore-browser-refresh.js - null null
+2024-03-31 11:26:59.218 +02:00 [INF] Request starting HTTP/2 GET https://localhost:7178/_vs/browserLink - null null
+2024-03-31 11:26:59.221 +02:00 [INF] Request finished HTTP/2 GET https://localhost:7178/_framework/aspnetcore-browser-refresh.js - 200 13764 application/javascript; charset=utf-8 3.4019ms
+2024-03-31 11:26:59.242 +02:00 [INF] Request finished HTTP/2 GET https://localhost:7178/_vs/browserLink - 200 null text/javascript; charset=UTF-8 23.7755ms
+2024-03-31 11:27:15.816 +02:00 [INF] Request starting HTTP/2 GET https://localhost:7178/Admin/ManageUsers - null null
+2024-03-31 11:27:15.830 +02:00 [INF] Executing endpoint 'Schedulist.App.Controllers.AdminController.ManageUsers (Schedulist.App)'
+2024-03-31 11:27:15.838 +02:00 [INF] Route matched with {action = "ManageUsers", controller = "Admin", page = "", area = ""}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] ManageUsers() on controller Schedulist.App.Controllers.AdminController (Schedulist.App).
+2024-03-31 11:27:15.851 +02:00 [INF] Executed DbCommand (8ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [a].[Id], [a].[AccessFailedCount], [a].[ConcurrencyStamp], [a].[DepartmentId], [a].[Email], [a].[EmailConfirmed], [a].[LockoutEnabled], [a].[LockoutEnd], [a].[Name], [a].[NormalizedEmail], [a].[NormalizedUserName], [a].[PasswordHash], [a].[PhoneNumber], [a].[PhoneNumberConfirmed], [a].[PositionId], [a].[SecurityStamp], [a].[Surname], [a].[TwoFactorEnabled], [a].[UserName]
+FROM [AspNetUsers] AS [a]
+2024-03-31 11:27:15.861 +02:00 [INF] Executed DbCommand (7ms) [Parameters=[@__userId_0='?' (Size = 450)], CommandType='"Text"', CommandTimeout='30']
+SELECT [a0].[Name]
+FROM [AspNetUserRoles] AS [a]
+INNER JOIN [AspNetRoles] AS [a0] ON [a].[RoleId] = [a0].[Id]
+WHERE [a].[UserId] = @__userId_0
+2024-03-31 11:27:15.865 +02:00 [INF] Executed DbCommand (1ms) [Parameters=[@__userId_0='?' (Size = 450)], CommandType='"Text"', CommandTimeout='30']
+SELECT [a0].[Name]
+FROM [AspNetUserRoles] AS [a]
+INNER JOIN [AspNetRoles] AS [a0] ON [a].[RoleId] = [a0].[Id]
+WHERE [a].[UserId] = @__userId_0
+2024-03-31 11:27:15.868 +02:00 [INF] Executed DbCommand (1ms) [Parameters=[@__userId_0='?' (Size = 450)], CommandType='"Text"', CommandTimeout='30']
+SELECT [a0].[Name]
+FROM [AspNetUserRoles] AS [a]
+INNER JOIN [AspNetRoles] AS [a0] ON [a].[RoleId] = [a0].[Id]
+WHERE [a].[UserId] = @__userId_0
+2024-03-31 11:27:15.872 +02:00 [INF] Executing ViewResult, running view ManageUsers.
+2024-03-31 11:27:15.894 +02:00 [INF] Executed DbCommand (8ms) [Parameters=[@__normalizedUserName_0='?' (Size = 256)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [a].[Id], [a].[AccessFailedCount], [a].[ConcurrencyStamp], [a].[DepartmentId], [a].[Email], [a].[EmailConfirmed], [a].[LockoutEnabled], [a].[LockoutEnd], [a].[Name], [a].[NormalizedEmail], [a].[NormalizedUserName], [a].[PasswordHash], [a].[PhoneNumber], [a].[PhoneNumberConfirmed], [a].[PositionId], [a].[SecurityStamp], [a].[Surname], [a].[TwoFactorEnabled], [a].[UserName]
+FROM [AspNetUsers] AS [a]
+WHERE [a].[NormalizedUserName] = @__normalizedUserName_0
+2024-03-31 11:27:15.899 +02:00 [INF] Executed ViewResult - view ManageUsers executed in 26.9986ms.
+2024-03-31 11:27:15.900 +02:00 [INF] Executed action Schedulist.App.Controllers.AdminController.ManageUsers (Schedulist.App) in 59.9032ms
+2024-03-31 11:27:15.901 +02:00 [INF] Executed endpoint 'Schedulist.App.Controllers.AdminController.ManageUsers (Schedulist.App)'
+2024-03-31 11:27:15.902 +02:00 [INF] Request finished HTTP/2 GET https://localhost:7178/Admin/ManageUsers - 200 null text/html; charset=utf-8 86.2023ms
+2024-03-31 11:27:15.905 +02:00 [INF] Request starting HTTP/2 GET https://localhost:7178/_framework/aspnetcore-browser-refresh.js - null null
+2024-03-31 11:27:15.905 +02:00 [INF] Request starting HTTP/2 GET https://localhost:7178/_vs/browserLink - null null
+2024-03-31 11:27:15.908 +02:00 [INF] Request finished HTTP/2 GET https://localhost:7178/_framework/aspnetcore-browser-refresh.js - 200 13764 application/javascript; charset=utf-8 2.7707ms
+2024-03-31 11:27:15.923 +02:00 [INF] Request finished HTTP/2 GET https://localhost:7178/_vs/browserLink - 200 null text/javascript; charset=UTF-8 18.0047ms
+2024-03-31 11:28:13.305 +02:00 [INF] Request starting HTTP/2 POST https://localhost:7178/Admin/AddToAdministrator?userId=2 - application/x-www-form-urlencoded 225
+2024-03-31 11:28:13.311 +02:00 [INF] Executing endpoint 'Schedulist.App.Controllers.AdminController.AddToAdministrator (Schedulist.App)'
+2024-03-31 11:28:13.315 +02:00 [INF] Route matched with {action = "AddToAdministrator", controller = "Admin", page = "", area = ""}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] AddToAdministrator(System.String) on controller Schedulist.App.Controllers.AdminController (Schedulist.App).
+2024-03-31 11:28:13.335 +02:00 [INF] Executed DbCommand (8ms) [Parameters=[@__id_0='?' (Size = 450)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [a].[Id], [a].[AccessFailedCount], [a].[ConcurrencyStamp], [a].[DepartmentId], [a].[Email], [a].[EmailConfirmed], [a].[LockoutEnabled], [a].[LockoutEnd], [a].[Name], [a].[NormalizedEmail], [a].[NormalizedUserName], [a].[PasswordHash], [a].[PhoneNumber], [a].[PhoneNumberConfirmed], [a].[PositionId], [a].[SecurityStamp], [a].[Surname], [a].[TwoFactorEnabled], [a].[UserName]
+FROM [AspNetUsers] AS [a]
+WHERE [a].[Id] = @__id_0
+2024-03-31 11:28:13.340 +02:00 [INF] Executed DbCommand (3ms) [Parameters=[@__userId_0='?' (Size = 450)], CommandType='"Text"', CommandTimeout='30']
+SELECT [a0].[Name]
+FROM [AspNetUserRoles] AS [a]
+INNER JOIN [AspNetRoles] AS [a0] ON [a].[RoleId] = [a0].[Id]
+WHERE [a].[UserId] = @__userId_0
+2024-03-31 11:28:13.350 +02:00 [INF] Executed DbCommand (2ms) [Parameters=[@__normalizedRoleName_0='?' (Size = 256)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(2) [a].[Id], [a].[ConcurrencyStamp], [a].[Name], [a].[NormalizedName]
+FROM [AspNetRoles] AS [a]
+WHERE [a].[NormalizedName] = @__normalizedRoleName_0
+2024-03-31 11:28:13.372 +02:00 [INF] Executed DbCommand (1ms) [Parameters=[@__p_0='?' (Size = 450), @__p_1='?' (Size = 450)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [a].[UserId], [a].[RoleId]
+FROM [AspNetUserRoles] AS [a]
+WHERE [a].[UserId] = @__p_0 AND [a].[RoleId] = @__p_1
+2024-03-31 11:28:13.382 +02:00 [INF] Executed DbCommand (1ms) [Parameters=[@__normalizedRoleName_0='?' (Size = 256)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(2) [a].[Id], [a].[ConcurrencyStamp], [a].[Name], [a].[NormalizedName]
+FROM [AspNetRoles] AS [a]
+WHERE [a].[NormalizedName] = @__normalizedRoleName_0
+2024-03-31 11:28:13.390 +02:00 [INF] Executed DbCommand (3ms) [Parameters=[@__normalizedUserName_0='?' (Size = 256)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [a].[Id], [a].[AccessFailedCount], [a].[ConcurrencyStamp], [a].[DepartmentId], [a].[Email], [a].[EmailConfirmed], [a].[LockoutEnabled], [a].[LockoutEnd], [a].[Name], [a].[NormalizedEmail], [a].[NormalizedUserName], [a].[PasswordHash], [a].[PhoneNumber], [a].[PhoneNumberConfirmed], [a].[PositionId], [a].[SecurityStamp], [a].[Surname], [a].[TwoFactorEnabled], [a].[UserName]
+FROM [AspNetUsers] AS [a]
+WHERE [a].[NormalizedUserName] = @__normalizedUserName_0
+2024-03-31 11:28:13.420 +02:00 [INF] Executed DbCommand (6ms) [Parameters=[@p0='?' (Size = 450), @p1='?' (Size = 450), @p20='?' (Size = 450), @p2='?' (DbType = Int32), @p3='?' (Size = 4000), @p21='?' (Size = 4000), @p4='?' (DbType = Int32), @p5='?' (Size = 256), @p6='?' (DbType = Boolean), @p7='?' (DbType = Boolean), @p8='?' (DbType = DateTimeOffset), @p9='?' (Size = 4000), @p10='?' (Size = 256), @p11='?' (Size = 256), @p12='?' (Size = 4000), @p13='?' (Size = 4000), @p14='?' (DbType = Boolean), @p15='?' (DbType = Int32), @p16='?' (Size = 4000), @p17='?' (Size = 4000), @p18='?' (DbType = Boolean), @p19='?' (Size = 256)], CommandType='"Text"', CommandTimeout='30']
+SET NOCOUNT ON;
+DELETE FROM [AspNetUserRoles]
+OUTPUT 1
+WHERE [RoleId] = @p0 AND [UserId] = @p1;
+UPDATE [AspNetUsers] SET [AccessFailedCount] = @p2, [ConcurrencyStamp] = @p3, [DepartmentId] = @p4, [Email] = @p5, [EmailConfirmed] = @p6, [LockoutEnabled] = @p7, [LockoutEnd] = @p8, [Name] = @p9, [NormalizedEmail] = @p10, [NormalizedUserName] = @p11, [PasswordHash] = @p12, [PhoneNumber] = @p13, [PhoneNumberConfirmed] = @p14, [PositionId] = @p15, [SecurityStamp] = @p16, [Surname] = @p17, [TwoFactorEnabled] = @p18, [UserName] = @p19
+OUTPUT 1
+WHERE [Id] = @p20 AND [ConcurrencyStamp] = @p21;
+2024-03-31 11:28:13.433 +02:00 [INF] Executed DbCommand (1ms) [Parameters=[@__normalizedRoleName_0='?' (Size = 256)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(2) [a].[Id], [a].[ConcurrencyStamp], [a].[Name], [a].[NormalizedName]
+FROM [AspNetRoles] AS [a]
+WHERE [a].[NormalizedName] = @__normalizedRoleName_0
+2024-03-31 11:28:13.437 +02:00 [INF] Executed DbCommand (1ms) [Parameters=[@__p_0='?' (Size = 450), @__p_1='?' (Size = 450)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [a].[UserId], [a].[RoleId]
+FROM [AspNetUserRoles] AS [a]
+WHERE [a].[UserId] = @__p_0 AND [a].[RoleId] = @__p_1
+2024-03-31 11:28:13.442 +02:00 [INF] Executed DbCommand (1ms) [Parameters=[@__normalizedRoleName_0='?' (Size = 256)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(2) [a].[Id], [a].[ConcurrencyStamp], [a].[Name], [a].[NormalizedName]
+FROM [AspNetRoles] AS [a]
+WHERE [a].[NormalizedName] = @__normalizedRoleName_0
+2024-03-31 11:28:13.451 +02:00 [INF] Executed DbCommand (1ms) [Parameters=[@__normalizedUserName_0='?' (Size = 256)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [a].[Id], [a].[AccessFailedCount], [a].[ConcurrencyStamp], [a].[DepartmentId], [a].[Email], [a].[EmailConfirmed], [a].[LockoutEnabled], [a].[LockoutEnd], [a].[Name], [a].[NormalizedEmail], [a].[NormalizedUserName], [a].[PasswordHash], [a].[PhoneNumber], [a].[PhoneNumberConfirmed], [a].[PositionId], [a].[SecurityStamp], [a].[Surname], [a].[TwoFactorEnabled], [a].[UserName]
+FROM [AspNetUsers] AS [a]
+WHERE [a].[NormalizedUserName] = @__normalizedUserName_0
+2024-03-31 11:28:13.463 +02:00 [INF] Executed DbCommand (5ms) [Parameters=[@p0='?' (Size = 450), @p1='?' (Size = 450), @p20='?' (Size = 450), @p2='?' (DbType = Int32), @p3='?' (Size = 4000), @p21='?' (Size = 4000), @p4='?' (DbType = Int32), @p5='?' (Size = 256), @p6='?' (DbType = Boolean), @p7='?' (DbType = Boolean), @p8='?' (DbType = DateTimeOffset), @p9='?' (Size = 4000), @p10='?' (Size = 256), @p11='?' (Size = 256), @p12='?' (Size = 4000), @p13='?' (Size = 4000), @p14='?' (DbType = Boolean), @p15='?' (DbType = Int32), @p16='?' (Size = 4000), @p17='?' (Size = 4000), @p18='?' (DbType = Boolean), @p19='?' (Size = 256)], CommandType='"Text"', CommandTimeout='30']
+SET NOCOUNT ON;
+INSERT INTO [AspNetUserRoles] ([RoleId], [UserId])
+VALUES (@p0, @p1);
+UPDATE [AspNetUsers] SET [AccessFailedCount] = @p2, [ConcurrencyStamp] = @p3, [DepartmentId] = @p4, [Email] = @p5, [EmailConfirmed] = @p6, [LockoutEnabled] = @p7, [LockoutEnd] = @p8, [Name] = @p9, [NormalizedEmail] = @p10, [NormalizedUserName] = @p11, [PasswordHash] = @p12, [PhoneNumber] = @p13, [PhoneNumberConfirmed] = @p14, [PositionId] = @p15, [SecurityStamp] = @p16, [Surname] = @p17, [TwoFactorEnabled] = @p18, [UserName] = @p19
+OUTPUT 1
+WHERE [Id] = @p20 AND [ConcurrencyStamp] = @p21;
+2024-03-31 11:28:13.467 +02:00 [INF] Executing RedirectResult, redirecting to /Admin/ManageUsers.
+2024-03-31 11:28:13.468 +02:00 [INF] Executed action Schedulist.App.Controllers.AdminController.AddToAdministrator (Schedulist.App) in 150.7234ms
+2024-03-31 11:28:13.468 +02:00 [INF] Executed endpoint 'Schedulist.App.Controllers.AdminController.AddToAdministrator (Schedulist.App)'
+2024-03-31 11:28:13.469 +02:00 [INF] Request finished HTTP/2 POST https://localhost:7178/Admin/AddToAdministrator?userId=2 - 302 0 null 164.5104ms
+2024-03-31 11:28:13.471 +02:00 [INF] Request starting HTTP/2 GET https://localhost:7178/Admin/ManageUsers - null null
+2024-03-31 11:28:13.475 +02:00 [INF] Executing endpoint 'Schedulist.App.Controllers.AdminController.ManageUsers (Schedulist.App)'
+2024-03-31 11:28:13.476 +02:00 [INF] Route matched with {action = "ManageUsers", controller = "Admin", page = "", area = ""}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] ManageUsers() on controller Schedulist.App.Controllers.AdminController (Schedulist.App).
+2024-03-31 11:28:13.480 +02:00 [INF] Executed DbCommand (2ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [a].[Id], [a].[AccessFailedCount], [a].[ConcurrencyStamp], [a].[DepartmentId], [a].[Email], [a].[EmailConfirmed], [a].[LockoutEnabled], [a].[LockoutEnd], [a].[Name], [a].[NormalizedEmail], [a].[NormalizedUserName], [a].[PasswordHash], [a].[PhoneNumber], [a].[PhoneNumberConfirmed], [a].[PositionId], [a].[SecurityStamp], [a].[Surname], [a].[TwoFactorEnabled], [a].[UserName]
+FROM [AspNetUsers] AS [a]
+2024-03-31 11:28:13.483 +02:00 [INF] Executed DbCommand (1ms) [Parameters=[@__userId_0='?' (Size = 450)], CommandType='"Text"', CommandTimeout='30']
+SELECT [a0].[Name]
+FROM [AspNetUserRoles] AS [a]
+INNER JOIN [AspNetRoles] AS [a0] ON [a].[RoleId] = [a0].[Id]
+WHERE [a].[UserId] = @__userId_0
+2024-03-31 11:28:13.486 +02:00 [INF] Executed DbCommand (1ms) [Parameters=[@__userId_0='?' (Size = 450)], CommandType='"Text"', CommandTimeout='30']
+SELECT [a0].[Name]
+FROM [AspNetUserRoles] AS [a]
+INNER JOIN [AspNetRoles] AS [a0] ON [a].[RoleId] = [a0].[Id]
+WHERE [a].[UserId] = @__userId_0
+2024-03-31 11:28:13.489 +02:00 [INF] Executed DbCommand (1ms) [Parameters=[@__userId_0='?' (Size = 450)], CommandType='"Text"', CommandTimeout='30']
+SELECT [a0].[Name]
+FROM [AspNetUserRoles] AS [a]
+INNER JOIN [AspNetRoles] AS [a0] ON [a].[RoleId] = [a0].[Id]
+WHERE [a].[UserId] = @__userId_0
+2024-03-31 11:28:13.490 +02:00 [INF] Executing ViewResult, running view ManageUsers.
+2024-03-31 11:28:13.494 +02:00 [INF] Executed DbCommand (1ms) [Parameters=[@__normalizedUserName_0='?' (Size = 256)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [a].[Id], [a].[AccessFailedCount], [a].[ConcurrencyStamp], [a].[DepartmentId], [a].[Email], [a].[EmailConfirmed], [a].[LockoutEnabled], [a].[LockoutEnd], [a].[Name], [a].[NormalizedEmail], [a].[NormalizedUserName], [a].[PasswordHash], [a].[PhoneNumber], [a].[PhoneNumberConfirmed], [a].[PositionId], [a].[SecurityStamp], [a].[Surname], [a].[TwoFactorEnabled], [a].[UserName]
+FROM [AspNetUsers] AS [a]
+WHERE [a].[NormalizedUserName] = @__normalizedUserName_0
+2024-03-31 11:28:13.498 +02:00 [INF] Executed ViewResult - view ManageUsers executed in 7.3205ms.
+2024-03-31 11:28:13.499 +02:00 [INF] Executed action Schedulist.App.Controllers.AdminController.ManageUsers (Schedulist.App) in 21.4925ms
+2024-03-31 11:28:13.500 +02:00 [INF] Executed endpoint 'Schedulist.App.Controllers.AdminController.ManageUsers (Schedulist.App)'
+2024-03-31 11:28:13.502 +02:00 [INF] Request finished HTTP/2 GET https://localhost:7178/Admin/ManageUsers - 200 null text/html; charset=utf-8 30.3566ms
+2024-03-31 11:28:13.506 +02:00 [INF] Request starting HTTP/2 GET https://localhost:7178/_vs/browserLink - null null
+2024-03-31 11:28:13.506 +02:00 [INF] Request starting HTTP/2 GET https://localhost:7178/_framework/aspnetcore-browser-refresh.js - null null
+2024-03-31 11:28:13.513 +02:00 [INF] Request finished HTTP/2 GET https://localhost:7178/_framework/aspnetcore-browser-refresh.js - 200 13764 application/javascript; charset=utf-8 7.9806ms
+2024-03-31 11:28:13.526 +02:00 [INF] Request finished HTTP/2 GET https://localhost:7178/_vs/browserLink - 200 null text/javascript; charset=UTF-8 20.2128ms
+2024-03-31 11:28:15.307 +02:00 [INF] Request starting HTTP/2 POST https://localhost:7178/Admin/AddToStandardRole?userId=2 - application/x-www-form-urlencoded 225
+2024-03-31 11:28:15.311 +02:00 [INF] Executing endpoint 'Schedulist.App.Controllers.AdminController.AddToStandardRole (Schedulist.App)'
+2024-03-31 11:28:15.315 +02:00 [INF] Route matched with {action = "AddToStandardRole", controller = "Admin", page = "", area = ""}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] AddToStandardRole(System.String) on controller Schedulist.App.Controllers.AdminController (Schedulist.App).
+2024-03-31 11:28:15.319 +02:00 [INF] Executed DbCommand (0ms) [Parameters=[@__id_0='?' (Size = 450)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [a].[Id], [a].[AccessFailedCount], [a].[ConcurrencyStamp], [a].[DepartmentId], [a].[Email], [a].[EmailConfirmed], [a].[LockoutEnabled], [a].[LockoutEnd], [a].[Name], [a].[NormalizedEmail], [a].[NormalizedUserName], [a].[PasswordHash], [a].[PhoneNumber], [a].[PhoneNumberConfirmed], [a].[PositionId], [a].[SecurityStamp], [a].[Surname], [a].[TwoFactorEnabled], [a].[UserName]
+FROM [AspNetUsers] AS [a]
+WHERE [a].[Id] = @__id_0
+2024-03-31 11:28:15.323 +02:00 [INF] Executed DbCommand (1ms) [Parameters=[@__userId_0='?' (Size = 450)], CommandType='"Text"', CommandTimeout='30']
+SELECT [a0].[Name]
+FROM [AspNetUserRoles] AS [a]
+INNER JOIN [AspNetRoles] AS [a0] ON [a].[RoleId] = [a0].[Id]
+WHERE [a].[UserId] = @__userId_0
+2024-03-31 11:28:15.326 +02:00 [INF] Executed DbCommand (1ms) [Parameters=[@__normalizedRoleName_0='?' (Size = 256)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(2) [a].[Id], [a].[ConcurrencyStamp], [a].[Name], [a].[NormalizedName]
+FROM [AspNetRoles] AS [a]
+WHERE [a].[NormalizedName] = @__normalizedRoleName_0
+2024-03-31 11:28:15.329 +02:00 [INF] Executed DbCommand (1ms) [Parameters=[@__p_0='?' (Size = 450), @__p_1='?' (Size = 450)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [a].[UserId], [a].[RoleId]
+FROM [AspNetUserRoles] AS [a]
+WHERE [a].[UserId] = @__p_0 AND [a].[RoleId] = @__p_1
+2024-03-31 11:28:15.331 +02:00 [INF] Executed DbCommand (1ms) [Parameters=[@__normalizedRoleName_0='?' (Size = 256)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(2) [a].[Id], [a].[ConcurrencyStamp], [a].[Name], [a].[NormalizedName]
+FROM [AspNetRoles] AS [a]
+WHERE [a].[NormalizedName] = @__normalizedRoleName_0
+2024-03-31 11:28:15.334 +02:00 [INF] Executed DbCommand (1ms) [Parameters=[@__normalizedUserName_0='?' (Size = 256)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [a].[Id], [a].[AccessFailedCount], [a].[ConcurrencyStamp], [a].[DepartmentId], [a].[Email], [a].[EmailConfirmed], [a].[LockoutEnabled], [a].[LockoutEnd], [a].[Name], [a].[NormalizedEmail], [a].[NormalizedUserName], [a].[PasswordHash], [a].[PhoneNumber], [a].[PhoneNumberConfirmed], [a].[PositionId], [a].[SecurityStamp], [a].[Surname], [a].[TwoFactorEnabled], [a].[UserName]
+FROM [AspNetUsers] AS [a]
+WHERE [a].[NormalizedUserName] = @__normalizedUserName_0
+2024-03-31 11:28:15.337 +02:00 [INF] Executed DbCommand (1ms) [Parameters=[@p0='?' (Size = 450), @p1='?' (Size = 450), @p20='?' (Size = 450), @p2='?' (DbType = Int32), @p3='?' (Size = 4000), @p21='?' (Size = 4000), @p4='?' (DbType = Int32), @p5='?' (Size = 256), @p6='?' (DbType = Boolean), @p7='?' (DbType = Boolean), @p8='?' (DbType = DateTimeOffset), @p9='?' (Size = 4000), @p10='?' (Size = 256), @p11='?' (Size = 256), @p12='?' (Size = 4000), @p13='?' (Size = 4000), @p14='?' (DbType = Boolean), @p15='?' (DbType = Int32), @p16='?' (Size = 4000), @p17='?' (Size = 4000), @p18='?' (DbType = Boolean), @p19='?' (Size = 256)], CommandType='"Text"', CommandTimeout='30']
+SET NOCOUNT ON;
+DELETE FROM [AspNetUserRoles]
+OUTPUT 1
+WHERE [RoleId] = @p0 AND [UserId] = @p1;
+UPDATE [AspNetUsers] SET [AccessFailedCount] = @p2, [ConcurrencyStamp] = @p3, [DepartmentId] = @p4, [Email] = @p5, [EmailConfirmed] = @p6, [LockoutEnabled] = @p7, [LockoutEnd] = @p8, [Name] = @p9, [NormalizedEmail] = @p10, [NormalizedUserName] = @p11, [PasswordHash] = @p12, [PhoneNumber] = @p13, [PhoneNumberConfirmed] = @p14, [PositionId] = @p15, [SecurityStamp] = @p16, [Surname] = @p17, [TwoFactorEnabled] = @p18, [UserName] = @p19
+OUTPUT 1
+WHERE [Id] = @p20 AND [ConcurrencyStamp] = @p21;
+2024-03-31 11:28:15.341 +02:00 [INF] Executed DbCommand (1ms) [Parameters=[@__normalizedRoleName_0='?' (Size = 256)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(2) [a].[Id], [a].[ConcurrencyStamp], [a].[Name], [a].[NormalizedName]
+FROM [AspNetRoles] AS [a]
+WHERE [a].[NormalizedName] = @__normalizedRoleName_0
+2024-03-31 11:28:15.344 +02:00 [INF] Executed DbCommand (0ms) [Parameters=[@__p_0='?' (Size = 450), @__p_1='?' (Size = 450)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [a].[UserId], [a].[RoleId]
+FROM [AspNetUserRoles] AS [a]
+WHERE [a].[UserId] = @__p_0 AND [a].[RoleId] = @__p_1
+2024-03-31 11:28:15.346 +02:00 [INF] Executed DbCommand (1ms) [Parameters=[@__normalizedRoleName_0='?' (Size = 256)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(2) [a].[Id], [a].[ConcurrencyStamp], [a].[Name], [a].[NormalizedName]
+FROM [AspNetRoles] AS [a]
+WHERE [a].[NormalizedName] = @__normalizedRoleName_0
+2024-03-31 11:28:15.349 +02:00 [INF] Executed DbCommand (1ms) [Parameters=[@__normalizedUserName_0='?' (Size = 256)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [a].[Id], [a].[AccessFailedCount], [a].[ConcurrencyStamp], [a].[DepartmentId], [a].[Email], [a].[EmailConfirmed], [a].[LockoutEnabled], [a].[LockoutEnd], [a].[Name], [a].[NormalizedEmail], [a].[NormalizedUserName], [a].[PasswordHash], [a].[PhoneNumber], [a].[PhoneNumberConfirmed], [a].[PositionId], [a].[SecurityStamp], [a].[Surname], [a].[TwoFactorEnabled], [a].[UserName]
+FROM [AspNetUsers] AS [a]
+WHERE [a].[NormalizedUserName] = @__normalizedUserName_0
+2024-03-31 11:28:15.353 +02:00 [INF] Executed DbCommand (1ms) [Parameters=[@p0='?' (Size = 450), @p1='?' (Size = 450), @p20='?' (Size = 450), @p2='?' (DbType = Int32), @p3='?' (Size = 4000), @p21='?' (Size = 4000), @p4='?' (DbType = Int32), @p5='?' (Size = 256), @p6='?' (DbType = Boolean), @p7='?' (DbType = Boolean), @p8='?' (DbType = DateTimeOffset), @p9='?' (Size = 4000), @p10='?' (Size = 256), @p11='?' (Size = 256), @p12='?' (Size = 4000), @p13='?' (Size = 4000), @p14='?' (DbType = Boolean), @p15='?' (DbType = Int32), @p16='?' (Size = 4000), @p17='?' (Size = 4000), @p18='?' (DbType = Boolean), @p19='?' (Size = 256)], CommandType='"Text"', CommandTimeout='30']
+SET NOCOUNT ON;
+INSERT INTO [AspNetUserRoles] ([RoleId], [UserId])
+VALUES (@p0, @p1);
+UPDATE [AspNetUsers] SET [AccessFailedCount] = @p2, [ConcurrencyStamp] = @p3, [DepartmentId] = @p4, [Email] = @p5, [EmailConfirmed] = @p6, [LockoutEnabled] = @p7, [LockoutEnd] = @p8, [Name] = @p9, [NormalizedEmail] = @p10, [NormalizedUserName] = @p11, [PasswordHash] = @p12, [PhoneNumber] = @p13, [PhoneNumberConfirmed] = @p14, [PositionId] = @p15, [SecurityStamp] = @p16, [Surname] = @p17, [TwoFactorEnabled] = @p18, [UserName] = @p19
+OUTPUT 1
+WHERE [Id] = @p20 AND [ConcurrencyStamp] = @p21;
+2024-03-31 11:28:15.355 +02:00 [INF] Executing RedirectResult, redirecting to /Admin/ManageUsers.
+2024-03-31 11:28:15.356 +02:00 [INF] Executed action Schedulist.App.Controllers.AdminController.AddToStandardRole (Schedulist.App) in 39.5915ms
+2024-03-31 11:28:15.357 +02:00 [INF] Executed endpoint 'Schedulist.App.Controllers.AdminController.AddToStandardRole (Schedulist.App)'
+2024-03-31 11:28:15.357 +02:00 [INF] Request finished HTTP/2 POST https://localhost:7178/Admin/AddToStandardRole?userId=2 - 302 0 null 50.0262ms
+2024-03-31 11:28:15.359 +02:00 [INF] Request starting HTTP/2 GET https://localhost:7178/Admin/ManageUsers - null null
+2024-03-31 11:28:15.362 +02:00 [INF] Executing endpoint 'Schedulist.App.Controllers.AdminController.ManageUsers (Schedulist.App)'
+2024-03-31 11:28:15.363 +02:00 [INF] Route matched with {action = "ManageUsers", controller = "Admin", page = "", area = ""}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] ManageUsers() on controller Schedulist.App.Controllers.AdminController (Schedulist.App).
+2024-03-31 11:28:15.365 +02:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [a].[Id], [a].[AccessFailedCount], [a].[ConcurrencyStamp], [a].[DepartmentId], [a].[Email], [a].[EmailConfirmed], [a].[LockoutEnabled], [a].[LockoutEnd], [a].[Name], [a].[NormalizedEmail], [a].[NormalizedUserName], [a].[PasswordHash], [a].[PhoneNumber], [a].[PhoneNumberConfirmed], [a].[PositionId], [a].[SecurityStamp], [a].[Surname], [a].[TwoFactorEnabled], [a].[UserName]
+FROM [AspNetUsers] AS [a]
+2024-03-31 11:28:15.368 +02:00 [INF] Executed DbCommand (1ms) [Parameters=[@__userId_0='?' (Size = 450)], CommandType='"Text"', CommandTimeout='30']
+SELECT [a0].[Name]
+FROM [AspNetUserRoles] AS [a]
+INNER JOIN [AspNetRoles] AS [a0] ON [a].[RoleId] = [a0].[Id]
+WHERE [a].[UserId] = @__userId_0
+2024-03-31 11:28:15.371 +02:00 [INF] Executed DbCommand (1ms) [Parameters=[@__userId_0='?' (Size = 450)], CommandType='"Text"', CommandTimeout='30']
+SELECT [a0].[Name]
+FROM [AspNetUserRoles] AS [a]
+INNER JOIN [AspNetRoles] AS [a0] ON [a].[RoleId] = [a0].[Id]
+WHERE [a].[UserId] = @__userId_0
+2024-03-31 11:28:15.373 +02:00 [INF] Executed DbCommand (1ms) [Parameters=[@__userId_0='?' (Size = 450)], CommandType='"Text"', CommandTimeout='30']
+SELECT [a0].[Name]
+FROM [AspNetUserRoles] AS [a]
+INNER JOIN [AspNetRoles] AS [a0] ON [a].[RoleId] = [a0].[Id]
+WHERE [a].[UserId] = @__userId_0
+2024-03-31 11:28:15.374 +02:00 [INF] Executing ViewResult, running view ManageUsers.
+2024-03-31 11:28:15.378 +02:00 [INF] Executed DbCommand (1ms) [Parameters=[@__normalizedUserName_0='?' (Size = 256)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [a].[Id], [a].[AccessFailedCount], [a].[ConcurrencyStamp], [a].[DepartmentId], [a].[Email], [a].[EmailConfirmed], [a].[LockoutEnabled], [a].[LockoutEnd], [a].[Name], [a].[NormalizedEmail], [a].[NormalizedUserName], [a].[PasswordHash], [a].[PhoneNumber], [a].[PhoneNumberConfirmed], [a].[PositionId], [a].[SecurityStamp], [a].[Surname], [a].[TwoFactorEnabled], [a].[UserName]
+FROM [AspNetUsers] AS [a]
+WHERE [a].[NormalizedUserName] = @__normalizedUserName_0
+2024-03-31 11:28:15.381 +02:00 [INF] Executed ViewResult - view ManageUsers executed in 6.8109ms.
+2024-03-31 11:28:15.382 +02:00 [INF] Executed action Schedulist.App.Controllers.AdminController.ManageUsers (Schedulist.App) in 17.8094ms
+2024-03-31 11:28:15.383 +02:00 [INF] Executed endpoint 'Schedulist.App.Controllers.AdminController.ManageUsers (Schedulist.App)'
+2024-03-31 11:28:15.384 +02:00 [INF] Request finished HTTP/2 GET https://localhost:7178/Admin/ManageUsers - 200 null text/html; charset=utf-8 25.2503ms
+2024-03-31 11:28:15.388 +02:00 [INF] Request starting HTTP/2 GET https://localhost:7178/_vs/browserLink - null null
+2024-03-31 11:28:15.388 +02:00 [INF] Request starting HTTP/2 GET https://localhost:7178/_framework/aspnetcore-browser-refresh.js - null null
+2024-03-31 11:28:15.395 +02:00 [INF] Request finished HTTP/2 GET https://localhost:7178/_framework/aspnetcore-browser-refresh.js - 200 13764 application/javascript; charset=utf-8 7.9157ms
+2024-03-31 11:28:15.415 +02:00 [INF] Request finished HTTP/2 GET https://localhost:7178/_vs/browserLink - 200 null text/javascript; charset=UTF-8 27.7088ms
