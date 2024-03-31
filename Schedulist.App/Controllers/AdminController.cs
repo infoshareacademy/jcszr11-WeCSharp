@@ -40,8 +40,14 @@ namespace Schedulist.App.Controllers
         public async Task<IActionResult> AddToAdministrator(string userId)
         {
             var user = _userRepository.GetUserById(userId);
-            if (user != null && !await _userManager.IsInRoleAsync(user, "ADMIN"))
+            if (user != null)
             {
+                var userRoles = await _userManager.GetRolesAsync(user);
+                foreach (var role in userRoles)
+                {
+                    await _userManager.RemoveFromRoleAsync(user, role);
+                }
+
                 await _userManager.AddToRoleAsync(user, "ADMIN");
             }
             return RedirectToAction("ManageUsers");
@@ -50,8 +56,14 @@ namespace Schedulist.App.Controllers
         public async Task<IActionResult> AddToStandardRole(string userId)
         {
             var user = _userRepository.GetUserById(userId);
-            if (user != null && !await _userManager.IsInRoleAsync(user, "USER"))
+            if (user != null)
             {
+                var userRoles = await _userManager.GetRolesAsync(user);
+                foreach (var role in userRoles)
+                {
+                    await _userManager.RemoveFromRoleAsync(user, role);
+                }
+
                 await _userManager.AddToRoleAsync(user, "USER");
             }
             return RedirectToAction("ManageUsers");

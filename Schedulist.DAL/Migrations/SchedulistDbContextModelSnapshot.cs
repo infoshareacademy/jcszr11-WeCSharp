@@ -496,18 +496,41 @@ namespace Schedulist.DAL.Migrations
                         {
                             Id = "1",
                             AccessFailedCount = 50,
-                            ConcurrencyStamp = "f3c9abc8-66f0-446b-8e26-89aa479fb1b2",
+                            ConcurrencyStamp = "b671d221-ee51-4eee-8d1b-ce35440e9b5d",
                             DepartmentId = 1,
+                            Email = "kurstomasza@gmail.com",
                             EmailConfirmed = true,
                             LockoutEnabled = false,
                             Name = "Tomasz",
-                            PasswordHash = "AQAAAAIAAYagAAAAEPi+5dq89aiqazJ2y8C2wst5NqfavqpPIGR5CjOOg3p5aglHt6NNvYtKm7UuoCoEOA==",
+                            NormalizedEmail = "KURSTOMASZA@GMAIL.COM",
+                            NormalizedUserName = "KURSTOMASZA@GMAIL.COM",
+                            PasswordHash = "AQAAAAIAAYagAAAAEOtbN3nlp4V8e1cIpZ847YebM0SOh54N7KgdROwl4ju3WO0hk60GrXkNjg8ERc7Y4w==",
                             PhoneNumberConfirmed = false,
                             PositionId = 2,
-                            SecurityStamp = "045b1d32-a16a-4a0d-8bd6-11cf196f3f74",
+                            SecurityStamp = "b72bb8c9-05ce-4b6e-8495-dc8dbeb39f17",
                             Surname = "Tomaszewicz",
                             TwoFactorEnabled = false,
-                            UserName = "KURSTOMASZA@GMAIL.COM"
+                            UserName = "kurstomasza@gmail.com"
+                        },
+                        new
+                        {
+                            Id = "2",
+                            AccessFailedCount = 50,
+                            ConcurrencyStamp = "6a51b9ba-147c-4d6c-9232-a92f8dd4a43c",
+                            DepartmentId = 2,
+                            Email = "kursandrzeja@gmail.com",
+                            EmailConfirmed = true,
+                            LockoutEnabled = false,
+                            Name = "Andrzej",
+                            NormalizedEmail = "KURSANDRZEJA@GMAIL.COM",
+                            NormalizedUserName = "KURSANDRZEJA@GMAIL.COM",
+                            PasswordHash = "AQAAAAIAAYagAAAAEOtbN3nlp4V8e1cIpZ847YebM0SOh54N7KgdROwl4ju3WO0hk60GrXkNjg8ERc7Y4w==",
+                            PhoneNumberConfirmed = false,
+                            PositionId = 3,
+                            SecurityStamp = "1b612341-087e-44f2-8ded-ff50bafc3966",
+                            Surname = "Andrzejewski",
+                            TwoFactorEnabled = false,
+                            UserName = "kursandrzeja@gmail.com"
                         });
                 });
 
