@@ -7,5 +7,6 @@ namespace Schedulist.DAL.Repositories.Interfaces
         List<WorkMode> GetAllWorkModes();
         WorkMode GetWorkModeById(int id);
         bool CreateWorkMode(WorkMode newModeMode);
+        bool DeleteWorkMode(WorkMode workModeToDelete);
     }
 }

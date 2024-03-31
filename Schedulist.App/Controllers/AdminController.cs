@@ -4,7 +4,6 @@ using Microsoft.AspNetCore.Mvc;
 using Schedulist.App.Models.Enum;
 using Schedulist.App.ViewModels.Admin;
 using Schedulist.DAL.Models;
-using Schedulist.DAL.Repositories;
 using Schedulist.DAL.Repositories.Interfaces;
 
 namespace Schedulist.App.Controllers
@@ -52,10 +51,10 @@ namespace Schedulist.App.Controllers
                 {
                     await _userManager.RemoveFromRoleAsync(user, role);
                 }
-
                 await _userManager.AddToRoleAsync(user, "ADMIN");
+                PopUpNotification("Permissions have been changed");
             }
-            return RedirectToAction("ManageUsers");
+            return RedirectToAction("Management");
         }
         [HttpPost]
         public async Task<IActionResult> AddToStandardRole(string userId)
@@ -68,39 +67,12 @@ namespace Schedulist.App.Controllers
                 {
                     await _userManager.RemoveFromRoleAsync(user, role);
                 }
-
+                PopUpNotification("Permissions have been changed");
                 await _userManager.AddToRoleAsync(user, "USER");
             }
-            return RedirectToAction("ManageUsers");
+            return RedirectToAction("Management");
         }
-        //[HttpGet]
-        //public IActionResult Update(string userId) 
-        //{
-
-        //}
-        //[HttpPost]
-        //public IActionResult Update(User userToUpdate)
-        //{
-
-        //}
-        [HttpPost]
-        public IActionResult Delete(string id)
-        {
-            try
-            {
-                User userToDelete = _userRepository.GetUserById(id);
-                _userRepository.DeleteUser(userToDelete);
-                logger.LogInformation($"User deleted.");
-                return Ok();
-            }
-            catch (Exception ex)
-            {
-                logger.LogError($"Exception occurred: {ex.Message}");
-                PopUpNotification("Error occurred while deleting User", notificationType: NotificationType.error);
-                return View();
-            }
-        }
-        [HttpPost]
+        [HttpGet]
         public IActionResult CreateNewWorkMode(AdminViewModel model)
         {
             try
@@ -119,5 +91,33 @@ namespace Schedulist.App.Controllers
 
             return RedirectToAction(nameof(Management));
         }
+        [HttpPost]
+        public IActionResult DeleteWorkMode(AdminViewModel model)
+        {
+            try
+            {
+                WorkMode workModeToDelete = _workModeRepository.GetWorkModeById(model.WorkMode.Id);
+                _workModeRepository.DeleteWorkMode(workModeToDelete);
+                PopUpNotification("Work Mode has been deleted successfully!");
+                logger.LogInformation($"WorkMode deleted.");
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+                logger.LogError($"Exception occurred: {ex.Message}");
+                PopUpNotification("Error occurred while deleting User", notificationType: NotificationType.error);
+                return View();
+            }
+        }
+        //[HttpGet]
+        //public IActionResult Update(string userId) 
+        //{
+
+        //}
+        //[HttpPost]
+        //public IActionResult Update(User userToUpdate)
+        //{
+
+        //}
     }
 }

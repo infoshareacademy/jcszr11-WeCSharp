@@ -42,5 +42,19 @@ namespace Schedulist.DAL.Repositories
                 return false;
             }
         }
+        public bool DeleteWorkMode(WorkMode workModeToDelete)
+        {
+            try
+            {
+                _db.WorkModes.Remove(workModeToDelete);
+                _db.SaveChanges();
+                return true;
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "An error occurred while deleting  Work Mode from DB");
+                return false;
+            }
+        }
     }
 }
