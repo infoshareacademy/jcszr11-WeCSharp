@@ -71,12 +71,12 @@ namespace Schedulist.App.Controllers
                 }
                     _calendarEventRepository.CreateCalendarEvent(calendarEvent);
                     logger.LogInformation("Calendar Event created.");
-                    PopupNotification("Calendar Event has been created successfully");
+                    PopUpNotification("Calendar Event has been created successfully");
                     return RedirectToAction(nameof(Index));
             }
             catch (Exception ex)
             {
-                PopupNotification("Error occurred while deleting Calendar Event", notificationType: NotificationType.error);
+                PopUpNotification("Error occurred while deleting Calendar Event", notificationType: NotificationType.error);
                 logger.LogError($"Exception occurred: {ex.Message}");
                 return Ok();
             }
@@ -109,7 +109,7 @@ namespace Schedulist.App.Controllers
                 }
                 _calendarEventRepository.UpdateCalendarEvent(id, calendarEvent);
                 logger.LogInformation($"Modified Calendar Event.");
-                PopupNotification("Calendar Event has been updated successfully");
+                PopUpNotification("Calendar Event has been updated successfully");
                 return RedirectToAction(nameof(Index));
             }
             catch
@@ -126,13 +126,13 @@ namespace Schedulist.App.Controllers
                 CalendarEvent calendarEventToDelete = _calendarEventRepository.GetCalendarEventById(id);
                 _calendarEventRepository.DeleteCalendarEvent(calendarEventToDelete);
                 logger.LogInformation($"Deleted Calendar Event.");
-                PopupNotification("Calendar Event has been successfully deleted");
+                PopUpNotification("Calendar Event has been successfully deleted");
                 return RedirectToAction(nameof(Index));
             }
             catch (Exception ex)
             {
                 logger.LogError($"Exception occurred: {ex.Message}");
-                PopupNotification("Error occurred while deleting Calendar Event", notificationType: NotificationType.error);
+                PopUpNotification("Error occurred while deleting Calendar Event", notificationType: NotificationType.error);
                 return View();
             }
         }

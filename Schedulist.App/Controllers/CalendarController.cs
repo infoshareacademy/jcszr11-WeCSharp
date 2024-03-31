@@ -208,7 +208,7 @@ namespace Schedulist.App.Controllers
                 }
                 _calendarEventRepository.CreateCalendarEvent(calendarEvent);
                 logger.LogInformation($"Created Calendar Event.");
-                PopupNotification("Calendar event has been created successfully");
+                PopUpNotification("Calendar event has been created successfully");
                 var returnUrl = TempData["ReturnUrl"] as string;
                 return Redirect(returnUrl);
             }
@@ -248,7 +248,7 @@ namespace Schedulist.App.Controllers
                 workModesToUser.DateOfWorkMode = parsedChosenDate;
                 _workModeForUserRepository.CreateWorkModeForUser(workModesToUser);
                 logger.LogInformation("Created new work mode!");
-                PopupNotification("Work mode has been created successfully");
+                PopUpNotification("Work mode has been created successfully");
                 var returnUrl = TempData["ReturnUrlWM"] as string;
                 return Redirect(returnUrl);
             }
@@ -293,7 +293,7 @@ namespace Schedulist.App.Controllers
                 }
                 _calendarEventRepository.UpdateCalendarEvent(id, calendarEvent);
                 logger.LogInformation($"Modified Calendar Event.");
-                PopupNotification("Calendar event has been updated successfully");
+                PopUpNotification("Calendar event has been updated successfully");
                 return RedirectToAction(nameof(Index));
             }
             catch

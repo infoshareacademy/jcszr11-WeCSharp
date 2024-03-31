@@ -32,13 +32,13 @@ namespace Schedulist.App.Controllers
                 var workModeToDelete = _workModeForUserRepository.GetWorkModeById(id);
                 _workModeForUserRepository.DeleteWorkModeForUser(workModeToDelete);
                 Debug.WriteLine("Removed Work Mode!");
-                PopupNotification("Work mode has been successfully deleted");
+                PopUpNotification("Work mode has been successfully deleted");
                 return RedirectToAction(nameof(Index));
             }
             catch (Exception ex)
             {
                 Debug.WriteLine($"Exception occurred: {ex.Message}");
-                PopupNotification("Error occurred while deleting calendar event", notificationType: NotificationType.error);
+                PopUpNotification("Error occurred while deleting calendar event", notificationType: NotificationType.error);
                 return View();
             }
         }

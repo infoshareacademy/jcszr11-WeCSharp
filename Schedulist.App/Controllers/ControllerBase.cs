@@ -12,7 +12,7 @@ namespace Schedulist.App.Controllers
             Thread.CurrentThread.CurrentCulture = new System.Globalization.CultureInfo("en-GB");
             this.logger = logger;
         }
-        protected void PopupNotification(string title, string message = "", NotificationType notificationType = NotificationType.success)
+        protected void PopUpNotification(string title, string message = "", NotificationType notificationType = NotificationType.success)
         {
             var msg = new
             {

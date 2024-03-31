@@ -9,8 +9,8 @@
     }
 </script>
 
-<div class="manageUsers-container">
-    <h2 style="display: flex; justify-content: flex-start;">Users Management Section</h2>
+<h2 style="display: flex; justify-content: flex-start; margin-top: 20px;">Users Management Section</h2>
+<div class="management-container" style="width: 300px !important;">
     <table id="table">
         <thead>
             <tr>
@@ -19,7 +19,7 @@
                 <th class="text-indicator">Surname</th>
                 <th class="text-indicator">Email</th>
                 <th class="text-indicator">Roles</th>
-                <th class="text-indicator"></th>
+                <th class="text-indicator" style="white-space: nowrap;">Admin&nbsp;options</th>
             </tr>
         </thead>
         <tbody>
@@ -43,28 +43,23 @@
                     </td>
                     <td>
                         <form asp-action="AddToAdministrator" asp-route-userId="@user.Id" method="post">
-                            <button class="adminButtom" type="submit">Add To Administrator</button>
+                            <button class="adminButtom" type="submit" style="white-space: nowrap;">Add&nbsp;To&nbsp;Administrator</button>
                         </form>
                     </td>
                     <td>
                         <form asp-action="AddToStandardRole" asp-route-userId="@user.Id" method="post">
-                            <button class="adminButtom" type="submit">Add To Standard Role</button>
+                            <button class="adminButtom" type="submit" style="white-space: nowrap;">Add&nbsp;To&nbsp;Standard&nbsp;Role</button>
                         </form>
                     </td>
-@*                     <td>
-                        <form asp-action="DeleteUser" asp-route-userId="@user.Id">
-                            <button class="adminButtom" type="submit">Delete User</button>
-                        </form>
-                    </td> *@
                     <td>
-                        <button type="button" class="adminButtom" onclick="DeleteUser('@Url.Action("Delete", "Admin")?id=@user.Id','@user.Name','@user.Surname',
+                        <button style="white-space: nowrap;" type="button" class="adminButtom" onclick="DeleteUser('@Url.Action("Delete", "Admin")?id=@user.Id','@user.Name','@user.Surname',
                         '@user.Email','@user.Roles')">
                             Delete
                         </button>
                     </td>
                     <td>
                         <form asp-action="UserUpdate" asp-route-userId="@user.Id" method="get">
-                            <button class="adminButtom" type="submit">Modify User</button>
+                            <button class="adminButtom" type="submit" style="white-space: nowrap;">Modify&nbsp;User</button>
                         </form>
                     </td>
                 </tr>
@@ -72,4 +67,42 @@
         </tbody>
     </table>
 </div>
-<hr class="horizontal-line" style="height: 3px; border: 1px solid gray; margin: 10px">
+
+<hr class="horizontal-line" style="height: 3px; border: 1px solid gray; margin: 10px; margin-top: 35px;">
+
+<h2 style="display: flex; justify-content: flex-start; margin-top: 20px;">Work Mode Management Section</h2>
+<div class="management-container">
+    <div style="display: flex;">
+        <div style="flex: 2;">
+            <table id="table" style="margin-right: 20px;">
+                <thead>
+                    <tr>
+                        <th class="text-indicator" style="padding: 10px 15px;">Current Work Modes</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model.ListOfWorkModes)
+                    {
+                        <tr>
+                            <td>
+                                <span class="pointer">@item.Name</span>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+        <div style="flex: 1; display: flex; flex-direction: column; justify-content: center; margin-right: 70%;">
+            <div style="margin-bottom: 20px; display: flex; flex-direction: column; justify-content: center; align-items: center;">
+                <label class="form-label" style="font-size: 23px; white-space: nowrap;">Add&nbsp;new&nbsp;Work&nbsp;Mode</label>
+                <input asp-for="@Model.WorkMode.Name" autocomplete="off" placeholder="Insert type of new Work Mode" class="newWorkModeForm" style=" width: 270px !important; text-align: center; margin-bottom: 10px;" />
+                <button class="adminButtom" type="submit" style="white-space: nowrap; width: 200px;">Save&nbsp;new&nbsp;Work&nbsp;Mode</button>
+            </div>
+            <div style="display: flex; flex-direction: column; justify-content: center; align-items: center;">
+                <label class="form-label" style="font-size:23px;">Delete Work Mode</label>
+                @Html.DropDownListFor(w => w.WorkMode.Id, new SelectList(Model.ListOfWorkModes, "Id", "Name"), "--Select Work Mode--", new { @class = "drop-down" })
+                <button class="adminButtom" type="submit" style="white-space: nowrap; width: 180px;">Delete&nbsp;Work&nbsp;Mode</button>
+            </div>
+        </div>
+    </div>
+</div>

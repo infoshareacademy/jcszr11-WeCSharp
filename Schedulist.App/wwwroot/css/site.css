@@ -518,7 +518,27 @@ table td tr {
 .adminButtom:hover {
     outline: 2px solid black;
 }
-.manageUsers-container {
-    margin-left: 30px;
-    margin-top: 50px;
+.management-container-container {
+    margin-left: 20px;
+    margin-top: 20px;
+    margin-bottom: 35px;
+}
+/*.manageWorkModes-container {
+    margin-left: 20px;
+    margin-top: 20px;
+    margin-bottom: 35px;
+}*/
+.newWorkModeForm {
+    display: inline-block !important;
+    width: auto !important;
+}
+.drop-down {
+    text-align: center;
+    justify-content: center;
+    margin-bottom: 10px;
+    height: 32px;
+    padding-right: 18px;
+    padding-left: 18px;
+    padding-bottom: 2.5px;
+    color: gray;
 }
