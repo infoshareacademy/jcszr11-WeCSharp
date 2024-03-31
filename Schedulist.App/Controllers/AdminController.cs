@@ -1,8 +1,10 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Schedulist.App.Models.Enum;
 using Schedulist.App.ViewModels.Admin;
 using Schedulist.DAL.Models;
+using Schedulist.DAL.Repositories;
 using Schedulist.DAL.Repositories.Interfaces;
 
 namespace Schedulist.App.Controllers
@@ -17,7 +19,7 @@ namespace Schedulist.App.Controllers
             _userRepository = userRepository;
             _userManager = userManager;
         }
-        public async Task<IActionResult> ManageUsers()
+        public async Task<IActionResult> Management()
         {
             //await _userManager.GetRolesAsync();
             var userListItems = new List<UserListItemModel>();
@@ -34,7 +36,7 @@ namespace Schedulist.App.Controllers
             });
             }
 
-            return View(new IndexViewModel { Users = userListItems });
+            return View(new AdminViewModel { Users = userListItems });
         }
         [HttpPost]
         public async Task<IActionResult> AddToAdministrator(string userId)
@@ -67,6 +69,23 @@ namespace Schedulist.App.Controllers
                 await _userManager.AddToRoleAsync(user, "USER");
             }
             return RedirectToAction("ManageUsers");
+        }
+        [HttpPost]
+        public IActionResult Delete(string id) 
+        {
+            try
+            {
+                User userToDelete = _userRepository.GetUserById(id);
+                _userRepository.DeleteUser(userToDelete);
+                logger.LogInformation($"User deleted.");
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+                logger.LogError($"Exception occurred: {ex.Message}");
+                PopupNotification("Error occurred while deleting User", notificationType: NotificationType.error);
+                return View();
+            }
         }
     }
 }

@@ -2,7 +2,7 @@
 
 namespace Schedulist.App.ViewModels.Admin
 {
-    public class IndexViewModel
+    public class AdminViewModel
     {
         public List<UserListItemModel> Users { get; set; }
 

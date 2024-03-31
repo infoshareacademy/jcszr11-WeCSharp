@@ -518,3 +518,7 @@ table td tr {
 .adminButtom:hover {
     outline: 2px solid black;
 }
+.manageUsers-container {
+    margin-left: 30px;
+    margin-top: 50px;
+}
