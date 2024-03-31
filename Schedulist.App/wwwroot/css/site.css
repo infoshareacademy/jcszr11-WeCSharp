@@ -59,6 +59,9 @@ html {
 .standard-border {
     border: 1px solid lightgrey;
 }
+.pointer {
+    cursor: pointer;
+}
 
 /*calendar day*/
 
@@ -208,6 +211,7 @@ html {
 
 .user-dropdown {
     width: 210px;
+    height: 40px;
 }
 
 .month-view-dropdown {

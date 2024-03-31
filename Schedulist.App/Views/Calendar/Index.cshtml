@@ -51,12 +51,12 @@
             <div class="calendar-dropdown">
                 <div class="dropdown">
                     <button class="btn btn-secondary dropdown-toggle user-dropdown" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        @Model.UserDict.First(obj => obj.Value == Model.UserToEdit).Key 
+                                @Model.UserDict.First().Value
                     </button>
                     <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                        @foreach (KeyValuePair <string, int> DropdownUser in Model.UserDict)
+                        @foreach (KeyValuePair <string, string> DropdownUser in Model.UserDict)
                         {
-                            <a class="dropdown-item" onclick="location.href='@Url.Action("ChangeUser", "Calendar", new {@date = Model.CurrentDate, @userToEdit = DropdownUser.Value})'">@DropdownUser.Key</a>
+                            <a class="dropdown-item" onclick="location.href='@Url.Action("ChangeUser", "Calendar", new {@date = Model.CurrentDate, @userToEdit = DropdownUser.Key})'">@DropdownUser.Value</a>
                         }
                         </div>
                     </div>
@@ -162,7 +162,7 @@
                                     </div>
                                     <div class="calendar-day-work-mode">
                                             @{string workModeForThisDay = "";}
-                                            @foreach (WorkModeForUser workMode in Model.WorkModesToDraw)
+                                        //     @foreach (WorkModeForUser workMode in Model.WorkModesToDraw)
                                             {
                                             if (workMode.DateOfWorkMode == DateOnly.FromDateTime(drawDate))
                                                 {

@@ -22,7 +22,7 @@ namespace Schedulist.DAL.Repositories
                 return new List<User>();
             }
         }
-        public User GetUserById(int id)
+        public User GetUserById(string id)
         {
             try
             {

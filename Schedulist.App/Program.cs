@@ -7,6 +7,7 @@ using Schedulist.DAL;
 using Schedulist.DAL.Models;
 using Schedulist.DAL.Repositories;
 using Schedulist.DAL.Repositories.Interfaces;
+using Serilog;
 
 
 
@@ -14,7 +15,7 @@ namespace Schedulist.App
 {
     public class Program
     {
-        public static void Main(string[] args)
+        public async static Task Main(string[] args)
         {
             //EmailReportService.SendEmail("tom.g@onet.pl");
 
@@ -23,36 +24,42 @@ namespace Schedulist.App
 
             var builder = WebApplication.CreateBuilder(args);
 
+            builder.Host.UseSerilog((hostingBuilderContext, loggerConfiguration) =>
+                loggerConfiguration.ReadFrom.Configuration(hostingBuilderContext.Configuration));
+
             // Add services to the container.
             var connectionString = builder.Configuration.GetConnectionString("DefaultConnection") ?? throw new InvalidOperationException("Connection string 'DefaultConnection' not found.");
             builder.Services.AddDbContext<SchedulistDbContext>(options =>
                 options.UseSqlServer(connectionString));
             builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
-            builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
+            builder.Services.AddDefaultIdentity<User>(options => options.SignIn.RequireConfirmedAccount = true).AddRoles<IdentityRole>()
                 .AddEntityFrameworkStores<SchedulistDbContext>();
             builder.Services.AddControllersWithViews();
 
-            User user = new() { Id = 2, Name = "Andrzej", Surname = "Andrzejewski", Login = "Log2", Password = "Pass2", AdminPrivilege = false, DepartmentId = 1, PositionId = 1 };
+            User user = new() { Id = "2", Name = "Andrzej", Surname = "Andrzejewski", DepartmentId = 3, PositionId = 4 };
             builder.Services.AddSingleton<User>(user);
-
             builder.Services.AddTransient<IUserRepository, UserRepository>();
-            builder.Services.AddTransient<ICalendarEventRepository, CalendarEventRepository>();
-            builder.Services.AddTransient<ICalendarEventService, CalendarEventService>();
-            builder.Services.AddTransient<ICalendarRepository, CalendarRepository>();
+            builder.Services.AddScoped<ICalendarEventRepository, CalendarEventRepository>();
+            builder.Services.AddScoped<ICalendarEventService, CalendarEventService>();
+            builder.Services.AddScoped<ICalendarRepository, CalendarRepository>();
             builder.Services.AddTransient<IWorkModeForUserRepository, WorkModeForUserRepository>();
             builder.Services.AddTransient<IWorkModeRepository, WorkModeRepository>();
             builder.Services.AddScoped<ErrorHandlingMiddleware>();
 
             var app = builder.Build();
-
-            // Configure the HTTP request pipeline.
-            if (!app.Environment.IsDevelopment())
+            using (var scope = app.Services.CreateScope())
             {
-                app.UseExceptionHandler("/Calendar/Error");
-                // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
-                app.UseHsts();
+                //var dbSeed = scope.ServiceProvider.GetService<DBSeed>();
+                //await dbSeed.CreateAdmin();
             }
+                // Configure the HTTP request pipeline.
+                if (!app.Environment.IsDevelopment())
+                {
+                    app.UseExceptionHandler("/Calendar/Error");
+                    // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
+                    app.UseHsts();
+                }
 
             app.UseMiddleware<ErrorHandlingMiddleware>();
             app.UseHttpsRedirection();
