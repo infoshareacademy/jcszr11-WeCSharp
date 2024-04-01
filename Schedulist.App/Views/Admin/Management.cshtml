@@ -1,13 +1,35 @@
 ﻿@model Schedulist.App.ViewModels.Admin.AdminViewModel
 
-<script>
-    var userDeletedMessage = localStorage.getItem('userDeletedMessage');
+<div class="calendar-sidebar-container" id="edit">
+    <div data-sidebar-id="Monday" onclick="openCalendarSidebar(this)">
+        ModifyUser
+    </div>
+    <h4 class="text-center" style="display:flex; justify-content:center; font-size: 30px">Calendar Event Update</h4>
+    <hr />
+    <div class="row">
+        <div class="col-md-12" style="text-align: center; display: flex; justify-content: center; gap: 10px">
+            <form asp-action="Edit">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <div class="form-group">
+                    <label asp-for="@Model.User.Name" class="control-label"></label>
+                    <input asp-for="@Model.User.Name" class="form-control" />
+                    <span asp-validation-for="@Model.User.Name" class="text-danger"></span>
+                </div>
+                @{
+                    var buttonStyle = "background-color: rgb(224, 157, 49)";
+                    var buttonText = "Update";
+                }
+                <div class="form-group" style="text-align: center; display: flex; justify-content: center; align-items: center; padding-top: 12px;">
+                    <button class="button buttonGreen" type="submit" onclick="location.href='@Url.Action("UpdateUser", "Admin", new { id = Model.User.Id })'"><span>@(buttonText)</span></button>
+                </div>
+                <div class="form-group" style="text-align: center; display: flex; justify-content: center; align-items: center; padding-top: 8px;">
+                    <a asp-action="Index" class="button buttonBlue" style="text-decoration: none;">Back to List</a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
 
-    if (userDeletedMessage) {
-        toastr.success(userDeletedMessage);
-        localStorage.removeItem('userDeletedMessage');
-    }
-</script>
 <h2 style="display: flex; justify-content: flex-start; margin-top: 20px; white-space:nowrap;">Users&nbsp;Management&nbsp;Section</h2>
 <div class="management-container" style="width: 300px !important;">
     <table id="table">
@@ -58,7 +80,9 @@
                     </td>
                     <td>
                         <form asp-action="UserUpdate" asp-route-userId="@user.Id" method="get">
-                            <button class="adminButtom" type="submit" style="white-space: nowrap;">Modify&nbsp;User</button>
+                            <button onclick="openCalendarSidebar(this)" data-sidebar-id="edit" class="adminButtom" type="submit" style="white-space: nowrap;"                                  >
+                                Modify&nbsp;User
+                            </button>
                         </form>
                     </td>
                 </tr>
@@ -107,3 +131,43 @@
         </div>
     </div>
 </form>
+
+<script>
+    var userDeletedMessage = localStorage.getItem('userDeletedMessage');
+
+    if (userDeletedMessage) {
+        toastr.success(userDeletedMessage);
+        localStorage.removeItem('userDeletedMessage');
+    }
+
+    function openCalendarSidebar(element) {
+        closeCalendarSidebars()
+        var sidebarId = element.getAttribute('data-sidebar-id');
+        var sidebarElement = document.getElementById(sidebarId);
+        sidebarElement.style.display = "block";
+    }
+    function closeCalendarSidebars() {
+    }
+
+    function closeCalendarSidebar(sidebarId) {
+        var sidebarElement = document.getElementById(sidebarId);
+        sidebarElement.style.display = "none";
+    }
+
+</script>
+
+@{
+    string sidebarId = $"calendarEvent{Model.User.Id}";
+    <div id="@sidebarId" class="calendar-sidebar-container">
+        <div class="calendar-sidebar">
+            <button onclick="closeCalendarSidebars()" class="sidebar-close-button">x</button>
+            <div class="form-group" style="text-align: center; display: flex; justify-content: center; align-items: center; padding-top: 12px;">
+                <button class="button buttonBlue">
+                    Modify
+                </button>
+            </div>
+            <div class="form-group" style="text-align: center; display: flex; justify-content: center; align-items: center; padding-top: 8px;">
+            </div>
+        </div>
+    </div>
+}

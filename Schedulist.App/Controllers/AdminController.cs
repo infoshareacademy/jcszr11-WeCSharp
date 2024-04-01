@@ -110,13 +110,13 @@ namespace Schedulist.App.Controllers
                 return View();
             }
         }
-        //[HttpGet]
-        //public IActionResult Update(string userId) 
-        //{
-
-        //}
+        [HttpGet]
+        public IActionResult UpdateUser(string userId)
+        {
+            return Ok();
+        }
         //[HttpPost]
-        //public IActionResult Update(User userToUpdate)
+        //public IActionResult UpdateUSer(User userToUpdate)
         //{
 
         //}
