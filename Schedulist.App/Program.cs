@@ -17,7 +17,9 @@ namespace Schedulist.App
     {
         public async static Task Main(string[] args)
         {
-            var cultureInfo = new System.Globalization.CultureInfo("en-GB");
+            //EmailReportService.SendEmail("tom.g@onet.pl");
+
+           var cultureInfo = new System.Globalization.CultureInfo("en-GB");
             Thread.CurrentThread.CurrentCulture = cultureInfo;
 
             var builder = WebApplication.CreateBuilder(args);
@@ -48,8 +50,6 @@ namespace Schedulist.App
                 return user;
             });
 
-            //User user = new() { Id = "2", Name = "Andrzej", Surname = "Andrzejewski", DepartmentId = 3, PositionId = 4 };
-            //builder.Services.AddSingleton<User>(user);
             builder.Services.AddTransient<IUserRepository, UserRepository>();
             builder.Services.AddScoped<ICalendarEventRepository, CalendarEventRepository>();
             builder.Services.AddScoped<ICalendarEventService, CalendarEventService>();

@@ -170,7 +170,7 @@
                     <h5>@day.ToString()</h5>
                 </div>
                 <div class="calendar-sidebar-event-container">
-                    <button class="btn btn-primary" onclick="location.href='@Url.Action("Day", "Calendar", new {@date = day, @userToEdit = Model.User})'">
+                    <button class="btn btn-primary" onclick="location.href='@Url.Action("Day", "Calendar", new {@date = day, @userToEdit = Model.User.Id})'">
                         Day view
                     </button>
                 </div>

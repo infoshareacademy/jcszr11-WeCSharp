@@ -162,7 +162,7 @@
                                     </div>
                                     <div class="calendar-day-work-mode">
                                             @{string workModeForThisDay = "";}
-                                        //     @foreach (WorkModeForUser workMode in Model.WorkModesToDraw)
+                                        @foreach (WorkModeForUser workMode in Model.WorkModesToDraw)
                                             {
                                             if (workMode.DateOfWorkMode == DateOnly.FromDateTime(drawDate))
                                                 {
