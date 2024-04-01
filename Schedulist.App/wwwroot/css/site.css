@@ -328,7 +328,7 @@ html {
     position: absolute;
     height: calc(100% - 123px);
     width: 350px;
-    right: 0;
+    right: 0px;
     top: 123px;
 }
 
@@ -340,7 +340,7 @@ html {
 }
 
 .calendar-sidebar {
-    border-left: 1px solid lightgrey;
+    border: 1px solid lightgrey;
     background-color: white;
     top: 123px;
     position: sticky;

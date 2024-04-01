@@ -113,6 +113,7 @@ namespace Schedulist.App.Controllers
         [HttpGet]
         public IActionResult UpdateUser(string userId)
         {
+
             return Ok();
         }
         //[HttpPost]

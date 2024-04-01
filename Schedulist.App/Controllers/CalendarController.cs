@@ -1,13 +1,11 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using Schedulist.App.Services;
 using Schedulist.App.Services.Interfaces;
 using Schedulist.App.ViewModels;
 using Schedulist.DAL.Models;
 using Schedulist.DAL.Repositories.Interfaces;
 using System.ComponentModel.DataAnnotations;
 using System.Diagnostics;
-using System.Security.Claims;
 
 
 namespace Schedulist.App.Controllers
@@ -15,7 +13,6 @@ namespace Schedulist.App.Controllers
     public class CalendarController : ControllerBase
     {
         private readonly IHttpContextAccessor _httpContextAccessor;
-        //private User _user;
         private readonly IWorkModeForUserRepository _workModeForUserRepository;
         private readonly IWorkModeRepository _workModeRepository;
         private readonly ICalendarEventRepository _calendarEventRepository;
@@ -26,7 +23,6 @@ namespace Schedulist.App.Controllers
         public CalendarController(IHttpContextAccessor httpContextAccessor, ILogger<CalendarController> logger, IWorkModeForUserRepository workModeForUserRepository, IWorkModeRepository workModeRepository, ICalendarEventRepository calendarEventRepository, ICalendarEventService calendarEventService, IUserRepository userRepository) : base(logger)
         {
             _httpContextAccessor = httpContextAccessor;
-            //_user = user;
             _workModeForUserRepository = workModeForUserRepository;
             _workModeRepository = workModeRepository;
             _calendarEventRepository = calendarEventRepository;
