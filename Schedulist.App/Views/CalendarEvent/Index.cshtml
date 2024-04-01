@@ -34,7 +34,7 @@
                 @Html.DisplayNameFor(model => model.CalendarEventDescription)
             </th>
             <th scope="col">
-                User Assigned
+                Assigned User
             </th>
             <th></th>
         </tr>
@@ -59,7 +59,7 @@
                     @Html.DisplayFor(modelItem => item.CalendarEventDescription)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.UserId) @* @Html.DisplayFor(modelItem => item.User.Name) @Html.DisplayFor(modelItem => item.User.Surname) *@
+                   @Html.DisplayFor(modelItem => item.User.Name) @Html.DisplayFor(modelItem => item.User.Surname)
                 </td>
                 <td>
                    <div class="button-container">

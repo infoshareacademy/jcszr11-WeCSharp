@@ -18,10 +18,10 @@
     <thead class="thead-dark">
         <tr>
             <th scope="col">
-                @Html.DisplayNameFor(model => model.UserId)
+                Assigned User
             </th>
             <th scope="col">
-                @Html.DisplayNameFor(model => model.DateOfWorkMode)
+                Work Mode date
             </th>
           @*   <th>
                 @Html.DisplayNameFor(model => model.WorkModeToUserID)
@@ -37,7 +37,7 @@
         {
             <tr>
                 <td>
-                    @Html.DisplayFor(modelItem => item.UserId)
+                    @Html.DisplayFor(modelItem => item.User.Name) @Html.DisplayFor(modelItem => item.User.Surname)
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.DateOfWorkMode)

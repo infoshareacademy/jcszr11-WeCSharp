@@ -1,4 +1,5 @@
-﻿using Microsoft.Extensions.Logging;
+﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
 using Schedulist.DAL.Models;
 using Schedulist.DAL.Repositories.Interfaces;
 using System.ComponentModel.DataAnnotations;
@@ -14,7 +15,7 @@ namespace Schedulist.DAL.Repositories
         {
             try
             {
-                return _db.WorkModesToUsers.ToList();
+                return _db.WorkModesToUsers.Include(e => e.User).Include(w => w.WorkMode).ToList();
             }
             catch (Exception ex)
             {
