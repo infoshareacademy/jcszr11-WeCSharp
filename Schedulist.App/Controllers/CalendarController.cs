@@ -15,7 +15,6 @@ namespace Schedulist.App.Controllers
     public class CalendarController : ControllerBase
     {
         private readonly IHttpContextAccessor _httpContextAccessor;
-        //private User _user;
         private readonly IWorkModeForUserRepository _workModeForUserRepository;
         private readonly IWorkModeRepository _workModeRepository;
         private readonly ICalendarEventRepository _calendarEventRepository;

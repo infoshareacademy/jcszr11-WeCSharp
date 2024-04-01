@@ -50,8 +50,6 @@ namespace Schedulist.App
                 return user;
             });
 
-            //User user = new() { Id = "1", Name = "Tomasz", Surname = "Tomaszewicz", DepartmentId = 1, PositionId =  1};
-            //builder.Services.AddSingleton<User>(user);
             builder.Services.AddTransient<IUserRepository, UserRepository>();
             builder.Services.AddScoped<ICalendarEventRepository, CalendarEventRepository>();
             builder.Services.AddScoped<ICalendarEventService, CalendarEventService>();
