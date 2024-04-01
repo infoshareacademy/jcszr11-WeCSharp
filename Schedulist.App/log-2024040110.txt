@@ -1,917 +1,549 @@
-2024-04-01 10:02:37.973 +02:00 [INF] User profile is available. Using 'C:\Users\Mariusz\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
-2024-04-01 10:02:38.384 +02:00 [INF] Now listening on: https://localhost:7178
-2024-04-01 10:02:38.386 +02:00 [INF] Now listening on: http://localhost:5291
-2024-04-01 10:02:38.428 +02:00 [INF] Application started. Press Ctrl+C to shut down.
-2024-04-01 10:02:38.430 +02:00 [INF] Hosting environment: Development
-2024-04-01 10:02:38.432 +02:00 [INF] Content root path: C:\Users\Mariusz\Desktop\InfoShare\#4 Projekt grupowy Work-Schedule\jcszr11-WeCSharp\Schedulist.App
-2024-04-01 10:02:39.634 +02:00 [INF] Request starting HTTP/2 GET https://localhost:7178/ - null null
-2024-04-01 10:02:39.933 +02:00 [INF] Executing endpoint 'Schedulist.App.Controllers.CalendarController.Index (Schedulist.App)'
-2024-04-01 10:02:39.952 +02:00 [INF] Route matched with {action = "Index", controller = "Calendar", page = "", area = ""}. Executing controller action with signature Microsoft.AspNetCore.Mvc.IActionResult Index() on controller Schedulist.App.Controllers.CalendarController (Schedulist.App).
-2024-04-01 10:02:41.062 +02:00 [INF] Executed DbCommand (25ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
-SELECT [a].[Id], [a].[AccessFailedCount], [a].[ConcurrencyStamp], [a].[DepartmentId], [a].[Email], [a].[EmailConfirmed], [a].[LockoutEnabled], [a].[LockoutEnd], [a].[Name], [a].[NormalizedEmail], [a].[NormalizedUserName], [a].[PasswordHash], [a].[PhoneNumber], [a].[PhoneNumberConfirmed], [a].[PositionId], [a].[SecurityStamp], [a].[Surname], [a].[TwoFactorEnabled], [a].[UserName]
-FROM [AspNetUsers] AS [a]
-2024-04-01 10:08:13.368 +02:00 [INF] Executed DbCommand (9ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
-SELECT [c].[Id], [c].[CalendarEventDate], [c].[CalendarEventDescription], [c].[CalendarEventEndTime], [c].[CalendarEventName], [c].[CalendarEventStartTime], [c].[UserId]
-FROM [CalendarEvents] AS [c]
-2024-04-01 10:08:13.402 +02:00 [INF] Executed DbCommand (2ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
-SELECT [w].[Id], [w].[DateOfWorkMode], [w].[UserId], [w].[WorkModeId]
-FROM [WorkModesToUsers] AS [w]
-2024-04-01 10:08:13.421 +02:00 [INF] Executing ViewResult, running view Index.
-2024-04-01 10:08:13.614 +02:00 [INF] Executed DbCommand (31ms) [Parameters=[@__normalizedUserName_0='?' (Size = 256)], CommandType='"Text"', CommandTimeout='30']
+2024-04-01 10:44:32.564 +02:00 [INF] User profile is available. Using 'C:\Users\Mariusz\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
+2024-04-01 10:44:33.014 +02:00 [INF] Now listening on: https://localhost:7178
+2024-04-01 10:44:33.015 +02:00 [INF] Now listening on: http://localhost:5291
+2024-04-01 10:44:33.047 +02:00 [INF] Application started. Press Ctrl+C to shut down.
+2024-04-01 10:44:33.049 +02:00 [INF] Hosting environment: Development
+2024-04-01 10:44:33.050 +02:00 [INF] Content root path: C:\Users\Mariusz\Desktop\InfoShare\#4 Projekt grupowy Work-Schedule\jcszr11-WeCSharp\Schedulist.App
+2024-04-01 10:44:34.247 +02:00 [INF] Request starting HTTP/2 GET https://localhost:7178/ - null null
+2024-04-01 10:44:35.776 +02:00 [INF] Executed DbCommand (48ms) [Parameters=[@__p_0='?' (Size = 450)], CommandType='"Text"', CommandTimeout='30']
 SELECT TOP(1) [a].[Id], [a].[AccessFailedCount], [a].[ConcurrencyStamp], [a].[DepartmentId], [a].[Email], [a].[EmailConfirmed], [a].[LockoutEnabled], [a].[LockoutEnd], [a].[Name], [a].[NormalizedEmail], [a].[NormalizedUserName], [a].[PasswordHash], [a].[PhoneNumber], [a].[PhoneNumberConfirmed], [a].[PositionId], [a].[SecurityStamp], [a].[Surname], [a].[TwoFactorEnabled], [a].[UserName]
 FROM [AspNetUsers] AS [a]
-WHERE [a].[NormalizedUserName] = @__normalizedUserName_0
-2024-04-01 10:08:13.681 +02:00 [INF] Executed ViewResult - view Index executed in 261.2849ms.
-2024-04-01 10:08:13.688 +02:00 [INF] Executed action Schedulist.App.Controllers.CalendarController.Index (Schedulist.App) in 333732.5241ms
-2024-04-01 10:08:13.690 +02:00 [INF] Executed endpoint 'Schedulist.App.Controllers.CalendarController.Index (Schedulist.App)'
-2024-04-01 10:08:13.702 +02:00 [INF] Request finished HTTP/2 GET https://localhost:7178/ - 200 null text/html; charset=utf-8 334078.9628ms
-2024-04-01 10:08:13.731 +02:00 [INF] Request starting HTTP/2 GET https://localhost:7178/_framework/aspnetcore-browser-refresh.js - null null
-2024-04-01 10:08:13.739 +02:00 [INF] Request finished HTTP/2 GET https://localhost:7178/_framework/aspnetcore-browser-refresh.js - 200 13764 application/javascript; charset=utf-8 8.2397ms
-2024-04-01 10:08:13.875 +02:00 [INF] Request starting HTTP/2 GET https://localhost:7178/_vs/browserLink - null null
-2024-04-01 10:08:13.900 +02:00 [INF] Request starting HTTP/1.1 GET https://localhost:7178/lib/bootstrap/dist/js/bootstrap.bundle.min.js.map - null null
-2024-04-01 10:08:13.973 +02:00 [INF] Request finished HTTP/2 GET https://localhost:7178/_vs/browserLink - 200 null text/javascript; charset=UTF-8 98.7765ms
-2024-04-01 10:08:13.978 +02:00 [INF] Sending file. Request path: '/lib/bootstrap/dist/js/bootstrap.bundle.min.js.map'. Physical path: 'C:\Users\Mariusz\Desktop\InfoShare\#4 Projekt grupowy Work-Schedule\jcszr11-WeCSharp\Schedulist.App\wwwroot\lib\bootstrap\dist\js\bootstrap.bundle.min.js.map'
-2024-04-01 10:08:13.980 +02:00 [INF] Request finished HTTP/1.1 GET https://localhost:7178/lib/bootstrap/dist/js/bootstrap.bundle.min.js.map - 200 327261 text/plain 80.2846ms
-2024-04-01 10:08:17.878 +02:00 [INF] User profile is available. Using 'C:\Users\Mariusz\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
-2024-04-01 10:08:18.264 +02:00 [INF] Now listening on: https://localhost:7178
-2024-04-01 10:08:18.265 +02:00 [INF] Now listening on: http://localhost:5291
-2024-04-01 10:08:18.297 +02:00 [INF] Application started. Press Ctrl+C to shut down.
-2024-04-01 10:08:18.299 +02:00 [INF] Hosting environment: Development
-2024-04-01 10:08:18.300 +02:00 [INF] Content root path: C:\Users\Mariusz\Desktop\InfoShare\#4 Projekt grupowy Work-Schedule\jcszr11-WeCSharp\Schedulist.App
-2024-04-01 10:08:19.218 +02:00 [INF] Request starting HTTP/2 GET https://localhost:7178/ - null null
-2024-04-01 10:08:19.500 +02:00 [INF] Executing endpoint 'Schedulist.App.Controllers.CalendarController.Index (Schedulist.App)'
-2024-04-01 10:08:19.521 +02:00 [INF] Route matched with {action = "Index", controller = "Calendar", page = "", area = ""}. Executing controller action with signature Microsoft.AspNetCore.Mvc.IActionResult Index() on controller Schedulist.App.Controllers.CalendarController (Schedulist.App).
-2024-04-01 10:08:20.653 +02:00 [INF] Executed DbCommand (16ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
-SELECT [a].[Id], [a].[AccessFailedCount], [a].[ConcurrencyStamp], [a].[DepartmentId], [a].[Email], [a].[EmailConfirmed], [a].[LockoutEnabled], [a].[LockoutEnd], [a].[Name], [a].[NormalizedEmail], [a].[NormalizedUserName], [a].[PasswordHash], [a].[PhoneNumber], [a].[PhoneNumberConfirmed], [a].[PositionId], [a].[SecurityStamp], [a].[Surname], [a].[TwoFactorEnabled], [a].[UserName]
-FROM [AspNetUsers] AS [a]
-2024-04-01 10:08:23.106 +02:00 [INF] Executed DbCommand (1ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
-SELECT [c].[Id], [c].[CalendarEventDate], [c].[CalendarEventDescription], [c].[CalendarEventEndTime], [c].[CalendarEventName], [c].[CalendarEventStartTime], [c].[UserId]
-FROM [CalendarEvents] AS [c]
-2024-04-01 10:08:23.142 +02:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
-SELECT [w].[Id], [w].[DateOfWorkMode], [w].[UserId], [w].[WorkModeId]
-FROM [WorkModesToUsers] AS [w]
-2024-04-01 10:08:23.160 +02:00 [INF] Executing ViewResult, running view Index.
-2024-04-01 10:08:23.341 +02:00 [INF] Executed DbCommand (26ms) [Parameters=[@__normalizedUserName_0='?' (Size = 256)], CommandType='"Text"', CommandTimeout='30']
-SELECT TOP(1) [a].[Id], [a].[AccessFailedCount], [a].[ConcurrencyStamp], [a].[DepartmentId], [a].[Email], [a].[EmailConfirmed], [a].[LockoutEnabled], [a].[LockoutEnd], [a].[Name], [a].[NormalizedEmail], [a].[NormalizedUserName], [a].[PasswordHash], [a].[PhoneNumber], [a].[PhoneNumberConfirmed], [a].[PositionId], [a].[SecurityStamp], [a].[Surname], [a].[TwoFactorEnabled], [a].[UserName]
-FROM [AspNetUsers] AS [a]
-WHERE [a].[NormalizedUserName] = @__normalizedUserName_0
-2024-04-01 10:08:23.403 +02:00 [INF] Executed ViewResult - view Index executed in 245.2842ms.
-2024-04-01 10:08:23.408 +02:00 [INF] Executed action Schedulist.App.Controllers.CalendarController.Index (Schedulist.App) in 3884.175ms
-2024-04-01 10:08:23.410 +02:00 [INF] Executed endpoint 'Schedulist.App.Controllers.CalendarController.Index (Schedulist.App)'
-2024-04-01 10:08:23.423 +02:00 [INF] Request finished HTTP/2 GET https://localhost:7178/ - 200 null text/html; charset=utf-8 4217.0488ms
-2024-04-01 10:08:23.444 +02:00 [INF] Request starting HTTP/2 GET https://localhost:7178/_framework/aspnetcore-browser-refresh.js - null null
-2024-04-01 10:08:23.451 +02:00 [INF] Request finished HTTP/2 GET https://localhost:7178/_framework/aspnetcore-browser-refresh.js - 200 13764 application/javascript; charset=utf-8 6.6474ms
-2024-04-01 10:08:23.560 +02:00 [INF] Request starting HTTP/2 GET https://localhost:7178/_vs/browserLink - null null
-2024-04-01 10:08:23.583 +02:00 [INF] Request starting HTTP/1.1 GET https://localhost:7178/lib/bootstrap/dist/js/bootstrap.bundle.min.js.map - null null
-2024-04-01 10:08:23.603 +02:00 [INF] Request finished HTTP/2 GET https://localhost:7178/_vs/browserLink - 200 null text/javascript; charset=UTF-8 43.7723ms
-2024-04-01 10:08:23.614 +02:00 [INF] Sending file. Request path: '/lib/bootstrap/dist/js/bootstrap.bundle.min.js.map'. Physical path: 'C:\Users\Mariusz\Desktop\InfoShare\#4 Projekt grupowy Work-Schedule\jcszr11-WeCSharp\Schedulist.App\wwwroot\lib\bootstrap\dist\js\bootstrap.bundle.min.js.map'
-2024-04-01 10:08:23.615 +02:00 [INF] Request finished HTTP/1.1 GET https://localhost:7178/lib/bootstrap/dist/js/bootstrap.bundle.min.js.map - 200 327261 text/plain 32.3601ms
-2024-04-01 10:08:26.131 +02:00 [INF] Request starting HTTP/2 POST https://localhost:7178/Identity/Account/Logout?returnUrl=%2F%3Fpage%3D%252F - application/x-www-form-urlencoded 225
-2024-04-01 10:08:26.155 +02:00 [INF] Executing endpoint '/Account/Logout'
-2024-04-01 10:08:26.172 +02:00 [INF] Route matched with {page = "/Account/Logout", area = "Identity", action = "", controller = ""}. Executing page /Account/Logout
-2024-04-01 10:08:26.204 +02:00 [INF] Executing handler method Schedulist.App.Areas.Identity.Pages.Account.LogoutModel.OnPost - ModelState is "Valid"
-2024-04-01 10:08:26.209 +02:00 [INF] AuthenticationScheme: Identity.Application signed out.
-2024-04-01 10:08:26.212 +02:00 [INF] AuthenticationScheme: Identity.External signed out.
-2024-04-01 10:08:26.213 +02:00 [INF] AuthenticationScheme: Identity.TwoFactorUserId signed out.
-2024-04-01 10:08:26.215 +02:00 [INF] User logged out.
-2024-04-01 10:08:26.217 +02:00 [INF] Executed handler method OnPost, returned result Microsoft.AspNetCore.Mvc.LocalRedirectResult.
-2024-04-01 10:08:26.220 +02:00 [INF] Executing LocalRedirectResult, redirecting to /?page=%2F.
-2024-04-01 10:08:26.222 +02:00 [INF] Executed page /Account/Logout in 48.8533ms
-2024-04-01 10:08:26.223 +02:00 [INF] Executed endpoint '/Account/Logout'
-2024-04-01 10:08:26.225 +02:00 [INF] Request finished HTTP/2 POST https://localhost:7178/Identity/Account/Logout?returnUrl=%2F%3Fpage%3D%252F - 302 0 null 94.7892ms
-2024-04-01 10:08:26.229 +02:00 [INF] Request starting HTTP/2 GET https://localhost:7178/?page=%2F - null null
-2024-04-01 10:08:26.234 +02:00 [INF] Executing endpoint 'Schedulist.App.Controllers.CalendarController.Index (Schedulist.App)'
-2024-04-01 10:08:26.235 +02:00 [INF] Route matched with {action = "Index", controller = "Calendar", page = "", area = ""}. Executing controller action with signature Microsoft.AspNetCore.Mvc.IActionResult Index() on controller Schedulist.App.Controllers.CalendarController (Schedulist.App).
-2024-04-01 10:08:26.253 +02:00 [INF] Executed DbCommand (1ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
-SELECT [a].[Id], [a].[AccessFailedCount], [a].[ConcurrencyStamp], [a].[DepartmentId], [a].[Email], [a].[EmailConfirmed], [a].[LockoutEnabled], [a].[LockoutEnd], [a].[Name], [a].[NormalizedEmail], [a].[NormalizedUserName], [a].[PasswordHash], [a].[PhoneNumber], [a].[PhoneNumberConfirmed], [a].[PositionId], [a].[SecurityStamp], [a].[Surname], [a].[TwoFactorEnabled], [a].[UserName]
-FROM [AspNetUsers] AS [a]
-2024-04-01 10:08:30.385 +02:00 [INF] Executing RedirectResult, redirecting to /Identity/Account/Login.
-2024-04-01 10:08:30.386 +02:00 [INF] Executed action Schedulist.App.Controllers.CalendarController.Index (Schedulist.App) in 4149.2274ms
-2024-04-01 10:08:30.387 +02:00 [INF] Executed endpoint 'Schedulist.App.Controllers.CalendarController.Index (Schedulist.App)'
-2024-04-01 10:08:30.389 +02:00 [INF] Request finished HTTP/2 GET https://localhost:7178/?page=%2F - 302 0 null 4160.0626ms
-2024-04-01 10:08:30.396 +02:00 [INF] Request starting HTTP/2 GET https://localhost:7178/Identity/Account/Login - null null
-2024-04-01 10:08:30.403 +02:00 [INF] Executing endpoint '/Account/Login'
-2024-04-01 10:08:30.414 +02:00 [INF] Route matched with {page = "/Account/Login", area = "Identity", action = "", controller = ""}. Executing page /Account/Login
-2024-04-01 10:08:30.425 +02:00 [INF] Executing handler method Schedulist.App.Areas.Identity.Pages.Account.LoginModel.OnGetAsync - ModelState is "Valid"
-2024-04-01 10:08:30.428 +02:00 [INF] AuthenticationScheme: Identity.External signed out.
-2024-04-01 10:08:30.430 +02:00 [INF] Executed handler method OnGetAsync, returned result .
-2024-04-01 10:08:30.433 +02:00 [INF] Executing an implicit handler method - ModelState is "Valid"
-2024-04-01 10:08:30.434 +02:00 [INF] Executed an implicit handler method, returned result Microsoft.AspNetCore.Mvc.RazorPages.PageResult.
-2024-04-01 10:08:30.517 +02:00 [INF] Executed DbCommand (5ms) [Parameters=[@__normalizedUserName_0='?' (Size = 256)], CommandType='"Text"', CommandTimeout='30']
-SELECT TOP(1) [a].[Id], [a].[AccessFailedCount], [a].[ConcurrencyStamp], [a].[DepartmentId], [a].[Email], [a].[EmailConfirmed], [a].[LockoutEnabled], [a].[LockoutEnd], [a].[Name], [a].[NormalizedEmail], [a].[NormalizedUserName], [a].[PasswordHash], [a].[PhoneNumber], [a].[PhoneNumberConfirmed], [a].[PositionId], [a].[SecurityStamp], [a].[Surname], [a].[TwoFactorEnabled], [a].[UserName]
-FROM [AspNetUsers] AS [a]
-WHERE [a].[NormalizedUserName] = @__normalizedUserName_0
-2024-04-01 10:08:30.531 +02:00 [INF] Executed page /Account/Login in 115.9747ms
-2024-04-01 10:08:30.533 +02:00 [INF] Executed endpoint '/Account/Login'
-2024-04-01 10:08:30.534 +02:00 [INF] Request finished HTTP/2 GET https://localhost:7178/Identity/Account/Login - 200 null text/html; charset=utf-8 138.4249ms
-2024-04-01 10:08:30.540 +02:00 [INF] Request starting HTTP/2 GET https://localhost:7178/_framework/aspnetcore-browser-refresh.js - null null
-2024-04-01 10:08:30.543 +02:00 [INF] Request finished HTTP/2 GET https://localhost:7178/_framework/aspnetcore-browser-refresh.js - 200 13764 application/javascript; charset=utf-8 3.5323ms
-2024-04-01 10:08:30.578 +02:00 [INF] Request starting HTTP/2 GET https://localhost:7178/_vs/browserLink - null null
-2024-04-01 10:08:30.614 +02:00 [INF] Request finished HTTP/2 GET https://localhost:7178/_vs/browserLink - 200 null text/javascript; charset=UTF-8 35.7524ms
-2024-04-01 10:12:46.105 +02:00 [INF] Request starting HTTP/2 POST https://localhost:7178/Identity/Account/Login - application/x-www-form-urlencoded 294
-2024-04-01 10:12:46.119 +02:00 [INF] Executing endpoint '/Account/Login'
-2024-04-01 10:12:46.121 +02:00 [INF] Route matched with {page = "/Account/Login", area = "Identity", action = "", controller = ""}. Executing page /Account/Login
-2024-04-01 10:12:46.134 +02:00 [INF] Executing handler method Schedulist.App.Areas.Identity.Pages.Account.LoginModel.OnPostAsync - ModelState is "Valid"
-2024-04-01 10:12:46.152 +02:00 [INF] Executed DbCommand (12ms) [Parameters=[@__normalizedUserName_0='?' (Size = 256)], CommandType='"Text"', CommandTimeout='30']
-SELECT TOP(1) [a].[Id], [a].[AccessFailedCount], [a].[ConcurrencyStamp], [a].[DepartmentId], [a].[Email], [a].[EmailConfirmed], [a].[LockoutEnabled], [a].[LockoutEnd], [a].[Name], [a].[NormalizedEmail], [a].[NormalizedUserName], [a].[PasswordHash], [a].[PhoneNumber], [a].[PhoneNumberConfirmed], [a].[PositionId], [a].[SecurityStamp], [a].[Surname], [a].[TwoFactorEnabled], [a].[UserName]
-FROM [AspNetUsers] AS [a]
-WHERE [a].[NormalizedUserName] = @__normalizedUserName_0
-2024-04-01 10:12:46.278 +02:00 [INF] Executed DbCommand (2ms) [Parameters=[@__user_Id_0='?' (Size = 450)], CommandType='"Text"', CommandTimeout='30']
+WHERE [a].[Id] = @__p_0
+2024-04-01 10:44:35.892 +02:00 [INF] Executed DbCommand (3ms) [Parameters=[@__user_Id_0='?' (Size = 450)], CommandType='"Text"', CommandTimeout='30']
 SELECT [a].[Id], [a].[ClaimType], [a].[ClaimValue], [a].[UserId]
 FROM [AspNetUserClaims] AS [a]
 WHERE [a].[UserId] = @__user_Id_0
-2024-04-01 10:12:46.309 +02:00 [INF] Executed DbCommand (4ms) [Parameters=[@__userId_0='?' (Size = 450)], CommandType='"Text"', CommandTimeout='30']
+2024-04-01 10:44:35.918 +02:00 [INF] Executed DbCommand (3ms) [Parameters=[@__userId_0='?' (Size = 450)], CommandType='"Text"', CommandTimeout='30']
 SELECT [a0].[Name]
 FROM [AspNetUserRoles] AS [a]
 INNER JOIN [AspNetRoles] AS [a0] ON [a].[RoleId] = [a0].[Id]
 WHERE [a].[UserId] = @__userId_0
-2024-04-01 10:12:46.321 +02:00 [INF] Executed DbCommand (2ms) [Parameters=[@__normalizedName_0='?' (Size = 256)], CommandType='"Text"', CommandTimeout='30']
+2024-04-01 10:44:35.932 +02:00 [INF] Executed DbCommand (2ms) [Parameters=[@__normalizedName_0='?' (Size = 256)], CommandType='"Text"', CommandTimeout='30']
 SELECT TOP(1) [a].[Id], [a].[ConcurrencyStamp], [a].[Name], [a].[NormalizedName]
 FROM [AspNetRoles] AS [a]
 WHERE [a].[NormalizedName] = @__normalizedName_0
-2024-04-01 10:12:46.337 +02:00 [INF] Executed DbCommand (2ms) [Parameters=[@__role_Id_0='?' (Size = 450)], CommandType='"Text"', CommandTimeout='30']
+2024-04-01 10:44:35.949 +02:00 [INF] Executed DbCommand (2ms) [Parameters=[@__role_Id_0='?' (Size = 450)], CommandType='"Text"', CommandTimeout='30']
 SELECT [a].[ClaimType], [a].[ClaimValue]
 FROM [AspNetRoleClaims] AS [a]
 WHERE [a].[RoleId] = @__role_Id_0
-2024-04-01 10:12:46.342 +02:00 [INF] AuthenticationScheme: Identity.Application signed in.
-2024-04-01 10:12:46.344 +02:00 [INF] User logged in.
-2024-04-01 10:12:46.347 +02:00 [INF] Executed handler method OnPostAsync, returned result Microsoft.AspNetCore.Mvc.LocalRedirectResult.
-2024-04-01 10:12:46.350 +02:00 [INF] Executing LocalRedirectResult, redirecting to /.
-2024-04-01 10:12:46.351 +02:00 [INF] Executed page /Account/Login in 229.4944ms
-2024-04-01 10:12:46.352 +02:00 [INF] Executed endpoint '/Account/Login'
-2024-04-01 10:12:46.353 +02:00 [INF] Request finished HTTP/2 POST https://localhost:7178/Identity/Account/Login - 302 0 null 251.2148ms
-2024-04-01 10:12:46.356 +02:00 [INF] Request starting HTTP/2 GET https://localhost:7178/ - null null
-2024-04-01 10:12:46.361 +02:00 [INF] Executing endpoint 'Schedulist.App.Controllers.CalendarController.Index (Schedulist.App)'
-2024-04-01 10:12:46.362 +02:00 [INF] Route matched with {action = "Index", controller = "Calendar", page = "", area = ""}. Executing controller action with signature Microsoft.AspNetCore.Mvc.IActionResult Index() on controller Schedulist.App.Controllers.CalendarController (Schedulist.App).
-2024-04-01 10:12:46.368 +02:00 [INF] Executed DbCommand (2ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+2024-04-01 10:44:35.982 +02:00 [INF] Executing endpoint 'Schedulist.App.Controllers.CalendarController.Index (Schedulist.App)'
+2024-04-01 10:44:35.996 +02:00 [INF] Route matched with {action = "Index", controller = "Calendar", page = "", area = ""}. Executing controller action with signature Microsoft.AspNetCore.Mvc.IActionResult Index() on controller Schedulist.App.Controllers.CalendarController (Schedulist.App).
+2024-04-01 10:44:36.009 +02:00 [INF] Executed DbCommand (2ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
 SELECT [a].[Id], [a].[AccessFailedCount], [a].[ConcurrencyStamp], [a].[DepartmentId], [a].[Email], [a].[EmailConfirmed], [a].[LockoutEnabled], [a].[LockoutEnd], [a].[Name], [a].[NormalizedEmail], [a].[NormalizedUserName], [a].[PasswordHash], [a].[PhoneNumber], [a].[PhoneNumberConfirmed], [a].[PositionId], [a].[SecurityStamp], [a].[Surname], [a].[TwoFactorEnabled], [a].[UserName]
 FROM [AspNetUsers] AS [a]
-2024-04-01 10:12:49.529 +02:00 [INF] Executed DbCommand (3ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+2024-04-01 10:44:36.020 +02:00 [INF] Executed DbCommand (2ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
 SELECT [c].[Id], [c].[CalendarEventDate], [c].[CalendarEventDescription], [c].[CalendarEventEndTime], [c].[CalendarEventName], [c].[CalendarEventStartTime], [c].[UserId]
 FROM [CalendarEvents] AS [c]
-2024-04-01 10:12:49.534 +02:00 [INF] Executed DbCommand (2ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+2024-04-01 10:44:36.054 +02:00 [INF] Executed DbCommand (3ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
 SELECT [w].[Id], [w].[DateOfWorkMode], [w].[UserId], [w].[WorkModeId]
 FROM [WorkModesToUsers] AS [w]
-2024-04-01 10:12:49.536 +02:00 [INF] Executing ViewResult, running view Index.
-2024-04-01 10:12:49.541 +02:00 [INF] Executed DbCommand (1ms) [Parameters=[@__normalizedUserName_0='?' (Size = 256)], CommandType='"Text"', CommandTimeout='30']
+2024-04-01 10:44:36.073 +02:00 [INF] Executing ViewResult, running view Index.
+2024-04-01 10:44:36.157 +02:00 [INF] Executed DbCommand (3ms) [Parameters=[@__normalizedUserName_0='?' (Size = 256)], CommandType='"Text"', CommandTimeout='30']
 SELECT TOP(1) [a].[Id], [a].[AccessFailedCount], [a].[ConcurrencyStamp], [a].[DepartmentId], [a].[Email], [a].[EmailConfirmed], [a].[LockoutEnabled], [a].[LockoutEnd], [a].[Name], [a].[NormalizedEmail], [a].[NormalizedUserName], [a].[PasswordHash], [a].[PhoneNumber], [a].[PhoneNumberConfirmed], [a].[PositionId], [a].[SecurityStamp], [a].[Surname], [a].[TwoFactorEnabled], [a].[UserName]
 FROM [AspNetUsers] AS [a]
 WHERE [a].[NormalizedUserName] = @__normalizedUserName_0
-2024-04-01 10:12:49.553 +02:00 [INF] Executed ViewResult - view Index executed in 17.0139ms.
-2024-04-01 10:12:49.554 +02:00 [INF] Executed action Schedulist.App.Controllers.CalendarController.Index (Schedulist.App) in 3189.922ms
-2024-04-01 10:12:49.555 +02:00 [INF] Executed endpoint 'Schedulist.App.Controllers.CalendarController.Index (Schedulist.App)'
-2024-04-01 10:12:49.556 +02:00 [INF] Request finished HTTP/2 GET https://localhost:7178/ - 200 null text/html; charset=utf-8 3200.3396ms
-2024-04-01 10:12:49.657 +02:00 [INF] Request starting HTTP/2 GET https://localhost:7178/_vs/browserLink - null null
-2024-04-01 10:12:49.657 +02:00 [INF] Request starting HTTP/2 GET https://localhost:7178/_framework/aspnetcore-browser-refresh.js - null null
-2024-04-01 10:12:49.665 +02:00 [INF] Request finished HTTP/2 GET https://localhost:7178/_framework/aspnetcore-browser-refresh.js - 200 13764 application/javascript; charset=utf-8 7.4728ms
-2024-04-01 10:12:49.678 +02:00 [INF] Request finished HTTP/2 GET https://localhost:7178/_vs/browserLink - 200 null text/javascript; charset=UTF-8 20.6786ms
-2024-04-01 10:12:51.979 +02:00 [INF] Request starting HTTP/2 GET https://localhost:7178/Admin/Management - null null
-2024-04-01 10:12:51.987 +02:00 [INF] Executing endpoint 'Schedulist.App.Controllers.AdminController.Management (Schedulist.App)'
-2024-04-01 10:12:51.991 +02:00 [INF] Route matched with {action = "Management", controller = "Admin", page = "", area = ""}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] Management() on controller Schedulist.App.Controllers.AdminController (Schedulist.App).
-2024-04-01 10:12:51.996 +02:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+2024-04-01 10:44:36.215 +02:00 [INF] Request starting HTTP/2 GET https://localhost:7178/css/site.css?v=q_ZRLmhxL-7IBQ0qD32sq6H3i2QQ9HrEXYz1c7ayLxY - null null
+2024-04-01 10:44:36.216 +02:00 [INF] Executed ViewResult - view Index executed in 143.4016ms.
+2024-04-01 10:44:36.222 +02:00 [INF] Executed action Schedulist.App.Controllers.CalendarController.Index (Schedulist.App) in 224.2959ms
+2024-04-01 10:44:36.224 +02:00 [INF] Executed endpoint 'Schedulist.App.Controllers.CalendarController.Index (Schedulist.App)'
+2024-04-01 10:44:36.229 +02:00 [INF] The file /css/site.css was not modified
+2024-04-01 10:44:36.233 +02:00 [INF] Request finished HTTP/2 GET https://localhost:7178/css/site.css?v=q_ZRLmhxL-7IBQ0qD32sq6H3i2QQ9HrEXYz1c7ayLxY - 304 null text/css 17.927ms
+2024-04-01 10:44:36.237 +02:00 [INF] Request finished HTTP/2 GET https://localhost:7178/ - 200 null text/html; charset=utf-8 2003.6738ms
+2024-04-01 10:44:36.257 +02:00 [INF] Request starting HTTP/2 GET https://localhost:7178/_framework/aspnetcore-browser-refresh.js - null null
+2024-04-01 10:44:36.264 +02:00 [INF] Request finished HTTP/2 GET https://localhost:7178/_framework/aspnetcore-browser-refresh.js - 200 13764 application/javascript; charset=utf-8 7.5499ms
+2024-04-01 10:44:36.389 +02:00 [INF] Request starting HTTP/2 GET https://localhost:7178/_vs/browserLink - null null
+2024-04-01 10:44:36.416 +02:00 [INF] Request starting HTTP/1.1 GET https://localhost:7178/lib/bootstrap/dist/js/bootstrap.bundle.min.js.map - null null
+2024-04-01 10:44:36.435 +02:00 [INF] Request finished HTTP/2 GET https://localhost:7178/_vs/browserLink - 200 null text/javascript; charset=UTF-8 46.187ms
+2024-04-01 10:44:36.445 +02:00 [INF] Sending file. Request path: '/lib/bootstrap/dist/js/bootstrap.bundle.min.js.map'. Physical path: 'C:\Users\Mariusz\Desktop\InfoShare\#4 Projekt grupowy Work-Schedule\jcszr11-WeCSharp\Schedulist.App\wwwroot\lib\bootstrap\dist\js\bootstrap.bundle.min.js.map'
+2024-04-01 10:44:36.446 +02:00 [INF] Request finished HTTP/1.1 GET https://localhost:7178/lib/bootstrap/dist/js/bootstrap.bundle.min.js.map - 200 327261 text/plain 30.9068ms
+2024-04-01 10:44:40.732 +02:00 [INF] Request starting HTTP/2 GET https://localhost:7178/Admin/Management - null null
+2024-04-01 10:44:40.758 +02:00 [INF] Executing endpoint 'Schedulist.App.Controllers.AdminController.Management (Schedulist.App)'
+2024-04-01 10:44:40.765 +02:00 [INF] Route matched with {action = "Management", controller = "Admin", page = "", area = ""}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] Management() on controller Schedulist.App.Controllers.AdminController (Schedulist.App).
+2024-04-01 10:44:40.807 +02:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
 SELECT [a].[Id], [a].[AccessFailedCount], [a].[ConcurrencyStamp], [a].[DepartmentId], [a].[Email], [a].[EmailConfirmed], [a].[LockoutEnabled], [a].[LockoutEnd], [a].[Name], [a].[NormalizedEmail], [a].[NormalizedUserName], [a].[PasswordHash], [a].[PhoneNumber], [a].[PhoneNumberConfirmed], [a].[PositionId], [a].[SecurityStamp], [a].[Surname], [a].[TwoFactorEnabled], [a].[UserName]
 FROM [AspNetUsers] AS [a]
-2024-04-01 10:12:52.001 +02:00 [INF] Executed DbCommand (1ms) [Parameters=[@__userId_0='?' (Size = 450)], CommandType='"Text"', CommandTimeout='30']
+2024-04-01 10:44:40.814 +02:00 [INF] Executed DbCommand (1ms) [Parameters=[@__userId_0='?' (Size = 450)], CommandType='"Text"', CommandTimeout='30']
 SELECT [a0].[Name]
 FROM [AspNetUserRoles] AS [a]
 INNER JOIN [AspNetRoles] AS [a0] ON [a].[RoleId] = [a0].[Id]
 WHERE [a].[UserId] = @__userId_0
-2024-04-01 10:12:52.004 +02:00 [INF] Executed DbCommand (1ms) [Parameters=[@__userId_0='?' (Size = 450)], CommandType='"Text"', CommandTimeout='30']
+2024-04-01 10:44:40.819 +02:00 [INF] Executed DbCommand (1ms) [Parameters=[@__userId_0='?' (Size = 450)], CommandType='"Text"', CommandTimeout='30']
 SELECT [a0].[Name]
 FROM [AspNetUserRoles] AS [a]
 INNER JOIN [AspNetRoles] AS [a0] ON [a].[RoleId] = [a0].[Id]
 WHERE [a].[UserId] = @__userId_0
-2024-04-01 10:12:52.012 +02:00 [INF] Executed DbCommand (2ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+2024-04-01 10:44:40.827 +02:00 [INF] Executed DbCommand (2ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
 SELECT [w].[Id], [w].[Name]
 FROM [WorkModes] AS [w]
-2024-04-01 10:12:52.021 +02:00 [INF] Executing ViewResult, running view Management.
-2024-04-01 10:12:52.050 +02:00 [INF] Executed DbCommand (1ms) [Parameters=[@__normalizedUserName_0='?' (Size = 256)], CommandType='"Text"', CommandTimeout='30']
+2024-04-01 10:44:40.838 +02:00 [INF] Executing ViewResult, running view Management.
+2024-04-01 10:44:40.892 +02:00 [INF] Executed DbCommand (1ms) [Parameters=[@__normalizedUserName_0='?' (Size = 256)], CommandType='"Text"', CommandTimeout='30']
 SELECT TOP(1) [a].[Id], [a].[AccessFailedCount], [a].[ConcurrencyStamp], [a].[DepartmentId], [a].[Email], [a].[EmailConfirmed], [a].[LockoutEnabled], [a].[LockoutEnd], [a].[Name], [a].[NormalizedEmail], [a].[NormalizedUserName], [a].[PasswordHash], [a].[PhoneNumber], [a].[PhoneNumberConfirmed], [a].[PositionId], [a].[SecurityStamp], [a].[Surname], [a].[TwoFactorEnabled], [a].[UserName]
 FROM [AspNetUsers] AS [a]
 WHERE [a].[NormalizedUserName] = @__normalizedUserName_0
-2024-04-01 10:12:52.055 +02:00 [INF] Executed ViewResult - view Management executed in 35.2169ms.
-2024-04-01 10:12:52.057 +02:00 [INF] Executed action Schedulist.App.Controllers.AdminController.Management (Schedulist.App) in 63.6213ms
-2024-04-01 10:12:52.058 +02:00 [INF] Executed endpoint 'Schedulist.App.Controllers.AdminController.Management (Schedulist.App)'
-2024-04-01 10:12:52.059 +02:00 [INF] Request finished HTTP/2 GET https://localhost:7178/Admin/Management - 200 null text/html; charset=utf-8 80.2318ms
-2024-04-01 10:12:52.064 +02:00 [INF] Request starting HTTP/2 GET https://localhost:7178/_vs/browserLink - null null
-2024-04-01 10:12:52.064 +02:00 [INF] Request starting HTTP/2 GET https://localhost:7178/_framework/aspnetcore-browser-refresh.js - null null
-2024-04-01 10:12:52.069 +02:00 [INF] Request finished HTTP/2 GET https://localhost:7178/_framework/aspnetcore-browser-refresh.js - 200 13764 application/javascript; charset=utf-8 5.5778ms
-2024-04-01 10:12:52.083 +02:00 [INF] Request finished HTTP/2 GET https://localhost:7178/_vs/browserLink - 200 null text/javascript; charset=UTF-8 19.4802ms
-2024-04-01 10:17:45.753 +02:00 [INF] Request starting HTTP/2 GET https://localhost:7178/ - null null
-2024-04-01 10:17:45.767 +02:00 [INF] Executing endpoint 'Schedulist.App.Controllers.CalendarController.Index (Schedulist.App)'
-2024-04-01 10:17:45.769 +02:00 [INF] Route matched with {action = "Index", controller = "Calendar", page = "", area = ""}. Executing controller action with signature Microsoft.AspNetCore.Mvc.IActionResult Index() on controller Schedulist.App.Controllers.CalendarController (Schedulist.App).
-2024-04-01 10:17:45.781 +02:00 [INF] Executed DbCommand (10ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+2024-04-01 10:44:40.897 +02:00 [INF] Executed ViewResult - view Management executed in 60.4779ms.
+2024-04-01 10:44:40.899 +02:00 [INF] Executed action Schedulist.App.Controllers.AdminController.Management (Schedulist.App) in 132.2733ms
+2024-04-01 10:44:40.901 +02:00 [INF] Executed endpoint 'Schedulist.App.Controllers.AdminController.Management (Schedulist.App)'
+2024-04-01 10:44:40.902 +02:00 [INF] Request finished HTTP/2 GET https://localhost:7178/Admin/Management - 200 null text/html; charset=utf-8 170.8416ms
+2024-04-01 10:44:40.905 +02:00 [INF] Request starting HTTP/2 GET https://localhost:7178/_vs/browserLink - null null
+2024-04-01 10:44:40.905 +02:00 [INF] Request starting HTTP/2 GET https://localhost:7178/_framework/aspnetcore-browser-refresh.js - null null
+2024-04-01 10:44:40.915 +02:00 [INF] Request finished HTTP/2 GET https://localhost:7178/_framework/aspnetcore-browser-refresh.js - 200 13764 application/javascript; charset=utf-8 9.7204ms
+2024-04-01 10:44:40.935 +02:00 [INF] Request finished HTTP/2 GET https://localhost:7178/_vs/browserLink - 200 null text/javascript; charset=UTF-8 29.9258ms
+2024-04-01 10:54:32.377 +02:00 [INF] User profile is available. Using 'C:\Users\Mariusz\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
+2024-04-01 10:54:32.704 +02:00 [INF] Now listening on: https://localhost:7178
+2024-04-01 10:54:32.705 +02:00 [INF] Now listening on: http://localhost:5291
+2024-04-01 10:54:32.733 +02:00 [INF] Application started. Press Ctrl+C to shut down.
+2024-04-01 10:54:32.734 +02:00 [INF] Hosting environment: Development
+2024-04-01 10:54:32.735 +02:00 [INF] Content root path: C:\Users\Mariusz\Desktop\InfoShare\#4 Projekt grupowy Work-Schedule\jcszr11-WeCSharp\Schedulist.App
+2024-04-01 10:54:33.721 +02:00 [INF] Request starting HTTP/2 GET https://localhost:7178/ - null null
+2024-04-01 10:54:34.003 +02:00 [INF] Executing endpoint 'Schedulist.App.Controllers.CalendarController.Index (Schedulist.App)'
+2024-04-01 10:54:34.021 +02:00 [INF] Route matched with {action = "Index", controller = "Calendar", page = "", area = ""}. Executing controller action with signature Microsoft.AspNetCore.Mvc.IActionResult Index() on controller Schedulist.App.Controllers.CalendarController (Schedulist.App).
+2024-04-01 10:54:35.119 +02:00 [INF] Executed DbCommand (23ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
 SELECT [a].[Id], [a].[AccessFailedCount], [a].[ConcurrencyStamp], [a].[DepartmentId], [a].[Email], [a].[EmailConfirmed], [a].[LockoutEnabled], [a].[LockoutEnd], [a].[Name], [a].[NormalizedEmail], [a].[NormalizedUserName], [a].[PasswordHash], [a].[PhoneNumber], [a].[PhoneNumberConfirmed], [a].[PositionId], [a].[SecurityStamp], [a].[Surname], [a].[TwoFactorEnabled], [a].[UserName]
 FROM [AspNetUsers] AS [a]
-2024-04-01 10:17:45.784 +02:00 [INF] Executed DbCommand (1ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+2024-04-01 10:54:35.202 +02:00 [INF] Executed DbCommand (3ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
 SELECT [c].[Id], [c].[CalendarEventDate], [c].[CalendarEventDescription], [c].[CalendarEventEndTime], [c].[CalendarEventName], [c].[CalendarEventStartTime], [c].[UserId]
 FROM [CalendarEvents] AS [c]
-2024-04-01 10:17:45.789 +02:00 [INF] Executed DbCommand (2ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+2024-04-01 10:54:35.236 +02:00 [INF] Executed DbCommand (3ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
 SELECT [w].[Id], [w].[DateOfWorkMode], [w].[UserId], [w].[WorkModeId]
 FROM [WorkModesToUsers] AS [w]
-2024-04-01 10:17:45.791 +02:00 [INF] Executing ViewResult, running view Index.
-2024-04-01 10:17:45.797 +02:00 [INF] Executed DbCommand (2ms) [Parameters=[@__normalizedUserName_0='?' (Size = 256)], CommandType='"Text"', CommandTimeout='30']
+2024-04-01 10:54:35.258 +02:00 [INF] Executing ViewResult, running view Index.
+2024-04-01 10:54:35.435 +02:00 [INF] Executed DbCommand (29ms) [Parameters=[@__normalizedUserName_0='?' (Size = 256)], CommandType='"Text"', CommandTimeout='30']
 SELECT TOP(1) [a].[Id], [a].[AccessFailedCount], [a].[ConcurrencyStamp], [a].[DepartmentId], [a].[Email], [a].[EmailConfirmed], [a].[LockoutEnabled], [a].[LockoutEnd], [a].[Name], [a].[NormalizedEmail], [a].[NormalizedUserName], [a].[PasswordHash], [a].[PhoneNumber], [a].[PhoneNumberConfirmed], [a].[PositionId], [a].[SecurityStamp], [a].[Surname], [a].[TwoFactorEnabled], [a].[UserName]
 FROM [AspNetUsers] AS [a]
 WHERE [a].[NormalizedUserName] = @__normalizedUserName_0
-2024-04-01 10:17:45.807 +02:00 [INF] Executed ViewResult - view Index executed in 15.989ms.
-2024-04-01 10:17:45.808 +02:00 [INF] Executed action Schedulist.App.Controllers.CalendarController.Index (Schedulist.App) in 38.0268ms
-2024-04-01 10:17:45.809 +02:00 [INF] Executed endpoint 'Schedulist.App.Controllers.CalendarController.Index (Schedulist.App)'
-2024-04-01 10:17:45.811 +02:00 [INF] Request finished HTTP/2 GET https://localhost:7178/ - 200 null text/html; charset=utf-8 58.3675ms
-2024-04-01 10:17:45.811 +02:00 [INF] Request starting HTTP/2 GET https://localhost:7178/_framework/aspnetcore-browser-refresh.js - null null
-2024-04-01 10:17:45.815 +02:00 [INF] Request finished HTTP/2 GET https://localhost:7178/_framework/aspnetcore-browser-refresh.js - 200 13764 application/javascript; charset=utf-8 4.1931ms
-2024-04-01 10:24:29.493 +02:00 [INF] User profile is available. Using 'C:\Users\Mariusz\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
-2024-04-01 10:24:29.895 +02:00 [INF] Now listening on: https://localhost:7178
-2024-04-01 10:24:29.896 +02:00 [INF] Now listening on: http://localhost:5291
-2024-04-01 10:24:29.935 +02:00 [INF] Application started. Press Ctrl+C to shut down.
-2024-04-01 10:24:29.937 +02:00 [INF] Hosting environment: Development
-2024-04-01 10:24:29.938 +02:00 [INF] Content root path: C:\Users\Mariusz\Desktop\InfoShare\#4 Projekt grupowy Work-Schedule\jcszr11-WeCSharp\Schedulist.App
-2024-04-01 10:24:30.986 +02:00 [INF] Request starting HTTP/2 GET https://localhost:7178/ - null null
-2024-04-01 10:24:31.272 +02:00 [INF] Executing endpoint 'Schedulist.App.Controllers.CalendarController.Index (Schedulist.App)'
-2024-04-01 10:24:31.290 +02:00 [INF] Route matched with {action = "Index", controller = "Calendar", page = "", area = ""}. Executing controller action with signature Microsoft.AspNetCore.Mvc.IActionResult Index() on controller Schedulist.App.Controllers.CalendarController (Schedulist.App).
-2024-04-01 10:24:32.403 +02:00 [INF] Executed DbCommand (23ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+2024-04-01 10:54:35.497 +02:00 [INF] Request starting HTTP/2 GET https://localhost:7178/css/site.css?v=q_ZRLmhxL-7IBQ0qD32sq6H3i2QQ9HrEXYz1c7ayLxY - null null
+2024-04-01 10:54:35.500 +02:00 [INF] Executed ViewResult - view Index executed in 242.3878ms.
+2024-04-01 10:54:35.505 +02:00 [INF] Executed action Schedulist.App.Controllers.CalendarController.Index (Schedulist.App) in 1482.307ms
+2024-04-01 10:54:35.507 +02:00 [INF] Executed endpoint 'Schedulist.App.Controllers.CalendarController.Index (Schedulist.App)'
+2024-04-01 10:54:35.511 +02:00 [INF] The file /css/site.css was not modified
+2024-04-01 10:54:35.515 +02:00 [INF] Request finished HTTP/2 GET https://localhost:7178/css/site.css?v=q_ZRLmhxL-7IBQ0qD32sq6H3i2QQ9HrEXYz1c7ayLxY - 304 null text/css 17.6483ms
+2024-04-01 10:54:35.520 +02:00 [INF] Request finished HTTP/2 GET https://localhost:7178/ - 200 null text/html; charset=utf-8 1813.0894ms
+2024-04-01 10:54:35.546 +02:00 [INF] Request starting HTTP/2 GET https://localhost:7178/_framework/aspnetcore-browser-refresh.js - null null
+2024-04-01 10:54:35.553 +02:00 [INF] Request finished HTTP/2 GET https://localhost:7178/_framework/aspnetcore-browser-refresh.js - 200 13764 application/javascript; charset=utf-8 6.6738ms
+2024-04-01 10:54:35.672 +02:00 [INF] Request starting HTTP/2 GET https://localhost:7178/_vs/browserLink - null null
+2024-04-01 10:54:35.700 +02:00 [INF] Request starting HTTP/1.1 GET https://localhost:7178/lib/bootstrap/dist/js/bootstrap.bundle.min.js.map - null null
+2024-04-01 10:54:35.731 +02:00 [INF] Request finished HTTP/2 GET https://localhost:7178/_vs/browserLink - 200 null text/javascript; charset=UTF-8 58.5591ms
+2024-04-01 10:54:35.738 +02:00 [INF] Sending file. Request path: '/lib/bootstrap/dist/js/bootstrap.bundle.min.js.map'. Physical path: 'C:\Users\Mariusz\Desktop\InfoShare\#4 Projekt grupowy Work-Schedule\jcszr11-WeCSharp\Schedulist.App\wwwroot\lib\bootstrap\dist\js\bootstrap.bundle.min.js.map'
+2024-04-01 10:54:35.740 +02:00 [INF] Request finished HTTP/1.1 GET https://localhost:7178/lib/bootstrap/dist/js/bootstrap.bundle.min.js.map - 200 327261 text/plain 39.7552ms
+2024-04-01 10:54:37.153 +02:00 [INF] Request starting HTTP/2 GET https://localhost:7178/Admin/Management - null null
+2024-04-01 10:54:37.187 +02:00 [INF] Executing endpoint 'Schedulist.App.Controllers.AdminController.Management (Schedulist.App)'
+2024-04-01 10:54:37.198 +02:00 [INF] Route matched with {action = "Management", controller = "Admin", page = "", area = ""}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] Management() on controller Schedulist.App.Controllers.AdminController (Schedulist.App).
+2024-04-01 10:54:37.215 +02:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
 SELECT [a].[Id], [a].[AccessFailedCount], [a].[ConcurrencyStamp], [a].[DepartmentId], [a].[Email], [a].[EmailConfirmed], [a].[LockoutEnabled], [a].[LockoutEnd], [a].[Name], [a].[NormalizedEmail], [a].[NormalizedUserName], [a].[PasswordHash], [a].[PhoneNumber], [a].[PhoneNumberConfirmed], [a].[PositionId], [a].[SecurityStamp], [a].[Surname], [a].[TwoFactorEnabled], [a].[UserName]
 FROM [AspNetUsers] AS [a]
-2024-04-01 10:24:32.498 +02:00 [INF] Executed DbCommand (2ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+2024-04-01 10:54:37.268 +02:00 [INF] Executed DbCommand (5ms) [Parameters=[@__userId_0='?' (Size = 450)], CommandType='"Text"', CommandTimeout='30']
+SELECT [a0].[Name]
+FROM [AspNetUserRoles] AS [a]
+INNER JOIN [AspNetRoles] AS [a0] ON [a].[RoleId] = [a0].[Id]
+WHERE [a].[UserId] = @__userId_0
+2024-04-01 10:54:37.279 +02:00 [INF] Executed DbCommand (1ms) [Parameters=[@__userId_0='?' (Size = 450)], CommandType='"Text"', CommandTimeout='30']
+SELECT [a0].[Name]
+FROM [AspNetUserRoles] AS [a]
+INNER JOIN [AspNetRoles] AS [a0] ON [a].[RoleId] = [a0].[Id]
+WHERE [a].[UserId] = @__userId_0
+2024-04-01 10:54:37.287 +02:00 [INF] Executed DbCommand (1ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [w].[Id], [w].[Name]
+FROM [WorkModes] AS [w]
+2024-04-01 10:54:37.298 +02:00 [INF] Executing ViewResult, running view Management.
+2024-04-01 10:54:37.356 +02:00 [INF] Executed DbCommand (1ms) [Parameters=[@__normalizedUserName_0='?' (Size = 256)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [a].[Id], [a].[AccessFailedCount], [a].[ConcurrencyStamp], [a].[DepartmentId], [a].[Email], [a].[EmailConfirmed], [a].[LockoutEnabled], [a].[LockoutEnd], [a].[Name], [a].[NormalizedEmail], [a].[NormalizedUserName], [a].[PasswordHash], [a].[PhoneNumber], [a].[PhoneNumberConfirmed], [a].[PositionId], [a].[SecurityStamp], [a].[Surname], [a].[TwoFactorEnabled], [a].[UserName]
+FROM [AspNetUsers] AS [a]
+WHERE [a].[NormalizedUserName] = @__normalizedUserName_0
+2024-04-01 10:54:37.366 +02:00 [INF] Executed ViewResult - view Management executed in 68.7265ms.
+2024-04-01 10:54:37.367 +02:00 [INF] Executed action Schedulist.App.Controllers.AdminController.Management (Schedulist.App) in 167.9527ms
+2024-04-01 10:54:37.369 +02:00 [INF] Executed endpoint 'Schedulist.App.Controllers.AdminController.Management (Schedulist.App)'
+2024-04-01 10:54:37.370 +02:00 [INF] Request finished HTTP/2 GET https://localhost:7178/Admin/Management - 200 null text/html; charset=utf-8 217.3176ms
+2024-04-01 10:54:37.372 +02:00 [INF] Request starting HTTP/2 GET https://localhost:7178/_framework/aspnetcore-browser-refresh.js - null null
+2024-04-01 10:54:37.372 +02:00 [INF] Request starting HTTP/2 GET https://localhost:7178/_vs/browserLink - null null
+2024-04-01 10:54:37.376 +02:00 [INF] Request finished HTTP/2 GET https://localhost:7178/_framework/aspnetcore-browser-refresh.js - 200 13764 application/javascript; charset=utf-8 4.9485ms
+2024-04-01 10:54:37.404 +02:00 [INF] Request finished HTTP/2 GET https://localhost:7178/_vs/browserLink - 200 null text/javascript; charset=UTF-8 33.1227ms
+2024-04-01 10:56:32.452 +02:00 [INF] Request starting HTTP/2 POST https://localhost:7178/Identity/Account/Logout?returnUrl=%2FAdmin%2FManagement%3Fpage%3D%252F - application/x-www-form-urlencoded 225
+2024-04-01 10:56:32.466 +02:00 [INF] Executing endpoint '/Account/Logout'
+2024-04-01 10:56:32.479 +02:00 [INF] Route matched with {page = "/Account/Logout", area = "Identity", action = "", controller = ""}. Executing page /Account/Logout
+2024-04-01 10:56:32.502 +02:00 [INF] Executing handler method Schedulist.App.Areas.Identity.Pages.Account.LogoutModel.OnPost - ModelState is "Valid"
+2024-04-01 10:56:32.508 +02:00 [INF] AuthenticationScheme: Identity.Application signed out.
+2024-04-01 10:56:32.510 +02:00 [INF] AuthenticationScheme: Identity.External signed out.
+2024-04-01 10:56:32.511 +02:00 [INF] AuthenticationScheme: Identity.TwoFactorUserId signed out.
+2024-04-01 10:56:32.513 +02:00 [INF] User logged out.
+2024-04-01 10:56:32.515 +02:00 [INF] Executed handler method OnPost, returned result Microsoft.AspNetCore.Mvc.LocalRedirectResult.
+2024-04-01 10:56:32.517 +02:00 [INF] Executing LocalRedirectResult, redirecting to /Admin/Management?page=%2F.
+2024-04-01 10:56:32.518 +02:00 [INF] Executed page /Account/Logout in 38.3648ms
+2024-04-01 10:56:32.519 +02:00 [INF] Executed endpoint '/Account/Logout'
+2024-04-01 10:56:32.520 +02:00 [INF] Request finished HTTP/2 POST https://localhost:7178/Identity/Account/Logout?returnUrl=%2FAdmin%2FManagement%3Fpage%3D%252F - 302 0 null 67.8656ms
+2024-04-01 10:56:32.523 +02:00 [INF] Request starting HTTP/2 GET https://localhost:7178/Admin/Management?page=%2F - null null
+2024-04-01 10:56:32.529 +02:00 [INF] Authorization failed. These requirements were not met:
+RolesAuthorizationRequirement:User.IsInRole must be true for one of the following roles: (Admin)
+2024-04-01 10:56:32.534 +02:00 [INF] AuthenticationScheme: Identity.Application was challenged.
+2024-04-01 10:56:32.534 +02:00 [INF] Request finished HTTP/2 GET https://localhost:7178/Admin/Management?page=%2F - 302 0 null 12.01ms
+2024-04-01 10:56:32.536 +02:00 [INF] Request starting HTTP/2 GET https://localhost:7178/Identity/Account/Login?ReturnUrl=%2FAdmin%2FManagement%3Fpage%3D%252F - null null
+2024-04-01 10:56:32.543 +02:00 [INF] Executing endpoint '/Account/Login'
+2024-04-01 10:56:32.551 +02:00 [INF] Route matched with {page = "/Account/Login", area = "Identity", action = "", controller = ""}. Executing page /Account/Login
+2024-04-01 10:56:32.556 +02:00 [INF] Executing handler method Schedulist.App.Areas.Identity.Pages.Account.LoginModel.OnGetAsync - ModelState is "Valid"
+2024-04-01 10:56:32.559 +02:00 [INF] AuthenticationScheme: Identity.External signed out.
+2024-04-01 10:56:32.561 +02:00 [INF] Executed handler method OnGetAsync, returned result .
+2024-04-01 10:56:32.564 +02:00 [INF] Executing an implicit handler method - ModelState is "Valid"
+2024-04-01 10:56:32.565 +02:00 [INF] Executed an implicit handler method, returned result Microsoft.AspNetCore.Mvc.RazorPages.PageResult.
+2024-04-01 10:56:32.638 +02:00 [INF] Executed DbCommand (12ms) [Parameters=[@__normalizedUserName_0='?' (Size = 256)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [a].[Id], [a].[AccessFailedCount], [a].[ConcurrencyStamp], [a].[DepartmentId], [a].[Email], [a].[EmailConfirmed], [a].[LockoutEnabled], [a].[LockoutEnd], [a].[Name], [a].[NormalizedEmail], [a].[NormalizedUserName], [a].[PasswordHash], [a].[PhoneNumber], [a].[PhoneNumberConfirmed], [a].[PositionId], [a].[SecurityStamp], [a].[Surname], [a].[TwoFactorEnabled], [a].[UserName]
+FROM [AspNetUsers] AS [a]
+WHERE [a].[NormalizedUserName] = @__normalizedUserName_0
+2024-04-01 10:56:32.652 +02:00 [INF] Executed page /Account/Login in 99.748ms
+2024-04-01 10:56:32.654 +02:00 [INF] Executed endpoint '/Account/Login'
+2024-04-01 10:56:32.655 +02:00 [INF] Request finished HTTP/2 GET https://localhost:7178/Identity/Account/Login?ReturnUrl=%2FAdmin%2FManagement%3Fpage%3D%252F - 200 null text/html; charset=utf-8 119.1018ms
+2024-04-01 10:56:32.662 +02:00 [INF] Request starting HTTP/2 GET https://localhost:7178/_framework/aspnetcore-browser-refresh.js - null null
+2024-04-01 10:56:32.665 +02:00 [INF] Request finished HTTP/2 GET https://localhost:7178/_framework/aspnetcore-browser-refresh.js - 200 13764 application/javascript; charset=utf-8 3.2408ms
+2024-04-01 10:56:32.684 +02:00 [INF] Request starting HTTP/2 GET https://localhost:7178/_vs/browserLink - null null
+2024-04-01 10:56:32.702 +02:00 [INF] Request finished HTTP/2 GET https://localhost:7178/_vs/browserLink - 200 null text/javascript; charset=UTF-8 19.0091ms
+2024-04-01 10:56:49.894 +02:00 [INF] Request starting HTTP/2 POST https://localhost:7178/Identity/Account/Login?ReturnUrl=%2FAdmin%2FManagement%3Fpage%3D%252F - application/x-www-form-urlencoded 272
+2024-04-01 10:56:49.898 +02:00 [INF] Executing endpoint '/Account/Login'
+2024-04-01 10:56:49.899 +02:00 [INF] Route matched with {page = "/Account/Login", area = "Identity", action = "", controller = ""}. Executing page /Account/Login
+2024-04-01 10:56:49.909 +02:00 [INF] Executing handler method Schedulist.App.Areas.Identity.Pages.Account.LoginModel.OnPostAsync - ModelState is "Valid"
+2024-04-01 10:56:49.913 +02:00 [INF] Executed DbCommand (1ms) [Parameters=[@__normalizedUserName_0='?' (Size = 256)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [a].[Id], [a].[AccessFailedCount], [a].[ConcurrencyStamp], [a].[DepartmentId], [a].[Email], [a].[EmailConfirmed], [a].[LockoutEnabled], [a].[LockoutEnd], [a].[Name], [a].[NormalizedEmail], [a].[NormalizedUserName], [a].[PasswordHash], [a].[PhoneNumber], [a].[PhoneNumberConfirmed], [a].[PositionId], [a].[SecurityStamp], [a].[Surname], [a].[TwoFactorEnabled], [a].[UserName]
+FROM [AspNetUsers] AS [a]
+WHERE [a].[NormalizedUserName] = @__normalizedUserName_0
+2024-04-01 10:56:49.980 +02:00 [INF] Executed handler method OnPostAsync, returned result Microsoft.AspNetCore.Mvc.RazorPages.PageResult.
+2024-04-01 10:56:49.987 +02:00 [INF] Executed DbCommand (1ms) [Parameters=[@__normalizedUserName_0='?' (Size = 256)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [a].[Id], [a].[AccessFailedCount], [a].[ConcurrencyStamp], [a].[DepartmentId], [a].[Email], [a].[EmailConfirmed], [a].[LockoutEnabled], [a].[LockoutEnd], [a].[Name], [a].[NormalizedEmail], [a].[NormalizedUserName], [a].[PasswordHash], [a].[PhoneNumber], [a].[PhoneNumberConfirmed], [a].[PositionId], [a].[SecurityStamp], [a].[Surname], [a].[TwoFactorEnabled], [a].[UserName]
+FROM [AspNetUsers] AS [a]
+WHERE [a].[NormalizedUserName] = @__normalizedUserName_0
+2024-04-01 10:56:49.990 +02:00 [INF] Executed page /Account/Login in 90.3048ms
+2024-04-01 10:56:49.992 +02:00 [INF] Executed endpoint '/Account/Login'
+2024-04-01 10:56:49.993 +02:00 [INF] Request finished HTTP/2 POST https://localhost:7178/Identity/Account/Login?ReturnUrl=%2FAdmin%2FManagement%3Fpage%3D%252F - 200 null text/html; charset=utf-8 99.3986ms
+2024-04-01 10:56:49.999 +02:00 [INF] Request starting HTTP/2 GET https://localhost:7178/_framework/aspnetcore-browser-refresh.js - null null
+2024-04-01 10:56:49.999 +02:00 [INF] Request starting HTTP/2 GET https://localhost:7178/_vs/browserLink - null null
+2024-04-01 10:56:50.002 +02:00 [INF] Request finished HTTP/2 GET https://localhost:7178/_framework/aspnetcore-browser-refresh.js - 200 13764 application/javascript; charset=utf-8 3.1958ms
+2024-04-01 10:56:50.021 +02:00 [INF] Request finished HTTP/2 GET https://localhost:7178/_vs/browserLink - 200 null text/javascript; charset=UTF-8 22.0488ms
+2024-04-01 10:56:53.717 +02:00 [INF] Request starting HTTP/2 POST https://localhost:7178/Identity/Account/Login?ReturnUrl=%2FAdmin%2FManagement%3Fpage%3D%252F - application/x-www-form-urlencoded 272
+2024-04-01 10:56:53.720 +02:00 [INF] Executing endpoint '/Account/Login'
+2024-04-01 10:56:53.721 +02:00 [INF] Route matched with {page = "/Account/Login", area = "Identity", action = "", controller = ""}. Executing page /Account/Login
+2024-04-01 10:56:53.723 +02:00 [INF] Executing handler method Schedulist.App.Areas.Identity.Pages.Account.LoginModel.OnPostAsync - ModelState is "Valid"
+2024-04-01 10:56:53.726 +02:00 [INF] Executed DbCommand (1ms) [Parameters=[@__normalizedUserName_0='?' (Size = 256)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [a].[Id], [a].[AccessFailedCount], [a].[ConcurrencyStamp], [a].[DepartmentId], [a].[Email], [a].[EmailConfirmed], [a].[LockoutEnabled], [a].[LockoutEnd], [a].[Name], [a].[NormalizedEmail], [a].[NormalizedUserName], [a].[PasswordHash], [a].[PhoneNumber], [a].[PhoneNumberConfirmed], [a].[PositionId], [a].[SecurityStamp], [a].[Surname], [a].[TwoFactorEnabled], [a].[UserName]
+FROM [AspNetUsers] AS [a]
+WHERE [a].[NormalizedUserName] = @__normalizedUserName_0
+2024-04-01 10:56:53.807 +02:00 [INF] Executed DbCommand (2ms) [Parameters=[@__user_Id_0='?' (Size = 450)], CommandType='"Text"', CommandTimeout='30']
+SELECT [a].[Id], [a].[ClaimType], [a].[ClaimValue], [a].[UserId]
+FROM [AspNetUserClaims] AS [a]
+WHERE [a].[UserId] = @__user_Id_0
+2024-04-01 10:56:53.817 +02:00 [INF] Executed DbCommand (4ms) [Parameters=[@__userId_0='?' (Size = 450)], CommandType='"Text"', CommandTimeout='30']
+SELECT [a0].[Name]
+FROM [AspNetUserRoles] AS [a]
+INNER JOIN [AspNetRoles] AS [a0] ON [a].[RoleId] = [a0].[Id]
+WHERE [a].[UserId] = @__userId_0
+2024-04-01 10:56:53.827 +02:00 [INF] Executed DbCommand (3ms) [Parameters=[@__normalizedName_0='?' (Size = 256)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [a].[Id], [a].[ConcurrencyStamp], [a].[Name], [a].[NormalizedName]
+FROM [AspNetRoles] AS [a]
+WHERE [a].[NormalizedName] = @__normalizedName_0
+2024-04-01 10:56:53.843 +02:00 [INF] Executed DbCommand (2ms) [Parameters=[@__role_Id_0='?' (Size = 450)], CommandType='"Text"', CommandTimeout='30']
+SELECT [a].[ClaimType], [a].[ClaimValue]
+FROM [AspNetRoleClaims] AS [a]
+WHERE [a].[RoleId] = @__role_Id_0
+2024-04-01 10:56:53.847 +02:00 [INF] AuthenticationScheme: Identity.Application signed in.
+2024-04-01 10:56:53.849 +02:00 [INF] User logged in.
+2024-04-01 10:56:53.850 +02:00 [INF] Executed handler method OnPostAsync, returned result Microsoft.AspNetCore.Mvc.LocalRedirectResult.
+2024-04-01 10:56:53.852 +02:00 [INF] Executing LocalRedirectResult, redirecting to /Admin/Management?page=%2F.
+2024-04-01 10:56:53.853 +02:00 [INF] Executed page /Account/Login in 130.5545ms
+2024-04-01 10:56:53.854 +02:00 [INF] Executed endpoint '/Account/Login'
+2024-04-01 10:56:53.855 +02:00 [INF] Request finished HTTP/2 POST https://localhost:7178/Identity/Account/Login?ReturnUrl=%2FAdmin%2FManagement%3Fpage%3D%252F - 302 0 null 138.2741ms
+2024-04-01 10:56:53.856 +02:00 [INF] Request starting HTTP/2 GET https://localhost:7178/Admin/Management?page=%2F - null null
+2024-04-01 10:56:53.859 +02:00 [INF] Executing endpoint 'Schedulist.App.Controllers.AdminController.Management (Schedulist.App)'
+2024-04-01 10:56:53.860 +02:00 [INF] Route matched with {action = "Management", controller = "Admin", page = "", area = ""}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] Management() on controller Schedulist.App.Controllers.AdminController (Schedulist.App).
+2024-04-01 10:56:53.864 +02:00 [INF] Executed DbCommand (1ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [a].[Id], [a].[AccessFailedCount], [a].[ConcurrencyStamp], [a].[DepartmentId], [a].[Email], [a].[EmailConfirmed], [a].[LockoutEnabled], [a].[LockoutEnd], [a].[Name], [a].[NormalizedEmail], [a].[NormalizedUserName], [a].[PasswordHash], [a].[PhoneNumber], [a].[PhoneNumberConfirmed], [a].[PositionId], [a].[SecurityStamp], [a].[Surname], [a].[TwoFactorEnabled], [a].[UserName]
+FROM [AspNetUsers] AS [a]
+2024-04-01 10:56:53.868 +02:00 [INF] Executed DbCommand (1ms) [Parameters=[@__userId_0='?' (Size = 450)], CommandType='"Text"', CommandTimeout='30']
+SELECT [a0].[Name]
+FROM [AspNetUserRoles] AS [a]
+INNER JOIN [AspNetRoles] AS [a0] ON [a].[RoleId] = [a0].[Id]
+WHERE [a].[UserId] = @__userId_0
+2024-04-01 10:56:53.871 +02:00 [INF] Executed DbCommand (1ms) [Parameters=[@__userId_0='?' (Size = 450)], CommandType='"Text"', CommandTimeout='30']
+SELECT [a0].[Name]
+FROM [AspNetUserRoles] AS [a]
+INNER JOIN [AspNetRoles] AS [a0] ON [a].[RoleId] = [a0].[Id]
+WHERE [a].[UserId] = @__userId_0
+2024-04-01 10:56:53.874 +02:00 [INF] Executed DbCommand (2ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [w].[Id], [w].[Name]
+FROM [WorkModes] AS [w]
+2024-04-01 10:56:53.875 +02:00 [INF] Executing ViewResult, running view Management.
+2024-04-01 10:56:53.881 +02:00 [INF] Executed DbCommand (1ms) [Parameters=[@__normalizedUserName_0='?' (Size = 256)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [a].[Id], [a].[AccessFailedCount], [a].[ConcurrencyStamp], [a].[DepartmentId], [a].[Email], [a].[EmailConfirmed], [a].[LockoutEnabled], [a].[LockoutEnd], [a].[Name], [a].[NormalizedEmail], [a].[NormalizedUserName], [a].[PasswordHash], [a].[PhoneNumber], [a].[PhoneNumberConfirmed], [a].[PositionId], [a].[SecurityStamp], [a].[Surname], [a].[TwoFactorEnabled], [a].[UserName]
+FROM [AspNetUsers] AS [a]
+WHERE [a].[NormalizedUserName] = @__normalizedUserName_0
+2024-04-01 10:56:53.884 +02:00 [INF] Executed ViewResult - view Management executed in 9.3522ms.
+2024-04-01 10:56:53.885 +02:00 [INF] Executed action Schedulist.App.Controllers.AdminController.Management (Schedulist.App) in 23.7908ms
+2024-04-01 10:56:53.886 +02:00 [INF] Executed endpoint 'Schedulist.App.Controllers.AdminController.Management (Schedulist.App)'
+2024-04-01 10:56:53.887 +02:00 [INF] Request finished HTTP/2 GET https://localhost:7178/Admin/Management?page=%2F - 200 null text/html; charset=utf-8 30.976ms
+2024-04-01 10:56:53.892 +02:00 [INF] Request starting HTTP/2 GET https://localhost:7178/_vs/browserLink - null null
+2024-04-01 10:56:53.892 +02:00 [INF] Request starting HTTP/2 GET https://localhost:7178/_framework/aspnetcore-browser-refresh.js - null null
+2024-04-01 10:56:53.900 +02:00 [INF] Request finished HTTP/2 GET https://localhost:7178/_framework/aspnetcore-browser-refresh.js - 200 13764 application/javascript; charset=utf-8 8.1447ms
+2024-04-01 10:56:53.907 +02:00 [INF] Request finished HTTP/2 GET https://localhost:7178/_vs/browserLink - 200 null text/javascript; charset=UTF-8 15.7089ms
+2024-04-01 10:57:09.125 +02:00 [INF] Request starting HTTP/2 POST https://localhost:7178/Identity/Account/Logout?returnUrl=%2FAdmin%2FManagement%3Fpage%3D%252F - application/x-www-form-urlencoded 225
+2024-04-01 10:57:09.131 +02:00 [INF] Executing endpoint '/Account/Logout'
+2024-04-01 10:57:09.132 +02:00 [INF] Route matched with {page = "/Account/Logout", area = "Identity", action = "", controller = ""}. Executing page /Account/Logout
+2024-04-01 10:57:09.133 +02:00 [INF] Executing handler method Schedulist.App.Areas.Identity.Pages.Account.LogoutModel.OnPost - ModelState is "Valid"
+2024-04-01 10:57:09.135 +02:00 [INF] AuthenticationScheme: Identity.Application signed out.
+2024-04-01 10:57:09.135 +02:00 [INF] AuthenticationScheme: Identity.External signed out.
+2024-04-01 10:57:09.136 +02:00 [INF] AuthenticationScheme: Identity.TwoFactorUserId signed out.
+2024-04-01 10:57:09.137 +02:00 [INF] User logged out.
+2024-04-01 10:57:09.138 +02:00 [INF] Executed handler method OnPost, returned result Microsoft.AspNetCore.Mvc.LocalRedirectResult.
+2024-04-01 10:57:09.139 +02:00 [INF] Executing LocalRedirectResult, redirecting to /Admin/Management?page=%2F.
+2024-04-01 10:57:09.140 +02:00 [INF] Executed page /Account/Logout in 7.7763ms
+2024-04-01 10:57:09.141 +02:00 [INF] Executed endpoint '/Account/Logout'
+2024-04-01 10:57:09.143 +02:00 [INF] Request finished HTTP/2 POST https://localhost:7178/Identity/Account/Logout?returnUrl=%2FAdmin%2FManagement%3Fpage%3D%252F - 302 0 null 18.2122ms
+2024-04-01 10:57:09.145 +02:00 [INF] Request starting HTTP/2 GET https://localhost:7178/Admin/Management?page=%2F - null null
+2024-04-01 10:57:09.148 +02:00 [INF] Authorization failed. These requirements were not met:
+RolesAuthorizationRequirement:User.IsInRole must be true for one of the following roles: (Admin)
+2024-04-01 10:57:09.149 +02:00 [INF] AuthenticationScheme: Identity.Application was challenged.
+2024-04-01 10:57:09.149 +02:00 [INF] Request finished HTTP/2 GET https://localhost:7178/Admin/Management?page=%2F - 302 0 null 4.7136ms
+2024-04-01 10:57:09.151 +02:00 [INF] Request starting HTTP/2 GET https://localhost:7178/Identity/Account/Login?ReturnUrl=%2FAdmin%2FManagement%3Fpage%3D%252F - null null
+2024-04-01 10:57:09.155 +02:00 [INF] Executing endpoint '/Account/Login'
+2024-04-01 10:57:09.156 +02:00 [INF] Route matched with {page = "/Account/Login", area = "Identity", action = "", controller = ""}. Executing page /Account/Login
+2024-04-01 10:57:09.157 +02:00 [INF] Executing handler method Schedulist.App.Areas.Identity.Pages.Account.LoginModel.OnGetAsync - ModelState is "Valid"
+2024-04-01 10:57:09.158 +02:00 [INF] AuthenticationScheme: Identity.External signed out.
+2024-04-01 10:57:09.158 +02:00 [INF] Executed handler method OnGetAsync, returned result .
+2024-04-01 10:57:09.159 +02:00 [INF] Executing an implicit handler method - ModelState is "Valid"
+2024-04-01 10:57:09.159 +02:00 [INF] Executed an implicit handler method, returned result Microsoft.AspNetCore.Mvc.RazorPages.PageResult.
+2024-04-01 10:57:09.164 +02:00 [INF] Executed DbCommand (1ms) [Parameters=[@__normalizedUserName_0='?' (Size = 256)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [a].[Id], [a].[AccessFailedCount], [a].[ConcurrencyStamp], [a].[DepartmentId], [a].[Email], [a].[EmailConfirmed], [a].[LockoutEnabled], [a].[LockoutEnd], [a].[Name], [a].[NormalizedEmail], [a].[NormalizedUserName], [a].[PasswordHash], [a].[PhoneNumber], [a].[PhoneNumberConfirmed], [a].[PositionId], [a].[SecurityStamp], [a].[Surname], [a].[TwoFactorEnabled], [a].[UserName]
+FROM [AspNetUsers] AS [a]
+WHERE [a].[NormalizedUserName] = @__normalizedUserName_0
+2024-04-01 10:57:09.167 +02:00 [INF] Executed page /Account/Login in 10.5568ms
+2024-04-01 10:57:09.168 +02:00 [INF] Executed endpoint '/Account/Login'
+2024-04-01 10:57:09.169 +02:00 [INF] Request finished HTTP/2 GET https://localhost:7178/Identity/Account/Login?ReturnUrl=%2FAdmin%2FManagement%3Fpage%3D%252F - 200 null text/html; charset=utf-8 17.6493ms
+2024-04-01 10:57:09.176 +02:00 [INF] Request starting HTTP/2 GET https://localhost:7178/_framework/aspnetcore-browser-refresh.js - null null
+2024-04-01 10:57:09.179 +02:00 [INF] Request finished HTTP/2 GET https://localhost:7178/_framework/aspnetcore-browser-refresh.js - 200 13764 application/javascript; charset=utf-8 3.3194ms
+2024-04-01 10:57:09.195 +02:00 [INF] Request starting HTTP/2 GET https://localhost:7178/_vs/browserLink - null null
+2024-04-01 10:57:09.205 +02:00 [INF] Request finished HTTP/2 GET https://localhost:7178/_vs/browserLink - 200 null text/javascript; charset=UTF-8 10.2797ms
+2024-04-01 10:57:20.372 +02:00 [INF] Request starting HTTP/2 POST https://localhost:7178/Identity/Account/Login?ReturnUrl=%2FAdmin%2FManagement%3Fpage%3D%252F - application/x-www-form-urlencoded 294
+2024-04-01 10:57:20.377 +02:00 [INF] Executing endpoint '/Account/Login'
+2024-04-01 10:57:20.378 +02:00 [INF] Route matched with {page = "/Account/Login", area = "Identity", action = "", controller = ""}. Executing page /Account/Login
+2024-04-01 10:57:20.381 +02:00 [INF] Executing handler method Schedulist.App.Areas.Identity.Pages.Account.LoginModel.OnPostAsync - ModelState is "Valid"
+2024-04-01 10:57:20.421 +02:00 [INF] Executed DbCommand (13ms) [Parameters=[@__normalizedUserName_0='?' (Size = 256)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [a].[Id], [a].[AccessFailedCount], [a].[ConcurrencyStamp], [a].[DepartmentId], [a].[Email], [a].[EmailConfirmed], [a].[LockoutEnabled], [a].[LockoutEnd], [a].[Name], [a].[NormalizedEmail], [a].[NormalizedUserName], [a].[PasswordHash], [a].[PhoneNumber], [a].[PhoneNumberConfirmed], [a].[PositionId], [a].[SecurityStamp], [a].[Surname], [a].[TwoFactorEnabled], [a].[UserName]
+FROM [AspNetUsers] AS [a]
+WHERE [a].[NormalizedUserName] = @__normalizedUserName_0
+2024-04-01 10:57:20.488 +02:00 [INF] Executed DbCommand (8ms) [Parameters=[@__user_Id_0='?' (Size = 450)], CommandType='"Text"', CommandTimeout='30']
+SELECT [a].[Id], [a].[ClaimType], [a].[ClaimValue], [a].[UserId]
+FROM [AspNetUserClaims] AS [a]
+WHERE [a].[UserId] = @__user_Id_0
+2024-04-01 10:57:20.495 +02:00 [INF] Executed DbCommand (4ms) [Parameters=[@__userId_0='?' (Size = 450)], CommandType='"Text"', CommandTimeout='30']
+SELECT [a0].[Name]
+FROM [AspNetUserRoles] AS [a]
+INNER JOIN [AspNetRoles] AS [a0] ON [a].[RoleId] = [a0].[Id]
+WHERE [a].[UserId] = @__userId_0
+2024-04-01 10:57:20.499 +02:00 [INF] Executed DbCommand (2ms) [Parameters=[@__normalizedName_0='?' (Size = 256)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [a].[Id], [a].[ConcurrencyStamp], [a].[Name], [a].[NormalizedName]
+FROM [AspNetRoles] AS [a]
+WHERE [a].[NormalizedName] = @__normalizedName_0
+2024-04-01 10:57:20.504 +02:00 [INF] Executed DbCommand (2ms) [Parameters=[@__role_Id_0='?' (Size = 450)], CommandType='"Text"', CommandTimeout='30']
+SELECT [a].[ClaimType], [a].[ClaimValue]
+FROM [AspNetRoleClaims] AS [a]
+WHERE [a].[RoleId] = @__role_Id_0
+2024-04-01 10:57:20.506 +02:00 [INF] AuthenticationScheme: Identity.Application signed in.
+2024-04-01 10:57:20.507 +02:00 [INF] User logged in.
+2024-04-01 10:57:20.507 +02:00 [INF] Executed handler method OnPostAsync, returned result Microsoft.AspNetCore.Mvc.LocalRedirectResult.
+2024-04-01 10:57:20.508 +02:00 [INF] Executing LocalRedirectResult, redirecting to /Admin/Management?page=%2F.
+2024-04-01 10:57:20.509 +02:00 [INF] Executed page /Account/Login in 129.8748ms
+2024-04-01 10:57:20.510 +02:00 [INF] Executed endpoint '/Account/Login'
+2024-04-01 10:57:20.511 +02:00 [INF] Request finished HTTP/2 POST https://localhost:7178/Identity/Account/Login?ReturnUrl=%2FAdmin%2FManagement%3Fpage%3D%252F - 302 0 null 140.1851ms
+2024-04-01 10:57:20.515 +02:00 [INF] Request starting HTTP/2 GET https://localhost:7178/Admin/Management?page=%2F - null null
+2024-04-01 10:57:20.519 +02:00 [INF] Executing endpoint 'Schedulist.App.Controllers.AdminController.Management (Schedulist.App)'
+2024-04-01 10:57:20.520 +02:00 [INF] Route matched with {action = "Management", controller = "Admin", page = "", area = ""}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] Management() on controller Schedulist.App.Controllers.AdminController (Schedulist.App).
+2024-04-01 10:57:20.524 +02:00 [INF] Executed DbCommand (2ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [a].[Id], [a].[AccessFailedCount], [a].[ConcurrencyStamp], [a].[DepartmentId], [a].[Email], [a].[EmailConfirmed], [a].[LockoutEnabled], [a].[LockoutEnd], [a].[Name], [a].[NormalizedEmail], [a].[NormalizedUserName], [a].[PasswordHash], [a].[PhoneNumber], [a].[PhoneNumberConfirmed], [a].[PositionId], [a].[SecurityStamp], [a].[Surname], [a].[TwoFactorEnabled], [a].[UserName]
+FROM [AspNetUsers] AS [a]
+2024-04-01 10:57:20.527 +02:00 [INF] Executed DbCommand (1ms) [Parameters=[@__userId_0='?' (Size = 450)], CommandType='"Text"', CommandTimeout='30']
+SELECT [a0].[Name]
+FROM [AspNetUserRoles] AS [a]
+INNER JOIN [AspNetRoles] AS [a0] ON [a].[RoleId] = [a0].[Id]
+WHERE [a].[UserId] = @__userId_0
+2024-04-01 10:57:20.530 +02:00 [INF] Executed DbCommand (1ms) [Parameters=[@__userId_0='?' (Size = 450)], CommandType='"Text"', CommandTimeout='30']
+SELECT [a0].[Name]
+FROM [AspNetUserRoles] AS [a]
+INNER JOIN [AspNetRoles] AS [a0] ON [a].[RoleId] = [a0].[Id]
+WHERE [a].[UserId] = @__userId_0
+2024-04-01 10:57:20.533 +02:00 [INF] Executed DbCommand (2ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [w].[Id], [w].[Name]
+FROM [WorkModes] AS [w]
+2024-04-01 10:57:20.535 +02:00 [INF] Executing ViewResult, running view Management.
+2024-04-01 10:57:20.543 +02:00 [INF] Executed DbCommand (3ms) [Parameters=[@__normalizedUserName_0='?' (Size = 256)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [a].[Id], [a].[AccessFailedCount], [a].[ConcurrencyStamp], [a].[DepartmentId], [a].[Email], [a].[EmailConfirmed], [a].[LockoutEnabled], [a].[LockoutEnd], [a].[Name], [a].[NormalizedEmail], [a].[NormalizedUserName], [a].[PasswordHash], [a].[PhoneNumber], [a].[PhoneNumberConfirmed], [a].[PositionId], [a].[SecurityStamp], [a].[Surname], [a].[TwoFactorEnabled], [a].[UserName]
+FROM [AspNetUsers] AS [a]
+WHERE [a].[NormalizedUserName] = @__normalizedUserName_0
+2024-04-01 10:57:20.547 +02:00 [INF] Executed ViewResult - view Management executed in 11.7015ms.
+2024-04-01 10:57:20.548 +02:00 [INF] Executed action Schedulist.App.Controllers.AdminController.Management (Schedulist.App) in 26.7363ms
+2024-04-01 10:57:20.549 +02:00 [INF] Executed endpoint 'Schedulist.App.Controllers.AdminController.Management (Schedulist.App)'
+2024-04-01 10:57:20.551 +02:00 [INF] Request finished HTTP/2 GET https://localhost:7178/Admin/Management?page=%2F - 200 null text/html; charset=utf-8 36.3268ms
+2024-04-01 10:57:20.555 +02:00 [INF] Request starting HTTP/2 GET https://localhost:7178/css/site.css?v=q_ZRLmhxL-7IBQ0qD32sq6H3i2QQ9HrEXYz1c7ayLxY - null null
+2024-04-01 10:57:20.557 +02:00 [INF] Request starting HTTP/2 GET https://localhost:7178/_vs/browserLink - null null
+2024-04-01 10:57:20.557 +02:00 [INF] Request starting HTTP/2 GET https://localhost:7178/_framework/aspnetcore-browser-refresh.js - null null
+2024-04-01 10:57:20.559 +02:00 [INF] The file /css/site.css was not modified
+2024-04-01 10:57:20.564 +02:00 [INF] Request finished HTTP/2 GET https://localhost:7178/_framework/aspnetcore-browser-refresh.js - 200 13764 application/javascript; charset=utf-8 7.7101ms
+2024-04-01 10:57:20.565 +02:00 [INF] Request finished HTTP/2 GET https://localhost:7178/css/site.css?v=q_ZRLmhxL-7IBQ0qD32sq6H3i2QQ9HrEXYz1c7ayLxY - 304 null text/css 9.5514ms
+2024-04-01 10:57:20.579 +02:00 [INF] Request finished HTTP/2 GET https://localhost:7178/_vs/browserLink - 200 null text/javascript; charset=UTF-8 23.1772ms
+2024-04-01 10:59:04.074 +02:00 [INF] User profile is available. Using 'C:\Users\Mariusz\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
+2024-04-01 10:59:05.843 +02:00 [INF] Now listening on: https://localhost:7178
+2024-04-01 10:59:05.844 +02:00 [INF] Now listening on: http://localhost:5291
+2024-04-01 10:59:05.867 +02:00 [INF] Application started. Press Ctrl+C to shut down.
+2024-04-01 10:59:05.868 +02:00 [INF] Hosting environment: Development
+2024-04-01 10:59:05.869 +02:00 [INF] Content root path: C:\Users\Mariusz\Desktop\InfoShare\#4 Projekt grupowy Work-Schedule\jcszr11-WeCSharp\Schedulist.App
+2024-04-01 10:59:06.813 +02:00 [INF] Request starting HTTP/2 GET https://localhost:7178/ - null null
+2024-04-01 10:59:07.053 +02:00 [INF] Executing endpoint 'Schedulist.App.Controllers.CalendarController.Index (Schedulist.App)'
+2024-04-01 10:59:07.068 +02:00 [INF] Route matched with {action = "Index", controller = "Calendar", page = "", area = ""}. Executing controller action with signature Microsoft.AspNetCore.Mvc.IActionResult Index() on controller Schedulist.App.Controllers.CalendarController (Schedulist.App).
+2024-04-01 10:59:08.026 +02:00 [INF] Executed DbCommand (21ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [a].[Id], [a].[AccessFailedCount], [a].[ConcurrencyStamp], [a].[DepartmentId], [a].[Email], [a].[EmailConfirmed], [a].[LockoutEnabled], [a].[LockoutEnd], [a].[Name], [a].[NormalizedEmail], [a].[NormalizedUserName], [a].[PasswordHash], [a].[PhoneNumber], [a].[PhoneNumberConfirmed], [a].[PositionId], [a].[SecurityStamp], [a].[Surname], [a].[TwoFactorEnabled], [a].[UserName]
+FROM [AspNetUsers] AS [a]
+2024-04-01 10:59:08.101 +02:00 [INF] Executed DbCommand (2ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
 SELECT [c].[Id], [c].[CalendarEventDate], [c].[CalendarEventDescription], [c].[CalendarEventEndTime], [c].[CalendarEventName], [c].[CalendarEventStartTime], [c].[UserId]
 FROM [CalendarEvents] AS [c]
-2024-04-01 10:24:32.534 +02:00 [INF] Executed DbCommand (3ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+2024-04-01 10:59:08.133 +02:00 [INF] Executed DbCommand (3ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
 SELECT [w].[Id], [w].[DateOfWorkMode], [w].[UserId], [w].[WorkModeId]
 FROM [WorkModesToUsers] AS [w]
-2024-04-01 10:24:32.554 +02:00 [INF] Executing ViewResult, running view Index.
-2024-04-01 10:24:32.735 +02:00 [INF] Executed DbCommand (32ms) [Parameters=[@__normalizedUserName_0='?' (Size = 256)], CommandType='"Text"', CommandTimeout='30']
+2024-04-01 10:59:08.152 +02:00 [INF] Executing ViewResult, running view Index.
+2024-04-01 10:59:08.316 +02:00 [INF] Executed DbCommand (25ms) [Parameters=[@__normalizedUserName_0='?' (Size = 256)], CommandType='"Text"', CommandTimeout='30']
 SELECT TOP(1) [a].[Id], [a].[AccessFailedCount], [a].[ConcurrencyStamp], [a].[DepartmentId], [a].[Email], [a].[EmailConfirmed], [a].[LockoutEnabled], [a].[LockoutEnd], [a].[Name], [a].[NormalizedEmail], [a].[NormalizedUserName], [a].[PasswordHash], [a].[PhoneNumber], [a].[PhoneNumberConfirmed], [a].[PositionId], [a].[SecurityStamp], [a].[Surname], [a].[TwoFactorEnabled], [a].[UserName]
 FROM [AspNetUsers] AS [a]
 WHERE [a].[NormalizedUserName] = @__normalizedUserName_0
-2024-04-01 10:24:32.800 +02:00 [INF] Request starting HTTP/2 GET https://localhost:7178/css/site.css?v=nLlIsGQKu-LfnpkSX1SA5DuSaBu4NZdNLOhYFdiFJAo - null null
-2024-04-01 10:24:32.803 +02:00 [INF] Executed ViewResult - view Index executed in 249.5089ms.
-2024-04-01 10:24:32.810 +02:00 [INF] Executed action Schedulist.App.Controllers.CalendarController.Index (Schedulist.App) in 1517.5572ms
-2024-04-01 10:24:32.812 +02:00 [INF] Executed endpoint 'Schedulist.App.Controllers.CalendarController.Index (Schedulist.App)'
-2024-04-01 10:24:32.831 +02:00 [INF] Request finished HTTP/2 GET https://localhost:7178/ - 200 null text/html; charset=utf-8 1857.9786ms
-2024-04-01 10:24:32.833 +02:00 [INF] Sending file. Request path: '/css/site.css'. Physical path: 'C:\Users\Mariusz\Desktop\InfoShare\#4 Projekt grupowy Work-Schedule\jcszr11-WeCSharp\Schedulist.App\wwwroot\css\site.css'
-2024-04-01 10:24:32.835 +02:00 [INF] Request finished HTTP/2 GET https://localhost:7178/css/site.css?v=nLlIsGQKu-LfnpkSX1SA5DuSaBu4NZdNLOhYFdiFJAo - 200 10178 text/css 34.9522ms
-2024-04-01 10:24:32.851 +02:00 [INF] Request starting HTTP/2 GET https://localhost:7178/_framework/aspnetcore-browser-refresh.js - null null
-2024-04-01 10:24:32.858 +02:00 [INF] Request finished HTTP/2 GET https://localhost:7178/_framework/aspnetcore-browser-refresh.js - 200 13764 application/javascript; charset=utf-8 7.7605ms
-2024-04-01 10:24:33.096 +02:00 [INF] Request starting HTTP/2 GET https://localhost:7178/_vs/browserLink - null null
-2024-04-01 10:24:33.129 +02:00 [INF] Request starting HTTP/1.1 GET https://localhost:7178/lib/bootstrap/dist/js/bootstrap.bundle.min.js.map - null null
-2024-04-01 10:24:33.144 +02:00 [INF] Sending file. Request path: '/lib/bootstrap/dist/js/bootstrap.bundle.min.js.map'. Physical path: 'C:\Users\Mariusz\Desktop\InfoShare\#4 Projekt grupowy Work-Schedule\jcszr11-WeCSharp\Schedulist.App\wwwroot\lib\bootstrap\dist\js\bootstrap.bundle.min.js.map'
-2024-04-01 10:24:33.147 +02:00 [INF] Request finished HTTP/1.1 GET https://localhost:7178/lib/bootstrap/dist/js/bootstrap.bundle.min.js.map - 200 327261 text/plain 18.2091ms
-2024-04-01 10:24:33.152 +02:00 [INF] Request finished HTTP/2 GET https://localhost:7178/_vs/browserLink - 200 null text/javascript; charset=UTF-8 56.4305ms
-2024-04-01 10:24:34.561 +02:00 [INF] Request starting HTTP/2 GET https://localhost:7178/Admin/Management - null null
-2024-04-01 10:24:34.599 +02:00 [INF] Executing endpoint 'Schedulist.App.Controllers.AdminController.Management (Schedulist.App)'
-2024-04-01 10:24:34.605 +02:00 [INF] Route matched with {action = "Management", controller = "Admin", page = "", area = ""}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] Management() on controller Schedulist.App.Controllers.AdminController (Schedulist.App).
-2024-04-01 10:24:34.624 +02:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+2024-04-01 10:59:08.375 +02:00 [INF] Executed ViewResult - view Index executed in 224.5963ms.
+2024-04-01 10:59:08.380 +02:00 [INF] Executed action Schedulist.App.Controllers.CalendarController.Index (Schedulist.App) in 1310.2512ms
+2024-04-01 10:59:08.382 +02:00 [INF] Executed endpoint 'Schedulist.App.Controllers.CalendarController.Index (Schedulist.App)'
+2024-04-01 10:59:08.395 +02:00 [INF] Request finished HTTP/2 GET https://localhost:7178/ - 200 null text/html; charset=utf-8 1591.1663ms
+2024-04-01 10:59:08.432 +02:00 [INF] Request starting HTTP/2 GET https://localhost:7178/_framework/aspnetcore-browser-refresh.js - null null
+2024-04-01 10:59:08.441 +02:00 [INF] Request finished HTTP/2 GET https://localhost:7178/_framework/aspnetcore-browser-refresh.js - 200 13764 application/javascript; charset=utf-8 9.0101ms
+2024-04-01 10:59:08.565 +02:00 [INF] Request starting HTTP/2 GET https://localhost:7178/_vs/browserLink - null null
+2024-04-01 10:59:08.588 +02:00 [INF] Request starting HTTP/1.1 GET https://localhost:7178/lib/bootstrap/dist/js/bootstrap.bundle.min.js.map - null null
+2024-04-01 10:59:08.601 +02:00 [INF] Request finished HTTP/2 GET https://localhost:7178/_vs/browserLink - 200 null text/javascript; charset=UTF-8 35.8441ms
+2024-04-01 10:59:08.614 +02:00 [INF] Sending file. Request path: '/lib/bootstrap/dist/js/bootstrap.bundle.min.js.map'. Physical path: 'C:\Users\Mariusz\Desktop\InfoShare\#4 Projekt grupowy Work-Schedule\jcszr11-WeCSharp\Schedulist.App\wwwroot\lib\bootstrap\dist\js\bootstrap.bundle.min.js.map'
+2024-04-01 10:59:08.615 +02:00 [INF] Request finished HTTP/1.1 GET https://localhost:7178/lib/bootstrap/dist/js/bootstrap.bundle.min.js.map - 200 327261 text/plain 27.1283ms
+2024-04-01 10:59:13.661 +02:00 [INF] Request starting HTTP/2 POST https://localhost:7178/Identity/Account/Logout?returnUrl=%2F%3Fpage%3D%252F - application/x-www-form-urlencoded 225
+2024-04-01 10:59:13.681 +02:00 [INF] Executing endpoint '/Account/Logout'
+2024-04-01 10:59:13.692 +02:00 [INF] Route matched with {page = "/Account/Logout", area = "Identity", action = "", controller = ""}. Executing page /Account/Logout
+2024-04-01 10:59:13.716 +02:00 [INF] Executing handler method Schedulist.App.Areas.Identity.Pages.Account.LogoutModel.OnPost - ModelState is "Valid"
+2024-04-01 10:59:13.722 +02:00 [INF] AuthenticationScheme: Identity.Application signed out.
+2024-04-01 10:59:13.724 +02:00 [INF] AuthenticationScheme: Identity.External signed out.
+2024-04-01 10:59:13.725 +02:00 [INF] AuthenticationScheme: Identity.TwoFactorUserId signed out.
+2024-04-01 10:59:13.726 +02:00 [INF] User logged out.
+2024-04-01 10:59:13.728 +02:00 [INF] Executed handler method OnPost, returned result Microsoft.AspNetCore.Mvc.LocalRedirectResult.
+2024-04-01 10:59:13.730 +02:00 [INF] Executing LocalRedirectResult, redirecting to /?page=%2F.
+2024-04-01 10:59:13.731 +02:00 [INF] Executed page /Account/Logout in 38.2596ms
+2024-04-01 10:59:13.732 +02:00 [INF] Executed endpoint '/Account/Logout'
+2024-04-01 10:59:13.734 +02:00 [INF] Request finished HTTP/2 POST https://localhost:7178/Identity/Account/Logout?returnUrl=%2F%3Fpage%3D%252F - 302 0 null 73.4681ms
+2024-04-01 10:59:13.736 +02:00 [INF] Request starting HTTP/2 GET https://localhost:7178/?page=%2F - null null
+2024-04-01 10:59:13.740 +02:00 [INF] Executing endpoint 'Schedulist.App.Controllers.CalendarController.Index (Schedulist.App)'
+2024-04-01 10:59:13.741 +02:00 [INF] Route matched with {action = "Index", controller = "Calendar", page = "", area = ""}. Executing controller action with signature Microsoft.AspNetCore.Mvc.IActionResult Index() on controller Schedulist.App.Controllers.CalendarController (Schedulist.App).
+2024-04-01 10:59:13.753 +02:00 [INF] Executed DbCommand (1ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
 SELECT [a].[Id], [a].[AccessFailedCount], [a].[ConcurrencyStamp], [a].[DepartmentId], [a].[Email], [a].[EmailConfirmed], [a].[LockoutEnabled], [a].[LockoutEnd], [a].[Name], [a].[NormalizedEmail], [a].[NormalizedUserName], [a].[PasswordHash], [a].[PhoneNumber], [a].[PhoneNumberConfirmed], [a].[PositionId], [a].[SecurityStamp], [a].[Surname], [a].[TwoFactorEnabled], [a].[UserName]
 FROM [AspNetUsers] AS [a]
-2024-04-01 10:24:34.678 +02:00 [INF] Executed DbCommand (6ms) [Parameters=[@__userId_0='?' (Size = 450)], CommandType='"Text"', CommandTimeout='30']
-SELECT [a0].[Name]
-FROM [AspNetUserRoles] AS [a]
-INNER JOIN [AspNetRoles] AS [a0] ON [a].[RoleId] = [a0].[Id]
-WHERE [a].[UserId] = @__userId_0
-2024-04-01 10:24:34.688 +02:00 [INF] Executed DbCommand (2ms) [Parameters=[@__userId_0='?' (Size = 450)], CommandType='"Text"', CommandTimeout='30']
-SELECT [a0].[Name]
-FROM [AspNetUserRoles] AS [a]
-INNER JOIN [AspNetRoles] AS [a0] ON [a].[RoleId] = [a0].[Id]
-WHERE [a].[UserId] = @__userId_0
-2024-04-01 10:24:34.697 +02:00 [INF] Executed DbCommand (2ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
-SELECT [w].[Id], [w].[Name]
-FROM [WorkModes] AS [w]
-2024-04-01 10:24:34.711 +02:00 [INF] Executing ViewResult, running view Management.
-2024-04-01 10:24:34.780 +02:00 [INF] Executed DbCommand (2ms) [Parameters=[@__normalizedUserName_0='?' (Size = 256)], CommandType='"Text"', CommandTimeout='30']
+2024-04-01 10:59:13.756 +02:00 [INF] Executing RedirectResult, redirecting to /Identity/Account/Login.
+2024-04-01 10:59:13.757 +02:00 [INF] Executed action Schedulist.App.Controllers.CalendarController.Index (Schedulist.App) in 14.6419ms
+2024-04-01 10:59:13.758 +02:00 [INF] Executed endpoint 'Schedulist.App.Controllers.CalendarController.Index (Schedulist.App)'
+2024-04-01 10:59:13.759 +02:00 [INF] Request finished HTTP/2 GET https://localhost:7178/?page=%2F - 302 0 null 22.6892ms
+2024-04-01 10:59:13.762 +02:00 [INF] Request starting HTTP/2 GET https://localhost:7178/Identity/Account/Login - null null
+2024-04-01 10:59:13.768 +02:00 [INF] Executing endpoint '/Account/Login'
+2024-04-01 10:59:13.777 +02:00 [INF] Route matched with {page = "/Account/Login", area = "Identity", action = "", controller = ""}. Executing page /Account/Login
+2024-04-01 10:59:13.787 +02:00 [INF] Executing handler method Schedulist.App.Areas.Identity.Pages.Account.LoginModel.OnGetAsync - ModelState is "Valid"
+2024-04-01 10:59:13.790 +02:00 [INF] AuthenticationScheme: Identity.External signed out.
+2024-04-01 10:59:13.792 +02:00 [INF] Executed handler method OnGetAsync, returned result .
+2024-04-01 10:59:13.795 +02:00 [INF] Executing an implicit handler method - ModelState is "Valid"
+2024-04-01 10:59:13.796 +02:00 [INF] Executed an implicit handler method, returned result Microsoft.AspNetCore.Mvc.RazorPages.PageResult.
+2024-04-01 10:59:13.871 +02:00 [INF] Executed DbCommand (2ms) [Parameters=[@__normalizedUserName_0='?' (Size = 256)], CommandType='"Text"', CommandTimeout='30']
 SELECT TOP(1) [a].[Id], [a].[AccessFailedCount], [a].[ConcurrencyStamp], [a].[DepartmentId], [a].[Email], [a].[EmailConfirmed], [a].[LockoutEnabled], [a].[LockoutEnd], [a].[Name], [a].[NormalizedEmail], [a].[NormalizedUserName], [a].[PasswordHash], [a].[PhoneNumber], [a].[PhoneNumberConfirmed], [a].[PositionId], [a].[SecurityStamp], [a].[Surname], [a].[TwoFactorEnabled], [a].[UserName]
 FROM [AspNetUsers] AS [a]
 WHERE [a].[NormalizedUserName] = @__normalizedUserName_0
-2024-04-01 10:24:34.786 +02:00 [INF] Executed ViewResult - view Management executed in 77.9282ms.
-2024-04-01 10:24:34.788 +02:00 [INF] Executed action Schedulist.App.Controllers.AdminController.Management (Schedulist.App) in 180.8142ms
-2024-04-01 10:24:34.789 +02:00 [INF] Executed endpoint 'Schedulist.App.Controllers.AdminController.Management (Schedulist.App)'
-2024-04-01 10:24:34.791 +02:00 [INF] Request finished HTTP/2 GET https://localhost:7178/Admin/Management - 200 null text/html; charset=utf-8 229.8618ms
-2024-04-01 10:24:34.795 +02:00 [INF] Request starting HTTP/2 GET https://localhost:7178/css/site.css?v=nLlIsGQKu-LfnpkSX1SA5DuSaBu4NZdNLOhYFdiFJAo - null null
-2024-04-01 10:24:34.797 +02:00 [INF] Request starting HTTP/2 GET https://localhost:7178/_framework/aspnetcore-browser-refresh.js - null null
-2024-04-01 10:24:34.797 +02:00 [INF] Request starting HTTP/2 GET https://localhost:7178/_vs/browserLink - null null
-2024-04-01 10:24:34.801 +02:00 [INF] Request finished HTTP/2 GET https://localhost:7178/_framework/aspnetcore-browser-refresh.js - 200 13764 application/javascript; charset=utf-8 4.6428ms
-2024-04-01 10:24:34.801 +02:00 [INF] The file /css/site.css was not modified
-2024-04-01 10:24:34.808 +02:00 [INF] Request finished HTTP/2 GET https://localhost:7178/css/site.css?v=nLlIsGQKu-LfnpkSX1SA5DuSaBu4NZdNLOhYFdiFJAo - 304 null text/css 13.2929ms
-2024-04-01 10:24:34.829 +02:00 [INF] Request finished HTTP/2 GET https://localhost:7178/_vs/browserLink - 200 null text/javascript; charset=UTF-8 33.0483ms
-2024-04-01 10:27:13.120 +02:00 [INF] Request starting HTTP/2 GET https://localhost:7178/Admin/Management - null null
-2024-04-01 10:27:13.138 +02:00 [INF] Executing endpoint 'Schedulist.App.Controllers.AdminController.Management (Schedulist.App)'
-2024-04-01 10:27:13.142 +02:00 [INF] Route matched with {action = "Management", controller = "Admin", page = "", area = ""}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] Management() on controller Schedulist.App.Controllers.AdminController (Schedulist.App).
-2024-04-01 10:27:13.197 +02:00 [INF] Executed DbCommand (11ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
-SELECT [a].[Id], [a].[AccessFailedCount], [a].[ConcurrencyStamp], [a].[DepartmentId], [a].[Email], [a].[EmailConfirmed], [a].[LockoutEnabled], [a].[LockoutEnd], [a].[Name], [a].[NormalizedEmail], [a].[NormalizedUserName], [a].[PasswordHash], [a].[PhoneNumber], [a].[PhoneNumberConfirmed], [a].[PositionId], [a].[SecurityStamp], [a].[Surname], [a].[TwoFactorEnabled], [a].[UserName]
-FROM [AspNetUsers] AS [a]
-2024-04-01 10:27:13.205 +02:00 [INF] Executed DbCommand (4ms) [Parameters=[@__userId_0='?' (Size = 450)], CommandType='"Text"', CommandTimeout='30']
-SELECT [a0].[Name]
-FROM [AspNetUserRoles] AS [a]
-INNER JOIN [AspNetRoles] AS [a0] ON [a].[RoleId] = [a0].[Id]
-WHERE [a].[UserId] = @__userId_0
-2024-04-01 10:27:13.209 +02:00 [INF] Executed DbCommand (1ms) [Parameters=[@__userId_0='?' (Size = 450)], CommandType='"Text"', CommandTimeout='30']
-SELECT [a0].[Name]
-FROM [AspNetUserRoles] AS [a]
-INNER JOIN [AspNetRoles] AS [a0] ON [a].[RoleId] = [a0].[Id]
-WHERE [a].[UserId] = @__userId_0
-2024-04-01 10:27:13.213 +02:00 [INF] Executed DbCommand (2ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
-SELECT [w].[Id], [w].[Name]
-FROM [WorkModes] AS [w]
-2024-04-01 10:27:13.216 +02:00 [INF] Executing ViewResult, running view Management.
-2024-04-01 10:27:13.244 +02:00 [INF] Executed DbCommand (3ms) [Parameters=[@__normalizedUserName_0='?' (Size = 256)], CommandType='"Text"', CommandTimeout='30']
+2024-04-01 10:59:13.883 +02:00 [INF] Executed page /Account/Login in 104.9308ms
+2024-04-01 10:59:13.885 +02:00 [INF] Executed endpoint '/Account/Login'
+2024-04-01 10:59:13.886 +02:00 [INF] Request finished HTTP/2 GET https://localhost:7178/Identity/Account/Login - 200 null text/html; charset=utf-8 125.2206ms
+2024-04-01 10:59:13.891 +02:00 [INF] Request starting HTTP/2 GET https://localhost:7178/_framework/aspnetcore-browser-refresh.js - null null
+2024-04-01 10:59:13.894 +02:00 [INF] Request finished HTTP/2 GET https://localhost:7178/_framework/aspnetcore-browser-refresh.js - 200 13764 application/javascript; charset=utf-8 3.1974ms
+2024-04-01 10:59:13.910 +02:00 [INF] Request starting HTTP/2 GET https://localhost:7178/_vs/browserLink - null null
+2024-04-01 10:59:13.935 +02:00 [INF] Request finished HTTP/2 GET https://localhost:7178/_vs/browserLink - 200 null text/javascript; charset=UTF-8 24.8255ms
+2024-04-01 10:59:23.511 +02:00 [INF] Request starting HTTP/2 POST https://localhost:7178/Identity/Account/Login - application/x-www-form-urlencoded 294
+2024-04-01 10:59:23.516 +02:00 [INF] Executing endpoint '/Account/Login'
+2024-04-01 10:59:23.517 +02:00 [INF] Route matched with {page = "/Account/Login", area = "Identity", action = "", controller = ""}. Executing page /Account/Login
+2024-04-01 10:59:23.529 +02:00 [INF] Executing handler method Schedulist.App.Areas.Identity.Pages.Account.LoginModel.OnPostAsync - ModelState is "Valid"
+2024-04-01 10:59:23.533 +02:00 [INF] Executed DbCommand (1ms) [Parameters=[@__normalizedUserName_0='?' (Size = 256)], CommandType='"Text"', CommandTimeout='30']
 SELECT TOP(1) [a].[Id], [a].[AccessFailedCount], [a].[ConcurrencyStamp], [a].[DepartmentId], [a].[Email], [a].[EmailConfirmed], [a].[LockoutEnabled], [a].[LockoutEnd], [a].[Name], [a].[NormalizedEmail], [a].[NormalizedUserName], [a].[PasswordHash], [a].[PhoneNumber], [a].[PhoneNumberConfirmed], [a].[PositionId], [a].[SecurityStamp], [a].[Surname], [a].[TwoFactorEnabled], [a].[UserName]
 FROM [AspNetUsers] AS [a]
 WHERE [a].[NormalizedUserName] = @__normalizedUserName_0
-2024-04-01 10:27:13.249 +02:00 [INF] Executed ViewResult - view Management executed in 34.4602ms.
-2024-04-01 10:27:13.251 +02:00 [INF] Executed action Schedulist.App.Controllers.AdminController.Management (Schedulist.App) in 107.4497ms
-2024-04-01 10:27:13.252 +02:00 [INF] Executed endpoint 'Schedulist.App.Controllers.AdminController.Management (Schedulist.App)'
-2024-04-01 10:27:13.253 +02:00 [INF] Request finished HTTP/2 GET https://localhost:7178/Admin/Management - 200 null text/html; charset=utf-8 133.3522ms
-2024-04-01 10:27:13.257 +02:00 [INF] Request starting HTTP/2 GET https://localhost:7178/css/site.css?v=nLlIsGQKu-LfnpkSX1SA5DuSaBu4NZdNLOhYFdiFJAo - null null
-2024-04-01 10:27:13.258 +02:00 [INF] Request starting HTTP/2 GET https://localhost:7178/_vs/browserLink - null null
-2024-04-01 10:27:13.258 +02:00 [INF] Request starting HTTP/2 GET https://localhost:7178/_framework/aspnetcore-browser-refresh.js - null null
-2024-04-01 10:27:13.261 +02:00 [INF] The file /css/site.css was not modified
-2024-04-01 10:27:13.269 +02:00 [INF] Request finished HTTP/2 GET https://localhost:7178/_framework/aspnetcore-browser-refresh.js - 200 13764 application/javascript; charset=utf-8 11.3362ms
-2024-04-01 10:27:13.270 +02:00 [INF] Request finished HTTP/2 GET https://localhost:7178/css/site.css?v=nLlIsGQKu-LfnpkSX1SA5DuSaBu4NZdNLOhYFdiFJAo - 304 null text/css 13.7907ms
-2024-04-01 10:27:13.290 +02:00 [INF] Request finished HTTP/2 GET https://localhost:7178/_vs/browserLink - 200 null text/javascript; charset=UTF-8 32.48ms
-2024-04-01 10:27:29.093 +02:00 [INF] User profile is available. Using 'C:\Users\Mariusz\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
-2024-04-01 10:27:29.519 +02:00 [INF] Now listening on: https://localhost:7178
-2024-04-01 10:27:29.521 +02:00 [INF] Now listening on: http://localhost:5291
-2024-04-01 10:27:29.566 +02:00 [INF] Application started. Press Ctrl+C to shut down.
-2024-04-01 10:27:29.568 +02:00 [INF] Hosting environment: Development
-2024-04-01 10:27:29.569 +02:00 [INF] Content root path: C:\Users\Mariusz\Desktop\InfoShare\#4 Projekt grupowy Work-Schedule\jcszr11-WeCSharp\Schedulist.App
-2024-04-01 10:27:30.525 +02:00 [INF] Request starting HTTP/2 GET https://localhost:7178/ - null null
-2024-04-01 10:27:30.809 +02:00 [INF] Executing endpoint 'Schedulist.App.Controllers.CalendarController.Index (Schedulist.App)'
-2024-04-01 10:27:30.828 +02:00 [INF] Route matched with {action = "Index", controller = "Calendar", page = "", area = ""}. Executing controller action with signature Microsoft.AspNetCore.Mvc.IActionResult Index() on controller Schedulist.App.Controllers.CalendarController (Schedulist.App).
-2024-04-01 10:27:31.896 +02:00 [INF] Executed DbCommand (15ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+2024-04-01 10:59:23.642 +02:00 [INF] Executed DbCommand (2ms) [Parameters=[@__user_Id_0='?' (Size = 450)], CommandType='"Text"', CommandTimeout='30']
+SELECT [a].[Id], [a].[ClaimType], [a].[ClaimValue], [a].[UserId]
+FROM [AspNetUserClaims] AS [a]
+WHERE [a].[UserId] = @__user_Id_0
+2024-04-01 10:59:23.670 +02:00 [INF] Executed DbCommand (4ms) [Parameters=[@__userId_0='?' (Size = 450)], CommandType='"Text"', CommandTimeout='30']
+SELECT [a0].[Name]
+FROM [AspNetUserRoles] AS [a]
+INNER JOIN [AspNetRoles] AS [a0] ON [a].[RoleId] = [a0].[Id]
+WHERE [a].[UserId] = @__userId_0
+2024-04-01 10:59:23.680 +02:00 [INF] Executed DbCommand (2ms) [Parameters=[@__normalizedName_0='?' (Size = 256)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [a].[Id], [a].[ConcurrencyStamp], [a].[Name], [a].[NormalizedName]
+FROM [AspNetRoles] AS [a]
+WHERE [a].[NormalizedName] = @__normalizedName_0
+2024-04-01 10:59:23.697 +02:00 [INF] Executed DbCommand (2ms) [Parameters=[@__role_Id_0='?' (Size = 450)], CommandType='"Text"', CommandTimeout='30']
+SELECT [a].[ClaimType], [a].[ClaimValue]
+FROM [AspNetRoleClaims] AS [a]
+WHERE [a].[RoleId] = @__role_Id_0
+2024-04-01 10:59:23.702 +02:00 [INF] AuthenticationScheme: Identity.Application signed in.
+2024-04-01 10:59:23.704 +02:00 [INF] User logged in.
+2024-04-01 10:59:23.706 +02:00 [INF] Executed handler method OnPostAsync, returned result Microsoft.AspNetCore.Mvc.LocalRedirectResult.
+2024-04-01 10:59:23.708 +02:00 [INF] Executing LocalRedirectResult, redirecting to /.
+2024-04-01 10:59:23.709 +02:00 [INF] Executed page /Account/Login in 190.612ms
+2024-04-01 10:59:23.710 +02:00 [INF] Executed endpoint '/Account/Login'
+2024-04-01 10:59:23.711 +02:00 [INF] Request finished HTTP/2 POST https://localhost:7178/Identity/Account/Login - 302 0 null 199.8013ms
+2024-04-01 10:59:23.713 +02:00 [INF] Request starting HTTP/2 GET https://localhost:7178/ - null null
+2024-04-01 10:59:23.717 +02:00 [INF] Executing endpoint 'Schedulist.App.Controllers.CalendarController.Index (Schedulist.App)'
+2024-04-01 10:59:23.718 +02:00 [INF] Route matched with {action = "Index", controller = "Calendar", page = "", area = ""}. Executing controller action with signature Microsoft.AspNetCore.Mvc.IActionResult Index() on controller Schedulist.App.Controllers.CalendarController (Schedulist.App).
+2024-04-01 10:59:23.722 +02:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
 SELECT [a].[Id], [a].[AccessFailedCount], [a].[ConcurrencyStamp], [a].[DepartmentId], [a].[Email], [a].[EmailConfirmed], [a].[LockoutEnabled], [a].[LockoutEnd], [a].[Name], [a].[NormalizedEmail], [a].[NormalizedUserName], [a].[PasswordHash], [a].[PhoneNumber], [a].[PhoneNumberConfirmed], [a].[PositionId], [a].[SecurityStamp], [a].[Surname], [a].[TwoFactorEnabled], [a].[UserName]
 FROM [AspNetUsers] AS [a]
-2024-04-01 10:27:31.990 +02:00 [INF] Executed DbCommand (3ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+2024-04-01 10:59:23.725 +02:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
 SELECT [c].[Id], [c].[CalendarEventDate], [c].[CalendarEventDescription], [c].[CalendarEventEndTime], [c].[CalendarEventName], [c].[CalendarEventStartTime], [c].[UserId]
 FROM [CalendarEvents] AS [c]
-2024-04-01 10:27:32.028 +02:00 [INF] Executed DbCommand (3ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+2024-04-01 10:59:23.727 +02:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
 SELECT [w].[Id], [w].[DateOfWorkMode], [w].[UserId], [w].[WorkModeId]
 FROM [WorkModesToUsers] AS [w]
-2024-04-01 10:27:32.048 +02:00 [INF] Executing ViewResult, running view Index.
-2024-04-01 10:27:32.229 +02:00 [INF] Executed DbCommand (25ms) [Parameters=[@__normalizedUserName_0='?' (Size = 256)], CommandType='"Text"', CommandTimeout='30']
+2024-04-01 10:59:23.729 +02:00 [INF] Executing ViewResult, running view Index.
+2024-04-01 10:59:23.733 +02:00 [INF] Executed DbCommand (1ms) [Parameters=[@__normalizedUserName_0='?' (Size = 256)], CommandType='"Text"', CommandTimeout='30']
 SELECT TOP(1) [a].[Id], [a].[AccessFailedCount], [a].[ConcurrencyStamp], [a].[DepartmentId], [a].[Email], [a].[EmailConfirmed], [a].[LockoutEnabled], [a].[LockoutEnd], [a].[Name], [a].[NormalizedEmail], [a].[NormalizedUserName], [a].[PasswordHash], [a].[PhoneNumber], [a].[PhoneNumberConfirmed], [a].[PositionId], [a].[SecurityStamp], [a].[Surname], [a].[TwoFactorEnabled], [a].[UserName]
 FROM [AspNetUsers] AS [a]
 WHERE [a].[NormalizedUserName] = @__normalizedUserName_0
-2024-04-01 10:27:32.298 +02:00 [INF] Request starting HTTP/2 GET https://localhost:7178/css/site.css?v=q_ZRLmhxL-7IBQ0qD32sq6H3i2QQ9HrEXYz1c7ayLxY - null null
-2024-04-01 10:27:32.302 +02:00 [INF] Executed ViewResult - view Index executed in 255.3438ms.
-2024-04-01 10:27:32.308 +02:00 [INF] Executed action Schedulist.App.Controllers.CalendarController.Index (Schedulist.App) in 1477.1496ms
-2024-04-01 10:27:32.309 +02:00 [INF] Executed endpoint 'Schedulist.App.Controllers.CalendarController.Index (Schedulist.App)'
-2024-04-01 10:27:32.327 +02:00 [INF] Request finished HTTP/2 GET https://localhost:7178/ - 200 null text/html; charset=utf-8 1814.2503ms
-2024-04-01 10:27:32.329 +02:00 [INF] Sending file. Request path: '/css/site.css'. Physical path: 'C:\Users\Mariusz\Desktop\InfoShare\#4 Projekt grupowy Work-Schedule\jcszr11-WeCSharp\Schedulist.App\wwwroot\css\site.css'
-2024-04-01 10:27:32.331 +02:00 [INF] Request finished HTTP/2 GET https://localhost:7178/css/site.css?v=q_ZRLmhxL-7IBQ0qD32sq6H3i2QQ9HrEXYz1c7ayLxY - 200 10171 text/css 33.1423ms
-2024-04-01 10:27:32.350 +02:00 [INF] Request starting HTTP/2 GET https://localhost:7178/_framework/aspnetcore-browser-refresh.js - null null
-2024-04-01 10:27:32.356 +02:00 [INF] Request finished HTTP/2 GET https://localhost:7178/_framework/aspnetcore-browser-refresh.js - 200 13764 application/javascript; charset=utf-8 6.4181ms
-2024-04-01 10:27:32.487 +02:00 [INF] Request starting HTTP/2 GET https://localhost:7178/_vs/browserLink - null null
-2024-04-01 10:27:32.512 +02:00 [INF] Request starting HTTP/1.1 GET https://localhost:7178/lib/bootstrap/dist/js/bootstrap.bundle.min.js.map - null null
-2024-04-01 10:27:32.537 +02:00 [INF] Sending file. Request path: '/lib/bootstrap/dist/js/bootstrap.bundle.min.js.map'. Physical path: 'C:\Users\Mariusz\Desktop\InfoShare\#4 Projekt grupowy Work-Schedule\jcszr11-WeCSharp\Schedulist.App\wwwroot\lib\bootstrap\dist\js\bootstrap.bundle.min.js.map'
-2024-04-01 10:27:32.540 +02:00 [INF] Request finished HTTP/1.1 GET https://localhost:7178/lib/bootstrap/dist/js/bootstrap.bundle.min.js.map - 200 327261 text/plain 27.4506ms
-2024-04-01 10:27:32.543 +02:00 [INF] Request finished HTTP/2 GET https://localhost:7178/_vs/browserLink - 200 null text/javascript; charset=UTF-8 55.9425ms
-2024-04-01 10:27:33.886 +02:00 [INF] Request starting HTTP/2 GET https://localhost:7178/Admin/Management - null null
-2024-04-01 10:27:33.928 +02:00 [INF] Executing endpoint 'Schedulist.App.Controllers.AdminController.Management (Schedulist.App)'
-2024-04-01 10:27:33.934 +02:00 [INF] Route matched with {action = "Management", controller = "Admin", page = "", area = ""}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] Management() on controller Schedulist.App.Controllers.AdminController (Schedulist.App).
-2024-04-01 10:27:33.957 +02:00 [INF] Executed DbCommand (4ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+2024-04-01 10:59:23.739 +02:00 [INF] Executed ViewResult - view Index executed in 10.1673ms.
+2024-04-01 10:59:23.740 +02:00 [INF] Executed action Schedulist.App.Controllers.CalendarController.Index (Schedulist.App) in 20.4537ms
+2024-04-01 10:59:23.741 +02:00 [INF] Executed endpoint 'Schedulist.App.Controllers.CalendarController.Index (Schedulist.App)'
+2024-04-01 10:59:23.742 +02:00 [INF] Request finished HTTP/2 GET https://localhost:7178/ - 200 null text/html; charset=utf-8 29.4349ms
+2024-04-01 10:59:23.744 +02:00 [INF] Request starting HTTP/2 GET https://localhost:7178/_vs/browserLink - null null
+2024-04-01 10:59:23.744 +02:00 [INF] Request starting HTTP/2 GET https://localhost:7178/_framework/aspnetcore-browser-refresh.js - null null
+2024-04-01 10:59:23.754 +02:00 [INF] Request finished HTTP/2 GET https://localhost:7178/_framework/aspnetcore-browser-refresh.js - 200 13764 application/javascript; charset=utf-8 9.3771ms
+2024-04-01 10:59:23.760 +02:00 [INF] Request finished HTTP/2 GET https://localhost:7178/_vs/browserLink - 200 null text/javascript; charset=UTF-8 15.5984ms
+2024-04-01 10:59:29.160 +02:00 [INF] Request starting HTTP/2 GET https://localhost:7178/Admin/Management - null null
+2024-04-01 10:59:29.168 +02:00 [INF] Executing endpoint 'Schedulist.App.Controllers.AdminController.Management (Schedulist.App)'
+2024-04-01 10:59:29.172 +02:00 [INF] Route matched with {action = "Management", controller = "Admin", page = "", area = ""}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] Management() on controller Schedulist.App.Controllers.AdminController (Schedulist.App).
+2024-04-01 10:59:32.732 +02:00 [INF] Executed DbCommand (8ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
 SELECT [a].[Id], [a].[AccessFailedCount], [a].[ConcurrencyStamp], [a].[DepartmentId], [a].[Email], [a].[EmailConfirmed], [a].[LockoutEnabled], [a].[LockoutEnd], [a].[Name], [a].[NormalizedEmail], [a].[NormalizedUserName], [a].[PasswordHash], [a].[PhoneNumber], [a].[PhoneNumberConfirmed], [a].[PositionId], [a].[SecurityStamp], [a].[Surname], [a].[TwoFactorEnabled], [a].[UserName]
 FROM [AspNetUsers] AS [a]
-2024-04-01 10:27:34.009 +02:00 [INF] Executed DbCommand (8ms) [Parameters=[@__userId_0='?' (Size = 450)], CommandType='"Text"', CommandTimeout='30']
+2024-04-01 10:59:32.739 +02:00 [INF] Executed DbCommand (3ms) [Parameters=[@__userId_0='?' (Size = 450)], CommandType='"Text"', CommandTimeout='30']
 SELECT [a0].[Name]
 FROM [AspNetUserRoles] AS [a]
 INNER JOIN [AspNetRoles] AS [a0] ON [a].[RoleId] = [a0].[Id]
 WHERE [a].[UserId] = @__userId_0
-2024-04-01 10:27:34.018 +02:00 [INF] Executed DbCommand (1ms) [Parameters=[@__userId_0='?' (Size = 450)], CommandType='"Text"', CommandTimeout='30']
+2024-04-01 10:59:32.743 +02:00 [INF] Executed DbCommand (1ms) [Parameters=[@__userId_0='?' (Size = 450)], CommandType='"Text"', CommandTimeout='30']
 SELECT [a0].[Name]
 FROM [AspNetUserRoles] AS [a]
 INNER JOIN [AspNetRoles] AS [a0] ON [a].[RoleId] = [a0].[Id]
 WHERE [a].[UserId] = @__userId_0
-2024-04-01 10:27:34.027 +02:00 [INF] Executed DbCommand (1ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+2024-04-01 10:59:32.760 +02:00 [INF] Executed DbCommand (11ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
 SELECT [w].[Id], [w].[Name]
 FROM [WorkModes] AS [w]
-2024-04-01 10:27:34.036 +02:00 [INF] Executing ViewResult, running view Management.
-2024-04-01 10:27:34.103 +02:00 [INF] Executed DbCommand (3ms) [Parameters=[@__normalizedUserName_0='?' (Size = 256)], CommandType='"Text"', CommandTimeout='30']
+2024-04-01 10:59:32.768 +02:00 [INF] Executing ViewResult, running view Management.
+2024-04-01 10:59:32.810 +02:00 [INF] Executed DbCommand (11ms) [Parameters=[@__normalizedUserName_0='?' (Size = 256)], CommandType='"Text"', CommandTimeout='30']
 SELECT TOP(1) [a].[Id], [a].[AccessFailedCount], [a].[ConcurrencyStamp], [a].[DepartmentId], [a].[Email], [a].[EmailConfirmed], [a].[LockoutEnabled], [a].[LockoutEnd], [a].[Name], [a].[NormalizedEmail], [a].[NormalizedUserName], [a].[PasswordHash], [a].[PhoneNumber], [a].[PhoneNumberConfirmed], [a].[PositionId], [a].[SecurityStamp], [a].[Surname], [a].[TwoFactorEnabled], [a].[UserName]
 FROM [AspNetUsers] AS [a]
 WHERE [a].[NormalizedUserName] = @__normalizedUserName_0
-2024-04-01 10:27:34.110 +02:00 [INF] Executed ViewResult - view Management executed in 74.1985ms.
-2024-04-01 10:27:34.111 +02:00 [INF] Executed action Schedulist.App.Controllers.AdminController.Management (Schedulist.App) in 175.2365ms
-2024-04-01 10:27:34.112 +02:00 [INF] Executed endpoint 'Schedulist.App.Controllers.AdminController.Management (Schedulist.App)'
-2024-04-01 10:27:34.114 +02:00 [INF] Request finished HTTP/2 GET https://localhost:7178/Admin/Management - 200 null text/html; charset=utf-8 228.1638ms
-2024-04-01 10:27:34.116 +02:00 [INF] Request starting HTTP/2 GET https://localhost:7178/css/site.css?v=q_ZRLmhxL-7IBQ0qD32sq6H3i2QQ9HrEXYz1c7ayLxY - null null
-2024-04-01 10:27:34.117 +02:00 [INF] Request starting HTTP/2 GET https://localhost:7178/_vs/browserLink - null null
-2024-04-01 10:27:34.117 +02:00 [INF] Request starting HTTP/2 GET https://localhost:7178/_framework/aspnetcore-browser-refresh.js - null null
-2024-04-01 10:27:34.122 +02:00 [INF] The file /css/site.css was not modified
-2024-04-01 10:27:34.125 +02:00 [INF] Request finished HTTP/2 GET https://localhost:7178/_framework/aspnetcore-browser-refresh.js - 200 13764 application/javascript; charset=utf-8 8.0444ms
-2024-04-01 10:27:34.126 +02:00 [INF] Request finished HTTP/2 GET https://localhost:7178/css/site.css?v=q_ZRLmhxL-7IBQ0qD32sq6H3i2QQ9HrEXYz1c7ayLxY - 304 null text/css 10.1905ms
-2024-04-01 10:27:34.135 +02:00 [INF] Request finished HTTP/2 GET https://localhost:7178/_vs/browserLink - 200 null text/javascript; charset=UTF-8 18.6671ms
-2024-04-01 10:29:21.660 +02:00 [INF] Request starting HTTP/2 GET https://localhost:7178/Admin/Management - null null
-2024-04-01 10:29:21.673 +02:00 [INF] Executing endpoint 'Schedulist.App.Controllers.AdminController.Management (Schedulist.App)'
-2024-04-01 10:29:21.676 +02:00 [INF] Route matched with {action = "Management", controller = "Admin", page = "", area = ""}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] Management() on controller Schedulist.App.Controllers.AdminController (Schedulist.App).
-2024-04-01 10:29:21.728 +02:00 [INF] Executed DbCommand (9ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
-SELECT [a].[Id], [a].[AccessFailedCount], [a].[ConcurrencyStamp], [a].[DepartmentId], [a].[Email], [a].[EmailConfirmed], [a].[LockoutEnabled], [a].[LockoutEnd], [a].[Name], [a].[NormalizedEmail], [a].[NormalizedUserName], [a].[PasswordHash], [a].[PhoneNumber], [a].[PhoneNumberConfirmed], [a].[PositionId], [a].[SecurityStamp], [a].[Surname], [a].[TwoFactorEnabled], [a].[UserName]
-FROM [AspNetUsers] AS [a]
-2024-04-01 10:29:21.736 +02:00 [INF] Executed DbCommand (4ms) [Parameters=[@__userId_0='?' (Size = 450)], CommandType='"Text"', CommandTimeout='30']
-SELECT [a0].[Name]
-FROM [AspNetUserRoles] AS [a]
-INNER JOIN [AspNetRoles] AS [a0] ON [a].[RoleId] = [a0].[Id]
-WHERE [a].[UserId] = @__userId_0
-2024-04-01 10:29:21.740 +02:00 [INF] Executed DbCommand (1ms) [Parameters=[@__userId_0='?' (Size = 450)], CommandType='"Text"', CommandTimeout='30']
-SELECT [a0].[Name]
-FROM [AspNetUserRoles] AS [a]
-INNER JOIN [AspNetRoles] AS [a0] ON [a].[RoleId] = [a0].[Id]
-WHERE [a].[UserId] = @__userId_0
-2024-04-01 10:29:21.744 +02:00 [INF] Executed DbCommand (2ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
-SELECT [w].[Id], [w].[Name]
-FROM [WorkModes] AS [w]
-2024-04-01 10:29:21.748 +02:00 [INF] Executing ViewResult, running view Management.
-2024-04-01 10:29:21.777 +02:00 [INF] Executed DbCommand (3ms) [Parameters=[@__normalizedUserName_0='?' (Size = 256)], CommandType='"Text"', CommandTimeout='30']
-SELECT TOP(1) [a].[Id], [a].[AccessFailedCount], [a].[ConcurrencyStamp], [a].[DepartmentId], [a].[Email], [a].[EmailConfirmed], [a].[LockoutEnabled], [a].[LockoutEnd], [a].[Name], [a].[NormalizedEmail], [a].[NormalizedUserName], [a].[PasswordHash], [a].[PhoneNumber], [a].[PhoneNumberConfirmed], [a].[PositionId], [a].[SecurityStamp], [a].[Surname], [a].[TwoFactorEnabled], [a].[UserName]
-FROM [AspNetUsers] AS [a]
-WHERE [a].[NormalizedUserName] = @__normalizedUserName_0
-2024-04-01 10:29:21.781 +02:00 [INF] Executed ViewResult - view Management executed in 34.9434ms.
-2024-04-01 10:29:21.783 +02:00 [INF] Executed action Schedulist.App.Controllers.AdminController.Management (Schedulist.App) in 104.6098ms
-2024-04-01 10:29:21.784 +02:00 [INF] Executed endpoint 'Schedulist.App.Controllers.AdminController.Management (Schedulist.App)'
-2024-04-01 10:29:21.786 +02:00 [INF] Request finished HTTP/2 GET https://localhost:7178/Admin/Management - 200 null text/html; charset=utf-8 125.7469ms
-2024-04-01 10:29:21.789 +02:00 [INF] Request starting HTTP/2 GET https://localhost:7178/css/site.css?v=q_ZRLmhxL-7IBQ0qD32sq6H3i2QQ9HrEXYz1c7ayLxY - null null
-2024-04-01 10:29:21.790 +02:00 [INF] Request starting HTTP/2 GET https://localhost:7178/_vs/browserLink - null null
-2024-04-01 10:29:21.790 +02:00 [INF] Request starting HTTP/2 GET https://localhost:7178/_framework/aspnetcore-browser-refresh.js - null null
-2024-04-01 10:29:21.793 +02:00 [INF] The file /css/site.css was not modified
-2024-04-01 10:29:21.802 +02:00 [INF] Request finished HTTP/2 GET https://localhost:7178/_framework/aspnetcore-browser-refresh.js - 200 13764 application/javascript; charset=utf-8 12.2171ms
-2024-04-01 10:29:21.803 +02:00 [INF] Request finished HTTP/2 GET https://localhost:7178/css/site.css?v=q_ZRLmhxL-7IBQ0qD32sq6H3i2QQ9HrEXYz1c7ayLxY - 304 null text/css 14.1474ms
-2024-04-01 10:29:21.825 +02:00 [INF] Request finished HTTP/2 GET https://localhost:7178/_vs/browserLink - 200 null text/javascript; charset=UTF-8 35.6648ms
-2024-04-01 10:29:32.053 +02:00 [INF] User profile is available. Using 'C:\Users\Mariusz\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
-2024-04-01 10:29:32.465 +02:00 [INF] Now listening on: https://localhost:7178
-2024-04-01 10:29:32.466 +02:00 [INF] Now listening on: http://localhost:5291
-2024-04-01 10:29:32.498 +02:00 [INF] Application started. Press Ctrl+C to shut down.
-2024-04-01 10:29:32.499 +02:00 [INF] Hosting environment: Development
-2024-04-01 10:29:32.500 +02:00 [INF] Content root path: C:\Users\Mariusz\Desktop\InfoShare\#4 Projekt grupowy Work-Schedule\jcszr11-WeCSharp\Schedulist.App
-2024-04-01 10:29:33.445 +02:00 [INF] Request starting HTTP/2 GET https://localhost:7178/ - null null
-2024-04-01 10:29:33.747 +02:00 [INF] Executing endpoint 'Schedulist.App.Controllers.CalendarController.Index (Schedulist.App)'
-2024-04-01 10:29:33.767 +02:00 [INF] Route matched with {action = "Index", controller = "Calendar", page = "", area = ""}. Executing controller action with signature Microsoft.AspNetCore.Mvc.IActionResult Index() on controller Schedulist.App.Controllers.CalendarController (Schedulist.App).
-2024-04-01 10:29:34.837 +02:00 [INF] Executed DbCommand (14ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
-SELECT [a].[Id], [a].[AccessFailedCount], [a].[ConcurrencyStamp], [a].[DepartmentId], [a].[Email], [a].[EmailConfirmed], [a].[LockoutEnabled], [a].[LockoutEnd], [a].[Name], [a].[NormalizedEmail], [a].[NormalizedUserName], [a].[PasswordHash], [a].[PhoneNumber], [a].[PhoneNumberConfirmed], [a].[PositionId], [a].[SecurityStamp], [a].[Surname], [a].[TwoFactorEnabled], [a].[UserName]
-FROM [AspNetUsers] AS [a]
-2024-04-01 10:29:34.930 +02:00 [INF] Executed DbCommand (3ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
-SELECT [c].[Id], [c].[CalendarEventDate], [c].[CalendarEventDescription], [c].[CalendarEventEndTime], [c].[CalendarEventName], [c].[CalendarEventStartTime], [c].[UserId]
-FROM [CalendarEvents] AS [c]
-2024-04-01 10:29:34.969 +02:00 [INF] Executed DbCommand (3ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
-SELECT [w].[Id], [w].[DateOfWorkMode], [w].[UserId], [w].[WorkModeId]
-FROM [WorkModesToUsers] AS [w]
-2024-04-01 10:29:34.986 +02:00 [INF] Executing ViewResult, running view Index.
-2024-04-01 10:29:35.147 +02:00 [INF] Executed DbCommand (23ms) [Parameters=[@__normalizedUserName_0='?' (Size = 256)], CommandType='"Text"', CommandTimeout='30']
-SELECT TOP(1) [a].[Id], [a].[AccessFailedCount], [a].[ConcurrencyStamp], [a].[DepartmentId], [a].[Email], [a].[EmailConfirmed], [a].[LockoutEnabled], [a].[LockoutEnd], [a].[Name], [a].[NormalizedEmail], [a].[NormalizedUserName], [a].[PasswordHash], [a].[PhoneNumber], [a].[PhoneNumberConfirmed], [a].[PositionId], [a].[SecurityStamp], [a].[Surname], [a].[TwoFactorEnabled], [a].[UserName]
-FROM [AspNetUsers] AS [a]
-WHERE [a].[NormalizedUserName] = @__normalizedUserName_0
-2024-04-01 10:29:35.210 +02:00 [INF] Request starting HTTP/2 GET https://localhost:7178/css/site.css?v=q_ZRLmhxL-7IBQ0qD32sq6H3i2QQ9HrEXYz1c7ayLxY - null null
-2024-04-01 10:29:35.212 +02:00 [INF] Executed ViewResult - view Index executed in 225.9471ms.
-2024-04-01 10:29:35.218 +02:00 [INF] Executed action Schedulist.App.Controllers.CalendarController.Index (Schedulist.App) in 1448.4481ms
-2024-04-01 10:29:35.220 +02:00 [INF] Executed endpoint 'Schedulist.App.Controllers.CalendarController.Index (Schedulist.App)'
-2024-04-01 10:29:35.223 +02:00 [INF] The file /css/site.css was not modified
-2024-04-01 10:29:35.229 +02:00 [INF] Request finished HTTP/2 GET https://localhost:7178/css/site.css?v=q_ZRLmhxL-7IBQ0qD32sq6H3i2QQ9HrEXYz1c7ayLxY - 304 null text/css 18.3412ms
-2024-04-01 10:29:35.233 +02:00 [INF] Request finished HTTP/2 GET https://localhost:7178/ - 200 null text/html; charset=utf-8 1800.1958ms
-2024-04-01 10:29:35.253 +02:00 [INF] Request starting HTTP/2 GET https://localhost:7178/_framework/aspnetcore-browser-refresh.js - null null
-2024-04-01 10:29:35.259 +02:00 [INF] Request finished HTTP/2 GET https://localhost:7178/_framework/aspnetcore-browser-refresh.js - 200 13764 application/javascript; charset=utf-8 6.7385ms
-2024-04-01 10:29:35.368 +02:00 [INF] Request starting HTTP/2 GET https://localhost:7178/_vs/browserLink - null null
-2024-04-01 10:29:35.392 +02:00 [INF] Request starting HTTP/1.1 GET https://localhost:7178/lib/bootstrap/dist/js/bootstrap.bundle.min.js.map - null null
-2024-04-01 10:29:35.421 +02:00 [INF] Request finished HTTP/2 GET https://localhost:7178/_vs/browserLink - 200 null text/javascript; charset=UTF-8 53.2382ms
-2024-04-01 10:29:35.431 +02:00 [INF] Sending file. Request path: '/lib/bootstrap/dist/js/bootstrap.bundle.min.js.map'. Physical path: 'C:\Users\Mariusz\Desktop\InfoShare\#4 Projekt grupowy Work-Schedule\jcszr11-WeCSharp\Schedulist.App\wwwroot\lib\bootstrap\dist\js\bootstrap.bundle.min.js.map'
-2024-04-01 10:29:35.432 +02:00 [INF] Request finished HTTP/1.1 GET https://localhost:7178/lib/bootstrap/dist/js/bootstrap.bundle.min.js.map - 200 327261 text/plain 40.7627ms
-2024-04-01 10:29:36.678 +02:00 [INF] Request starting HTTP/2 GET https://localhost:7178/Admin/Management - null null
-2024-04-01 10:29:36.708 +02:00 [INF] Executing endpoint 'Schedulist.App.Controllers.AdminController.Management (Schedulist.App)'
-2024-04-01 10:29:36.717 +02:00 [INF] Route matched with {action = "Management", controller = "Admin", page = "", area = ""}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] Management() on controller Schedulist.App.Controllers.AdminController (Schedulist.App).
-2024-04-01 10:29:36.733 +02:00 [INF] Executed DbCommand (1ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
-SELECT [a].[Id], [a].[AccessFailedCount], [a].[ConcurrencyStamp], [a].[DepartmentId], [a].[Email], [a].[EmailConfirmed], [a].[LockoutEnabled], [a].[LockoutEnd], [a].[Name], [a].[NormalizedEmail], [a].[NormalizedUserName], [a].[PasswordHash], [a].[PhoneNumber], [a].[PhoneNumberConfirmed], [a].[PositionId], [a].[SecurityStamp], [a].[Surname], [a].[TwoFactorEnabled], [a].[UserName]
-FROM [AspNetUsers] AS [a]
-2024-04-01 10:29:36.781 +02:00 [INF] Executed DbCommand (5ms) [Parameters=[@__userId_0='?' (Size = 450)], CommandType='"Text"', CommandTimeout='30']
-SELECT [a0].[Name]
-FROM [AspNetUserRoles] AS [a]
-INNER JOIN [AspNetRoles] AS [a0] ON [a].[RoleId] = [a0].[Id]
-WHERE [a].[UserId] = @__userId_0
-2024-04-01 10:29:36.791 +02:00 [INF] Executed DbCommand (1ms) [Parameters=[@__userId_0='?' (Size = 450)], CommandType='"Text"', CommandTimeout='30']
-SELECT [a0].[Name]
-FROM [AspNetUserRoles] AS [a]
-INNER JOIN [AspNetRoles] AS [a0] ON [a].[RoleId] = [a0].[Id]
-WHERE [a].[UserId] = @__userId_0
-2024-04-01 10:29:36.798 +02:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
-SELECT [w].[Id], [w].[Name]
-FROM [WorkModes] AS [w]
-2024-04-01 10:29:36.810 +02:00 [INF] Executing ViewResult, running view Management.
-2024-04-01 10:29:36.865 +02:00 [INF] Executed DbCommand (1ms) [Parameters=[@__normalizedUserName_0='?' (Size = 256)], CommandType='"Text"', CommandTimeout='30']
-SELECT TOP(1) [a].[Id], [a].[AccessFailedCount], [a].[ConcurrencyStamp], [a].[DepartmentId], [a].[Email], [a].[EmailConfirmed], [a].[LockoutEnabled], [a].[LockoutEnd], [a].[Name], [a].[NormalizedEmail], [a].[NormalizedUserName], [a].[PasswordHash], [a].[PhoneNumber], [a].[PhoneNumberConfirmed], [a].[PositionId], [a].[SecurityStamp], [a].[Surname], [a].[TwoFactorEnabled], [a].[UserName]
-FROM [AspNetUsers] AS [a]
-WHERE [a].[NormalizedUserName] = @__normalizedUserName_0
-2024-04-01 10:29:36.872 +02:00 [INF] Executed ViewResult - view Management executed in 63.9235ms.
-2024-04-01 10:29:36.873 +02:00 [INF] Executed action Schedulist.App.Controllers.AdminController.Management (Schedulist.App) in 154.5338ms
-2024-04-01 10:29:36.875 +02:00 [INF] Executed endpoint 'Schedulist.App.Controllers.AdminController.Management (Schedulist.App)'
-2024-04-01 10:29:36.876 +02:00 [INF] Request finished HTTP/2 GET https://localhost:7178/Admin/Management - 200 null text/html; charset=utf-8 198.6051ms
-2024-04-01 10:29:36.880 +02:00 [INF] Request starting HTTP/2 GET https://localhost:7178/_vs/browserLink - null null
-2024-04-01 10:29:36.880 +02:00 [INF] Request starting HTTP/2 GET https://localhost:7178/_framework/aspnetcore-browser-refresh.js - null null
-2024-04-01 10:29:36.887 +02:00 [INF] Request finished HTTP/2 GET https://localhost:7178/_framework/aspnetcore-browser-refresh.js - 200 13764 application/javascript; charset=utf-8 6.3363ms
-2024-04-01 10:29:36.907 +02:00 [INF] Request finished HTTP/2 GET https://localhost:7178/_vs/browserLink - 200 null text/javascript; charset=UTF-8 27.1774ms
-2024-04-01 10:30:11.382 +02:00 [INF] Request starting HTTP/2 GET https://localhost:7178/Admin/Management - null null
-2024-04-01 10:30:11.392 +02:00 [INF] Executing endpoint 'Schedulist.App.Controllers.AdminController.Management (Schedulist.App)'
-2024-04-01 10:30:11.396 +02:00 [INF] Route matched with {action = "Management", controller = "Admin", page = "", area = ""}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] Management() on controller Schedulist.App.Controllers.AdminController (Schedulist.App).
-2024-04-01 10:30:11.447 +02:00 [INF] Executed DbCommand (9ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
-SELECT [a].[Id], [a].[AccessFailedCount], [a].[ConcurrencyStamp], [a].[DepartmentId], [a].[Email], [a].[EmailConfirmed], [a].[LockoutEnabled], [a].[LockoutEnd], [a].[Name], [a].[NormalizedEmail], [a].[NormalizedUserName], [a].[PasswordHash], [a].[PhoneNumber], [a].[PhoneNumberConfirmed], [a].[PositionId], [a].[SecurityStamp], [a].[Surname], [a].[TwoFactorEnabled], [a].[UserName]
-FROM [AspNetUsers] AS [a]
-2024-04-01 10:30:11.455 +02:00 [INF] Executed DbCommand (5ms) [Parameters=[@__userId_0='?' (Size = 450)], CommandType='"Text"', CommandTimeout='30']
-SELECT [a0].[Name]
-FROM [AspNetUserRoles] AS [a]
-INNER JOIN [AspNetRoles] AS [a0] ON [a].[RoleId] = [a0].[Id]
-WHERE [a].[UserId] = @__userId_0
-2024-04-01 10:30:11.459 +02:00 [INF] Executed DbCommand (1ms) [Parameters=[@__userId_0='?' (Size = 450)], CommandType='"Text"', CommandTimeout='30']
-SELECT [a0].[Name]
-FROM [AspNetUserRoles] AS [a]
-INNER JOIN [AspNetRoles] AS [a0] ON [a].[RoleId] = [a0].[Id]
-WHERE [a].[UserId] = @__userId_0
-2024-04-01 10:30:11.463 +02:00 [INF] Executed DbCommand (2ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
-SELECT [w].[Id], [w].[Name]
-FROM [WorkModes] AS [w]
-2024-04-01 10:30:11.466 +02:00 [INF] Executing ViewResult, running view Management.
-2024-04-01 10:30:11.494 +02:00 [INF] Executed DbCommand (3ms) [Parameters=[@__normalizedUserName_0='?' (Size = 256)], CommandType='"Text"', CommandTimeout='30']
-SELECT TOP(1) [a].[Id], [a].[AccessFailedCount], [a].[ConcurrencyStamp], [a].[DepartmentId], [a].[Email], [a].[EmailConfirmed], [a].[LockoutEnabled], [a].[LockoutEnd], [a].[Name], [a].[NormalizedEmail], [a].[NormalizedUserName], [a].[PasswordHash], [a].[PhoneNumber], [a].[PhoneNumberConfirmed], [a].[PositionId], [a].[SecurityStamp], [a].[Surname], [a].[TwoFactorEnabled], [a].[UserName]
-FROM [AspNetUsers] AS [a]
-WHERE [a].[NormalizedUserName] = @__normalizedUserName_0
-2024-04-01 10:30:11.499 +02:00 [INF] Executed ViewResult - view Management executed in 34.1658ms.
-2024-04-01 10:30:11.500 +02:00 [INF] Executed action Schedulist.App.Controllers.AdminController.Management (Schedulist.App) in 102.2204ms
-2024-04-01 10:30:11.501 +02:00 [INF] Executed endpoint 'Schedulist.App.Controllers.AdminController.Management (Schedulist.App)'
-2024-04-01 10:30:11.502 +02:00 [INF] Request finished HTTP/2 GET https://localhost:7178/Admin/Management - 200 null text/html; charset=utf-8 120.5308ms
-2024-04-01 10:30:11.506 +02:00 [INF] Request starting HTTP/2 GET https://localhost:7178/css/site.css?v=q_ZRLmhxL-7IBQ0qD32sq6H3i2QQ9HrEXYz1c7ayLxY - null null
-2024-04-01 10:30:11.507 +02:00 [INF] Request starting HTTP/2 GET https://localhost:7178/js/site.js?v=5EJZnV831W1miaPtLOW0q3KvpS0fiNfYLk13BcwE_lQ - null null
-2024-04-01 10:30:11.507 +02:00 [INF] Request starting HTTP/2 GET https://localhost:7178/_framework/aspnetcore-browser-refresh.js - null null
-2024-04-01 10:30:11.510 +02:00 [INF] The file /css/site.css was not modified
-2024-04-01 10:30:11.512 +02:00 [INF] The file /js/site.js was not modified
-2024-04-01 10:30:11.515 +02:00 [INF] Request finished HTTP/2 GET https://localhost:7178/_framework/aspnetcore-browser-refresh.js - 200 13764 application/javascript; charset=utf-8 7.049ms
-2024-04-01 10:30:11.515 +02:00 [INF] Request finished HTTP/2 GET https://localhost:7178/css/site.css?v=q_ZRLmhxL-7IBQ0qD32sq6H3i2QQ9HrEXYz1c7ayLxY - 304 null text/css 9.4668ms
-2024-04-01 10:30:11.520 +02:00 [INF] Request finished HTTP/2 GET https://localhost:7178/js/site.js?v=5EJZnV831W1miaPtLOW0q3KvpS0fiNfYLk13BcwE_lQ - 304 null text/javascript 13.8499ms
-2024-04-01 10:30:11.523 +02:00 [INF] Request starting HTTP/2 GET https://localhost:7178/_vs/browserLink - null null
-2024-04-01 10:30:11.544 +02:00 [INF] Request finished HTTP/2 GET https://localhost:7178/_vs/browserLink - 200 null text/javascript; charset=UTF-8 20.8533ms
-2024-04-01 10:31:20.689 +02:00 [INF] User profile is available. Using 'C:\Users\Mariusz\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
-2024-04-01 10:31:21.045 +02:00 [INF] Now listening on: https://localhost:7178
-2024-04-01 10:31:21.046 +02:00 [INF] Now listening on: http://localhost:5291
-2024-04-01 10:31:21.074 +02:00 [INF] Application started. Press Ctrl+C to shut down.
-2024-04-01 10:31:21.075 +02:00 [INF] Hosting environment: Development
-2024-04-01 10:31:21.076 +02:00 [INF] Content root path: C:\Users\Mariusz\Desktop\InfoShare\#4 Projekt grupowy Work-Schedule\jcszr11-WeCSharp\Schedulist.App
-2024-04-01 10:31:22.264 +02:00 [INF] Request starting HTTP/2 GET https://localhost:7178/ - null null
-2024-04-01 10:31:22.527 +02:00 [INF] Executing endpoint 'Schedulist.App.Controllers.CalendarController.Index (Schedulist.App)'
-2024-04-01 10:31:22.543 +02:00 [INF] Route matched with {action = "Index", controller = "Calendar", page = "", area = ""}. Executing controller action with signature Microsoft.AspNetCore.Mvc.IActionResult Index() on controller Schedulist.App.Controllers.CalendarController (Schedulist.App).
-2024-04-01 10:31:23.783 +02:00 [INF] Executed DbCommand (27ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
-SELECT [a].[Id], [a].[AccessFailedCount], [a].[ConcurrencyStamp], [a].[DepartmentId], [a].[Email], [a].[EmailConfirmed], [a].[LockoutEnabled], [a].[LockoutEnd], [a].[Name], [a].[NormalizedEmail], [a].[NormalizedUserName], [a].[PasswordHash], [a].[PhoneNumber], [a].[PhoneNumberConfirmed], [a].[PositionId], [a].[SecurityStamp], [a].[Surname], [a].[TwoFactorEnabled], [a].[UserName]
-FROM [AspNetUsers] AS [a]
-2024-04-01 10:31:23.880 +02:00 [INF] Executed DbCommand (4ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
-SELECT [c].[Id], [c].[CalendarEventDate], [c].[CalendarEventDescription], [c].[CalendarEventEndTime], [c].[CalendarEventName], [c].[CalendarEventStartTime], [c].[UserId]
-FROM [CalendarEvents] AS [c]
-2024-04-01 10:31:23.917 +02:00 [INF] Executed DbCommand (3ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
-SELECT [w].[Id], [w].[DateOfWorkMode], [w].[UserId], [w].[WorkModeId]
-FROM [WorkModesToUsers] AS [w]
-2024-04-01 10:31:23.937 +02:00 [INF] Executing ViewResult, running view Index.
-2024-04-01 10:31:24.123 +02:00 [INF] Executed DbCommand (30ms) [Parameters=[@__normalizedUserName_0='?' (Size = 256)], CommandType='"Text"', CommandTimeout='30']
-SELECT TOP(1) [a].[Id], [a].[AccessFailedCount], [a].[ConcurrencyStamp], [a].[DepartmentId], [a].[Email], [a].[EmailConfirmed], [a].[LockoutEnabled], [a].[LockoutEnd], [a].[Name], [a].[NormalizedEmail], [a].[NormalizedUserName], [a].[PasswordHash], [a].[PhoneNumber], [a].[PhoneNumberConfirmed], [a].[PositionId], [a].[SecurityStamp], [a].[Surname], [a].[TwoFactorEnabled], [a].[UserName]
-FROM [AspNetUsers] AS [a]
-WHERE [a].[NormalizedUserName] = @__normalizedUserName_0
-2024-04-01 10:31:24.189 +02:00 [INF] Request starting HTTP/2 GET https://localhost:7178/css/site.css?v=q_ZRLmhxL-7IBQ0qD32sq6H3i2QQ9HrEXYz1c7ayLxY - null null
-2024-04-01 10:31:24.190 +02:00 [INF] Executed ViewResult - view Index executed in 254.5307ms.
-2024-04-01 10:31:24.199 +02:00 [INF] Executed action Schedulist.App.Controllers.CalendarController.Index (Schedulist.App) in 1653.4995ms
-2024-04-01 10:31:24.201 +02:00 [INF] Executed endpoint 'Schedulist.App.Controllers.CalendarController.Index (Schedulist.App)'
-2024-04-01 10:31:24.207 +02:00 [INF] The file /css/site.css was not modified
-2024-04-01 10:31:24.209 +02:00 [INF] Request finished HTTP/2 GET https://localhost:7178/css/site.css?v=q_ZRLmhxL-7IBQ0qD32sq6H3i2QQ9HrEXYz1c7ayLxY - 304 null text/css 20.5353ms
-2024-04-01 10:31:24.216 +02:00 [INF] Request finished HTTP/2 GET https://localhost:7178/ - 200 null text/html; charset=utf-8 1968.3508ms
-2024-04-01 10:31:24.242 +02:00 [INF] Request starting HTTP/2 GET https://localhost:7178/_framework/aspnetcore-browser-refresh.js - null null
-2024-04-01 10:31:24.250 +02:00 [INF] Request finished HTTP/2 GET https://localhost:7178/_framework/aspnetcore-browser-refresh.js - 200 13764 application/javascript; charset=utf-8 8.5966ms
-2024-04-01 10:31:24.359 +02:00 [INF] Request starting HTTP/2 GET https://localhost:7178/_vs/browserLink - null null
-2024-04-01 10:31:24.384 +02:00 [INF] Request starting HTTP/1.1 GET https://localhost:7178/lib/bootstrap/dist/js/bootstrap.bundle.min.js.map - null null
-2024-04-01 10:31:24.415 +02:00 [INF] Request finished HTTP/2 GET https://localhost:7178/_vs/browserLink - 200 null text/javascript; charset=UTF-8 56.2939ms
-2024-04-01 10:31:24.426 +02:00 [INF] Sending file. Request path: '/lib/bootstrap/dist/js/bootstrap.bundle.min.js.map'. Physical path: 'C:\Users\Mariusz\Desktop\InfoShare\#4 Projekt grupowy Work-Schedule\jcszr11-WeCSharp\Schedulist.App\wwwroot\lib\bootstrap\dist\js\bootstrap.bundle.min.js.map'
-2024-04-01 10:31:24.428 +02:00 [INF] Request finished HTTP/1.1 GET https://localhost:7178/lib/bootstrap/dist/js/bootstrap.bundle.min.js.map - 200 327261 text/plain 43.6651ms
-2024-04-01 10:31:24.974 +02:00 [INF] Request starting HTTP/2 GET https://localhost:7178/Admin/Management - null null
-2024-04-01 10:31:25.006 +02:00 [INF] Executing endpoint 'Schedulist.App.Controllers.AdminController.Management (Schedulist.App)'
-2024-04-01 10:31:25.015 +02:00 [INF] Route matched with {action = "Management", controller = "Admin", page = "", area = ""}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] Management() on controller Schedulist.App.Controllers.AdminController (Schedulist.App).
-2024-04-01 10:31:25.033 +02:00 [INF] Executed DbCommand (1ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
-SELECT [a].[Id], [a].[AccessFailedCount], [a].[ConcurrencyStamp], [a].[DepartmentId], [a].[Email], [a].[EmailConfirmed], [a].[LockoutEnabled], [a].[LockoutEnd], [a].[Name], [a].[NormalizedEmail], [a].[NormalizedUserName], [a].[PasswordHash], [a].[PhoneNumber], [a].[PhoneNumberConfirmed], [a].[PositionId], [a].[SecurityStamp], [a].[Surname], [a].[TwoFactorEnabled], [a].[UserName]
-FROM [AspNetUsers] AS [a]
-2024-04-01 10:31:25.093 +02:00 [INF] Executed DbCommand (5ms) [Parameters=[@__userId_0='?' (Size = 450)], CommandType='"Text"', CommandTimeout='30']
-SELECT [a0].[Name]
-FROM [AspNetUserRoles] AS [a]
-INNER JOIN [AspNetRoles] AS [a0] ON [a].[RoleId] = [a0].[Id]
-WHERE [a].[UserId] = @__userId_0
-2024-04-01 10:31:25.102 +02:00 [INF] Executed DbCommand (1ms) [Parameters=[@__userId_0='?' (Size = 450)], CommandType='"Text"', CommandTimeout='30']
-SELECT [a0].[Name]
-FROM [AspNetUserRoles] AS [a]
-INNER JOIN [AspNetRoles] AS [a0] ON [a].[RoleId] = [a0].[Id]
-WHERE [a].[UserId] = @__userId_0
-2024-04-01 10:31:25.111 +02:00 [INF] Executed DbCommand (2ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
-SELECT [w].[Id], [w].[Name]
-FROM [WorkModes] AS [w]
-2024-04-01 10:31:25.121 +02:00 [INF] Executing ViewResult, running view Management.
-2024-04-01 10:31:25.195 +02:00 [INF] Executed DbCommand (1ms) [Parameters=[@__normalizedUserName_0='?' (Size = 256)], CommandType='"Text"', CommandTimeout='30']
-SELECT TOP(1) [a].[Id], [a].[AccessFailedCount], [a].[ConcurrencyStamp], [a].[DepartmentId], [a].[Email], [a].[EmailConfirmed], [a].[LockoutEnabled], [a].[LockoutEnd], [a].[Name], [a].[NormalizedEmail], [a].[NormalizedUserName], [a].[PasswordHash], [a].[PhoneNumber], [a].[PhoneNumberConfirmed], [a].[PositionId], [a].[SecurityStamp], [a].[Surname], [a].[TwoFactorEnabled], [a].[UserName]
-FROM [AspNetUsers] AS [a]
-WHERE [a].[NormalizedUserName] = @__normalizedUserName_0
-2024-04-01 10:31:25.201 +02:00 [INF] Executed ViewResult - view Management executed in 81.0306ms.
-2024-04-01 10:31:25.203 +02:00 [INF] Executed action Schedulist.App.Controllers.AdminController.Management (Schedulist.App) in 185.7226ms
-2024-04-01 10:31:25.204 +02:00 [INF] Executed endpoint 'Schedulist.App.Controllers.AdminController.Management (Schedulist.App)'
-2024-04-01 10:31:25.205 +02:00 [INF] Request finished HTTP/2 GET https://localhost:7178/Admin/Management - 200 null text/html; charset=utf-8 231.4425ms
-2024-04-01 10:31:25.210 +02:00 [INF] Request starting HTTP/2 GET https://localhost:7178/_framework/aspnetcore-browser-refresh.js - null null
-2024-04-01 10:31:25.210 +02:00 [INF] Request starting HTTP/2 GET https://localhost:7178/_vs/browserLink - null null
-2024-04-01 10:31:25.213 +02:00 [INF] Request finished HTTP/2 GET https://localhost:7178/_framework/aspnetcore-browser-refresh.js - 200 13764 application/javascript; charset=utf-8 3.6853ms
-2024-04-01 10:31:25.239 +02:00 [INF] Request finished HTTP/2 GET https://localhost:7178/_vs/browserLink - 200 null text/javascript; charset=UTF-8 29.7968ms
-2024-04-01 10:31:50.886 +02:00 [INF] Request starting HTTP/2 GET https://localhost:7178/Admin/Management - null null
-2024-04-01 10:31:50.897 +02:00 [INF] Executing endpoint 'Schedulist.App.Controllers.AdminController.Management (Schedulist.App)'
-2024-04-01 10:31:50.901 +02:00 [INF] Route matched with {action = "Management", controller = "Admin", page = "", area = ""}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] Management() on controller Schedulist.App.Controllers.AdminController (Schedulist.App).
-2024-04-01 10:31:50.951 +02:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
-SELECT [a].[Id], [a].[AccessFailedCount], [a].[ConcurrencyStamp], [a].[DepartmentId], [a].[Email], [a].[EmailConfirmed], [a].[LockoutEnabled], [a].[LockoutEnd], [a].[Name], [a].[NormalizedEmail], [a].[NormalizedUserName], [a].[PasswordHash], [a].[PhoneNumber], [a].[PhoneNumberConfirmed], [a].[PositionId], [a].[SecurityStamp], [a].[Surname], [a].[TwoFactorEnabled], [a].[UserName]
-FROM [AspNetUsers] AS [a]
-2024-04-01 10:31:50.955 +02:00 [INF] Executed DbCommand (1ms) [Parameters=[@__userId_0='?' (Size = 450)], CommandType='"Text"', CommandTimeout='30']
-SELECT [a0].[Name]
-FROM [AspNetUserRoles] AS [a]
-INNER JOIN [AspNetRoles] AS [a0] ON [a].[RoleId] = [a0].[Id]
-WHERE [a].[UserId] = @__userId_0
-2024-04-01 10:31:50.958 +02:00 [INF] Executed DbCommand (1ms) [Parameters=[@__userId_0='?' (Size = 450)], CommandType='"Text"', CommandTimeout='30']
-SELECT [a0].[Name]
-FROM [AspNetUserRoles] AS [a]
-INNER JOIN [AspNetRoles] AS [a0] ON [a].[RoleId] = [a0].[Id]
-WHERE [a].[UserId] = @__userId_0
-2024-04-01 10:31:50.961 +02:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
-SELECT [w].[Id], [w].[Name]
-FROM [WorkModes] AS [w]
-2024-04-01 10:31:50.966 +02:00 [INF] Executing ViewResult, running view Management.
-2024-04-01 10:31:51.011 +02:00 [INF] Executed DbCommand (1ms) [Parameters=[@__normalizedUserName_0='?' (Size = 256)], CommandType='"Text"', CommandTimeout='30']
-SELECT TOP(1) [a].[Id], [a].[AccessFailedCount], [a].[ConcurrencyStamp], [a].[DepartmentId], [a].[Email], [a].[EmailConfirmed], [a].[LockoutEnabled], [a].[LockoutEnd], [a].[Name], [a].[NormalizedEmail], [a].[NormalizedUserName], [a].[PasswordHash], [a].[PhoneNumber], [a].[PhoneNumberConfirmed], [a].[PositionId], [a].[SecurityStamp], [a].[Surname], [a].[TwoFactorEnabled], [a].[UserName]
-FROM [AspNetUsers] AS [a]
-WHERE [a].[NormalizedUserName] = @__normalizedUserName_0
-2024-04-01 10:31:51.017 +02:00 [INF] Executed ViewResult - view Management executed in 53.6854ms.
-2024-04-01 10:31:51.018 +02:00 [INF] Executed action Schedulist.App.Controllers.AdminController.Management (Schedulist.App) in 116.4125ms
-2024-04-01 10:31:51.020 +02:00 [INF] Executed endpoint 'Schedulist.App.Controllers.AdminController.Management (Schedulist.App)'
-2024-04-01 10:31:51.021 +02:00 [INF] Request finished HTTP/2 GET https://localhost:7178/Admin/Management - 200 null text/html; charset=utf-8 135.7229ms
-2024-04-01 10:31:51.026 +02:00 [INF] Request starting HTTP/2 GET https://localhost:7178/css/site.css?v=q_ZRLmhxL-7IBQ0qD32sq6H3i2QQ9HrEXYz1c7ayLxY - null null
-2024-04-01 10:31:51.026 +02:00 [INF] Request starting HTTP/2 GET https://localhost:7178/_framework/aspnetcore-browser-refresh.js - null null
-2024-04-01 10:31:51.026 +02:00 [INF] Request starting HTTP/2 GET https://localhost:7178/_vs/browserLink - null null
-2024-04-01 10:31:51.030 +02:00 [INF] The file /css/site.css was not modified
-2024-04-01 10:31:51.031 +02:00 [INF] Request finished HTTP/2 GET https://localhost:7178/_framework/aspnetcore-browser-refresh.js - 200 13764 application/javascript; charset=utf-8 4.3891ms
-2024-04-01 10:31:51.035 +02:00 [INF] Request finished HTTP/2 GET https://localhost:7178/css/site.css?v=q_ZRLmhxL-7IBQ0qD32sq6H3i2QQ9HrEXYz1c7ayLxY - 304 null text/css 9.4949ms
-2024-04-01 10:31:51.046 +02:00 [INF] Request finished HTTP/2 GET https://localhost:7178/_vs/browserLink - 200 null text/javascript; charset=UTF-8 20.2521ms
-2024-04-01 10:32:14.590 +02:00 [INF] Request starting HTTP/2 GET https://localhost:7178/Admin/Management - null null
-2024-04-01 10:32:14.596 +02:00 [INF] Executing endpoint 'Schedulist.App.Controllers.AdminController.Management (Schedulist.App)'
-2024-04-01 10:32:14.599 +02:00 [INF] Route matched with {action = "Management", controller = "Admin", page = "", area = ""}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] Management() on controller Schedulist.App.Controllers.AdminController (Schedulist.App).
-2024-04-01 10:32:14.611 +02:00 [INF] Executed DbCommand (10ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
-SELECT [a].[Id], [a].[AccessFailedCount], [a].[ConcurrencyStamp], [a].[DepartmentId], [a].[Email], [a].[EmailConfirmed], [a].[LockoutEnabled], [a].[LockoutEnd], [a].[Name], [a].[NormalizedEmail], [a].[NormalizedUserName], [a].[PasswordHash], [a].[PhoneNumber], [a].[PhoneNumberConfirmed], [a].[PositionId], [a].[SecurityStamp], [a].[Surname], [a].[TwoFactorEnabled], [a].[UserName]
-FROM [AspNetUsers] AS [a]
-2024-04-01 10:32:14.617 +02:00 [INF] Executed DbCommand (4ms) [Parameters=[@__userId_0='?' (Size = 450)], CommandType='"Text"', CommandTimeout='30']
-SELECT [a0].[Name]
-FROM [AspNetUserRoles] AS [a]
-INNER JOIN [AspNetRoles] AS [a0] ON [a].[RoleId] = [a0].[Id]
-WHERE [a].[UserId] = @__userId_0
-2024-04-01 10:32:14.620 +02:00 [INF] Executed DbCommand (1ms) [Parameters=[@__userId_0='?' (Size = 450)], CommandType='"Text"', CommandTimeout='30']
-SELECT [a0].[Name]
-FROM [AspNetUserRoles] AS [a]
-INNER JOIN [AspNetRoles] AS [a0] ON [a].[RoleId] = [a0].[Id]
-WHERE [a].[UserId] = @__userId_0
-2024-04-01 10:32:14.624 +02:00 [INF] Executed DbCommand (2ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
-SELECT [w].[Id], [w].[Name]
-FROM [WorkModes] AS [w]
-2024-04-01 10:32:14.627 +02:00 [INF] Executing ViewResult, running view Management.
-2024-04-01 10:32:14.656 +02:00 [INF] Executed DbCommand (3ms) [Parameters=[@__normalizedUserName_0='?' (Size = 256)], CommandType='"Text"', CommandTimeout='30']
-SELECT TOP(1) [a].[Id], [a].[AccessFailedCount], [a].[ConcurrencyStamp], [a].[DepartmentId], [a].[Email], [a].[EmailConfirmed], [a].[LockoutEnabled], [a].[LockoutEnd], [a].[Name], [a].[NormalizedEmail], [a].[NormalizedUserName], [a].[PasswordHash], [a].[PhoneNumber], [a].[PhoneNumberConfirmed], [a].[PositionId], [a].[SecurityStamp], [a].[Surname], [a].[TwoFactorEnabled], [a].[UserName]
-FROM [AspNetUsers] AS [a]
-WHERE [a].[NormalizedUserName] = @__normalizedUserName_0
-2024-04-01 10:32:14.661 +02:00 [INF] Executed ViewResult - view Management executed in 34.8759ms.
-2024-04-01 10:32:14.666 +02:00 [INF] Executed action Schedulist.App.Controllers.AdminController.Management (Schedulist.App) in 65.5488ms
-2024-04-01 10:32:14.667 +02:00 [INF] Executed endpoint 'Schedulist.App.Controllers.AdminController.Management (Schedulist.App)'
-2024-04-01 10:32:14.668 +02:00 [INF] Request starting HTTP/2 GET https://localhost:7178/_framework/aspnetcore-browser-refresh.js - null null
-2024-04-01 10:32:14.669 +02:00 [INF] Request finished HTTP/2 GET https://localhost:7178/Admin/Management - 200 null text/html; charset=utf-8 78.3619ms
-2024-04-01 10:32:14.668 +02:00 [INF] Request starting HTTP/2 GET https://localhost:7178/_vs/browserLink - null null
-2024-04-01 10:32:14.675 +02:00 [INF] Request finished HTTP/2 GET https://localhost:7178/_framework/aspnetcore-browser-refresh.js - 200 13764 application/javascript; charset=utf-8 7.6692ms
-2024-04-01 10:32:14.688 +02:00 [INF] Request finished HTTP/2 GET https://localhost:7178/_vs/browserLink - 200 null text/javascript; charset=UTF-8 20.09ms
-2024-04-01 10:38:47.174 +02:00 [INF] User profile is available. Using 'C:\Users\Mariusz\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
-2024-04-01 10:38:47.549 +02:00 [INF] Now listening on: https://localhost:7178
-2024-04-01 10:38:47.550 +02:00 [INF] Now listening on: http://localhost:5291
-2024-04-01 10:38:47.579 +02:00 [INF] Application started. Press Ctrl+C to shut down.
-2024-04-01 10:38:47.580 +02:00 [INF] Hosting environment: Development
-2024-04-01 10:38:47.581 +02:00 [INF] Content root path: C:\Users\Mariusz\Desktop\InfoShare\#4 Projekt grupowy Work-Schedule\jcszr11-WeCSharp\Schedulist.App
-2024-04-01 10:38:48.871 +02:00 [INF] Request starting HTTP/2 GET https://localhost:7178/ - null null
-2024-04-01 10:38:49.149 +02:00 [INF] Executing endpoint 'Schedulist.App.Controllers.CalendarController.Index (Schedulist.App)'
-2024-04-01 10:38:49.170 +02:00 [INF] Route matched with {action = "Index", controller = "Calendar", page = "", area = ""}. Executing controller action with signature Microsoft.AspNetCore.Mvc.IActionResult Index() on controller Schedulist.App.Controllers.CalendarController (Schedulist.App).
-2024-04-01 10:38:50.339 +02:00 [INF] Executed DbCommand (24ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
-SELECT [a].[Id], [a].[AccessFailedCount], [a].[ConcurrencyStamp], [a].[DepartmentId], [a].[Email], [a].[EmailConfirmed], [a].[LockoutEnabled], [a].[LockoutEnd], [a].[Name], [a].[NormalizedEmail], [a].[NormalizedUserName], [a].[PasswordHash], [a].[PhoneNumber], [a].[PhoneNumberConfirmed], [a].[PositionId], [a].[SecurityStamp], [a].[Surname], [a].[TwoFactorEnabled], [a].[UserName]
-FROM [AspNetUsers] AS [a]
-2024-04-01 10:38:50.455 +02:00 [INF] Executed DbCommand (3ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
-SELECT [c].[Id], [c].[CalendarEventDate], [c].[CalendarEventDescription], [c].[CalendarEventEndTime], [c].[CalendarEventName], [c].[CalendarEventStartTime], [c].[UserId]
-FROM [CalendarEvents] AS [c]
-2024-04-01 10:38:50.495 +02:00 [INF] Executed DbCommand (2ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
-SELECT [w].[Id], [w].[DateOfWorkMode], [w].[UserId], [w].[WorkModeId]
-FROM [WorkModesToUsers] AS [w]
-2024-04-01 10:38:50.515 +02:00 [INF] Executing ViewResult, running view Index.
-2024-04-01 10:38:50.740 +02:00 [INF] Executed DbCommand (29ms) [Parameters=[@__normalizedUserName_0='?' (Size = 256)], CommandType='"Text"', CommandTimeout='30']
-SELECT TOP(1) [a].[Id], [a].[AccessFailedCount], [a].[ConcurrencyStamp], [a].[DepartmentId], [a].[Email], [a].[EmailConfirmed], [a].[LockoutEnabled], [a].[LockoutEnd], [a].[Name], [a].[NormalizedEmail], [a].[NormalizedUserName], [a].[PasswordHash], [a].[PhoneNumber], [a].[PhoneNumberConfirmed], [a].[PositionId], [a].[SecurityStamp], [a].[Surname], [a].[TwoFactorEnabled], [a].[UserName]
-FROM [AspNetUsers] AS [a]
-WHERE [a].[NormalizedUserName] = @__normalizedUserName_0
-2024-04-01 10:38:50.800 +02:00 [INF] Request starting HTTP/2 GET https://localhost:7178/css/site.css?v=q_ZRLmhxL-7IBQ0qD32sq6H3i2QQ9HrEXYz1c7ayLxY - null null
-2024-04-01 10:38:50.801 +02:00 [INF] Executed ViewResult - view Index executed in 288.1591ms.
-2024-04-01 10:38:50.806 +02:00 [INF] Executed action Schedulist.App.Controllers.CalendarController.Index (Schedulist.App) in 1634.2315ms
-2024-04-01 10:38:50.808 +02:00 [INF] Executed endpoint 'Schedulist.App.Controllers.CalendarController.Index (Schedulist.App)'
-2024-04-01 10:38:50.814 +02:00 [INF] The file /css/site.css was not modified
-2024-04-01 10:38:50.818 +02:00 [INF] Request finished HTTP/2 GET https://localhost:7178/css/site.css?v=q_ZRLmhxL-7IBQ0qD32sq6H3i2QQ9HrEXYz1c7ayLxY - 304 null text/css 18.0259ms
-2024-04-01 10:38:50.822 +02:00 [INF] Request finished HTTP/2 GET https://localhost:7178/ - 200 null text/html; charset=utf-8 1962.2133ms
-2024-04-01 10:38:50.847 +02:00 [INF] Request starting HTTP/2 GET https://localhost:7178/_framework/aspnetcore-browser-refresh.js - null null
-2024-04-01 10:38:50.855 +02:00 [INF] Request finished HTTP/2 GET https://localhost:7178/_framework/aspnetcore-browser-refresh.js - 200 13764 application/javascript; charset=utf-8 8.7959ms
-2024-04-01 10:38:50.973 +02:00 [INF] Request starting HTTP/2 GET https://localhost:7178/_vs/browserLink - null null
-2024-04-01 10:38:51.001 +02:00 [INF] Request starting HTTP/1.1 GET https://localhost:7178/lib/bootstrap/dist/js/bootstrap.bundle.min.js.map - null null
-2024-04-01 10:38:51.041 +02:00 [INF] Request finished HTTP/2 GET https://localhost:7178/_vs/browserLink - 200 null text/javascript; charset=UTF-8 67.5205ms
-2024-04-01 10:38:51.045 +02:00 [INF] Sending file. Request path: '/lib/bootstrap/dist/js/bootstrap.bundle.min.js.map'. Physical path: 'C:\Users\Mariusz\Desktop\InfoShare\#4 Projekt grupowy Work-Schedule\jcszr11-WeCSharp\Schedulist.App\wwwroot\lib\bootstrap\dist\js\bootstrap.bundle.min.js.map'
-2024-04-01 10:38:51.047 +02:00 [INF] Request finished HTTP/1.1 GET https://localhost:7178/lib/bootstrap/dist/js/bootstrap.bundle.min.js.map - 200 327261 text/plain 45.9863ms
-2024-04-01 10:39:07.578 +02:00 [INF] User profile is available. Using 'C:\Users\Mariusz\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
-2024-04-01 10:39:07.912 +02:00 [INF] Now listening on: https://localhost:7178
-2024-04-01 10:39:07.914 +02:00 [INF] Now listening on: http://localhost:5291
-2024-04-01 10:39:07.941 +02:00 [INF] Application started. Press Ctrl+C to shut down.
-2024-04-01 10:39:07.943 +02:00 [INF] Hosting environment: Development
-2024-04-01 10:39:07.944 +02:00 [INF] Content root path: C:\Users\Mariusz\Desktop\InfoShare\#4 Projekt grupowy Work-Schedule\jcszr11-WeCSharp\Schedulist.App
-2024-04-01 10:39:09.075 +02:00 [INF] Request starting HTTP/2 GET https://localhost:7178/ - null null
-2024-04-01 10:39:09.359 +02:00 [INF] Executing endpoint 'Schedulist.App.Controllers.CalendarController.Index (Schedulist.App)'
-2024-04-01 10:39:09.378 +02:00 [INF] Route matched with {action = "Index", controller = "Calendar", page = "", area = ""}. Executing controller action with signature Microsoft.AspNetCore.Mvc.IActionResult Index() on controller Schedulist.App.Controllers.CalendarController (Schedulist.App).
-2024-04-01 10:39:10.593 +02:00 [INF] Executed DbCommand (18ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
-SELECT [a].[Id], [a].[AccessFailedCount], [a].[ConcurrencyStamp], [a].[DepartmentId], [a].[Email], [a].[EmailConfirmed], [a].[LockoutEnabled], [a].[LockoutEnd], [a].[Name], [a].[NormalizedEmail], [a].[NormalizedUserName], [a].[PasswordHash], [a].[PhoneNumber], [a].[PhoneNumberConfirmed], [a].[PositionId], [a].[SecurityStamp], [a].[Surname], [a].[TwoFactorEnabled], [a].[UserName]
-FROM [AspNetUsers] AS [a]
-2024-04-01 10:39:10.704 +02:00 [INF] Executed DbCommand (1ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
-SELECT [c].[Id], [c].[CalendarEventDate], [c].[CalendarEventDescription], [c].[CalendarEventEndTime], [c].[CalendarEventName], [c].[CalendarEventStartTime], [c].[UserId]
-FROM [CalendarEvents] AS [c]
-2024-04-01 10:39:10.740 +02:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
-SELECT [w].[Id], [w].[DateOfWorkMode], [w].[UserId], [w].[WorkModeId]
-FROM [WorkModesToUsers] AS [w]
-2024-04-01 10:39:10.762 +02:00 [INF] Executing ViewResult, running view Index.
-2024-04-01 10:39:10.974 +02:00 [INF] Executed DbCommand (30ms) [Parameters=[@__normalizedUserName_0='?' (Size = 256)], CommandType='"Text"', CommandTimeout='30']
-SELECT TOP(1) [a].[Id], [a].[AccessFailedCount], [a].[ConcurrencyStamp], [a].[DepartmentId], [a].[Email], [a].[EmailConfirmed], [a].[LockoutEnabled], [a].[LockoutEnd], [a].[Name], [a].[NormalizedEmail], [a].[NormalizedUserName], [a].[PasswordHash], [a].[PhoneNumber], [a].[PhoneNumberConfirmed], [a].[PositionId], [a].[SecurityStamp], [a].[Surname], [a].[TwoFactorEnabled], [a].[UserName]
-FROM [AspNetUsers] AS [a]
-WHERE [a].[NormalizedUserName] = @__normalizedUserName_0
-2024-04-01 10:39:11.051 +02:00 [INF] Executed ViewResult - view Index executed in 290.7457ms.
-2024-04-01 10:39:11.056 +02:00 [INF] Executed action Schedulist.App.Controllers.CalendarController.Index (Schedulist.App) in 1676.8299ms
-2024-04-01 10:39:11.059 +02:00 [INF] Executed endpoint 'Schedulist.App.Controllers.CalendarController.Index (Schedulist.App)'
-2024-04-01 10:39:11.073 +02:00 [INF] Request finished HTTP/2 GET https://localhost:7178/ - 200 null text/html; charset=utf-8 2007.2204ms
-2024-04-01 10:39:11.108 +02:00 [INF] Request starting HTTP/2 GET https://localhost:7178/_framework/aspnetcore-browser-refresh.js - null null
-2024-04-01 10:39:11.116 +02:00 [INF] Request finished HTTP/2 GET https://localhost:7178/_framework/aspnetcore-browser-refresh.js - 200 13764 application/javascript; charset=utf-8 8.333ms
-2024-04-01 10:39:11.229 +02:00 [INF] Request starting HTTP/2 GET https://localhost:7178/_vs/browserLink - null null
-2024-04-01 10:39:11.257 +02:00 [INF] Request starting HTTP/1.1 GET https://localhost:7178/lib/bootstrap/dist/js/bootstrap.bundle.min.js.map - null null
-2024-04-01 10:39:11.273 +02:00 [INF] Request finished HTTP/2 GET https://localhost:7178/_vs/browserLink - 200 null text/javascript; charset=UTF-8 44.3229ms
-2024-04-01 10:39:11.290 +02:00 [INF] Sending file. Request path: '/lib/bootstrap/dist/js/bootstrap.bundle.min.js.map'. Physical path: 'C:\Users\Mariusz\Desktop\InfoShare\#4 Projekt grupowy Work-Schedule\jcszr11-WeCSharp\Schedulist.App\wwwroot\lib\bootstrap\dist\js\bootstrap.bundle.min.js.map'
-2024-04-01 10:39:11.292 +02:00 [INF] Request finished HTTP/1.1 GET https://localhost:7178/lib/bootstrap/dist/js/bootstrap.bundle.min.js.map - 200 327261 text/plain 35.1057ms
-2024-04-01 10:39:12.551 +02:00 [INF] Request starting HTTP/2 GET https://localhost:7178/Admin/Management - null null
-2024-04-01 10:39:12.578 +02:00 [INF] Executing endpoint 'Schedulist.App.Controllers.AdminController.Management (Schedulist.App)'
-2024-04-01 10:39:12.584 +02:00 [INF] Route matched with {action = "Management", controller = "Admin", page = "", area = ""}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] Management() on controller Schedulist.App.Controllers.AdminController (Schedulist.App).
-2024-04-01 10:39:12.603 +02:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
-SELECT [a].[Id], [a].[AccessFailedCount], [a].[ConcurrencyStamp], [a].[DepartmentId], [a].[Email], [a].[EmailConfirmed], [a].[LockoutEnabled], [a].[LockoutEnd], [a].[Name], [a].[NormalizedEmail], [a].[NormalizedUserName], [a].[PasswordHash], [a].[PhoneNumber], [a].[PhoneNumberConfirmed], [a].[PositionId], [a].[SecurityStamp], [a].[Surname], [a].[TwoFactorEnabled], [a].[UserName]
-FROM [AspNetUsers] AS [a]
-2024-04-01 10:39:12.666 +02:00 [INF] Executed DbCommand (10ms) [Parameters=[@__userId_0='?' (Size = 450)], CommandType='"Text"', CommandTimeout='30']
-SELECT [a0].[Name]
-FROM [AspNetUserRoles] AS [a]
-INNER JOIN [AspNetRoles] AS [a0] ON [a].[RoleId] = [a0].[Id]
-WHERE [a].[UserId] = @__userId_0
-2024-04-01 10:39:12.676 +02:00 [INF] Executed DbCommand (1ms) [Parameters=[@__userId_0='?' (Size = 450)], CommandType='"Text"', CommandTimeout='30']
-SELECT [a0].[Name]
-FROM [AspNetUserRoles] AS [a]
-INNER JOIN [AspNetRoles] AS [a0] ON [a].[RoleId] = [a0].[Id]
-WHERE [a].[UserId] = @__userId_0
-2024-04-01 10:39:12.684 +02:00 [INF] Executed DbCommand (2ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
-SELECT [w].[Id], [w].[Name]
-FROM [WorkModes] AS [w]
-2024-04-01 10:39:12.696 +02:00 [INF] Executing ViewResult, running view Management.
-2024-04-01 10:39:12.753 +02:00 [INF] Executed DbCommand (1ms) [Parameters=[@__normalizedUserName_0='?' (Size = 256)], CommandType='"Text"', CommandTimeout='30']
-SELECT TOP(1) [a].[Id], [a].[AccessFailedCount], [a].[ConcurrencyStamp], [a].[DepartmentId], [a].[Email], [a].[EmailConfirmed], [a].[LockoutEnabled], [a].[LockoutEnd], [a].[Name], [a].[NormalizedEmail], [a].[NormalizedUserName], [a].[PasswordHash], [a].[PhoneNumber], [a].[PhoneNumberConfirmed], [a].[PositionId], [a].[SecurityStamp], [a].[Surname], [a].[TwoFactorEnabled], [a].[UserName]
-FROM [AspNetUsers] AS [a]
-WHERE [a].[NormalizedUserName] = @__normalizedUserName_0
-2024-04-01 10:39:12.759 +02:00 [INF] Executed ViewResult - view Management executed in 64.3622ms.
-2024-04-01 10:39:12.761 +02:00 [INF] Executed action Schedulist.App.Controllers.AdminController.Management (Schedulist.App) in 175.197ms
-2024-04-01 10:39:12.762 +02:00 [INF] Executed endpoint 'Schedulist.App.Controllers.AdminController.Management (Schedulist.App)'
-2024-04-01 10:39:12.763 +02:00 [INF] Request finished HTTP/2 GET https://localhost:7178/Admin/Management - 200 null text/html; charset=utf-8 212.527ms
-2024-04-01 10:39:12.766 +02:00 [INF] Request starting HTTP/2 GET https://localhost:7178/_framework/aspnetcore-browser-refresh.js - null null
-2024-04-01 10:39:12.766 +02:00 [INF] Request starting HTTP/2 GET https://localhost:7178/_vs/browserLink - null null
-2024-04-01 10:39:12.770 +02:00 [INF] Request finished HTTP/2 GET https://localhost:7178/_framework/aspnetcore-browser-refresh.js - 200 13764 application/javascript; charset=utf-8 3.7343ms
-2024-04-01 10:39:12.795 +02:00 [INF] Request finished HTTP/2 GET https://localhost:7178/_vs/browserLink - 200 null text/javascript; charset=UTF-8 29.0168ms
-2024-04-01 10:40:08.075 +02:00 [INF] User profile is available. Using 'C:\Users\Mariusz\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
-2024-04-01 10:40:08.477 +02:00 [INF] Now listening on: https://localhost:7178
-2024-04-01 10:40:08.478 +02:00 [INF] Now listening on: http://localhost:5291
-2024-04-01 10:40:08.515 +02:00 [INF] Application started. Press Ctrl+C to shut down.
-2024-04-01 10:40:08.517 +02:00 [INF] Hosting environment: Development
-2024-04-01 10:40:08.518 +02:00 [INF] Content root path: C:\Users\Mariusz\Desktop\InfoShare\#4 Projekt grupowy Work-Schedule\jcszr11-WeCSharp\Schedulist.App
-2024-04-01 10:40:09.662 +02:00 [INF] Request starting HTTP/2 GET https://localhost:7178/ - null null
-2024-04-01 10:40:09.929 +02:00 [INF] Executing endpoint 'Schedulist.App.Controllers.CalendarController.Index (Schedulist.App)'
-2024-04-01 10:40:09.946 +02:00 [INF] Route matched with {action = "Index", controller = "Calendar", page = "", area = ""}. Executing controller action with signature Microsoft.AspNetCore.Mvc.IActionResult Index() on controller Schedulist.App.Controllers.CalendarController (Schedulist.App).
-2024-04-01 10:40:11.011 +02:00 [INF] Executed DbCommand (25ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
-SELECT [a].[Id], [a].[AccessFailedCount], [a].[ConcurrencyStamp], [a].[DepartmentId], [a].[Email], [a].[EmailConfirmed], [a].[LockoutEnabled], [a].[LockoutEnd], [a].[Name], [a].[NormalizedEmail], [a].[NormalizedUserName], [a].[PasswordHash], [a].[PhoneNumber], [a].[PhoneNumberConfirmed], [a].[PositionId], [a].[SecurityStamp], [a].[Surname], [a].[TwoFactorEnabled], [a].[UserName]
-FROM [AspNetUsers] AS [a]
-2024-04-01 10:40:11.100 +02:00 [INF] Executed DbCommand (3ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
-SELECT [c].[Id], [c].[CalendarEventDate], [c].[CalendarEventDescription], [c].[CalendarEventEndTime], [c].[CalendarEventName], [c].[CalendarEventStartTime], [c].[UserId]
-FROM [CalendarEvents] AS [c]
-2024-04-01 10:40:11.131 +02:00 [INF] Executed DbCommand (3ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
-SELECT [w].[Id], [w].[DateOfWorkMode], [w].[UserId], [w].[WorkModeId]
-FROM [WorkModesToUsers] AS [w]
-2024-04-01 10:40:11.150 +02:00 [INF] Executing ViewResult, running view Index.
-2024-04-01 10:40:11.325 +02:00 [INF] Executed DbCommand (31ms) [Parameters=[@__normalizedUserName_0='?' (Size = 256)], CommandType='"Text"', CommandTimeout='30']
-SELECT TOP(1) [a].[Id], [a].[AccessFailedCount], [a].[ConcurrencyStamp], [a].[DepartmentId], [a].[Email], [a].[EmailConfirmed], [a].[LockoutEnabled], [a].[LockoutEnd], [a].[Name], [a].[NormalizedEmail], [a].[NormalizedUserName], [a].[PasswordHash], [a].[PhoneNumber], [a].[PhoneNumberConfirmed], [a].[PositionId], [a].[SecurityStamp], [a].[Surname], [a].[TwoFactorEnabled], [a].[UserName]
-FROM [AspNetUsers] AS [a]
-WHERE [a].[NormalizedUserName] = @__normalizedUserName_0
-2024-04-01 10:40:11.386 +02:00 [INF] Request starting HTTP/2 GET https://localhost:7178/css/site.css?v=q_ZRLmhxL-7IBQ0qD32sq6H3i2QQ9HrEXYz1c7ayLxY - null null
-2024-04-01 10:40:11.388 +02:00 [INF] Executed ViewResult - view Index executed in 239.3871ms.
-2024-04-01 10:40:11.393 +02:00 [INF] Executed action Schedulist.App.Controllers.CalendarController.Index (Schedulist.App) in 1445.2984ms
-2024-04-01 10:40:11.395 +02:00 [INF] Executed endpoint 'Schedulist.App.Controllers.CalendarController.Index (Schedulist.App)'
-2024-04-01 10:40:11.398 +02:00 [INF] The file /css/site.css was not modified
-2024-04-01 10:40:11.405 +02:00 [INF] Request finished HTTP/2 GET https://localhost:7178/css/site.css?v=q_ZRLmhxL-7IBQ0qD32sq6H3i2QQ9HrEXYz1c7ayLxY - 304 null text/css 17.9578ms
-2024-04-01 10:40:11.408 +02:00 [INF] Request finished HTTP/2 GET https://localhost:7178/ - 200 null text/html; charset=utf-8 1758.8541ms
-2024-04-01 10:40:11.432 +02:00 [INF] Request starting HTTP/2 GET https://localhost:7178/_framework/aspnetcore-browser-refresh.js - null null
-2024-04-01 10:40:11.439 +02:00 [INF] Request finished HTTP/2 GET https://localhost:7178/_framework/aspnetcore-browser-refresh.js - 200 13764 application/javascript; charset=utf-8 7.5112ms
-2024-04-01 10:40:11.547 +02:00 [INF] Request starting HTTP/2 GET https://localhost:7178/_vs/browserLink - null null
-2024-04-01 10:40:11.572 +02:00 [INF] Request starting HTTP/1.1 GET https://localhost:7178/lib/bootstrap/dist/js/bootstrap.bundle.min.js.map - null null
-2024-04-01 10:40:11.588 +02:00 [INF] Request finished HTTP/2 GET https://localhost:7178/_vs/browserLink - 200 null text/javascript; charset=UTF-8 41.0453ms
-2024-04-01 10:40:11.603 +02:00 [INF] Sending file. Request path: '/lib/bootstrap/dist/js/bootstrap.bundle.min.js.map'. Physical path: 'C:\Users\Mariusz\Desktop\InfoShare\#4 Projekt grupowy Work-Schedule\jcszr11-WeCSharp\Schedulist.App\wwwroot\lib\bootstrap\dist\js\bootstrap.bundle.min.js.map'
-2024-04-01 10:40:11.604 +02:00 [INF] Request finished HTTP/1.1 GET https://localhost:7178/lib/bootstrap/dist/js/bootstrap.bundle.min.js.map - 200 327261 text/plain 32.7546ms
-2024-04-01 10:40:13.189 +02:00 [INF] Request starting HTTP/2 GET https://localhost:7178/Admin/Management - null null
-2024-04-01 10:40:13.221 +02:00 [INF] Executing endpoint 'Schedulist.App.Controllers.AdminController.Management (Schedulist.App)'
-2024-04-01 10:40:13.228 +02:00 [INF] Route matched with {action = "Management", controller = "Admin", page = "", area = ""}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] Management() on controller Schedulist.App.Controllers.AdminController (Schedulist.App).
-2024-04-01 10:40:13.243 +02:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
-SELECT [a].[Id], [a].[AccessFailedCount], [a].[ConcurrencyStamp], [a].[DepartmentId], [a].[Email], [a].[EmailConfirmed], [a].[LockoutEnabled], [a].[LockoutEnd], [a].[Name], [a].[NormalizedEmail], [a].[NormalizedUserName], [a].[PasswordHash], [a].[PhoneNumber], [a].[PhoneNumberConfirmed], [a].[PositionId], [a].[SecurityStamp], [a].[Surname], [a].[TwoFactorEnabled], [a].[UserName]
-FROM [AspNetUsers] AS [a]
-2024-04-01 10:40:13.289 +02:00 [INF] Executed DbCommand (5ms) [Parameters=[@__userId_0='?' (Size = 450)], CommandType='"Text"', CommandTimeout='30']
-SELECT [a0].[Name]
-FROM [AspNetUserRoles] AS [a]
-INNER JOIN [AspNetRoles] AS [a0] ON [a].[RoleId] = [a0].[Id]
-WHERE [a].[UserId] = @__userId_0
-2024-04-01 10:40:13.300 +02:00 [INF] Executed DbCommand (2ms) [Parameters=[@__userId_0='?' (Size = 450)], CommandType='"Text"', CommandTimeout='30']
-SELECT [a0].[Name]
-FROM [AspNetUserRoles] AS [a]
-INNER JOIN [AspNetRoles] AS [a0] ON [a].[RoleId] = [a0].[Id]
-WHERE [a].[UserId] = @__userId_0
-2024-04-01 10:40:13.308 +02:00 [INF] Executed DbCommand (2ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
-SELECT [w].[Id], [w].[Name]
-FROM [WorkModes] AS [w]
-2024-04-01 10:40:13.318 +02:00 [INF] Executing ViewResult, running view Management.
-2024-04-01 10:40:13.372 +02:00 [INF] Executed DbCommand (1ms) [Parameters=[@__normalizedUserName_0='?' (Size = 256)], CommandType='"Text"', CommandTimeout='30']
-SELECT TOP(1) [a].[Id], [a].[AccessFailedCount], [a].[ConcurrencyStamp], [a].[DepartmentId], [a].[Email], [a].[EmailConfirmed], [a].[LockoutEnabled], [a].[LockoutEnd], [a].[Name], [a].[NormalizedEmail], [a].[NormalizedUserName], [a].[PasswordHash], [a].[PhoneNumber], [a].[PhoneNumberConfirmed], [a].[PositionId], [a].[SecurityStamp], [a].[Surname], [a].[TwoFactorEnabled], [a].[UserName]
-FROM [AspNetUsers] AS [a]
-WHERE [a].[NormalizedUserName] = @__normalizedUserName_0
-2024-04-01 10:40:13.379 +02:00 [INF] Executed ViewResult - view Management executed in 61.9508ms.
-2024-04-01 10:40:13.380 +02:00 [INF] Executed action Schedulist.App.Controllers.AdminController.Management (Schedulist.App) in 149.6954ms
-2024-04-01 10:40:13.381 +02:00 [INF] Executed endpoint 'Schedulist.App.Controllers.AdminController.Management (Schedulist.App)'
-2024-04-01 10:40:13.383 +02:00 [INF] Request finished HTTP/2 GET https://localhost:7178/Admin/Management - 200 null text/html; charset=utf-8 193.9901ms
-2024-04-01 10:40:13.386 +02:00 [INF] Request starting HTTP/2 GET https://localhost:7178/_vs/browserLink - null null
-2024-04-01 10:40:13.386 +02:00 [INF] Request starting HTTP/2 GET https://localhost:7178/_framework/aspnetcore-browser-refresh.js - null null
-2024-04-01 10:40:13.393 +02:00 [INF] Request finished HTTP/2 GET https://localhost:7178/_framework/aspnetcore-browser-refresh.js - 200 13764 application/javascript; charset=utf-8 6.6427ms
-2024-04-01 10:40:13.414 +02:00 [INF] Request finished HTTP/2 GET https://localhost:7178/_vs/browserLink - 200 null text/javascript; charset=UTF-8 27.5578ms
-2024-04-01 10:40:41.947 +02:00 [INF] User profile is available. Using 'C:\Users\Mariusz\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
-2024-04-01 10:40:42.369 +02:00 [INF] Now listening on: https://localhost:7178
-2024-04-01 10:40:42.370 +02:00 [INF] Now listening on: http://localhost:5291
-2024-04-01 10:40:42.397 +02:00 [INF] Application started. Press Ctrl+C to shut down.
-2024-04-01 10:40:42.399 +02:00 [INF] Hosting environment: Development
-2024-04-01 10:40:42.400 +02:00 [INF] Content root path: C:\Users\Mariusz\Desktop\InfoShare\#4 Projekt grupowy Work-Schedule\jcszr11-WeCSharp\Schedulist.App
-2024-04-01 10:40:43.404 +02:00 [INF] Request starting HTTP/2 GET https://localhost:7178/ - null null
-2024-04-01 10:40:43.682 +02:00 [INF] Executing endpoint 'Schedulist.App.Controllers.CalendarController.Index (Schedulist.App)'
-2024-04-01 10:40:43.700 +02:00 [INF] Route matched with {action = "Index", controller = "Calendar", page = "", area = ""}. Executing controller action with signature Microsoft.AspNetCore.Mvc.IActionResult Index() on controller Schedulist.App.Controllers.CalendarController (Schedulist.App).
-2024-04-01 10:40:44.878 +02:00 [INF] Executed DbCommand (32ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
-SELECT [a].[Id], [a].[AccessFailedCount], [a].[ConcurrencyStamp], [a].[DepartmentId], [a].[Email], [a].[EmailConfirmed], [a].[LockoutEnabled], [a].[LockoutEnd], [a].[Name], [a].[NormalizedEmail], [a].[NormalizedUserName], [a].[PasswordHash], [a].[PhoneNumber], [a].[PhoneNumberConfirmed], [a].[PositionId], [a].[SecurityStamp], [a].[Surname], [a].[TwoFactorEnabled], [a].[UserName]
-FROM [AspNetUsers] AS [a]
-2024-04-01 10:40:44.998 +02:00 [INF] Executed DbCommand (9ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
-SELECT [c].[Id], [c].[CalendarEventDate], [c].[CalendarEventDescription], [c].[CalendarEventEndTime], [c].[CalendarEventName], [c].[CalendarEventStartTime], [c].[UserId]
-FROM [CalendarEvents] AS [c]
-2024-04-01 10:40:45.039 +02:00 [INF] Executed DbCommand (7ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
-SELECT [w].[Id], [w].[DateOfWorkMode], [w].[UserId], [w].[WorkModeId]
-FROM [WorkModesToUsers] AS [w]
-2024-04-01 10:40:45.058 +02:00 [INF] Executing ViewResult, running view Index.
-2024-04-01 10:40:45.270 +02:00 [INF] Executed DbCommand (39ms) [Parameters=[@__normalizedUserName_0='?' (Size = 256)], CommandType='"Text"', CommandTimeout='30']
-SELECT TOP(1) [a].[Id], [a].[AccessFailedCount], [a].[ConcurrencyStamp], [a].[DepartmentId], [a].[Email], [a].[EmailConfirmed], [a].[LockoutEnabled], [a].[LockoutEnd], [a].[Name], [a].[NormalizedEmail], [a].[NormalizedUserName], [a].[PasswordHash], [a].[PhoneNumber], [a].[PhoneNumberConfirmed], [a].[PositionId], [a].[SecurityStamp], [a].[Surname], [a].[TwoFactorEnabled], [a].[UserName]
-FROM [AspNetUsers] AS [a]
-WHERE [a].[NormalizedUserName] = @__normalizedUserName_0
-2024-04-01 10:40:45.332 +02:00 [INF] Executed ViewResult - view Index executed in 276.8741ms.
-2024-04-01 10:40:45.339 +02:00 [INF] Executed action Schedulist.App.Controllers.CalendarController.Index (Schedulist.App) in 1636.5463ms
-2024-04-01 10:40:45.341 +02:00 [INF] Executed endpoint 'Schedulist.App.Controllers.CalendarController.Index (Schedulist.App)'
-2024-04-01 10:40:45.353 +02:00 [INF] Request finished HTTP/2 GET https://localhost:7178/ - 200 null text/html; charset=utf-8 1960.4593ms
-2024-04-01 10:40:45.574 +02:00 [INF] Request starting HTTP/2 GET https://localhost:7178/_framework/aspnetcore-browser-refresh.js - null null
-2024-04-01 10:40:45.583 +02:00 [INF] Request finished HTTP/2 GET https://localhost:7178/_framework/aspnetcore-browser-refresh.js - 200 13764 application/javascript; charset=utf-8 8.7785ms
-2024-04-01 10:40:45.687 +02:00 [INF] Request starting HTTP/2 GET https://localhost:7178/_vs/browserLink - null null
-2024-04-01 10:40:45.713 +02:00 [INF] Request starting HTTP/1.1 GET https://localhost:7178/lib/bootstrap/dist/js/bootstrap.bundle.min.js.map - null null
-2024-04-01 10:40:45.736 +02:00 [INF] Request finished HTTP/2 GET https://localhost:7178/_vs/browserLink - 200 null text/javascript; charset=UTF-8 48.9658ms
-2024-04-01 10:40:45.756 +02:00 [INF] Sending file. Request path: '/lib/bootstrap/dist/js/bootstrap.bundle.min.js.map'. Physical path: 'C:\Users\Mariusz\Desktop\InfoShare\#4 Projekt grupowy Work-Schedule\jcszr11-WeCSharp\Schedulist.App\wwwroot\lib\bootstrap\dist\js\bootstrap.bundle.min.js.map'
-2024-04-01 10:40:45.757 +02:00 [INF] Request finished HTTP/1.1 GET https://localhost:7178/lib/bootstrap/dist/js/bootstrap.bundle.min.js.map - 200 327261 text/plain 44.9417ms
-2024-04-01 10:40:46.895 +02:00 [INF] Request starting HTTP/2 GET https://localhost:7178/Admin/Management - null null
-2024-04-01 10:40:46.920 +02:00 [INF] Executing endpoint 'Schedulist.App.Controllers.AdminController.Management (Schedulist.App)'
-2024-04-01 10:40:46.928 +02:00 [INF] Route matched with {action = "Management", controller = "Admin", page = "", area = ""}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] Management() on controller Schedulist.App.Controllers.AdminController (Schedulist.App).
-2024-04-01 10:40:46.958 +02:00 [INF] Executed DbCommand (10ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
-SELECT [a].[Id], [a].[AccessFailedCount], [a].[ConcurrencyStamp], [a].[DepartmentId], [a].[Email], [a].[EmailConfirmed], [a].[LockoutEnabled], [a].[LockoutEnd], [a].[Name], [a].[NormalizedEmail], [a].[NormalizedUserName], [a].[PasswordHash], [a].[PhoneNumber], [a].[PhoneNumberConfirmed], [a].[PositionId], [a].[SecurityStamp], [a].[Surname], [a].[TwoFactorEnabled], [a].[UserName]
-FROM [AspNetUsers] AS [a]
-2024-04-01 10:40:47.006 +02:00 [INF] Executed DbCommand (4ms) [Parameters=[@__userId_0='?' (Size = 450)], CommandType='"Text"', CommandTimeout='30']
-SELECT [a0].[Name]
-FROM [AspNetUserRoles] AS [a]
-INNER JOIN [AspNetRoles] AS [a0] ON [a].[RoleId] = [a0].[Id]
-WHERE [a].[UserId] = @__userId_0
-2024-04-01 10:40:47.017 +02:00 [INF] Executed DbCommand (1ms) [Parameters=[@__userId_0='?' (Size = 450)], CommandType='"Text"', CommandTimeout='30']
-SELECT [a0].[Name]
-FROM [AspNetUserRoles] AS [a]
-INNER JOIN [AspNetRoles] AS [a0] ON [a].[RoleId] = [a0].[Id]
-WHERE [a].[UserId] = @__userId_0
-2024-04-01 10:40:47.027 +02:00 [INF] Executed DbCommand (2ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
-SELECT [w].[Id], [w].[Name]
-FROM [WorkModes] AS [w]
-2024-04-01 10:40:47.041 +02:00 [INF] Executing ViewResult, running view Management.
-2024-04-01 10:40:47.101 +02:00 [INF] Executed DbCommand (3ms) [Parameters=[@__normalizedUserName_0='?' (Size = 256)], CommandType='"Text"', CommandTimeout='30']
-SELECT TOP(1) [a].[Id], [a].[AccessFailedCount], [a].[ConcurrencyStamp], [a].[DepartmentId], [a].[Email], [a].[EmailConfirmed], [a].[LockoutEnabled], [a].[LockoutEnd], [a].[Name], [a].[NormalizedEmail], [a].[NormalizedUserName], [a].[PasswordHash], [a].[PhoneNumber], [a].[PhoneNumberConfirmed], [a].[PositionId], [a].[SecurityStamp], [a].[Surname], [a].[TwoFactorEnabled], [a].[UserName]
-FROM [AspNetUsers] AS [a]
-WHERE [a].[NormalizedUserName] = @__normalizedUserName_0
-2024-04-01 10:40:47.107 +02:00 [INF] Executed ViewResult - view Management executed in 67.7081ms.
-2024-04-01 10:40:47.108 +02:00 [INF] Executed action Schedulist.App.Controllers.AdminController.Management (Schedulist.App) in 177.874ms
-2024-04-01 10:40:47.110 +02:00 [INF] Executed endpoint 'Schedulist.App.Controllers.AdminController.Management (Schedulist.App)'
-2024-04-01 10:40:47.112 +02:00 [INF] Request finished HTTP/2 GET https://localhost:7178/Admin/Management - 200 null text/html; charset=utf-8 217.3542ms
-2024-04-01 10:40:47.117 +02:00 [INF] Request starting HTTP/2 GET https://localhost:7178/_framework/aspnetcore-browser-refresh.js - null null
-2024-04-01 10:40:47.117 +02:00 [INF] Request starting HTTP/2 GET https://localhost:7178/_vs/browserLink - null null
-2024-04-01 10:40:47.120 +02:00 [INF] Request finished HTTP/2 GET https://localhost:7178/_framework/aspnetcore-browser-refresh.js - 200 13764 application/javascript; charset=utf-8 3.5549ms
-2024-04-01 10:40:47.142 +02:00 [INF] Request finished HTTP/2 GET https://localhost:7178/_vs/browserLink - 200 null text/javascript; charset=UTF-8 24.9051ms
+2024-04-01 10:59:32.816 +02:00 [INF] Executed ViewResult - view Management executed in 48.5612ms.
+2024-04-01 10:59:32.817 +02:00 [INF] Executed action Schedulist.App.Controllers.AdminController.Management (Schedulist.App) in 3643.3329ms
+2024-04-01 10:59:32.818 +02:00 [INF] Executed endpoint 'Schedulist.App.Controllers.AdminController.Management (Schedulist.App)'
+2024-04-01 10:59:32.820 +02:00 [INF] Request finished HTTP/2 GET https://localhost:7178/Admin/Management - 200 null text/html; charset=utf-8 3659.1795ms
+2024-04-01 10:59:32.822 +02:00 [INF] Request starting HTTP/2 GET https://localhost:7178/_vs/browserLink - null null
+2024-04-01 10:59:32.822 +02:00 [INF] Request starting HTTP/2 GET https://localhost:7178/_framework/aspnetcore-browser-refresh.js - null null
+2024-04-01 10:59:32.828 +02:00 [INF] Request finished HTTP/2 GET https://localhost:7178/_framework/aspnetcore-browser-refresh.js - 200 13764 application/javascript; charset=utf-8 6.1507ms
+2024-04-01 10:59:32.835 +02:00 [INF] Request finished HTTP/2 GET https://localhost:7178/_vs/browserLink - 200 null text/javascript; charset=UTF-8 13.1151ms

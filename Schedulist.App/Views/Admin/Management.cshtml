@@ -1,4 +1,5 @@
-﻿@model Schedulist.App.ViewModels.Admin.AdminViewModel
+﻿@using Schedulist.App.Services
+@model Schedulist.App.ViewModels.Admin.AdminViewModel
 
 <div class="calendar-sidebar-container" style="top:0; position:fixed; width: 450px;" id="edit">
     <div class="calendar-sidebar">
@@ -74,6 +75,11 @@
                     <td>
                         <button onclick="openCalendarSidebar(this)" data-sidebar-id="edit" class="adminButtom" type="submit" style="white-space: nowrap;">
                             Modify&nbsp;User
+                        </button>
+                    </td>
+                    <td>
+                        <button onclick="sendEmail('@user.Email');" data-sidebar-id="edit" class="adminButtom" type="submit" style="white-space: nowrap;">
+                            Send&nbsp;Report
                         </button>
                     </td>
                 </tr>
