@@ -7,9 +7,6 @@ namespace Schedulist.DAL.Models
     {
         public string Name { get; set; }
         public string Surname { get; set; }
-        //public string Login { get; set; }
-        //public string Password { get; set; }
-        //public bool AdminPrivilege { get; set; }
 
         //EntityFramework Configuration Section
         public int? DepartmentId { get; set; }
