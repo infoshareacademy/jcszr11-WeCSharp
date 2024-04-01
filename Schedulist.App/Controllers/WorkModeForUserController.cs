@@ -40,7 +40,7 @@ namespace Schedulist.App.Controllers
             {
                 var workModeToDelete = _workModeForUserRepository.GetWorkModeById(id);
                 _workModeForUserRepository.DeleteWorkModeForUser(workModeToDelete);
-                Debug.WriteLine("Removed Work Mode!");
+                logger.LogInformation("Removed Work Mode!");
                 PopupNotification("Work mode has been successfully deleted");
                 return RedirectToAction(nameof(Index));
             }
