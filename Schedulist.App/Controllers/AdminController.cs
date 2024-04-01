@@ -72,17 +72,18 @@ namespace Schedulist.App.Controllers
             }
             return RedirectToAction("Management");
         }
-        [HttpGet]
-        public IActionResult CreateNewWorkMode(AdminViewModel model)
+
+        [HttpPost]
+        public IActionResult CreateNewWorkMode(AdminViewModel adminViewModel)
         {
             try
             {
-                var newCategory = model.WorkMode;
-                _workModeRepository.CreateWorkMode(newCategory);
+                var newWorkmode = adminViewModel.WorkMode;
+                _workModeRepository.CreateWorkMode(newWorkmode);
 
                 PopUpNotification("New WorkMode has been created successfully!");
 
-                return Ok();
+                return RedirectToAction(nameof(Management));
             }
             catch (Exception)
             {
