@@ -46,7 +46,8 @@ namespace Schedulist.App.Controllers
         public IActionResult PreviousMonth(DateTime date, string userToEdit)
         {
             List<CalendarEvent> allCalendarEvents = _calendarEventRepository.GetAllCalendarEvents();
-            _user = _userRepository.GetAllUsers().First(obj => obj.Id == userToEdit);
+            var allUsers = _userRepository.GetAllUsers();
+            _user = allUsers.First(obj => obj.Id == userToEdit);
             var calendarEventsToDraw = allCalendarEvents.Where(e => e.UserId == _user.Id && e.CalendarEventDate.Month == date.AddMonths(-1).Month).ToList();
             List<WorkModeForUser> workModesToDraw = _workModeForUserRepository.GetAllWorkModesForUser().Where(e => e.DateOfWorkMode.Month == date.AddMonths(-1).Month && e.UserId == userToEdit).ToList();
             _calendarParams = new MonthViewModel(date.AddMonths(-1), calendarEventsToDraw, _userDict, userToEdit, _workModeRepository, workModesToDraw);

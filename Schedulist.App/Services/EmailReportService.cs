@@ -17,13 +17,11 @@ namespace Schedulist.App.Services
                 Text = "Witaj!"
             };
 
-            using (SmtpClient client = new())
-            {
-                client.Connect("smtp.gmail.com", 465, true);
-                client.Authenticate("schedulistapp@gmail.com", "lbax mujr mwuw wbhi");
-                client.Send(message);
-                client.Disconnect(true);
-            }
+            using SmtpClient client = new();
+            client.Connect("smtp.gmail.com", 465, true);
+            client.Authenticate("schedulistapp@gmail.com", "lbax mujr mwuw wbhi");
+            client.Send(message);
+            client.Disconnect(true);
         }
     }
 }
