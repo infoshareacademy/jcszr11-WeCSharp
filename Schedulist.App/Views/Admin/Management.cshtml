@@ -8,15 +8,23 @@
         <hr />
         <div class="row">
             <div class="col-md-12" style="text-align: center; display: flex; justify-content: center; gap: 10px">
-                <form asp-action="UpdateUser" asp-controller="Admin">
+                <form asp-action="UpdateUser">
                     <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                     <div class="form-group">
                         <label asp-for="@Model.User.Name" class="control-label"></label>
                         <input asp-for="@Model.User.Name" class="form-control" />
                         <span asp-validation-for="@Model.User.Name" class="text-danger"></span>
+                    </div>                    <div class="form-group">
+                        <label asp-for="@Model.User.Surname" class="control-label"></label>
+                        <input asp-for="@Model.User.Surname" class="form-control" />
+                        <span asp-validation-for="@Model.User.Name" class="text-danger"></span>
+                    </div>                    <div class="form-group">
+                        <label asp-for="@Model.User.Email" class="control-label"></label>
+                        <input asp-for="@Model.User.Email" class="form-control" />
+                        <span asp-validation-for="@Model.User.Name" class="text-danger"></span>
                     </div>
                     <div class="form-group" style="text-align: center; display: flex; justify-content: center; align-items: center; padding-top: 12px;">
-                        <button class="button buttonGreen" type="submit" onclick="location.href='@Url.Action("UpdateUser", "Admin", new { id = Model.User.Id })'"><span>Modify</span></button>
+                        <button type="submit" class="button buttonGreen"><span>Update User</span></button>
                     </div>
                 </form>
             </div>
@@ -78,7 +86,7 @@
                         </button>
                     </td>
                     <td>
-                        <button onclick="sendEmail('@user.Email');" data-sidebar-id="edit" class="adminButtom" type="submit" style="white-space: nowrap;">
+                        <button onclick="sendReport('@user.Email');" class="adminButtom" type="button" style="white-space: nowrap;">
                             Send&nbsp;Report
                         </button>
                     </td>
@@ -119,15 +127,18 @@
                     <input asp-for="@Model.WorkMode.Name" autocomplete="off" placeholder="Insert type of new Work Mode" class="newWorkModeForm" style=" width: 270px !important; text-align: center; margin-bottom: 10px;" />
                     <button class="adminButtom" type="submit" style="white-space: nowrap; width: 200px;" onclick="window.location.href='@Url.Action("CreateNewWorkMode", "Admin")?@Model.WorkMode.Name'">Save&nbsp;new&nbsp;Work&nbsp;Mode</button>
                 </div>
-                <div style="display: flex; flex-direction: column; justify-content: center; align-items: center;">
-                    <label asp-for="@Model.WorkMode.Name" class="form-label" style="font-size:23px;">Delete Work Mode</label>
-                    @Html.DropDownListFor(w => w.WorkMode.Id, new SelectList(Model.ListOfWorkModes, "Id", "Name"), "--Select Work Mode--", new { @class = "drop-down" })
-                    <button class="adminButtom" type="submit" style="white-space: nowrap; width: 180px;" onclick="window.location.href='@Url.Action("DeleteWorkMode", "Admin")'">Delete&nbsp;Work&nbsp;Mode</button>
-                </div>
+</form>
+<form method="post" asp-action="DeleteWorkMode">
+    <div style="display: flex; flex-direction: column; justify-content: center; align-items: center;">
+        <label asp-for="@Model.WorkMode.Name" class="form-label" style="font-size:23px;">Delete Work Mode</label>
+        @Html.DropDownListFor(w => w.WorkMode.Id, new SelectList(Model.ListOfWorkModes, "Id", "Name"), "--Select Work Mode--", new { @class = "drop-down" })
+        <button class="adminButtom" type="submit" style="white-space: nowrap; width: 180px;">Delete&nbsp;Work&nbsp;Mode</button>
+    </div>
+</form>
             </div>
         </div>
     </div>
-</form>
+
 
 <script>
     var userDeletedMessage = localStorage.getItem('userDeletedMessage');
@@ -147,5 +158,4 @@
         var sidebarElement = document.getElementById(sidebarId);
         sidebarElement.style.display = "none";
     }
-
 </script>

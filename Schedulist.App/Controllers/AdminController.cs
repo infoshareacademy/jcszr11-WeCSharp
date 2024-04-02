@@ -22,7 +22,6 @@ namespace Schedulist.App.Controllers
         }
         public async Task<IActionResult> Management()
         {
-            //await _userManager.GetRolesAsync();
             var userListItems = new List<UserListItemModel>();
             var allUsers = _userRepository.GetAllUsers().ToList();
             foreach (var user in allUsers)
@@ -100,26 +99,43 @@ namespace Schedulist.App.Controllers
                 WorkMode workModeToDelete = _workModeRepository.GetWorkModeById(model.WorkMode.Id);
                 _workModeRepository.DeleteWorkMode(workModeToDelete);
                 PopUpNotification("Work Mode has been deleted successfully!");
-                logger.LogInformation($"WorkMode deleted.");
-                return Ok();
+                logger.LogInformation($"Work Mode deleted.");
+
+                return RedirectToAction(nameof(Management));
             }
             catch (Exception ex)
             {
                 logger.LogError($"Exception occurred: {ex.Message}");
                 PopUpNotification("Error occurred while deleting User", notificationType: NotificationType.error);
-                return View();
+
+                return RedirectToAction(nameof(Management));
             }
         }
-        [HttpGet]
-        public IActionResult UpdateUser(string userId)
-        {
-
-            return Ok();
-        }
-        //[HttpPost]
-        //public IActionResult UpdateUSer(User userToUpdate)
+        //[HttpGet]
+        //public IActionResult UpdateUser(string userId)
         //{
 
+        //    return Ok();
         //}
+        [HttpPost]
+        public IActionResult UpdateUser(AdminViewModel adminViewModel)
+        {
+            try
+            {
+                if (ModelState.IsValid)
+                {
+                    _userRepository.UpdateUser(adminViewModel.User);
+
+                    PopUpNotification("User has been updated successfully");
+
+                    return RedirectToAction(nameof(Management));
+                }
+            }
+            catch (Exception)
+            {
+                PopUpNotification("Error occurred while updating User", notificationType: NotificationType.error);
+            }
+            return RedirectToAction(nameof(Management));
+        }
     }
 }
