@@ -2,7 +2,6 @@
 function DeleteCalendarEvent(actionUrl, CalendarEventName, CalendarEventDescription, CalendarEventDate,
     CalendarEventStartTime, CalendarEventEndTime, AssignedToUser)
 {
-    console.log(actionUrl)
     Swal.fire({
         title: 'Confirm Deletion',
         html: `
@@ -42,11 +41,6 @@ function DeleteCalendarEvent(actionUrl, CalendarEventName, CalendarEventDescript
 
 function DeleteWorkMode(actionUrl, WorkModeToUserID, WorkModeName, UserID, DateOfWorkmode)
 {
-    console.log(actionUrl)
-    console.log(WorkModeToUserID)
-    console.log(WorkModeName)
-    console.log(UserID)
-    console.log(DateOfWorkmode)
     Swal.fire({
         title: 'Confirm Deletion',
         html: `
@@ -83,7 +77,6 @@ function DeleteWorkMode(actionUrl, WorkModeToUserID, WorkModeName, UserID, DateO
 }
 function DeleteUser(actionUrl, UserName, UserSurname, UserEmail,
     UserRoles) {
-    console.log(actionUrl)
     Swal.fire({
         title: 'Confirm Deletion',
         html: `

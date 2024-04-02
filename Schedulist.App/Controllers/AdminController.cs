@@ -111,12 +111,23 @@ namespace Schedulist.App.Controllers
                 return RedirectToAction(nameof(Management));
             }
         }
-        //[HttpGet]
-        //public IActionResult UpdateUser(string userId)
-        //{
+        [HttpPost]
+        public IActionResult DeleteUser(string Id)
+        {
+            try
+            {
+                var userToDelete = _userRepository.GetUserById(Id);
+                _userRepository.DeleteUser(userToDelete);
 
-        //    return Ok();
-        //}
+                return RedirectToAction(nameof(Management));
+            }
+            catch (Exception)
+            {
+                PopUpNotification("Error occurred while deleting the User", notificationType: NotificationType.error);
+            }
+            return RedirectToAction(nameof(Management));
+        }
+
         [HttpPost]
         public IActionResult UpdateUser(AdminViewModel adminViewModel)
         {

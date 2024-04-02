@@ -75,7 +75,7 @@
                         </form>
                     </td>
                     <td>
-                        <button style="white-space: nowrap;" type="button" class="adminButtom" onclick="DeleteUser('@Url.Action("Delete", "Admin")?id=@user.Id','@user.Name','@user.Surname',
+                        <button style="white-space: nowrap;" type="button" class="adminButtom" onclick="DeleteUser('@Url.Action("DeleteUser", "Admin")?id=@user.Id','@user.Name','@user.Surname',
                         '@user.Email','@user.Roles')">
                             Delete
                         </button>
