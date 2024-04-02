@@ -170,7 +170,7 @@
                     <h5>@day.ToString()</h5>
                 </div>
                 <div class="calendar-sidebar-event-container">
-                    <button class="btn btn-primary" onclick="location.href='@Url.Action("Day", "Calendar", new {@date = day, @userToEdit = Model.User})'">
+                    <button class="btn btn-primary" onclick="location.href='@Url.Action("Day", "Calendar", new {@date = day, @userToEdit = Model.User.Id})'">
                         Day view
                     </button>
                 </div>
@@ -193,10 +193,10 @@
                 }
                 @:</button>
                 <div class="form-group" style="text-align: center; display: flex; justify-content: center; align-items: center; padding-top: 12px;">
-            <button class="button buttonGreen" style="margin-top: 15px" onclick="location.href='@Url.Action("Create", "Calendar")'">
-                Add new event
-            </button>
-            </div>
+                    <button class="button buttonGreen" style="margin-top: 15px" onclick="location.href='@Url.Action("Create", "Calendar")'">
+                        Add new event
+                    </button>
+                </div>
             @:</div>
         @:</div>
     }

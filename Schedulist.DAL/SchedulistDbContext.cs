@@ -10,28 +10,30 @@ namespace Schedulist.DAL
     {
         public SchedulistDbContext()
         {
+
         }
-
         public SchedulistDbContext(DbContextOptions<SchedulistDbContext> options) : base(options) { }
-
 
         public DbSet<WorkModeForUser> WorkModesToUsers { get; set; }
         public DbSet<CalendarEvent> CalendarEvents { get; set; }
         public DbSet<WorkMode> WorkModes { get; set; }
         public DbSet<Department> Departments { get; set; }
         public DbSet<Position> Positions { get; set; }
-        //public DbSet<User> Users { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
             base.OnModelCreating(builder);
+
+            var hasher = new PasswordHasher<User>();
+            var hashedPassword = hasher.HashPassword(null, "Makrella1995!");
+
             builder.Entity<WorkMode>().HasData(
                 new WorkMode() { Id = 1, Name = WorkModeNames.OFFICE },
                 new WorkMode() { Id = 2, Name = WorkModeNames.HOME_OFFICE },
                 new WorkMode() { Id = 3, Name = WorkModeNames.SICK_LEAVE },
                 new WorkMode() { Id = 4, Name = WorkModeNames.DELEGATION },
                 new WorkMode() { Id = 5, Name = WorkModeNames.HOLIDAY },
-                new WorkMode() { Id = 6, Name = WorkModeNames.OTHERS}
+                new WorkMode() { Id = 6, Name = WorkModeNames.OTHERS }
             );
             builder.Entity<Position>().HasData(
                 new Position() { Id = 1, Name = "Software Developer" },
@@ -63,7 +65,7 @@ namespace Schedulist.DAL
                     Id = "1",
                     Name = "Tomasz",
                     Surname = "Tomaszewicz",
-                    UserName = "Tomasz Tomaszewicz",
+                    UserName = "kurstomasza@gmail.com",
                     EmailConfirmed = true,
                     DepartmentId = 1,
                     PositionId = 2,
@@ -71,7 +73,30 @@ namespace Schedulist.DAL
                     TwoFactorEnabled = false,
                     LockoutEnabled = false,
                     AccessFailedCount = 50,
-                }
+                    PasswordHash = hashedPassword,
+                    NormalizedEmail = "KURSTOMASZA@GMAIL.COM",
+                    NormalizedUserName = "KURSTOMASZA@GMAIL.COM",
+                    Email = "kurstomasza@gmail.com"
+                },
+                 new User
+                {
+                    Id = "2",
+                    Name = "Andrzej",
+                    Surname = "Andrzejewski",
+                    UserName = "kursandrzeja@gmail.com",
+                    EmailConfirmed = true,
+                    DepartmentId = 2,
+                    PositionId = 3,
+                    PhoneNumberConfirmed = false,
+                    TwoFactorEnabled = false,
+                    LockoutEnabled = false,
+                    AccessFailedCount = 50,
+                    PasswordHash = hashedPassword,
+                    NormalizedEmail = "KURSANDRZEJA@GMAIL.COM",
+                    NormalizedUserName = "KURSANDRZEJA@GMAIL.COM",
+                    Email = "kursandrzeja@gmail.com"
+
+                 }
             );
             builder.Entity<IdentityRole>().HasData(
                 new IdentityRole { Name = "Admin", NormalizedName = "ADMIN", Id = "c3e92f9e-e8e9-4fe3-b600-ed1b055d25aa" },
@@ -85,8 +110,6 @@ namespace Schedulist.DAL
                 new WorkModeForUser() { Id = 5, DateOfWorkMode = new DateOnly(2024, 01, 13), WorkModeId = 1, UserId = "2" },
                 new WorkModeForUser() { Id = 6, DateOfWorkMode = new DateOnly(2024, 01, 14), WorkModeId = 1, UserId = "2" }
             );
-
-
 
             builder.Entity<CalendarEvent>().HasData(
                 new CalendarEvent() { Id = 1, CalendarEventName = "Maintenance Work", CalendarEventDescription = "Ongoing maintenance tasks in the office", CalendarEventDate = new DateOnly(2024, 01, 10), CalendarEventStartTime = new TimeOnly(08, 30, 0), CalendarEventEndTime = new TimeOnly(09, 30, 0), UserId = "1" },

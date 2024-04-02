@@ -2,11 +2,10 @@
 function DeleteCalendarEvent(actionUrl, CalendarEventName, CalendarEventDescription, CalendarEventDate,
     CalendarEventStartTime, CalendarEventEndTime, AssignedToUser)
 {
-    console.log(actionUrl)
     Swal.fire({
         title: 'Confirm Deletion',
         html: `
-            <h4 style="color: red;">Are you sure you want to delete the calendar event?</h4>
+            <h4 style="color: red;">Are you sure you want to delete the Calendar Event?</h4>
             <div>
             <hr class="horizontal-line" style="height: 3px; border: 1px solid gray; margin: 10px">
             <h2>Calendar Event Details:</h2>
@@ -26,7 +25,7 @@ function DeleteCalendarEvent(actionUrl, CalendarEventName, CalendarEventDescript
                 url: actionUrl,
                 type: 'POST',
                 success: function (result) {
-                    localStorage.setItem('calendarEventDeletedMessage', 'Your calendar event has been deleted successfully');
+                    localStorage.setItem('calendarEventDeletedMessage', 'Your Calendar Event has been deleted successfully');
                     location.reload();
                 },
                 error: function (error) {
@@ -35,18 +34,13 @@ function DeleteCalendarEvent(actionUrl, CalendarEventName, CalendarEventDescript
             });
 
         } else if (result.dismiss === Swal.DismissReason.cancel) {
-            Swal.fire('Cancelled', 'Your calendar event is safe :)', 'info');
+            Swal.fire('Cancelled', 'Your Calendar Event is safe :)', 'info');
         }
     });
 }
 
 function DeleteWorkMode(actionUrl, WorkModeToUserID, WorkModeName, UserID, DateOfWorkmode)
 {
-    console.log(actionUrl)
-    console.log(WorkModeToUserID)
-    console.log(WorkModeName)
-    console.log(UserID)
-    console.log(DateOfWorkmode)
     Swal.fire({
         title: 'Confirm Deletion',
         html: `
@@ -78,6 +72,42 @@ function DeleteWorkMode(actionUrl, WorkModeToUserID, WorkModeName, UserID, DateO
 
         } else if (result.dismiss === Swal.DismissReason.cancel) {
             Swal.fire('Cancelled', 'Your Work Mode is safe :)', 'info');
+        }
+    });
+}
+function DeleteUser(actionUrl, UserName, UserSurname, UserEmail,
+    UserRoles) {
+    Swal.fire({
+        title: 'Confirm Deletion',
+        html: `
+            <h4 style="color: red;">Are you sure you want to delete the User?</h4>
+            <div>
+            <hr class="horizontal-line" style="height: 3px; border: 1px solid gray; margin: 10px">
+            <h2>User Details:</h2>
+            <strong>Name:</strong> ${UserName}<br>
+            <strong>Surname:</strong> ${UserSurname}<br>
+            <strong>Email:</strong> ${UserEmail}<br>
+            <strong>User Role:</strong> ${UserRoles}<br>
+            </div>
+        `,
+        icon: 'question',
+        showCancelButton: true
+    }).then(result => {
+        if (result.isConfirmed) {
+            $.ajax({
+                url: actionUrl,
+                type: 'POST',
+                success: function (result) {
+                    localStorage.setItem('userDeletedMessage', 'Chosen User has been deleted successfully');
+                    location.reload();
+                },
+                error: function (error) {
+                    alert("failure");
+                }
+            });
+
+        } else if (result.dismiss === Swal.DismissReason.cancel) {
+            Swal.fire('Cancelled', 'User is safe :)', 'info');
         }
     });
 }
