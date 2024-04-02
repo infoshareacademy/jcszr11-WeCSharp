@@ -15,35 +15,82 @@
 <body class="d-flex justify-content-center align-items-center">
     <div class="text-center">
         <h1>Statistics</h1>
-        <div class="card">
-            <div class="card-body">
-                <canvas id="myChart"></canvas>
+        <div class="container justify-content-center">
+            <div class="card">
+                <div class="row g-2">
+                    <div class="col-md-6 col-12">
+                        <div class="card-body p-3">
+                            <canvas id="myChart1"></canvas>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-12">
+                        <div class="card-body p-3">
+                            <canvas id="myChart2"></canvas>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-12">
+                        <div class="card-body p-3">
+                            <canvas id="myChart3"></canvas>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-12">
+                        <div class="card-body p-3">
+                            <canvas id="myChart4"></canvas>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
- <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <script>
-        const ctx = document.getElementById('myChart');
 
-        new Chart(ctx, {
-            type: 'bar',
-            data: {
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+        const dataSets = [
+            {
                 labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
-                datasets: [{
-                    label: '# of Votes',
-                    data: [12, 19, 3, 5, 2, 3],
-                    borderWidth: 1
-                }]
+                data: [12, 19, 3, 5, 2, 3],
+                label: 'Chart 1'
             },
-            options: {
-                scales: {
-                    y: {
-                        beginAtZero: true
+            {
+                labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
+                data: [8, 15, 10, 8, 6, 10],
+                label: 'Chart 2'
+            },
+            {
+                labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
+                data: [5, 10, 5, 12, 15, 8],
+                label: 'Chart 3'
+            },
+            {
+                labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
+                data: [20, 5, 7, 14, 3, 18],
+                label: 'Chart 4'
+            }
+        ];
+
+        dataSets.forEach((dataSet, index) => {
+            const ctx = document.getElementById(`myChart${index + 1}`);
+            new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: dataSet.labels,
+                    datasets: [{
+                        label: dataSet.label,
+                        data: dataSet.data,
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    scales: {
+                        y: {
+                            beginAtZero: true
+                        }
                     }
                 }
-            }
+            });
         });
     </script>
+
 
 </body>
 </html>

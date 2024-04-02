@@ -19,8 +19,8 @@ namespace Schedulist.App.Controllers
         }
         public IActionResult DataFromDatabase()
         {
-            var calendarEvents = _calendarEventRepository.GetAllCalendarEvents();
-            return View(calendarEvents);
+       
+            return View();
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
