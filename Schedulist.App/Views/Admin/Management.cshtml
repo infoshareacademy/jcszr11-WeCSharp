@@ -17,11 +17,11 @@
                     </div>                    <div class="form-group">
                         <label asp-for="@Model.User.Surname" class="control-label"></label>
                         <input asp-for="@Model.User.Surname" class="form-control" />
-                        <span asp-validation-for="@Model.User.Name" class="text-danger"></span>
+                        <span asp-validation-for="@Model.User.Surname" class="text-danger"></span>
                     </div>                    <div class="form-group">
                         <label asp-for="@Model.User.Email" class="control-label"></label>
                         <input asp-for="@Model.User.Email" class="form-control" />
-                        <span asp-validation-for="@Model.User.Name" class="text-danger"></span>
+                        <span asp-validation-for="@Model.User.Email" class="text-danger"></span>
                     </div>
                     <div class="form-group" style="text-align: center; display: flex; justify-content: center; align-items: center; padding-top: 12px;">
                         <button type="submit" class="button buttonGreen"><span>Update User</span></button>
@@ -98,64 +98,64 @@
 
 <hr class="horizontal-line" style="height: 3px; border: 1px solid gray; margin: 10px; margin-top: 35px;">
 
-<form asp-action="CreateNewWorkMode" method="post">
-    <h2 style="display: flex; justify-content: flex-start; margin-top: 20px; white-space:nowrap;">Work&nbsp;Mode&nbsp;Management&nbsp;Section</h2>
-    <div class="management-container">
-        <div style="display: flex;">
-            <div style="flex: 2;">
-                <table id="table" style="margin-right: 20px;">
-                    <thead>
+
+<h2 style="display: flex; justify-content: flex-start; margin-top: 20px; white-space:nowrap;">Work&nbsp;Mode&nbsp;Management&nbsp;Section</h2>
+<div class="management-container">
+    <div style="display: flex;">
+        <div style="flex: 2;">
+            <table id="table" style="margin-right: 20px;">
+                <thead>
+                    <tr>
+                        <th class="text-indicator" style="padding: 10px 15px; white-space: nowrap">Available&nbsp;Work&nbsp;Modes</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model.ListOfWorkModes)
+                    {
                         <tr>
-                            <th class="text-indicator" style="padding: 10px 15px; white-space: nowrap">Available&nbsp;Work&nbsp;Modes</th>
+                            <td>
+                                <span class="pointer">@item.Name</span>
+                            </td>
                         </tr>
-                    </thead>
-                    <tbody>
-                        @foreach (var item in Model.ListOfWorkModes)
-                        {
-                            <tr>
-                                <td>
-                                    <span class="pointer">@item.Name</span>
-                                </td>
-                            </tr>
-                        }
-                    </tbody>
-                </table>
-            </div>
-            <div style="flex: 1; display: flex; flex-direction: column; justify-content: center; margin-right: 70%;">
+                    }
+                </tbody>
+            </table>
+        </div>
+
+        <div style="flex: 1; display: flex; flex-direction: column; justify-content: center; margin-right: 70%; align-items: center;">
+            <form asp-action="CreateNewWorkMode" method="post">
                 <div style="margin-bottom: 20px; display: flex; flex-direction: column; justify-content: center; align-items: center;">
                     <label asp-for="@Model.WorkMode.Name" class="form-label" style="font-size: 23px; white-space: nowrap;">Create&nbsp;new&nbsp;Work&nbsp;Mode</label>
                     <input asp-for="@Model.WorkMode.Name" autocomplete="off" placeholder="Insert type of new Work Mode" class="newWorkModeForm" style=" width: 270px !important; text-align: center; margin-bottom: 10px;" />
                     <button class="adminButtom" type="submit" style="white-space: nowrap; width: 200px;" onclick="window.location.href='@Url.Action("CreateNewWorkMode", "Admin")?@Model.WorkMode.Name'">Save&nbsp;new&nbsp;Work&nbsp;Mode</button>
                 </div>
-</form>
-<form method="post" asp-action="DeleteWorkMode">
-    <div style="display: flex; flex-direction: column; justify-content: center; align-items: center;">
-        <label asp-for="@Model.WorkMode.Name" class="form-label" style="font-size:23px;">Delete Work Mode</label>
-        @Html.DropDownListFor(w => w.WorkMode.Id, new SelectList(Model.ListOfWorkModes, "Id", "Name"), "--Select Work Mode--", new { @class = "drop-down" })
-        <button class="adminButtom" type="submit" style="white-space: nowrap; width: 180px;">Delete&nbsp;Work&nbsp;Mode</button>
-    </div>
-</form>
-            </div>
+            </form>
+            <form method="post" asp-action="DeleteWorkMode">
+                <div style="display: flex; flex-direction: column; justify-content: center; align-items: center;">
+                    <label asp-for="@Model.WorkMode.Name" class="form-label" style="font-size:23px;">Delete Work Mode</label>
+                    @Html.DropDownListFor(w => w.WorkMode.Id, new SelectList(Model.ListOfWorkModes, "Id", "Name"), "--Select Work Mode--", new { @class = "drop-down" })
+                    <button class="adminButtom" type="submit" style="white-space: nowrap; width: 180px;">Delete&nbsp;Work&nbsp;Mode</button>
+                </div>
+            </form>
         </div>
-    </div>
 
 
-<script>
-    var userDeletedMessage = localStorage.getItem('userDeletedMessage');
+        <script>
+            var userDeletedMessage = localStorage.getItem('userDeletedMessage');
 
-    if (userDeletedMessage) {
-        toastr.success(userDeletedMessage);
-        localStorage.removeItem('userDeletedMessage');
-    }
+            if (userDeletedMessage) {
+                toastr.success(userDeletedMessage);
+                localStorage.removeItem('userDeletedMessage');
+            }
 
-    function openCalendarSidebar(element) {
-        var sidebarId = element.getAttribute('data-sidebar-id');
-        var sidebarElement = document.getElementById(sidebarId);
-        sidebarElement.style.display = "block";
-    }
+            function openCalendarSidebar(element) {
+                var sidebarId = element.getAttribute('data-sidebar-id');
+                var sidebarElement = document.getElementById(sidebarId);
+                sidebarElement.style.display = "block";
+            }
 
-    function closeCalendarSidebar(sidebarId) {
-        var sidebarElement = document.getElementById(sidebarId);
-        sidebarElement.style.display = "none";
-    }
-</script>
+            function closeCalendarSidebar(sidebarId) {
+                var sidebarElement = document.getElementById(sidebarId);
+                sidebarElement.style.display = "none";
+            }
+        </script>
