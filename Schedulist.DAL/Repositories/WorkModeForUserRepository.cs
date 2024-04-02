@@ -15,7 +15,8 @@ namespace Schedulist.DAL.Repositories
         {
             try
             {
-                return _db.WorkModesToUsers.Include(e => e.User).Include(w => w.WorkMode).ToList();
+                var workModesList = _db.WorkModesToUsers.Include(e => e.User).Include(w => w.WorkMode).ToList();
+                return workModesList;
             }
             catch (Exception ex)
             {
