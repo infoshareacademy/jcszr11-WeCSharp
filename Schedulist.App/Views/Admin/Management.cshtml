@@ -1,0 +1,162 @@
+﻿@using Schedulist.App.Services
+@model Schedulist.App.ViewModels.Admin.AdminViewModel
+
+<div class="calendar-sidebar-container" style="top:0; position:fixed; width: 450px;" id="edit">
+    <div class="calendar-sidebar">
+        <button onclick="closeCalendarSidebar('edit')" class="sidebar-close-button">x</button>
+        <h4 class="text-center" style="display:flex; justify-content:center; font-size: 30px">User Update Form</h4>
+        <hr />
+        <div class="row">
+            <div class="col-md-12" style="text-align: center; display: flex; justify-content: center; gap: 10px">
+                <form asp-action="UpdateUser" asp-controller="Admin">
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                    <div class="form-group">
+                        <label asp-for="@Model.User.Name" class="control-label" for="Name"></label>
+                        <input asp-for="@Model.User.Name" class="form-control" />
+                        <span asp-validation-for="@Model.User.Name" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="@Model.User.Surname" class="control-label" for="Surname"></label>
+                        <input asp-for="@Model.User.Surname" class="form-control" />
+                        <span asp-validation-for="@Model.User.Surname" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="@Model.User.Email" class="control-label" for="Email"></label>
+                        <input asp-for="@Model.User.Email" class="form-control" />
+                        <span asp-validation-for="@Model.User.Email" class="text-danger"></span>
+                    </div>
+                    <div class="form-group" style="text-align: center; display: flex; justify-content: center; align-items: center; padding-top: 12px;">
+                        <button type="submit" class="button buttonGreen"><span>Update User</span></button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<h2 style="display: flex; justify-content: flex-start; margin-top: 20px; white-space:nowrap;">Users&nbsp;Management&nbsp;Section</h2>
+<div class="management-container" style="width: 300px !important;">
+    <table id="table">
+        <thead>
+            <tr>
+                <th class="text-indicator">Id</th>
+                <th class="text-indicator">Name</th>
+                <th class="text-indicator">Surname</th>
+                <th class="text-indicator">Email</th>
+                <th class="text-indicator">Roles</th>
+                <th colspan="5" class="text-indicator" style="white-space: nowrap; text-align:center; vertical-align: central;">Admin&nbsp;options</th>
+        </thead>
+        <tbody>
+            @foreach (var user in Model.Users)
+            {
+                <tr>
+                    <td>
+                        <span class="pointer">@user.Id</span>
+                    </td>
+                    <td>
+                        <span class="pointer">@user.Name</span>
+                    </td>
+                    <td>
+                        <span class="pointer">@user.Surname</span>
+                    </td>
+                    <td>
+                        <span class="pointer">@Html.DisplayFor(_ => user.Email)</span>
+                    </td>
+                    <td>
+                        <span class="pointer">@user.Roles</span>
+                    </td>
+                    <td>
+                        <form asp-action="AddToAdministrator" asp-route-userId="@user.Id" method="post">
+                            <button class="adminButtom" type="submit" style="white-space: nowrap;">Add&nbsp;To&nbsp;Administrator</button>
+                        </form>
+                    </td>
+                    <td>
+                        <form asp-action="AddToStandardRole" asp-route-userId="@user.Id" method="post">
+                            <button class="adminButtom" type="submit" style="white-space: nowrap;">Add&nbsp;To&nbsp;Standard&nbsp;Role</button>
+                        </form>
+                    </td>
+                    <td>
+                        <button style="white-space: nowrap;" type="button" class="adminButtom" onclick="DeleteUser('@Url.Action("DeleteUser", "Admin")?id=@user.Id','@user.Name','@user.Surname',
+                        '@user.Email','@user.Roles')">
+                            Delete
+                        </button>
+                    </td>
+                    <td>
+                        <button onclick="openCalendarSidebar(this)" data-sidebar-id="edit" class="adminButtom" type="submit" style="white-space: nowrap;">
+                            Modify&nbsp;User
+                        </button>
+                    </td>
+                    <td>
+                        <button onclick="sendReport('@user.Email');" class="adminButtom" type="button" style="white-space: nowrap;">
+                            Send&nbsp;Report
+                        </button>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+<hr class="horizontal-line" style="height: 3px; border: 1px solid gray; margin: 10px; margin-top: 35px;">
+
+
+<h2 style="display: flex; justify-content: flex-start; margin-top: 20px; white-space:nowrap;">Work&nbsp;Mode&nbsp;Management&nbsp;Section</h2>
+<div class="management-container">
+    <div style="display: flex;">
+        <div style="flex: 2;">
+            <table id="table" style="margin-right: 20px;">
+                <thead>
+                    <tr>
+                        <th class="text-indicator" style="padding: 10px 15px; white-space: nowrap">Available&nbsp;Work&nbsp;Modes</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model.ListOfWorkModes)
+                    {
+                        <tr>
+                            <td>
+                                <span class="pointer">@item.Name</span>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+
+        <div style="flex: 1; display: flex; flex-direction: column; justify-content: center; margin-right: 70%; align-items: center;">
+            <form asp-action="CreateNewWorkMode" method="post">
+                <div style="margin-bottom: 20px; display: flex; flex-direction: column; justify-content: center; align-items: center;">
+                    <label asp-for="@Model.WorkMode.Name" class="form-label" style="font-size: 23px; white-space: nowrap;">Create&nbsp;new&nbsp;Work&nbsp;Mode</label>
+                    <input asp-for="@Model.WorkMode.Name" autocomplete="off" placeholder="Insert type of new Work Mode" class="newWorkModeForm" style=" width: 270px !important; text-align: center; margin-bottom: 10px;" />
+                    <button class="adminButtom" type="submit" style="white-space: nowrap; width: 200px;" onclick="window.location.href='@Url.Action("CreateNewWorkMode", "Admin")?@Model.WorkMode.Name'">Save&nbsp;new&nbsp;Work&nbsp;Mode</button>
+                </div>
+            </form>
+            <form method="post" asp-action="DeleteWorkMode">
+                <div style="display: flex; flex-direction: column; justify-content: center; align-items: center;">
+                    <label asp-for="@Model.WorkMode.Name" class="form-label" style="font-size:23px;">Delete Work Mode</label>
+                    @Html.DropDownListFor(w => w.WorkMode.Id, new SelectList(Model.ListOfWorkModes, "Id", "Name"), "--Select Work Mode--", new { @class = "drop-down" })
+                    <button class="adminButtom" type="submit" style="white-space: nowrap; width: 180px;">Delete&nbsp;Work&nbsp;Mode</button>
+                </div>
+            </form>
+        </div>
+
+
+        <script>
+            var userDeletedMessage = localStorage.getItem('userDeletedMessage');
+
+            if (userDeletedMessage) {
+                toastr.success(userDeletedMessage);
+                localStorage.removeItem('userDeletedMessage');
+            }
+
+            function openCalendarSidebar(element) {
+                var sidebarId = element.getAttribute('data-sidebar-id');
+                var sidebarElement = document.getElementById(sidebarId);
+                sidebarElement.style.display = "block";
+            }
+
+            function closeCalendarSidebar(sidebarId) {
+                var sidebarElement = document.getElementById(sidebarId);
+                sidebarElement.style.display = "none";
+            }
+        </script>

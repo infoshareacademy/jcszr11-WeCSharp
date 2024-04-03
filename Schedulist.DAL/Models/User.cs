@@ -5,11 +5,10 @@ namespace Schedulist.DAL.Models
 {
     public class User : IdentityUser
     {
+        [Required]
         public string Name { get; set; }
+        [Required]
         public string Surname { get; set; }
-        //public string Login { get; set; }
-        //public string Password { get; set; }
-        //public bool AdminPrivilege { get; set; }
 
         //EntityFramework Configuration Section
         public int? DepartmentId { get; set; }

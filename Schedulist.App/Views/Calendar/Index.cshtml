@@ -1,8 +1,16 @@
-﻿@using Schedulist.App.ViewModels
+﻿@using Microsoft.AspNetCore.Identity
+@using Schedulist.App.ViewModels
 @using Schedulist.DAL.Models
 @using Schedulist.DAL.Repositories
 @using Schedulist.DAL.Shared
 @model MonthViewModel
+@inject SignInManager<User> SignInManager
+@inject UserManager<User> UserManager
+
+@{
+    var loggedInUser = await UserManager.GetUserAsync(User);
+    var userName = $"{loggedInUser.Name} {loggedInUser.Surname}";
+}
 
 <script>
     function openCalendarSidebar(element) {
@@ -37,30 +45,22 @@
             <div class="month-name">
                 @Model.FirstDayOfTheMonth.ToString("MMMM yyyy")
             </div>
-            <div class="calendar-dropdown">
-                <div class="dropdown">
-                    <button class="btn btn-primary dropdown-toggle month-view-dropdown" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        Month
-                    </button>
-                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                        <a class="dropdown-item" onclick="location.href='@Url.Action("Day", "Calendar", new {@date = DateTime.Now, @userToEdit = Model.UserToEdit})'">Day</a>
-                        <a class="dropdown-item" onclick="location.href='@Url.Action("Week", "Calendar", new {@date = DateTime.Now, @userToEdit = Model.UserToEdit})'">Week</a>
-                    </div>
-                </div>
+            <div class="userNameDisplay">
+                <span><strong>Current User:</strong> @userName</span>
             </div>
-            <div class="calendar-dropdown">
-                <div class="dropdown">
-                    <button class="btn btn-secondary dropdown-toggle user-dropdown" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                @Model.UserDict.First().Value
-                    </button>
-                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                        @foreach (KeyValuePair <string, string> DropdownUser in Model.UserDict)
-                        {
-                            <a class="dropdown-item" onclick="location.href='@Url.Action("ChangeUser", "Calendar", new {@date = Model.CurrentDate, @userToEdit = DropdownUser.Key})'">@DropdownUser.Value</a>
-                        }
-                        </div>
-                    </div>
-                </div>
+<div class="calendar-dropdown">
+    <div class="dropdown">
+        <button id="userButton" class="btn btn-secondary dropdown-toggle user-dropdown" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="width: auto;">
+            <span style="color:black">Select User Calendar:</span><span id="userNameDisplay"> @Model.UserNameDisplay</span>
+        </button>
+        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+            @foreach (KeyValuePair<string, string> DropdownUser in Model.UserDict)
+            {
+                 <a class="dropdown-item" onclick="location.href='@Url.Action("ChangeUser", "Calendar", new {@date = Model.CurrentDate, @userToEdit = DropdownUser.Key})'">@DropdownUser.Value</a>
+            }
+        </div>
+    </div>
+</div>
         </div>
         <div class="row flex-nowrap" style="border-left: 1px solid lightgrey;">
             @for (int i = 0; i < 7; i++)

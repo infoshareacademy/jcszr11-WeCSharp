@@ -155,7 +155,14 @@ html {
     font-size: 20px;
     padding: 0;
     padding-top: 8px;
-    width: 450px;
+    width: 400px;
+}
+.userNameDisplay {
+    font-size: 16px;
+    padding: 0;
+    padding-top: 10px;
+    width: 300px;
+    margin-right: 50px;
 }
 
 .month-user-name {
@@ -321,7 +328,7 @@ html {
     position: absolute;
     height: calc(100% - 123px);
     width: 350px;
-    right: 0;
+    right: 0px;
     top: 123px;
 }
 
@@ -333,7 +340,7 @@ html {
 }
 
 .calendar-sidebar {
-    border-left: 1px solid lightgrey;
+    border: 1px solid lightgrey;
     background-color: white;
     top: 123px;
     position: sticky;
@@ -459,3 +466,77 @@ html {
         color: #23272a;
         border: solid 1px #23272a;
     }
+/*Select User drop-down*/
+.dropdown-menu {
+    
+    width: 250px;
+}
+.dropdown-menu a.pointer {
+    text-decoration: none;
+    color: black;
+    flex-wrap: wrap;
+}
+.dropdown-menu a {
+    display: block;
+    padding: 8px;
+    cursor: pointer;
+}
+.dropdown-menu a:hover {
+    background-color: gray;
+    color: white;
+}
+table {
+    border: solid black 2px;
+}
+table td{
+    border: solid black 2px;
+    padding: 10px;
+}
+
+table td tr {
+    border: solid black 2px;
+}
+
+.nav-pills .nav-link.active, .nav-pills .show > .nav-link {
+    background-color: white;
+}
+.nav-pills .nav-link.active, .nav-pills .show > .nav-link:hover {
+    background-color: #23272a;
+}
+.nav-pills .nav-link.active, .nav-pills .show > .nav-link a:hover {
+    color: white;
+}
+.text-black:hover {
+    color: white !important;
+}
+#logoutForm:hover {
+    background-color: #23272a;
+}
+#logout:hover {
+    color: white !important;
+}
+.adminButtom:hover {
+    outline: 2px solid black;
+}
+.management-container-container {
+    margin-left: 20px;
+    margin-top: 20px;
+    margin-bottom: 35px;
+}
+/*.manageWorkModes-container {
+    margin-left: 20px;
+    margin-top: 20px;
+    margin-bottom: 35px;
+}*/
+.newWorkModeForm {
+    display: inline-block !important;
+    width: auto !important;
+}
+.drop-down {
+    text-align: center;
+    justify-content: center;
+    margin-bottom: 10px;
+    height: 32px;
+    padding-bottom: 2.5px;
+    color: gray;
+}

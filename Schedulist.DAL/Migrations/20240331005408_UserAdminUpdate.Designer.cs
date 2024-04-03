@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Schedulist.DAL;
 
@@ -11,9 +12,11 @@ using Schedulist.DAL;
 namespace Schedulist.DAL.Migrations
 {
     [DbContext(typeof(SchedulistDbContext))]
-    partial class SchedulistDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240331005408_UserAdminUpdate")]
+    partial class UserAdminUpdate
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -496,17 +499,41 @@ namespace Schedulist.DAL.Migrations
                         {
                             Id = "1",
                             AccessFailedCount = 50,
-                            ConcurrencyStamp = "70504250-bb0f-4522-8e92-c9a34d056d56",
+                            ConcurrencyStamp = "23a83bb9-86f9-4bfc-bda8-0e23601e4f51",
                             DepartmentId = 1,
+                            Email = "kurstomasza@gmail.com",
                             EmailConfirmed = true,
                             LockoutEnabled = false,
                             Name = "Tomasz",
+                            NormalizedEmail = "KURSTOMASZA@GMAIL.COM",
+                            NormalizedUserName = "KURSTOMASZA@GMAIL.COM",
+                            PasswordHash = "AQAAAAIAAYagAAAAEA14Ca4Qxi1aLPhhX//QlyWzbRxLXzvnr+15a91K8Gm2wm4aJm8WmvYvHNbF5Uy/2Q==",
                             PhoneNumberConfirmed = false,
                             PositionId = 2,
-                            SecurityStamp = "f96c3099-d904-48d3-ae7a-165a5329bfcd",
+                            SecurityStamp = "b047864c-3535-47b2-bb55-d8ba2ec4383c",
                             Surname = "Tomaszewicz",
                             TwoFactorEnabled = false,
-                            UserName = "Tomasz Tomaszewicz"
+                            UserName = "kurstomasza@gmail.com"
+                        },
+                        new
+                        {
+                            Id = "2",
+                            AccessFailedCount = 50,
+                            ConcurrencyStamp = "f408323a-6f7b-4c2d-97ac-8a0911ac231c",
+                            DepartmentId = 2,
+                            Email = "kursandrzeja@gmail.com",
+                            EmailConfirmed = true,
+                            LockoutEnabled = false,
+                            Name = "Andrzej",
+                            NormalizedEmail = "KURSANDRZEJA@GMAIL.COM",
+                            NormalizedUserName = "KURSANDRZEJA@GMAIL.COM",
+                            PasswordHash = "AQAAAAIAAYagAAAAEA14Ca4Qxi1aLPhhX//QlyWzbRxLXzvnr+15a91K8Gm2wm4aJm8WmvYvHNbF5Uy/2Q==",
+                            PhoneNumberConfirmed = false,
+                            PositionId = 3,
+                            SecurityStamp = "a55540bb-c4ac-4d78-bfbb-d88cb0bffb11",
+                            Surname = "Andrzejewski",
+                            TwoFactorEnabled = false,
+                            UserName = "kursandrzeja@gmail.com"
                         });
                 });
 
