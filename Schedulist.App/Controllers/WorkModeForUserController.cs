@@ -84,7 +84,7 @@ namespace Schedulist.App.Controllers
                 SetupWorkModeList();
                 _workModeForUserRepository.UpdateWorkModeForUser(workModeForUser);
                 logger.LogInformation("Work mode for user has been updated successfully");
-                PopupNotification("Work mode for user has been updated successfully");
+                PopUpNotification("Work mode for user has been updated successfully");
                 return RedirectToAction(nameof(Index));
             }
             catch

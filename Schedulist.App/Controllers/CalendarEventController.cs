@@ -110,7 +110,7 @@ namespace Schedulist.App.Controllers
                 }
                 _calendarEventRepository.UpdateCalendarEvent(id, calendarEvent);
                 logger.LogInformation($"Modified Calendar Event.");
-                PopupNotification("Calendar event has been updated successfully");
+                PopUpNotification("Calendar event has been updated successfully");
                 var returnUrl = TempData["ReturnUrl"] as string;
 
                 return returnUrl != null ? Redirect(returnUrl) : RedirectToAction(nameof(Index));

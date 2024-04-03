@@ -126,7 +126,7 @@ namespace Schedulist.App.Controllers
             //if (workMode != null) workModeString = _workModeRepository.GetWorkModeById(workMode.WorkModeId).Name;
             List<CalendarEvent> calendarEvents = _calendarEventRepository.GetAllCalendarEvents();
             var calendarEventsToDraw = calendarEvents.Where(calendarEvent => calendarEvent.UserId == user.Id && calendarEvent.CalendarEventDate == dateOnly).ToList();
-            var dayViewModel = new DayViewModel(dateOnly, user, workModeString, calendarEventsToDraw);
+            var dayViewModel = new DayViewModel(dateOnly, user, workModeString, calendarEventsToDraw, HttpContext.Request.Path + HttpContext.Request.QueryString);
             logger.LogInformation($"Drawing calendar day for: {dateOnly}");
             return View(dayViewModel);
         }
