@@ -1,8 +1,8 @@
 ﻿using MailKit.Net.Smtp;
 using MimeKit;
-using PdfSharpCore;
+using PdfSharpCore.Drawing;
 using PdfSharpCore.Pdf;
-using System.IO;
+using System.Globalization;
 
 namespace Schedulist.App.Services
 {
@@ -11,16 +11,33 @@ namespace Schedulist.App.Services
         public static void CreatePdf(DateTime date)
         {
             PdfDocument document = new PdfDocument();
+            CultureInfo ci = new CultureInfo("en-GB");
+            string month = date.ToString("MMMM_yyyy", ci);
+
             PdfPage page = document.AddPage();
-            string month = date.ToString("M_yyyy");
+            XGraphics gfx = XGraphics.FromPdfPage(page);
+
+            XFont header = new XFont("Verdana", 20, XFontStyle.Bold);
+            gfx.DrawString(@$"Raport for {month}", header, XBrushes.Black,
+            new XRect(0, 10, page.Width, 50),
+            XStringFormats.Center);
+
+            XFont font = new XFont("Verdana", 14, XFontStyle.Bold);
+            string text = "Hello world";
+            gfx.DrawString(text, font, XBrushes.Black,
+            new XRect(20, 70, page.Width, page.Height),
+            XStringFormats.TopLeft);
+
             string filename = $"Raport_For_{month}.pdf";
+
             document.Save(filename);
         }
         public static void SendEmail(string emailAdress)
         {
             //checking if required pdf exists and generating it if it doesn't
             DateTime previousMonth = DateTime.Now.AddMonths(-1);
-            string previousMonthString = previousMonth.ToString("M_yyyy");
+            CultureInfo ci = new CultureInfo("en-GB");
+            string previousMonthString = previousMonth.ToString("MMMM_yyyy", ci);
             string filename = $"Raport_For_{previousMonthString}.pdf";
             if (!File.Exists(filename))
             {
@@ -36,13 +53,14 @@ namespace Schedulist.App.Services
             var multipart = new Multipart("mixed");
             message.Subject = "Schedulist Report";
 
+
             var body = new TextPart("plain")
             {
-                Text = 
-@"Hello!
+                Text =
+@$"Hello!
 
 
-The attachment includes a report for last month.
+The attachment includes a report for {previousMonthString.Replace("_", " ")}.
 Thank you for using Schedulist."
             };
             multipart.Add(body);
