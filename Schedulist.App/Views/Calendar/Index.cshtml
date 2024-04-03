@@ -37,7 +37,7 @@
             <div class="month-name">
                 @Model.FirstDayOfTheMonth.ToString("MMMM yyyy")
             </div>
-            @* <div class="calendar-dropdown">
+            <div class="calendar-dropdown">
                 <div class="dropdown">
                     <button class="btn btn-primary dropdown-toggle month-view-dropdown" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         Month
@@ -47,7 +47,7 @@
                         <a class="dropdown-item" onclick="location.href='@Url.Action("Week", "Calendar", new {@date = DateTime.Now, @userToEdit = Model.UserToEdit})'">Week</a>
                     </div>
                 </div>
-            </div> *@
+            </div>
             <div class="calendar-dropdown">
                 <div class="dropdown">
                     <button class="btn btn-secondary dropdown-toggle user-dropdown" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -162,11 +162,11 @@
                                     </div>
                                     <div class="calendar-day-work-mode">
                                             @{string workModeForThisDay = "";}
-                                        //     @foreach (WorkModeForUser workMode in Model.WorkModesToDraw)
+                                             @foreach (WorkModeForUser workMode in Model.WorkModesToDraw)
                                             {
                                             if (workMode.DateOfWorkMode == DateOnly.FromDateTime(drawDate))
                                                 {
-                                                    workModeForThisDay = Model.WorkMode.GetWorkModeById(workMode.Id).Name;
+                                                    workModeForThisDay = Model.WorkMode.GetWorkModeById(workMode.WorkModeId).Name;
                                                 }
                                         }
                                         @workModeForThisDay
