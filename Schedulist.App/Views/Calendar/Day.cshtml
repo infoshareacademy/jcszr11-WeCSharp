@@ -64,7 +64,18 @@
                 </div>
             </div>
         </div>
-       <div class="event-dropdown">
+@*         //new part
+        <div>
+            <div class="dropdown">
+                <button class="btn btn-primary dropdown-toggle calendar-day-work-mode" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Choose work mode
+                </button>
+                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+
+                </div>
+            </div>
+            //new part *@
+        <div class="event-dropdown">
             <input type="hidden" name="chosenDate" value="@Model.Date.ToString(" yyyy-MM-dd")" />
             <button class="button buttonGreen" onclick="location.href='@Url.Action("Create", "Calendar")'" style="white-space: nowrap;">
                 Add new event
@@ -143,7 +154,7 @@
             @calendarEvent.CalendarEventName<br>
             @calendarEvent.CalendarEventDescription<br>
              <div class="form-group" style="text-align: center; display: flex; justify-content: center; align-items: center; padding-top: 12px;">
-                <button class="button buttonBlue" onclick="location.href='@Url.Action("Edit", "CalendarEvent", new { id = calendarEvent.Id })'">
+                <button class="button buttonBlue" onclick="location.href='@Url.Action("Edit", "CalendarEvent", new { id = calendarEvent.Id, returnUrl = Model.CurrentUrl })'">
                     Edit
                 </button>
                 </div>

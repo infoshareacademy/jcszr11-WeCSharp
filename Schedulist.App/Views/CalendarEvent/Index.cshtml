@@ -4,11 +4,14 @@
 @{
     ViewData["Title"] = "Index";
 }
+@{
+    ViewBag.Title = "AssignUser";
+}
 
 <h1>Calendar Events List</h1>
 
 <p>
-   <div style="display: flex; justify-content: center; align-items: center;">
+    <div style="display: flex; justify-content: center; align-items: center;">
         <a class="button buttonGreen" asp-controller="CalendarEvent" asp-action="Create" style="font-family: 'Dubai'; text-decoration: none; width: 200px; display: flex; justify-content: center; align-items: center;">
             Create New
         </a>
@@ -34,7 +37,7 @@
                 @Html.DisplayNameFor(model => model.CalendarEventDescription)
             </th>
             <th scope="col">
-                User Assigned
+                Assigned to User
             </th>
             <th></th>
         </tr>
@@ -59,14 +62,14 @@
                     @Html.DisplayFor(modelItem => item.CalendarEventDescription)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.UserId)
+                    @Html.DisplayFor(modelItem => item.User.Name) @Html.DisplayFor(modelItem => item.User.Surname)
                 </td>
                 <td>
-                   <div class="button-container">
-                        <a href="@Url.Action("Edit", new { id = item.Id })" class="button buttonBlue" style="text-decoration: none;">Edit</a>                     
-
-                        <button  class="button buttonRed" onclick="DeleteCalendarEvent('@Url.Action("Delete", "CalendarEvent")?id=@item.Id','@item.CalendarEventName','@item.CalendarEventDescription',
-                        '@item.CalendarEventDate','@item.CalendarEventStartTime','@item.CalendarEventEndTime','@item.UserId')">Delete</button>
+                    <div class="button-container">
+                        <a href="@Url.Action("Edit", new { id = item.Id })" class="button buttonBlue" style="text-decoration: none;">Edit</a>
+                        <button class="button buttonRed" onclick="DeleteCalendarEvent('@Url.Action("Delete", "CalendarEvent")?id=@item.Id','@item.CalendarEventName','@item.CalendarEventDescription','@item.CalendarEventDate','@item.CalendarEventStartTime','@item.CalendarEventEndTime','@item.UserId')">
+                            Delete
+                        </button>
                     </div>
                 </td>
             </tr>
