@@ -1,0 +1,131 @@
+2024-04-03 19:51:40.891 +02:00 [INF] User profile is available. Using 'C:\Users\Grześko\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
+2024-04-03 19:51:41.276 +02:00 [INF] Now listening on: https://localhost:7178
+2024-04-03 19:51:41.278 +02:00 [INF] Now listening on: http://localhost:5291
+2024-04-03 19:51:41.306 +02:00 [INF] Application started. Press Ctrl+C to shut down.
+2024-04-03 19:51:41.307 +02:00 [INF] Hosting environment: Development
+2024-04-03 19:51:41.307 +02:00 [INF] Content root path: C:\Users\Grześko\Desktop\projekt\jcszr11-WeCSharp\Schedulist.App
+2024-04-03 19:51:41.785 +02:00 [INF] Request starting HTTP/2 GET https://localhost:7178/ - null null
+2024-04-03 19:51:41.875 +02:00 [INF] Executing endpoint 'Schedulist.App.Controllers.CalendarController.Index (Schedulist.App)'
+2024-04-03 19:51:41.898 +02:00 [INF] Route matched with {action = "Index", controller = "Calendar", page = "", area = ""}. Executing controller action with signature Microsoft.AspNetCore.Mvc.IActionResult Index() on controller Schedulist.App.Controllers.CalendarController (Schedulist.App).
+2024-04-03 19:52:03.172 +02:00 [INF] User profile is available. Using 'C:\Users\Grześko\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
+2024-04-03 19:52:03.489 +02:00 [INF] Now listening on: https://localhost:7178
+2024-04-03 19:52:03.491 +02:00 [INF] Now listening on: http://localhost:5291
+2024-04-03 19:52:03.514 +02:00 [INF] Application started. Press Ctrl+C to shut down.
+2024-04-03 19:52:03.515 +02:00 [INF] Hosting environment: Development
+2024-04-03 19:52:03.516 +02:00 [INF] Content root path: C:\Users\Grześko\Desktop\projekt\jcszr11-WeCSharp\Schedulist.App
+2024-04-03 19:52:04.207 +02:00 [INF] Request starting HTTP/2 GET https://localhost:7178/ - null null
+2024-04-03 19:52:04.302 +02:00 [INF] Executing endpoint 'Schedulist.App.Controllers.CalendarController.Index (Schedulist.App)'
+2024-04-03 19:52:04.324 +02:00 [INF] Route matched with {action = "Index", controller = "Calendar", page = "", area = ""}. Executing controller action with signature Microsoft.AspNetCore.Mvc.IActionResult Index() on controller Schedulist.App.Controllers.CalendarController (Schedulist.App).
+2024-04-03 19:52:05.337 +02:00 [INF] Executed DbCommand (13ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [a].[Id], [a].[AccessFailedCount], [a].[ConcurrencyStamp], [a].[DepartmentId], [a].[Email], [a].[EmailConfirmed], [a].[LockoutEnabled], [a].[LockoutEnd], [a].[Name], [a].[NormalizedEmail], [a].[NormalizedUserName], [a].[PasswordHash], [a].[PhoneNumber], [a].[PhoneNumberConfirmed], [a].[PositionId], [a].[SecurityStamp], [a].[Surname], [a].[TwoFactorEnabled], [a].[UserName]
+FROM [AspNetUsers] AS [a]
+2024-04-03 19:52:05.397 +02:00 [INF] Executing RedirectResult, redirecting to /Identity/Account/Login.
+2024-04-03 19:52:05.401 +02:00 [INF] Executed action Schedulist.App.Controllers.CalendarController.Index (Schedulist.App) in 1072.3599ms
+2024-04-03 19:52:05.402 +02:00 [INF] Executed endpoint 'Schedulist.App.Controllers.CalendarController.Index (Schedulist.App)'
+2024-04-03 19:52:05.409 +02:00 [INF] Request starting HTTP/2 GET https://localhost:7178/Identity/Account/Login - null null
+2024-04-03 19:52:05.410 +02:00 [INF] Request finished HTTP/2 GET https://localhost:7178/ - 302 0 null 1212.2511ms
+2024-04-03 19:52:05.416 +02:00 [INF] Executing endpoint '/Account/Login'
+2024-04-03 19:52:05.438 +02:00 [INF] Route matched with {page = "/Account/Login", area = "Identity", action = "", controller = ""}. Executing page /Account/Login
+2024-04-03 19:52:05.454 +02:00 [INF] Executing handler method Schedulist.App.Areas.Identity.Pages.Account.LoginModel.OnGetAsync - ModelState is "Valid"
+2024-04-03 19:52:05.460 +02:00 [INF] AuthenticationScheme: Identity.External signed out.
+2024-04-03 19:52:05.461 +02:00 [INF] Executed handler method OnGetAsync, returned result .
+2024-04-03 19:52:05.464 +02:00 [INF] Executing an implicit handler method - ModelState is "Valid"
+2024-04-03 19:52:05.465 +02:00 [INF] Executed an implicit handler method, returned result Microsoft.AspNetCore.Mvc.RazorPages.PageResult.
+2024-04-03 19:52:05.638 +02:00 [INF] Executed DbCommand (24ms) [Parameters=[@__normalizedUserName_0='?' (Size = 256)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [a].[Id], [a].[AccessFailedCount], [a].[ConcurrencyStamp], [a].[DepartmentId], [a].[Email], [a].[EmailConfirmed], [a].[LockoutEnabled], [a].[LockoutEnd], [a].[Name], [a].[NormalizedEmail], [a].[NormalizedUserName], [a].[PasswordHash], [a].[PhoneNumber], [a].[PhoneNumberConfirmed], [a].[PositionId], [a].[SecurityStamp], [a].[Surname], [a].[TwoFactorEnabled], [a].[UserName]
+FROM [AspNetUsers] AS [a]
+WHERE [a].[NormalizedUserName] = @__normalizedUserName_0
+2024-04-03 19:52:05.677 +02:00 [INF] Executed page /Account/Login in 238.2058ms
+2024-04-03 19:52:05.680 +02:00 [INF] Executed endpoint '/Account/Login'
+2024-04-03 19:52:05.683 +02:00 [INF] Request starting HTTP/2 GET https://localhost:7178/css/site.css?v=q_ZRLmhxL-7IBQ0qD32sq6H3i2QQ9HrEXYz1c7ayLxY - null null
+2024-04-03 19:52:05.683 +02:00 [INF] Request starting HTTP/2 GET https://localhost:7178/js/site.js?v=KcCizBNzdsg9kp5YgXTJLgYxKzgq_27-v0oKLaqjfU8 - null null
+2024-04-03 19:52:05.685 +02:00 [INF] Request starting HTTP/2 GET https://localhost:7178/_framework/aspnetcore-browser-refresh.js - null null
+2024-04-03 19:52:05.686 +02:00 [INF] Request finished HTTP/2 GET https://localhost:7178/Identity/Account/Login - 200 null text/html; charset=utf-8 276.6932ms
+2024-04-03 19:52:05.702 +02:00 [INF] Request finished HTTP/2 GET https://localhost:7178/_framework/aspnetcore-browser-refresh.js - 200 13764 application/javascript; charset=utf-8 16.6085ms
+2024-04-03 19:52:05.718 +02:00 [INF] Sending file. Request path: '/js/site.js'. Physical path: 'C:\Users\Grześko\Desktop\projekt\jcszr11-WeCSharp\Schedulist.App\wwwroot\js\site.js'
+2024-04-03 19:52:05.718 +02:00 [INF] Sending file. Request path: '/css/site.css'. Physical path: 'C:\Users\Grześko\Desktop\projekt\jcszr11-WeCSharp\Schedulist.App\wwwroot\css\site.css'
+2024-04-03 19:52:05.720 +02:00 [INF] Request finished HTTP/2 GET https://localhost:7178/js/site.js?v=KcCizBNzdsg9kp5YgXTJLgYxKzgq_27-v0oKLaqjfU8 - 200 4430 text/javascript 36.9385ms
+2024-04-03 19:52:05.722 +02:00 [INF] Request finished HTTP/2 GET https://localhost:7178/css/site.css?v=q_ZRLmhxL-7IBQ0qD32sq6H3i2QQ9HrEXYz1c7ayLxY - 200 10171 text/css 38.9939ms
+2024-04-03 19:52:05.723 +02:00 [INF] Request starting HTTP/2 GET https://localhost:7178/_vs/browserLink - null null
+2024-04-03 19:52:05.759 +02:00 [INF] Request finished HTTP/2 GET https://localhost:7178/_vs/browserLink - 200 null text/javascript; charset=UTF-8 35.7322ms
+2024-04-03 19:52:09.388 +02:00 [INF] Request starting HTTP/2 GET https://localhost:7178/WorkMode/Statistics - null null
+2024-04-03 19:52:09.395 +02:00 [INF] Request finished HTTP/2 GET https://localhost:7178/WorkMode/Statistics - 404 0 null 6.9981ms
+2024-04-03 19:52:09.398 +02:00 [INF] Request reached the end of the middleware pipeline without being handled by application code. Request path: GET https://localhost:7178/WorkMode/Statistics, Response status code: 404
+2024-04-03 19:52:11.358 +02:00 [INF] Request starting HTTP/2 GET https://localhost:7178/Identity/Account/Login - null null
+2024-04-03 19:52:11.365 +02:00 [INF] Executing endpoint '/Account/Login'
+2024-04-03 19:52:11.367 +02:00 [INF] Route matched with {page = "/Account/Login", area = "Identity", action = "", controller = ""}. Executing page /Account/Login
+2024-04-03 19:52:11.376 +02:00 [INF] Executing handler method Schedulist.App.Areas.Identity.Pages.Account.LoginModel.OnGetAsync - ModelState is "Valid"
+2024-04-03 19:52:11.378 +02:00 [INF] AuthenticationScheme: Identity.External signed out.
+2024-04-03 19:52:11.378 +02:00 [INF] Executed handler method OnGetAsync, returned result .
+2024-04-03 19:52:11.379 +02:00 [INF] Executing an implicit handler method - ModelState is "Valid"
+2024-04-03 19:52:11.380 +02:00 [INF] Executed an implicit handler method, returned result Microsoft.AspNetCore.Mvc.RazorPages.PageResult.
+2024-04-03 19:52:11.430 +02:00 [INF] Executed DbCommand (1ms) [Parameters=[@__normalizedUserName_0='?' (Size = 256)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [a].[Id], [a].[AccessFailedCount], [a].[ConcurrencyStamp], [a].[DepartmentId], [a].[Email], [a].[EmailConfirmed], [a].[LockoutEnabled], [a].[LockoutEnd], [a].[Name], [a].[NormalizedEmail], [a].[NormalizedUserName], [a].[PasswordHash], [a].[PhoneNumber], [a].[PhoneNumberConfirmed], [a].[PositionId], [a].[SecurityStamp], [a].[Surname], [a].[TwoFactorEnabled], [a].[UserName]
+FROM [AspNetUsers] AS [a]
+WHERE [a].[NormalizedUserName] = @__normalizedUserName_0
+2024-04-03 19:52:11.436 +02:00 [INF] Executed page /Account/Login in 68.7403ms
+2024-04-03 19:52:11.438 +02:00 [INF] Executed endpoint '/Account/Login'
+2024-04-03 19:52:11.440 +02:00 [INF] Request finished HTTP/2 GET https://localhost:7178/Identity/Account/Login - 200 null text/html; charset=utf-8 81.716ms
+2024-04-03 19:52:11.446 +02:00 [INF] Request starting HTTP/2 GET https://localhost:7178/_framework/aspnetcore-browser-refresh.js - null null
+2024-04-03 19:52:11.449 +02:00 [INF] Request finished HTTP/2 GET https://localhost:7178/_framework/aspnetcore-browser-refresh.js - 200 13764 application/javascript; charset=utf-8 3.6999ms
+2024-04-03 19:56:12.395 +02:00 [INF] User profile is available. Using 'C:\Users\Grześko\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
+2024-04-03 19:56:12.732 +02:00 [INF] Now listening on: https://localhost:7178
+2024-04-03 19:56:12.733 +02:00 [INF] Now listening on: http://localhost:5291
+2024-04-03 19:56:12.759 +02:00 [INF] Application started. Press Ctrl+C to shut down.
+2024-04-03 19:56:12.759 +02:00 [INF] Hosting environment: Development
+2024-04-03 19:56:12.760 +02:00 [INF] Content root path: C:\Users\Grześko\Desktop\projekt\jcszr11-WeCSharp\Schedulist.App
+2024-04-03 19:56:13.361 +02:00 [INF] Request starting HTTP/2 GET https://localhost:7178/ - null null
+2024-04-03 19:56:13.461 +02:00 [INF] Executing endpoint 'Schedulist.App.Controllers.CalendarController.Index (Schedulist.App)'
+2024-04-03 19:56:13.486 +02:00 [INF] Route matched with {action = "Index", controller = "Calendar", page = "", area = ""}. Executing controller action with signature Microsoft.AspNetCore.Mvc.IActionResult Index() on controller Schedulist.App.Controllers.CalendarController (Schedulist.App).
+2024-04-03 19:56:14.425 +02:00 [INF] Executed DbCommand (16ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [a].[Id], [a].[AccessFailedCount], [a].[ConcurrencyStamp], [a].[DepartmentId], [a].[Email], [a].[EmailConfirmed], [a].[LockoutEnabled], [a].[LockoutEnd], [a].[Name], [a].[NormalizedEmail], [a].[NormalizedUserName], [a].[PasswordHash], [a].[PhoneNumber], [a].[PhoneNumberConfirmed], [a].[PositionId], [a].[SecurityStamp], [a].[Surname], [a].[TwoFactorEnabled], [a].[UserName]
+FROM [AspNetUsers] AS [a]
+2024-04-03 19:56:14.492 +02:00 [INF] Executing RedirectResult, redirecting to /Identity/Account/Login.
+2024-04-03 19:56:14.496 +02:00 [INF] Executed action Schedulist.App.Controllers.CalendarController.Index (Schedulist.App) in 1005.4683ms
+2024-04-03 19:56:14.497 +02:00 [INF] Executed endpoint 'Schedulist.App.Controllers.CalendarController.Index (Schedulist.App)'
+2024-04-03 19:56:14.504 +02:00 [INF] Request starting HTTP/2 GET https://localhost:7178/Identity/Account/Login - null null
+2024-04-03 19:56:14.505 +02:00 [INF] Request finished HTTP/2 GET https://localhost:7178/ - 302 0 null 1150.8775ms
+2024-04-03 19:56:14.512 +02:00 [INF] Executing endpoint '/Account/Login'
+2024-04-03 19:56:14.536 +02:00 [INF] Route matched with {page = "/Account/Login", area = "Identity", action = "", controller = ""}. Executing page /Account/Login
+2024-04-03 19:56:14.551 +02:00 [INF] Executing handler method Schedulist.App.Areas.Identity.Pages.Account.LoginModel.OnGetAsync - ModelState is "Valid"
+2024-04-03 19:56:14.556 +02:00 [INF] AuthenticationScheme: Identity.External signed out.
+2024-04-03 19:56:14.558 +02:00 [INF] Executed handler method OnGetAsync, returned result .
+2024-04-03 19:56:14.560 +02:00 [INF] Executing an implicit handler method - ModelState is "Valid"
+2024-04-03 19:56:14.561 +02:00 [INF] Executed an implicit handler method, returned result Microsoft.AspNetCore.Mvc.RazorPages.PageResult.
+2024-04-03 19:56:14.725 +02:00 [INF] Executed DbCommand (24ms) [Parameters=[@__normalizedUserName_0='?' (Size = 256)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [a].[Id], [a].[AccessFailedCount], [a].[ConcurrencyStamp], [a].[DepartmentId], [a].[Email], [a].[EmailConfirmed], [a].[LockoutEnabled], [a].[LockoutEnd], [a].[Name], [a].[NormalizedEmail], [a].[NormalizedUserName], [a].[PasswordHash], [a].[PhoneNumber], [a].[PhoneNumberConfirmed], [a].[PositionId], [a].[SecurityStamp], [a].[Surname], [a].[TwoFactorEnabled], [a].[UserName]
+FROM [AspNetUsers] AS [a]
+WHERE [a].[NormalizedUserName] = @__normalizedUserName_0
+2024-04-03 19:56:14.761 +02:00 [INF] Executed page /Account/Login in 224.0907ms
+2024-04-03 19:56:14.763 +02:00 [INF] Executed endpoint '/Account/Login'
+2024-04-03 19:56:14.765 +02:00 [INF] Request starting HTTP/2 GET https://localhost:7178/css/site.css?v=q_ZRLmhxL-7IBQ0qD32sq6H3i2QQ9HrEXYz1c7ayLxY - null null
+2024-04-03 19:56:14.766 +02:00 [INF] Request starting HTTP/2 GET https://localhost:7178/js/site.js?v=KcCizBNzdsg9kp5YgXTJLgYxKzgq_27-v0oKLaqjfU8 - null null
+2024-04-03 19:56:14.766 +02:00 [INF] Request starting HTTP/2 GET https://localhost:7178/_framework/aspnetcore-browser-refresh.js - null null
+2024-04-03 19:56:14.773 +02:00 [INF] Request finished HTTP/2 GET https://localhost:7178/Identity/Account/Login - 200 null text/html; charset=utf-8 268.9269ms
+2024-04-03 19:56:14.778 +02:00 [INF] The file /js/site.js was not modified
+2024-04-03 19:56:14.778 +02:00 [INF] The file /css/site.css was not modified
+2024-04-03 19:56:14.786 +02:00 [INF] Request finished HTTP/2 GET https://localhost:7178/_framework/aspnetcore-browser-refresh.js - 200 13764 application/javascript; charset=utf-8 20.1768ms
+2024-04-03 19:56:14.788 +02:00 [INF] Request finished HTTP/2 GET https://localhost:7178/js/site.js?v=KcCizBNzdsg9kp5YgXTJLgYxKzgq_27-v0oKLaqjfU8 - 304 null text/javascript 22.3311ms
+2024-04-03 19:56:14.788 +02:00 [INF] Request finished HTTP/2 GET https://localhost:7178/css/site.css?v=q_ZRLmhxL-7IBQ0qD32sq6H3i2QQ9HrEXYz1c7ayLxY - 304 null text/css 23.1936ms
+2024-04-03 19:56:14.790 +02:00 [INF] Request starting HTTP/2 GET https://localhost:7178/_vs/browserLink - null null
+2024-04-03 19:56:14.830 +02:00 [INF] Request finished HTTP/2 GET https://localhost:7178/_vs/browserLink - 200 null text/javascript; charset=UTF-8 40.5122ms
+2024-04-03 19:56:19.240 +02:00 [INF] Request starting HTTP/2 GET https://localhost:7178/WorkMode/Statistics - null null
+2024-04-03 19:56:19.246 +02:00 [INF] Request finished HTTP/2 GET https://localhost:7178/WorkMode/Statistics - 404 0 null 6.2443ms
+2024-04-03 19:56:19.249 +02:00 [INF] Request reached the end of the middleware pipeline without being handled by application code. Request path: GET https://localhost:7178/WorkMode/Statistics, Response status code: 404
+2024-04-03 19:56:20.672 +02:00 [INF] Request starting HTTP/2 GET https://localhost:7178/Identity/Account/Login - null null
+2024-04-03 19:56:20.679 +02:00 [INF] Executing endpoint '/Account/Login'
+2024-04-03 19:56:20.680 +02:00 [INF] Route matched with {page = "/Account/Login", area = "Identity", action = "", controller = ""}. Executing page /Account/Login
+2024-04-03 19:56:20.692 +02:00 [INF] Executing handler method Schedulist.App.Areas.Identity.Pages.Account.LoginModel.OnGetAsync - ModelState is "Valid"
+2024-04-03 19:56:20.693 +02:00 [INF] AuthenticationScheme: Identity.External signed out.
+2024-04-03 19:56:20.694 +02:00 [INF] Executed handler method OnGetAsync, returned result .
+2024-04-03 19:56:20.695 +02:00 [INF] Executing an implicit handler method - ModelState is "Valid"
+2024-04-03 19:56:20.696 +02:00 [INF] Executed an implicit handler method, returned result Microsoft.AspNetCore.Mvc.RazorPages.PageResult.
+2024-04-03 19:56:20.744 +02:00 [INF] Executed DbCommand (1ms) [Parameters=[@__normalizedUserName_0='?' (Size = 256)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [a].[Id], [a].[AccessFailedCount], [a].[ConcurrencyStamp], [a].[DepartmentId], [a].[Email], [a].[EmailConfirmed], [a].[LockoutEnabled], [a].[LockoutEnd], [a].[Name], [a].[NormalizedEmail], [a].[NormalizedUserName], [a].[PasswordHash], [a].[PhoneNumber], [a].[PhoneNumberConfirmed], [a].[PositionId], [a].[SecurityStamp], [a].[Surname], [a].[TwoFactorEnabled], [a].[UserName]
+FROM [AspNetUsers] AS [a]
+WHERE [a].[NormalizedUserName] = @__normalizedUserName_0
+2024-04-03 19:56:20.750 +02:00 [INF] Executed page /Account/Login in 67.0581ms
+2024-04-03 19:56:20.751 +02:00 [INF] Executed endpoint '/Account/Login'
+2024-04-03 19:56:20.753 +02:00 [INF] Request finished HTTP/2 GET https://localhost:7178/Identity/Account/Login - 200 null text/html; charset=utf-8 80.6913ms
+2024-04-03 19:56:20.758 +02:00 [INF] Request starting HTTP/2 GET https://localhost:7178/_framework/aspnetcore-browser-refresh.js - null null
+2024-04-03 19:56:20.762 +02:00 [INF] Request finished HTTP/2 GET https://localhost:7178/_framework/aspnetcore-browser-refresh.js - 200 13764 application/javascript; charset=utf-8 3.8403ms
