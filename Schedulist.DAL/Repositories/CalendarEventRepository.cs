@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore.Query.Internal;
+﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Query.Internal;
 using Microsoft.Extensions.Logging;
 using Schedulist.App.Exceptions;
 using Schedulist.DAL.Models;
@@ -17,7 +18,7 @@ namespace Schedulist.DAL.Repositories
 
         public List<CalendarEvent> GetAllCalendarEvents()
         {
-            return _db.CalendarEvents.ToList();
+            return _db.CalendarEvents.Include(e => e.User).ToList();
         }
         public CalendarEvent GetCalendarEventById(int id)
         {

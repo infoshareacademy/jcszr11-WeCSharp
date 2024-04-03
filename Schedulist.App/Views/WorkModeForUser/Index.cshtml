@@ -45,6 +45,7 @@
             
                 <td>
                     <div class="button-container">
+                       @*  <button type="button" class="btn btn-primary">@Html.ActionLink("Edit", "Edit", new { id = item.Id }, new { style = "color: white;" })</button> *@
                         <a href="@Url.Action("Edit", new { id = item.Id })" class="button buttonBlue" style="text-decoration: none;">Edit</a>
                         <button class="button buttonRed" onclick="DeleteWorkMode('@Url.Action("Delete", "WorkModeForUser")?id=@item.Id','@item.WorkMode.Name','@item.User.Name', '@item.User.Surname','@item.DateOfWorkMode')">
                             Delete
