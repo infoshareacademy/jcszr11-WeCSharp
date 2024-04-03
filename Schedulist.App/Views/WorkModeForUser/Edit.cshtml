@@ -1,0 +1,53 @@
+﻿@model WorkModeForUser
+@using Schedulist.DAL.Models
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<h1>Edit</h1>
+
+<h4>WorkModeForUserController</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Edit">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="WorkModeId" class="control-label"></label>
+                <div class="col-md-10">
+                    @Html.DropDownListFor(model => Model.WorkModeId, ViewBag.WorkMode as SelectList, "Change work mode", new { @class = "form-control" })
+                    <span asp-validation-for="WorkModeId" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="form-group">
+                <label asp-for="DateOfWorkMode" class="control-label"></label>
+                <input asp-for="DateOfWorkMode" class="form-control" />
+                <span asp-validation-for="DateOfWorkMode" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="UserId" class="control-label"></label>
+                <div class="col-md-10">
+                    @Html.DropDownListFor(model => Model.UserId, ViewBag.Users as SelectList, "Assigned to User", new { @class = "form-control" })
+                    <span asp-validation-for="UserId" class="text-danger"></span>
+                </div>
+            </div>
+            @{
+                var buttonStyle = "background-color: rgb(224, 157, 49)";
+                var buttonText = "Update";
+            }
+            <div style="padding-top: 10px;">
+                <button class="form-button" type="submit" style='@(buttonStyle)'><span>@(buttonText)</span></button>
+            </div>
+            <div style="padding-top: 12px">
+                <a asp-action="Index" class="form-button btn btn-dark shadow-none">Back to List</a>
+            </div>
+        </form>
+    </div>
+</div>
+
+
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
