@@ -1,0 +1,75 @@
+2024-04-03 20:39:51.255 +02:00 [INF] User profile is available. Using 'C:\Users\Mariusz\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
+2024-04-03 20:39:51.815 +02:00 [INF] Now listening on: https://localhost:7178
+2024-04-03 20:39:51.816 +02:00 [INF] Now listening on: http://localhost:5291
+2024-04-03 20:39:51.877 +02:00 [INF] Application started. Press Ctrl+C to shut down.
+2024-04-03 20:39:51.880 +02:00 [INF] Hosting environment: Development
+2024-04-03 20:39:51.882 +02:00 [INF] Content root path: C:\Users\Mariusz\Desktop\InfoShare\#4 Projekt grupowy Work-Schedule\jcszr11-WeCSharp\Schedulist.App
+2024-04-03 20:39:53.173 +02:00 [INF] Request starting HTTP/2 GET https://localhost:7178/ - null null
+2024-04-03 20:39:54.988 +02:00 [INF] Executed DbCommand (62ms) [Parameters=[@__p_0='?' (Size = 450)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [a].[Id], [a].[AccessFailedCount], [a].[ConcurrencyStamp], [a].[DepartmentId], [a].[Email], [a].[EmailConfirmed], [a].[LockoutEnabled], [a].[LockoutEnd], [a].[Name], [a].[NormalizedEmail], [a].[NormalizedUserName], [a].[PasswordHash], [a].[PhoneNumber], [a].[PhoneNumberConfirmed], [a].[PositionId], [a].[SecurityStamp], [a].[Surname], [a].[TwoFactorEnabled], [a].[UserName]
+FROM [AspNetUsers] AS [a]
+WHERE [a].[Id] = @__p_0
+2024-04-03 20:39:55.131 +02:00 [INF] Executed DbCommand (3ms) [Parameters=[@__user_Id_0='?' (Size = 450)], CommandType='"Text"', CommandTimeout='30']
+SELECT [a].[Id], [a].[ClaimType], [a].[ClaimValue], [a].[UserId]
+FROM [AspNetUserClaims] AS [a]
+WHERE [a].[UserId] = @__user_Id_0
+2024-04-03 20:39:55.156 +02:00 [INF] Executed DbCommand (4ms) [Parameters=[@__userId_0='?' (Size = 450)], CommandType='"Text"', CommandTimeout='30']
+SELECT [a0].[Name]
+FROM [AspNetUserRoles] AS [a]
+INNER JOIN [AspNetRoles] AS [a0] ON [a].[RoleId] = [a0].[Id]
+WHERE [a].[UserId] = @__userId_0
+2024-04-03 20:39:55.169 +02:00 [INF] Executed DbCommand (2ms) [Parameters=[@__normalizedName_0='?' (Size = 256)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [a].[Id], [a].[ConcurrencyStamp], [a].[Name], [a].[NormalizedName]
+FROM [AspNetRoles] AS [a]
+WHERE [a].[NormalizedName] = @__normalizedName_0
+2024-04-03 20:39:55.189 +02:00 [INF] Executed DbCommand (3ms) [Parameters=[@__role_Id_0='?' (Size = 450)], CommandType='"Text"', CommandTimeout='30']
+SELECT [a].[ClaimType], [a].[ClaimValue]
+FROM [AspNetRoleClaims] AS [a]
+WHERE [a].[RoleId] = @__role_Id_0
+2024-04-03 20:39:55.221 +02:00 [INF] Executing endpoint 'Schedulist.App.Controllers.CalendarController.Index (Schedulist.App)'
+2024-04-03 20:39:55.233 +02:00 [INF] Route matched with {action = "Index", controller = "Calendar", page = "", area = ""}. Executing controller action with signature Microsoft.AspNetCore.Mvc.IActionResult Index() on controller Schedulist.App.Controllers.CalendarController (Schedulist.App).
+2024-04-03 20:39:55.249 +02:00 [INF] Executed DbCommand (3ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [a].[Id], [a].[AccessFailedCount], [a].[ConcurrencyStamp], [a].[DepartmentId], [a].[Email], [a].[EmailConfirmed], [a].[LockoutEnabled], [a].[LockoutEnd], [a].[Name], [a].[NormalizedEmail], [a].[NormalizedUserName], [a].[PasswordHash], [a].[PhoneNumber], [a].[PhoneNumberConfirmed], [a].[PositionId], [a].[SecurityStamp], [a].[Surname], [a].[TwoFactorEnabled], [a].[UserName]
+FROM [AspNetUsers] AS [a]
+2024-04-03 20:39:55.261 +02:00 [INF] Executed DbCommand (2ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [c].[Id], [c].[CalendarEventDate], [c].[CalendarEventDescription], [c].[CalendarEventEndTime], [c].[CalendarEventName], [c].[CalendarEventStartTime], [c].[UserId]
+FROM [CalendarEvents] AS [c]
+2024-04-03 20:39:55.292 +02:00 [INF] Executed DbCommand (3ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [w].[Id], [w].[DateOfWorkMode], [w].[UserId], [w].[WorkModeId]
+FROM [WorkModesToUsers] AS [w]
+2024-04-03 20:39:55.309 +02:00 [INF] Executing ViewResult, running view Index.
+2024-04-03 20:39:55.393 +02:00 [INF] Executed DbCommand (3ms) [Parameters=[@__normalizedUserName_0='?' (Size = 256)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [a].[Id], [a].[AccessFailedCount], [a].[ConcurrencyStamp], [a].[DepartmentId], [a].[Email], [a].[EmailConfirmed], [a].[LockoutEnabled], [a].[LockoutEnd], [a].[Name], [a].[NormalizedEmail], [a].[NormalizedUserName], [a].[PasswordHash], [a].[PhoneNumber], [a].[PhoneNumberConfirmed], [a].[PositionId], [a].[SecurityStamp], [a].[Surname], [a].[TwoFactorEnabled], [a].[UserName]
+FROM [AspNetUsers] AS [a]
+WHERE [a].[NormalizedUserName] = @__normalizedUserName_0
+2024-04-03 20:39:55.438 +02:00 [INF] Executed action Schedulist.App.Controllers.CalendarController.Index (Schedulist.App) in 199.3139ms
+2024-04-03 20:39:55.440 +02:00 [INF] Executed endpoint 'Schedulist.App.Controllers.CalendarController.Index (Schedulist.App)'
+2024-04-03 20:39:55.446 +02:00 [ERR] An unhandled exception has occurred while executing the request.
+System.InvalidOperationException: RenderBody has not been called for the page at '/Views/Shared/_Layout.cshtml'. To ignore call IgnoreBody().
+   at Microsoft.AspNetCore.Mvc.Razor.RazorPage.EnsureRenderedBodyOrSections()
+   at Microsoft.AspNetCore.Mvc.Razor.RazorView.RenderLayoutAsync(ViewContext context, ViewBufferTextWriter bodyWriter)
+   at Microsoft.AspNetCore.Mvc.Razor.RazorView.RenderAsync(ViewContext context)
+   at Microsoft.AspNetCore.Mvc.ViewFeatures.ViewExecutor.ExecuteAsync(ViewContext viewContext, String contentType, Nullable`1 statusCode)
+   at Microsoft.AspNetCore.Mvc.ViewFeatures.ViewExecutor.ExecuteAsync(ViewContext viewContext, String contentType, Nullable`1 statusCode)
+   at Microsoft.AspNetCore.Mvc.ViewFeatures.ViewExecutor.ExecuteAsync(ActionContext actionContext, IView view, ViewDataDictionary viewData, ITempDataDictionary tempData, String contentType, Nullable`1 statusCode)
+   at Microsoft.AspNetCore.Mvc.ViewFeatures.ViewResultExecutor.ExecuteAsync(ActionContext context, ViewResult result)
+   at Microsoft.AspNetCore.Mvc.ViewResult.ExecuteResultAsync(ActionContext context)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeNextResultFilterAsync>g__Awaited|30_0[TFilter,TFilterAsync](ResourceInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.Rethrow(ResultExecutedContextSealed context)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.ResultNext[TFilter,TFilterAsync](State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeResultFilters>g__Awaited|28_0(ResourceInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeNextResourceFilter>g__Awaited|25_0(ResourceInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.Rethrow(ResourceExecutedContextSealed context)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeFilterPipelineAsync>g__Awaited|20_0(ResourceInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Logged|17_1(ResourceInvoker invoker)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Logged|17_1(ResourceInvoker invoker)
+   at Microsoft.AspNetCore.Routing.EndpointMiddleware.<Invoke>g__AwaitRequestTask|7_0(Endpoint endpoint, Task requestTask, ILogger logger)
+   at Microsoft.AspNetCore.Authorization.AuthorizationMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Authentication.AuthenticationMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Diagnostics.DeveloperExceptionPageMiddlewareImpl.Invoke(HttpContext context)
+2024-04-03 20:39:55.511 +02:00 [INF] Request finished HTTP/2 GET https://localhost:7178/ - 500 null text/html; charset=utf-8 2350.8581ms
+2024-04-03 20:39:55.511 +02:00 [INF] Request starting HTTP/2 GET https://localhost:7178/_vs/browserLink - null null
+2024-04-03 20:39:55.511 +02:00 [INF] Request starting HTTP/2 GET https://localhost:7178/_framework/aspnetcore-browser-refresh.js - null null
+2024-04-03 20:39:55.530 +02:00 [INF] Request finished HTTP/2 GET https://localhost:7178/_framework/aspnetcore-browser-refresh.js - 200 13764 application/javascript; charset=utf-8 19.0965ms
+2024-04-03 20:39:55.558 +02:00 [INF] Request finished HTTP/2 GET https://localhost:7178/_vs/browserLink - 200 null text/javascript; charset=UTF-8 47.336ms

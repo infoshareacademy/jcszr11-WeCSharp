@@ -53,9 +53,17 @@ namespace Schedulist.DAL.Repositories
         {
             try
             {
-                _db.Users.Update(user);
-                _db.SaveChanges();
-                return true;
+                var existingUser = _db.Users.FirstOrDefault(x => x.Id == user.Id);
+                if (existingUser != null)
+                {
+                    _db.Update(existingUser);
+                    _db.SaveChanges();
+                    return true;
+                }
+                else
+                {
+                    return false; 
+                }
             }
             catch (Exception ex)
             {
