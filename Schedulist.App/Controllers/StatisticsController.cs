@@ -11,16 +11,15 @@ using System.ComponentModel.DataAnnotations;
 using System.Diagnostics;
 namespace Schedulist.App.Controllers
 {
-    public class StatisticsController : Controller
+    public class StatisticsController : ControllerBase
     {
         public readonly SchedulistDbContext _context;
 
-        public StatisticsController(SchedulistDbContext context)
+        public StatisticsController(SchedulistDbContext context, ILogger<StatisticsController> logger) : base(logger)
         {
             _context = context;
         }
-      
-        public ActionResult Index()
+        public IActionResult Index()
         {
             var workModes = _context.WorkModes
                 .GroupBy(wm => wm.Name)
