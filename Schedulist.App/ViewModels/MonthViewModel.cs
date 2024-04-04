@@ -1,5 +1,7 @@
-﻿using Schedulist.DAL.Models;
+﻿using CsvHelper.Configuration.Attributes;
+using Schedulist.DAL.Models;
 using Schedulist.DAL.Repositories.Interfaces;
+using System.ComponentModel.DataAnnotations;
 
 namespace Schedulist.App.ViewModels
 {
@@ -11,6 +13,24 @@ namespace Schedulist.App.ViewModels
         public int DaysToDraw { get; private set; }
         public DateTime StartDate { get; private set; }
         public List<CalendarEvent> CalendarEvents { get; set; }
+        public string NewCalendarEventName { get; set; }
+        [Name("CalendarEventDescription")]
+        [Display(Name = "Description")]
+        [Required]
+        public string NewCalendarEventDescription { get; set; }
+        [Name("CalendarEventStartTime")]
+        [Display(Name = "Start Time")]
+        [DataType(DataType.Time)]
+        [DisplayFormat(DataFormatString = "{0:HH:mm}")]
+        [Required]
+        public TimeOnly NewCalendarEventStartTime { get; set; }
+        [Name("CalendarEventEndTime")]
+        [Display(Name = "End Time")]
+        [DataType(DataType.Time)]
+        [DisplayFormat(DataFormatString = "{0:HH:mm}")]
+        [Required]
+        public TimeOnly NewCalendarEventEndTime { get; set; }
+
         public Dictionary<string, string> UserDict { get; set; }
 
         public string UserToEdit;

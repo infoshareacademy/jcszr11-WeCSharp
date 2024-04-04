@@ -193,26 +193,37 @@ namespace Schedulist.App.Controllers
         // POST: CalendarController/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(CalendarEvent calendarEvent)
+        public ActionResult Create(string userToEdit, DateOnly eventDate, TimeOnly newEventStartTime, TimeOnly newEventEndTime, string newEventName, string newEventDescription)
         {
             try
             {
-                DateTime selectedDate = PickTempDataValue<DateTime>("SelectedDate");
-                DateOnly parsedChosenDate = DateOnly.FromDateTime(selectedDate);
+                //DateTime selectedDate = PickTempDataValue<DateTime>("SelectedDate");
+                //DateOnly parsedChosenDate = DateOnly.FromDateTime(selectedDate);
 
-                calendarEvent.UserId = TempData.Peek("UserId").ToString();
-                calendarEvent.CalendarEventDate = parsedChosenDate;
-                var validationResults = _calendarEventService.ValidateCalendarEvent(calendarEvent);
+                //calendarEvent.UserId = TempData.Peek("UserId").ToString();
+                //calendarEvent.CalendarEventDate = parsedChosenDate;
+                CalendarEvent newEvent = new CalendarEvent
+                {
+                    UserId = userToEdit,
+                    CalendarEventDate = eventDate, // Assuming you want to use only the date part
+                    CalendarEventStartTime = newEventStartTime,
+                    CalendarEventEndTime = newEventEndTime,
+                    CalendarEventName = newEventName,
+                    CalendarEventDescription = newEventDescription
+                    // You can add additional properties here as needed
+                };
+
+                var validationResults = _calendarEventService.ValidateCalendarEvent(newEvent);
                 if (validationResults.Any(x => x != ValidationResult.Success))
                 {
-                    validationResults.Where(x => x != ValidationResult.Success).ToList().ForEach(x => ModelState.AddModelError(nameof(calendarEvent.CalendarEventEndTime), x.ErrorMessage));
-                    return View(calendarEvent);
+                    validationResults.Where(x => x != ValidationResult.Success).ToList().ForEach(x => ModelState.AddModelError(nameof(newEvent.CalendarEventEndTime), x.ErrorMessage));
+                    return View(newEvent);
                 }
-                _calendarEventRepository.CreateCalendarEvent(calendarEvent);
+                _calendarEventRepository.CreateCalendarEvent(newEvent);
                 logger.LogInformation($"Created Calendar Event.");
                 PopUpNotification("Calendar event has been created successfully");
                 var returnUrl = TempData["ReturnUrl"] as string;
-                return Redirect(returnUrl);
+                return View();
             }
             catch (ArgumentNullException ex)
             {

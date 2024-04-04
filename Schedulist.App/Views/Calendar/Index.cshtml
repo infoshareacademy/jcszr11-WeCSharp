@@ -31,6 +31,18 @@
         var sidebarElement = document.getElementById(sidebarId);
         sidebarElement.style.display = "none";
     }
+
+    function toggleSidebar() {
+        var sidebar = document.getElementById('add-event-sidebar');
+        sidebar.style.display = (sidebar.style.display === 'none') ? 'block' : 'none';
+    }
+
+    function closeCalendarSidebars() {
+        var sidebars = document.querySelectorAll('.calendar-sidebar-container');
+        sidebars.forEach(function(sidebar) {
+            sidebar.style.display = 'none';
+        });
+    }
 </script>
 
 <div class="text-center" style="height: 100vh;">
@@ -263,7 +275,7 @@
             }
             @:</button>
             <div>
-            <button class="btn btn-primary" onclick="location.href='@Url.Action("Create", "Calendar")'">
+            <button class="btn btn-primary" onclick="toggleSidebar()">
                 Add new event
             </button>
             </div>
@@ -273,3 +285,43 @@
     }
 </div>
 
+<div id="add-event-sidebar" class="calendar-sidebar-container" style="display: none;">
+    <div class="calendar-sidebar">
+        <button onclick="closeCalendarSidebars()" class="sidebar-close-button">x</button>
+        
+        <!-- Form for adding a new event -->
+        <form id="add-event-form" asp-action="Create">
+            <!-- Hidden input fields for user data and date -->
+            <input type="hidden" id="userToEdit" name="userToEdit" value="@Model.UserToEdit" />
+            <input type="hidden" id="eventDate" name="eventDate" value="@DateOnly.FromDateTime(drawDate)" />
+            <div class="row">
+                <div class="col-md-12" style="text-align: center; display: flex; justify-content: center; gap: 10px">
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                    <div class="form-group">
+                        <label asp-for="NewCalendarEventStartTime" class="control-label"></label>
+                        <input asp-for="NewCalendarEventStartTime" class="form-control" />
+                        <span asp-validation-for="NewCalendarEventStartTime" class="text-danger"></span>
+                    </div>            
+                    <div class="form-group">
+                        <label asp-for="NewCalendarEventEndTime" class="control-label"></label>
+                        <input asp-for="NewCalendarEventEndTime" class="form-control" />
+                        <span asp-validation-for="NewCalendarEventEndTime" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="NewCalendarEventName" class="control-label"></label>
+                        <input asp-for="NewCalendarEventName" class="form-control" />
+                        <span asp-validation-for="NewCalendarEventName" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="NewCalendarEventDescription" class="control-label"></label>
+                        <input asp-for="NewCalendarEventDescription" class="form-control" />
+                        <span asp-validation-for="NewCalendarEventDescription" class="text-danger"></span>
+                    </div>
+                    <div class="form-group" style="text-align: center; display: flex; justify-content: center; align-items: center; padding-top: 12px;">
+                        <input type="submit" value="Create" class="button buttonGreen" />
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
