@@ -274,18 +274,31 @@
                     workModeForThisDay = Model.WorkMode.GetWorkModeById(workMode.WorkModeId);
                 }
             }
-            @if (workModeForThisDay.Name != null)
-            {
-                @workModeForThisDay.Name;
-            }
-            else
-            {
-                @:No work mode
-            }
+            @:Work mode:
             <div class="sidebar-button-container">
-            <button class="btn btn-primary" onclick="">
-                Change work mode
-            </button>
+                <div class="calendar-dropdown" style="width: auto;">
+                    <div class="dropdown">
+                        <button id="userButton" class="btn btn-primary dropdown-toggle user-dropdown" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="width: auto;">
+                            @{var allWorkModes = Model.WorkMode.GetAllWorkModes();
+                            if (workModeForThisDay.Name != null)
+                            {
+                                allWorkModes.Remove(workModeForThisDay);
+                                <span>@workModeForThisDay.Name</span>
+                            }
+                            else
+                            {
+                                <span>No work mode</span>
+                            }
+                            }
+                        </button>
+                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                            @foreach (WorkMode workMode in allWorkModes)
+                            {
+                                <a class="dropdown-item" onclick="">@workMode.Name</a>
+                            }
+                        </div>
+                    </div>
+                </div>
             </div>
             @:</div>
             @:</div>
