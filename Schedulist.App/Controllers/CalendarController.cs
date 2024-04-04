@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.VisualStudio.Web.CodeGenerators.Mvc.Templates.BlazorIdentity.Pages;
 using Schedulist.App.Services;
 using Schedulist.App.Services.Interfaces;
 using Schedulist.App.ViewModels;
@@ -7,7 +8,7 @@ using Schedulist.DAL.Models;
 using Schedulist.DAL.Repositories.Interfaces;
 using System.ComponentModel.DataAnnotations;
 using System.Diagnostics;
-using System.Security.Claims;
+using System.Security.Principal;
 
 
 namespace Schedulist.App.Controllers
@@ -20,12 +21,12 @@ namespace Schedulist.App.Controllers
         private readonly ICalendarEventRepository _calendarEventRepository;
         private readonly ICalendarEventService _calendarEventService;
         private readonly IUserRepository _userRepository;
+        private readonly SignInManager<User> _signInManager;
         private Dictionary<string, string> _userDict = [];
         private MonthViewModel _calendarParams;
         public CalendarController(IHttpContextAccessor httpContextAccessor, ILogger<CalendarController> logger, IWorkModeForUserRepository workModeForUserRepository, IWorkModeRepository workModeRepository, ICalendarEventRepository calendarEventRepository, ICalendarEventService calendarEventService, IUserRepository userRepository) : base(logger)
         {
             _httpContextAccessor = httpContextAccessor;
-            //_user = user;
             _workModeForUserRepository = workModeForUserRepository;
             _workModeRepository = workModeRepository;
             _calendarEventRepository = calendarEventRepository;
@@ -121,11 +122,11 @@ namespace Schedulist.App.Controllers
             DateOnly dateOnly = DateOnly.FromDateTime(date);
             WorkModeForUser workMode = _workModeForUserRepository.GetWorkModeByUserIdAndDateOfWorkMode(user.Id, dateOnly);
             string workModeString = "No work mode";
-            //if (workMode != null) workModeString = _workModeRepository.GetAllWorkModes().Where(x => x.Id == workMode.WorkModeId).FirstOrDefault().Name;
-            if (workMode != null) workModeString = _workModeRepository.GetWorkModeById(workMode.WorkModeId).Name;
+            if (workMode != null) workModeString = _workModeRepository.GetAllWorkModes().Where(x => x.Id == workMode.WorkModeId).FirstOrDefault().Name;
+            //if (workMode != null) workModeString = _workModeRepository.GetWorkModeById(workMode.WorkModeId).Name;
             List<CalendarEvent> calendarEvents = _calendarEventRepository.GetAllCalendarEvents();
             var calendarEventsToDraw = calendarEvents.Where(calendarEvent => calendarEvent.UserId == user.Id && calendarEvent.CalendarEventDate == dateOnly).ToList();
-            var dayViewModel = new DayViewModel(dateOnly, user, workModeString, calendarEventsToDraw);
+            var dayViewModel = new DayViewModel(dateOnly, user, workModeString, calendarEventsToDraw, HttpContext.Request.Path + HttpContext.Request.QueryString);
             logger.LogInformation($"Drawing calendar day for: {dateOnly}");
             return View(dayViewModel);
         }
@@ -180,11 +181,13 @@ namespace Schedulist.App.Controllers
             var userManager = HttpContext.RequestServices.GetRequiredService<UserManager<User>>();
             var user = userManager.GetUserAsync(HttpContext.User).Result;
 
-            var calendarEvent = new CalendarEvent();
-            calendarEvent.UserId = user.Id;
+            //var calendarEvent = new CalendarEvent();
+            //calendarEvent.UserId = user.Id;
+            //var calendarEvent = new CalendarEvent();
+            //calendarEvent.UserId = _user.Id;
 
             Debug.WriteLine($"Creating Calendar Event started.");
-            return View(calendarEvent);
+            return View();
         }
 
         // POST: CalendarController/Create
@@ -197,7 +200,7 @@ namespace Schedulist.App.Controllers
                 DateTime selectedDate = PickTempDataValue<DateTime>("SelectedDate");
                 DateOnly parsedChosenDate = DateOnly.FromDateTime(selectedDate);
 
-                calendarEvent.UserId = (string)TempData.Peek("UserId")!;
+                calendarEvent.UserId = TempData.Peek("UserId").ToString();
                 calendarEvent.CalendarEventDate = parsedChosenDate;
                 var validationResults = _calendarEventService.ValidateCalendarEvent(calendarEvent);
                 if (validationResults.Any(x => x != ValidationResult.Success))
@@ -267,7 +270,7 @@ namespace Schedulist.App.Controllers
             return View();
         }
 
-        // GET: CalendarEventController/Edit/5
+        // GET: CalendarController/Edit/5
         [HttpGet]
         [ResponseCache(Duration = 30, NoStore = true)]
         public ActionResult Edit(int id)
@@ -277,7 +280,7 @@ namespace Schedulist.App.Controllers
             return View("Edit", model);
         }
 
-        //PUT: CalendarEventController/Edit/5
+        //PUT: CalendarController/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Edit(int id, CalendarEvent calendarEvent)
@@ -294,6 +297,9 @@ namespace Schedulist.App.Controllers
                 logger.LogInformation($"Modified Calendar Event.");
                 PopUpNotification("Calendar event has been updated successfully");
                 return RedirectToAction(nameof(Index));
+
+                //var returnUrl = TempData["ReturnUrl"] as string;
+                //return Redirect(returnUrl);
             }
             catch
             {

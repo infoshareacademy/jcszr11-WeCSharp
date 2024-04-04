@@ -5,7 +5,9 @@ namespace Schedulist.DAL.Models
 {
     public class User : IdentityUser
     {
+        [Required]
         public string Name { get; set; }
+        [Required]
         public string Surname { get; set; }
 
         //EntityFramework Configuration Section

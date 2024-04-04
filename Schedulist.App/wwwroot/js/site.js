@@ -2,7 +2,6 @@
 function DeleteCalendarEvent(actionUrl, CalendarEventName, CalendarEventDescription, CalendarEventDate,
     CalendarEventStartTime, CalendarEventEndTime, AssignedToUser)
 {
-    console.log(actionUrl)
     Swal.fire({
         title: 'Confirm Deletion',
         html: `
@@ -13,9 +12,9 @@ function DeleteCalendarEvent(actionUrl, CalendarEventName, CalendarEventDescript
             <strong>Name:</strong> ${CalendarEventName}<br>
             <strong>Description:</strong> ${CalendarEventDescription}<br>
             <strong>Date:</strong> ${CalendarEventDate}<br>
-            <strong>StartTime:</strong> ${CalendarEventStartTime}<br>
-            <strong>EventEndTime:</strong> ${CalendarEventEndTime}<br>
-            <strong>AssignedToUser:</strong> ${AssignedToUser}
+            <strong>Start Time:</strong> ${CalendarEventStartTime}<br>
+            <strong>End Time:</strong> ${CalendarEventEndTime}<br>
+            <strong>Assigned To User:</strong> ${AssignedToUser}
             </div>
         `,       
         icon: 'question',
@@ -40,12 +39,12 @@ function DeleteCalendarEvent(actionUrl, CalendarEventName, CalendarEventDescript
     });
 }
 
-function DeleteWorkMode(actionUrl, WorkModeToUserID, WorkModeName, UserID, DateOfWorkmode)
+function DeleteWorkMode(actionUrl, WorkModeName, UserName, UserSurname, DateOfWorkmode)
 {
     console.log(actionUrl)
-    console.log(WorkModeToUserID)
     console.log(WorkModeName)
-    console.log(UserID)
+    console.log(UserName)
+    console.log(UserSurname)
     console.log(DateOfWorkmode)
     Swal.fire({
         title: 'Confirm Deletion',
@@ -54,9 +53,8 @@ function DeleteWorkMode(actionUrl, WorkModeToUserID, WorkModeName, UserID, DateO
             <div>
             <hr class="horizontal-line" style="height: 3px; border: 1px solid gray; margin: 10px">
             <h2>Work Mode Details:</h2>
-            <strong>WorkModeToUserID:</strong> ${WorkModeToUserID}<br>
-            <strong>WorkModeName:</strong> ${WorkModeName}<br>
-            <strong>UserID:</strong> ${UserID}<br>
+            <strong>Work Mode:</strong> ${WorkModeName}<br>
+            <strong>Assigned to User:</strong> ${UserName} ${UserSurname}<br>
             <strong>Date:</strong> ${DateOfWorkmode}<br>
             </div>
         `,
@@ -83,7 +81,6 @@ function DeleteWorkMode(actionUrl, WorkModeToUserID, WorkModeName, UserID, DateO
 }
 function DeleteUser(actionUrl, UserName, UserSurname, UserEmail,
     UserRoles) {
-    console.log(actionUrl)
     Swal.fire({
         title: 'Confirm Deletion',
         html: `
