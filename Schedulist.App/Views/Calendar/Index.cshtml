@@ -262,11 +262,12 @@
                 @:No calendar events
             }
             @:</button>
-            <div>
-            <button class="btn btn-primary" onclick="location.href='@Url.Action("Create", "Calendar")'">
-                Add new event
-            </button>
-            </div>
+                <div>
+                    <button class="btn btn-primary" onclick="CreateCalendarEvent('@Url.Action("Create", "Calendar")', '', '', '@DateOnly.FromDateTime(drawDate)', '', '', '@Model.UserToEdit')">
+                        Add new event
+                    </button>
+                </div>
+
             @:</div>
             @:</div>
         }

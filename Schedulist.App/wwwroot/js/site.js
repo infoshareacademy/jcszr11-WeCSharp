@@ -115,3 +115,67 @@ function DeleteUser(actionUrl, UserName, UserSurname, UserEmail,
         }
     });
 }
+
+function CreateCalendarEvent(actionUrl, initialName, initialDescription, initialDate, initialStartTime, initialEndTime, assignedToUser) {
+    Swal.fire({
+        title: 'Create New Calendar Event',
+        html: `
+            <form id="createEventForm">
+                <div class="form-group">
+                    <label for="NewCalendarEventName">Name:</label>
+                    <input type="text" class="form-control" id="NewCalendarEventName" name="NewCalendarEventName" value="${initialName}" required>
+                </div>
+                <div class="form-group">
+                    <label for="NewCalendarEventDescription">Description:</label>
+                    <input type="text" class="form-control" id="NewCalendarEventDescription" name="NewCalendarEventDescription" value="${initialDescription}">
+                </div>
+                <div class="form-group">
+                    <label for="NewCalendarEventDate">Date:</label>
+                    <input type="date" class="form-control" id="NewCalendarEventDate" name="NewCalendarEventDate" value="${initialDate}" required>
+                </div>
+                <div class="form-group">
+                    <label for="NewCalendarEventStartTime">Start Time:</label>
+                    <input type="time" class="form-control" id="NewCalendarEventStartTime" name="NewCalendarEventStartTime" value="${initialStartTime}" required>
+                </div>
+                <div class="form-group">
+                    <label for="NewCalendarEventEndTime">End Time:</label>
+                    <input type="time" class="form-control" id="NewCalendarEventEndTime" name="NewCalendarEventEndTime" value="${initialEndTime}" required>
+                </div>
+                <div class="form-group">
+                    <label for="AssignedToUser">Assigned To User:</label>
+                    <input type="text" class="form-control" id="AssignedToUser" name="AssignedToUser" value="${assignedToUser}" required>
+                </div>
+            </form>
+        `,
+        icon: 'question',
+        showCancelButton: true,
+        confirmButtonText: 'Create',
+        preConfirm: () => {
+            return {
+                NewCalendarEventName: document.getElementById('NewCalendarEventName').value,
+                NewCalendarEventDescription: document.getElementById('NewCalendarEventDescription').value,
+                NewCalendarEventDate: document.getElementById('NewCalendarEventDate').value,
+                NewCalendarEventStartTime: document.getElementById('NewCalendarEventStartTime').value,
+                NewCalendarEventEndTime: document.getElementById('NewCalendarEventEndTime').value,
+                AssignedToUser: document.getElementById('AssignedToUser').value
+            };
+        }
+    }).then(result => {
+        if (result.isConfirmed) {
+            $.ajax({
+                url: actionUrl,
+                type: 'POST',
+                data: result.value,
+                success: function (result) {
+                    localStorage.setItem('newCalendarEventCreatedMessage', 'Your new Calendar Event has been created successfully');
+                    location.reload();
+                },
+                error: function (error) {
+                    alert("Failure");
+                }
+            });
+        } else if (result.dismiss === Swal.DismissReason.cancel) {
+            Swal.fire('Cancelled', 'Your new Calendar Event creation is cancelled :)', 'info');
+        }
+    });
+}
