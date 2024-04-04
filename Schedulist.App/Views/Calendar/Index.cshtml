@@ -111,7 +111,7 @@
                                             {
                                             if (workMode.DateOfWorkMode == DateOnly.FromDateTime(drawDate))
                                                 {
-                                                    workModeForThisDay = Model.WorkMode.GetWorkModeById(workMode.Id);
+                                                    workModeForThisDay = Model.WorkMode.GetWorkModeById(workMode.WorkModeId);
                                                 }
                                         }
                                         @if (workModeForThisDay != null)
@@ -261,10 +261,30 @@
             if (!doesHaveEvents) {
                 @:No calendar events
             }
-            @:</button>
-            <div>
+            <div class="sidebar-button-container">
             <button class="btn btn-primary" onclick="location.href='@Url.Action("Create", "Calendar")'">
                 Add new event
+            </button>
+            </div>
+            WorkMode workModeForThisDay = new WorkMode();
+            @foreach (WorkModeForUser workMode in Model.WorkModesToDraw)
+            {
+                if (workMode.DateOfWorkMode == DateOnly.FromDateTime(drawDate))
+                {
+                    workModeForThisDay = Model.WorkMode.GetWorkModeById(workMode.WorkModeId);
+                }
+            }
+            @if (workModeForThisDay.Name != null)
+            {
+                @workModeForThisDay.Name;
+            }
+            else
+            {
+                @:No work mode
+            }
+            <div class="sidebar-button-container">
+            <button class="btn btn-primary" onclick="">
+                Change work mode
             </button>
             </div>
             @:</div>

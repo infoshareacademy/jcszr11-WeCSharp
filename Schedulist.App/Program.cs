@@ -17,7 +17,7 @@ namespace Schedulist.App
     {
         public async static Task Main(string[] args)
         {
-            EmailReportService.SendEmail("tom.g@onet.pl");
+            //EmailReportService.SendEmail("tom.g@onet.pl");
 
            var cultureInfo = new System.Globalization.CultureInfo("en-GB");
             Thread.CurrentThread.CurrentCulture = cultureInfo;
