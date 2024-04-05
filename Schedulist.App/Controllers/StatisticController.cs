@@ -9,7 +9,13 @@ using Schedulist.DAL.Repositories;
 using Schedulist.DAL.Repositories.Interfaces;
 using System.ComponentModel.DataAnnotations;
 using System.Diagnostics;
+using PdfSharp.Pdf;
+using PdfSharp.Drawing;
+using System.IO;
+
+
 namespace Schedulist.App.Controllers
+
 {
     public class StatisticsController : ControllerBase
     {
