@@ -5,8 +5,8 @@
     ViewData["Title"] = "Create";
 }
 
+
 <h3>Work Mode Creation</h3>
-@* <h4>@TempData.Peek("UserDetailsWM") - @(Convert.ToDateTime(TempData.Peek("DayDateWM")).ToShortDateString())</h4> *@
 <hr />
 <div class="row">
     <div class="col-md-4">
@@ -24,11 +24,6 @@
                     <span asp-validation-for="UserId" class="text-danger"></span>
                 </div>
             </div>
-@*             <div class="form-group">
-                <label asp-for="UserID" class="control-label"></label>
-                <input asp-for="UserID" class="form-control" />
-                <span asp-validation-for="UserID" class="text-danger"></span>
-            </div> *@
             <div class="form-group">
                 <label asp-for="DateOfWorkMode" class="control-label"></label>
                 <input asp-for="DateOfWorkMode" class="form-control" />
@@ -46,5 +41,10 @@
 </div>
 
 @section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
 }

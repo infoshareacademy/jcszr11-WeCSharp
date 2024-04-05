@@ -1,29 +1,20 @@
-﻿@model WorkModeForUser
-@using Schedulist.DAL.Models
+﻿@model Schedulist.DAL.Models.WorkModeForUser
+@inject Schedulist.DAL.Repositories.Interfaces.IWorkModeRepository workModeRepository
 
 @{
     ViewData["Title"] = "Edit";
 }
 
-<h1>Edit</h1>
-
-<h4>WorkModeForUserController</h4>
+<h4 class="text-center" style="display:flex; justify-content:center; font-size: 30px">Work Mode Update</h4>
 <hr />
 <div class="row">
-    <div class="col-md-4">
+    <div class="col-md-12" style="text-align: center; display: flex; justify-content: center; gap: 10px">
         <form asp-action="Edit">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
-                <label asp-for="WorkModeId" class="control-label"></label>
-                <div class="col-md-10">
-                    @Html.DropDownListFor(model => Model.WorkModeId, ViewBag.WorkMode as SelectList, "Change work mode", new { @class = "form-control" })
-                    <span asp-validation-for="WorkModeId" class="text-danger"></span>
-                </div>
-            </div>
-            <div class="form-group">
-                <label asp-for="DateOfWorkMode" class="control-label"></label>
-                <input asp-for="DateOfWorkMode" class="form-control" />
-                <span asp-validation-for="DateOfWorkMode" class="text-danger"></span>
+                <label asp-for="@Model.WorkMode.Name" class="control-label"></label>
+                @Html.DropDownListFor(model => @Model.WorkModeId, ViewBag.WorkModesWithId as SelectList, "Select Work Mode", new { @class = "form-control" })
+                <span asp-validation-for="@Model.WorkMode.Name" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="UserId" class="control-label"></label>
@@ -32,6 +23,12 @@
                     <span asp-validation-for="UserId" class="text-danger"></span>
                 </div>
             </div>
+            <div class="form-group">
+                <label asp-for="DateOfWorkMode" class="control-label"></label>
+                <input asp-for="DateOfWorkMode" class="form-control" />
+                <span asp-validation-for="DateOfWorkMode" class="text-danger"></span>
+            </div>
+
             @{
                 var buttonStyle = "background-color: rgb(224, 157, 49)";
                 var buttonText = "Update";
