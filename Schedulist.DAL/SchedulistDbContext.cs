@@ -4,6 +4,9 @@ using Microsoft.EntityFrameworkCore;
 using Schedulist.DAL.Models;
 using Schedulist.DAL.Shared;
 
+
+
+
 namespace Schedulist.DAL
 {
     public class SchedulistDbContext : IdentityDbContext<User>
@@ -79,22 +82,22 @@ namespace Schedulist.DAL
                     Email = "kurstomasza@gmail.com"
                 },
                  new User
-                {
-                    Id = "2",
-                    Name = "Andrzej",
-                    Surname = "Andrzejewski",
-                    UserName = "kursandrzeja@gmail.com",
-                    EmailConfirmed = true,
-                    DepartmentId = 2,
-                    PositionId = 3,
-                    PhoneNumberConfirmed = false,
-                    TwoFactorEnabled = false,
-                    LockoutEnabled = false,
-                    AccessFailedCount = 50,
-                    PasswordHash = hashedPassword,
-                    NormalizedEmail = "KURSANDRZEJA@GMAIL.COM",
-                    NormalizedUserName = "KURSANDRZEJA@GMAIL.COM",
-                    Email = "kursandrzeja@gmail.com"
+                 {
+                     Id = "2",
+                     Name = "Andrzej",
+                     Surname = "Andrzejewski",
+                     UserName = "kursandrzeja@gmail.com",
+                     EmailConfirmed = true,
+                     DepartmentId = 2,
+                     PositionId = 3,
+                     PhoneNumberConfirmed = false,
+                     TwoFactorEnabled = false,
+                     LockoutEnabled = false,
+                     AccessFailedCount = 50,
+                     PasswordHash = hashedPassword,
+                     NormalizedEmail = "KURSANDRZEJA@GMAIL.COM",
+                     NormalizedUserName = "KURSANDRZEJA@GMAIL.COM",
+                     Email = "kursandrzeja@gmail.com"
 
                  }
             );
