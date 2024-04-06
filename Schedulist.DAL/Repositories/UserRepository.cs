@@ -114,7 +114,6 @@ namespace Schedulist.DAL.Repositories
                 userFromDB.Name = user.Name;
                 userFromDB.Surname = user.Surname;
                 userFromDB.Email = user.Email;
-                //_db.Users.Update(userFromDB);
                 _db.SaveChanges();
                 return true;
             }

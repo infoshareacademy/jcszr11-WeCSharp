@@ -32,6 +32,8 @@ namespace Schedulist.App.Controllers
                     Name = user.Name,
                     Surname = user.Surname,
                     Email = user.Email,
+                    Department = user.Department,
+                    Position = user.Position,
                     Roles = string.Join(",", (await _userManager.GetRolesAsync(user)))
                 });
             }
