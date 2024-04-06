@@ -56,8 +56,8 @@
                 <th class="text-indicator">Name</th>
                 <th class="text-indicator">Surname</th>
                 <th class="text-indicator">Email</th>
-@*                 <th style="width: 150px;" class="text-indicator">Department</th>
-                <th style="width: 150px;" class="text-indicator">Position</th> *@
+@*                 <th style="width: 100px;" class="text-indicator">Department</th>
+                <th style="width: 100px;" class="text-indicator">Position</th> *@
                 <th class="text-indicator">Roles</th>
                 <th colspan="5" class="text-indicator" style="white-space: nowrap; text-align:center; vertical-align: central;">Admin&nbsp;options</th>
         </thead>
@@ -78,10 +78,10 @@
                         <span class="pointer">@Html.DisplayFor(_ => user.Email)</span>
                     </td>
 @*                     <td>
-                        <span class="pointer">@user.Department</span>
+                        <span class="pointer">@user.Department.Name</span>
                     </td>
                     <td>
-                        <span class="pointer">@user.Position</span>
+                        <span class="pointer">@user.Position.Name</span>
                     </td> *@
                     <td>
                         <span class="pointer">@user.Roles</span>

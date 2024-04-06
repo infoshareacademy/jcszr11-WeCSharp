@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using Schedulist.DAL.Models;
 using Schedulist.DAL.Repositories.Interfaces;
@@ -16,7 +17,7 @@ namespace Schedulist.DAL.Repositories
         {
             try
             {
-                return _db.Users.ToList();
+                return _db.Users.Include(u => u.Department).Include(u =>u.Position).ToList();
             }
             catch (Exception ex)
             {

@@ -8,8 +8,8 @@ namespace Schedulist.App.ViewModels.Admin
         public string Id { get; set; }
         public string Name { get; set; }
         public string Surname { get; set; }
-        public Department? Department { get; set; }
-        public Position? Position { get; set; }
+        public Department Department { get; set; } = new Department();
+        public Position Position { get; set; } = new Position();
         public string? Roles { get; set; }
 
         [DisplayFormat(NullDisplayText = "-")]
