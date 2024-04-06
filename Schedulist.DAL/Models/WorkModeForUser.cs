@@ -10,6 +10,7 @@ namespace Schedulist.DAL.Models
         public int Id { get; set; }
 
         [Name("Date Of Work Mode")]
+        [Display(Name = "Date")]
         [DataType(DataType.Date)]
         [DisplayFormat(DataFormatString = "{0:dd-MM-yyyy}")]
         [Required]
@@ -17,6 +18,7 @@ namespace Schedulist.DAL.Models
 
         //EntityFramework Configuration Section
         [Name("UserId")]
+        [Display(Name = "Assigned to User")]
         public string UserId { get; set; }
         public User User { get; set; }
 

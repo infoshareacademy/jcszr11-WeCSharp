@@ -3,21 +3,14 @@ using Schedulist.DAL.Models;
 
 namespace Schedulist.App.ViewModels
 {
-    public class DayViewModel
+    public class DayViewModel(DateOnly date, User user, WorkModeForUser workModeForUser, List<WorkMode> workModes, List<CalendarEvent> calendarEvents, string currentUrl)
     {
-        public DateOnly Date { get; set; }
-        public User User { get; set; }
-        public string WorkMode { get; set; }
-        public List<CalendarEvent> CalendarEvents { get; set; }
+        public DateOnly Date { get; set; } = date;
+        public User User { get; set; } = user;
+        public WorkModeForUser WorkModeForUser { get; set; } = workModeForUser;
+        public List<CalendarEvent> CalendarEvents { get; set; } = calendarEvents;
         public List<SelectListItem> GetAllWorkModeNames { get; set; }
-        public string CurrentUrl { get; set; }
-        public DayViewModel(DateOnly date, User user, string workMode, List<CalendarEvent> calendarEvents, string currentUrl)
-        {
-            Date = date;
-            User = user;
-            WorkMode = workMode;
-            CalendarEvents = calendarEvents;
-            CurrentUrl = currentUrl;
-        }
+        public List<WorkMode> WorkModes { get; set; } = workModes;
+        public string CurrentUrl { get; set; } = currentUrl;
     }
 }

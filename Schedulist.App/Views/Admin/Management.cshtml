@@ -115,7 +115,8 @@
                         </form>
                     </td>
                     <td>
-                        <button onclick="sendReport('@user.Email');" class="adminButtom" type="button" style="white-space: nowrap;">
+                        @* <button action="@Url.Action()" onclick="sendReport('@user.Email');" class="adminButtom" type="button" style="white-space: nowrap;"> *@
+                        <button onclick="location.href='@Url.Action("SendEmail", "Admin", new {@email = user.Email})'" style="white-space: nowrap;">
                             Send&nbsp;Report
                         </button>
                     </td>
