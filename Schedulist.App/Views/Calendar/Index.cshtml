@@ -50,29 +50,20 @@
             </div>
             @if (User.IsInRole("Admin"))
             {
-<div class="calendar-dropdown">
-    <div class="dropdown">
-        <button id="userButton" class="btn btn-secondary dropdown-toggle user-dropdown" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="width: auto;">
-            <span style="color:black">Select User Calendar:</span><span id="userNameDisplay"> @Model.UserNameDisplay</span>
-        </button>
-        
-        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-            
-            @foreach (KeyValuePair<string, string> DropdownUser in Model.UserDict)
-            {
-                 <a class="dropdown-item" onclick="location.href='@Url.Action("ChangeUser", "Calendar", new {@date = Model.CurrentDate, @userToEdit = DropdownUser.Key})'">@DropdownUser.Value</a>
-                            }
-                        
-                        @* else
+            <div class="calendar-dropdown">
+                <div class="dropdown">
+                    <button id="userButton" class="btn btn-secondary dropdown-toggle user-dropdown" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="width: auto;">
+                        <span style="color:black">Select User Calendar:</span><span id="userNameDisplay"> @Model.UserNameDisplay</span>
+                    </button>
+                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                        @foreach (KeyValuePair<string, string> DropdownUser in Model.UserDict)
                         {
-                            <a class="dropdown-item" onclick="location.href='@Url.Action("ChangeUser", "Calendar", new {@date = Model.CurrentDate, @Model.UserNameDisplay})'">@Model.UserNameDisplay</a>
-                        } *@
-        </div>
-        
-    </div>
-    
-</div>
-}
+                            <a class="dropdown-item" onclick="location.href='@Url.Action("ChangeUser", "Calendar", new {@date = Model.CurrentDate, @userToEdit = DropdownUser.Key})'">@DropdownUser.Value</a>
+                        }
+                    </div>
+                </div>
+            </div>
+            }
         </div>
         <div class="row flex-nowrap" style="border-left: 1px solid lightgrey;">
             @for (int i = 0; i < 7; i++)
@@ -123,7 +114,7 @@
                                             {
                                             if (workMode.DateOfWorkMode == DateOnly.FromDateTime(drawDate))
                                                 {
-                                                    workModeForThisDay = Model.WorkMode.GetWorkModeById(workMode.Id);
+                                                    workModeForThisDay = Model.WorkMode.GetWorkModeById(workMode.WorkModeId);
                                                 }
                                         }
                                         @if (workModeForThisDay != null)
@@ -273,11 +264,44 @@
             if (!doesHaveEvents) {
                 @:No calendar events
             }
-            @:</button>
-            <div>
+            <div class="sidebar-button-container">
             <button class="btn btn-primary" onclick="location.href='@Url.Action("Create", "Calendar")'">
                 Add new event
             </button>
+            </div>
+            WorkMode workModeForThisDay = new WorkMode();
+            @foreach (WorkModeForUser workMode in Model.WorkModesToDraw)
+            {
+                if (workMode.DateOfWorkMode == DateOnly.FromDateTime(drawDate))
+                {
+                    workModeForThisDay = Model.WorkMode.GetWorkModeById(workMode.WorkModeId);
+                }
+            }
+            @:Work mode:
+            <div class="sidebar-button-container">
+                <div class="calendar-dropdown" style="width: auto;">
+                    <div class="dropdown">
+                        <button id="userButton" class="btn btn-primary dropdown-toggle user-dropdown" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="width: auto;">
+                            @{var allWorkModes = Model.WorkMode.GetAllWorkModes();
+                            if (workModeForThisDay.Name != null)
+                            {
+                                allWorkModes.Remove(workModeForThisDay);
+                                <span>@workModeForThisDay.Name</span>
+                            }
+                            else
+                            {
+                                <span>No work mode</span>
+                            }
+                            }
+                        </button>
+                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                            @foreach (WorkMode workMode in allWorkModes)
+                            {
+                                <a class="dropdown-item" onclick="location.href='@Url.Action("UpdateWorkMode", "Calendar", new {@date = drawDate, @userToEdit = Model.UserToEdit, @workModeId = workMode.Id})'">@workMode.Name</a>
+                            }
+                        </div>
+                    </div>
+                </div>
             </div>
             @:</div>
             @:</div>
