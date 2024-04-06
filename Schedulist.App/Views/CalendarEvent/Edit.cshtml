@@ -37,7 +37,7 @@
             </div>
                 <div class="form-group">
                     <label asp-for="UserId" class="control-label"></label>
-                <div class="col-md-10">
+                <div class="col-md-12">
                     @Html.DropDownListFor(model => Model.UserId, ViewBag.Users as SelectList, "Assigned to User", new { @class = "form-control" })
                     <span asp-validation-for="UserId" class="text-danger"></span>
                 </div>
