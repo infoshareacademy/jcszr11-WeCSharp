@@ -62,7 +62,7 @@
             @Model.StartOfWeek.ToString("dd MMMM yyyy") - @Model.EndOfWeek.ToString("dd MMMM yyyy")
         </div>
         <div style="width: 150px">
-            <button class="btn btn-primary" style="padding: 8px; width: 130px" onclick="location.href='@Url.Action("ChangeUser", "Calendar", new {@date = Model.StartOfWeek, @userToEdit = Model.User.Id})'">Month View</button>
+            <button class="btn buttonDayView" style="padding: 8px; width: 130px" onclick="location.href='@Url.Action("ChangeUser", "Calendar", new {@date = Model.StartOfWeek, @userToEdit = Model.User.Id})'">Month View</button>
         </div>
     </div>
     <div class="row day-calendar-row">
@@ -157,7 +157,7 @@
                     <h5>@day.ToString()</h5>
                 </div>
                 <div class="calendar-sidebar-event-container">
-                    <button class="btn btn-primary" onclick="location.href='@Url.Action("Day", "Calendar", new {@date = day, @userToEdit = Model.User.Id})'">
+                    <button class="btn buttonDayView" onclick="location.href='@Url.Action("Day", "Calendar", new {@date = day, @userToEdit = Model.User.Id})'">
                         Day view
                     </button>
                 </div>
@@ -179,9 +179,9 @@
                     @:No calendar events
                 }
                 @:</button>
-                <div class="form-group" style="text-align: center; display: flex; justify-content: center; align-items: center; padding-top: 12px;">
-                    <button class="button buttonGreen" style="margin-top: 15px" onclick="location.href='@Url.Action("Create", "Calendar")'">
-                        Add new event
+                <div class="form-group" style="text-align: center; display: flex; justify-content: center; align-items: center; padding-top: 12px; padding-bottom: 12px">
+                    <button class="button buttonGreen" style="white-space: nowrap; width: 150px; justify-content: center" onclick="location.href='@Url.Action("Create", "Calendar")'">
+                        Create new event
                     </button>
                 </div>
             WorkMode workModeForThisDay = new WorkMode();
@@ -196,7 +196,7 @@
             <div class="sidebar-button-container">
                 <div class="calendar-dropdown" style="width: auto;">
                     <div class="dropdown">
-                        <button id="userButton" class="btn btn-primary dropdown-toggle user-dropdown" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="width: auto;">
+                        <button id="userButton" class="btn buttonGreenWorkMode dropdown-toggle user-dropdown" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="width: auto;">
                             @{var allWorkModes = Model.WorkModes;
                             if (workModeForThisDay.Name != null)
                             {

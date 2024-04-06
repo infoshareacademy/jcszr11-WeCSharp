@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Schedulist.App.Models.Enum;
 using Schedulist.App.Services.Interfaces;
@@ -20,13 +21,32 @@ namespace Schedulist.App.Controllers
             _calendarEventService = calendarEventService;
         }
 
+
+
         // GET: CalendarEventController
         [HttpGet]
         [ResponseCache(Duration = 30, NoStore = true)]
         public IActionResult Index()
         {
-            var calendarEvents = _calendarEventRepository.GetAllCalendarEvents();
-            return View(calendarEvents);
+            if (!User.Identity.IsAuthenticated)
+            {
+                return Redirect("/Identity/Account/Login");
+            }
+            var userManager = HttpContext.RequestServices.GetRequiredService<UserManager<User>>();
+            var user = userManager.GetUserAsync(HttpContext.User).Result;
+
+            if (User.IsInRole("Admin"))
+            {
+                var calendarEvents = _calendarEventRepository.GetAllCalendarEvents();
+                return View(calendarEvents);
+            }
+            else
+            {
+                var calendarEvents = _calendarEventRepository.GetAllCalendarEvents().Where(c => c.UserId == user.Id);
+                return View(calendarEvents);
+            }
+
+            
         }
 
         // GET: CalendarEventController/Details/5

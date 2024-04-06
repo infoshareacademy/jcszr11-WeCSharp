@@ -35,7 +35,8 @@ namespace Schedulist.DAL.Repositories
         {
             try
             {
-                return _db.WorkModesToUsers.Where(w => w.UserId == userId && w.DateOfWorkMode == dateOfWorkMode).FirstOrDefault();
+                var workModeByUserAndDate = _db.WorkModesToUsers.Where(w => w.UserId == userId && w.DateOfWorkMode == dateOfWorkMode).FirstOrDefault();
+                return workModeByUserAndDate;
             }
             catch (Exception ex)
             {
@@ -48,11 +49,6 @@ namespace Schedulist.DAL.Repositories
             try
             {
                 var workModeById = _db.WorkModesToUsers.Include(e => e.User).Include(w => w.WorkMode).FirstOrDefault(w => w.Id == id);
-                if (workModeById == null)
-                {
-                    _logger.LogError($"Work mode with {id} not found!");
-                    throw new NotFoundException("Work Modes not found!");
-                }
                 return workModeById;
             }
             catch (Exception ex)

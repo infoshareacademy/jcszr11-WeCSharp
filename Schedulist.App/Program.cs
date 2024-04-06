@@ -57,11 +57,11 @@ namespace Schedulist.App
             //builder.Services.AddScoped<ErrorHandlingMiddleware>();
 
             var app = builder.Build();
-            using (var scope = app.Services.CreateScope())
-            {
-                //var dbSeed = scope.ServiceProvider.GetService<DBSeed>();
-                //await dbSeed.CreateAdmin();
-            }
+            //using (var scope = app.Services.CreateScope())
+            //{
+            //    //var dbSeed = scope.ServiceProvider.GetService<DBSeed>();
+            //    //await dbSeed.CreateAdmin();
+            //}
             // Configure the HTTP request pipeline.
             if (!app.Environment.IsDevelopment())
             {

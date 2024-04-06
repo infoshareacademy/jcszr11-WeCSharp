@@ -10,7 +10,7 @@ namespace Schedulist.DAL.Models
         public int Id { get; set; }
 
         [Name("Date Of Work Mode")]
-        [Display(Name = "Date Of Work Mode")]
+        [Display(Name = "Date")]
         [DataType(DataType.Date)]
         [DisplayFormat(DataFormatString = "{0:dd-MM-yyyy}")]
         [Required]

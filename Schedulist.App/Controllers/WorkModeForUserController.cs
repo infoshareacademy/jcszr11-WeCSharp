@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Schedulist.App.Models.Enum;
 using Schedulist.App.Services.Interfaces;
@@ -62,8 +63,23 @@ namespace Schedulist.App.Controllers
         [Route("WorkModesToUser")]
         public ActionResult Index()
         {
-            var workmodeForUser = _workModeForUserRepository.GetAllWorkModesForUser();
-            return View(workmodeForUser);
+            if (!User.Identity.IsAuthenticated)
+            {
+                return Redirect("/Identity/Account/Login");
+            }
+            var userManager = HttpContext.RequestServices.GetRequiredService<UserManager<User>>();
+            var user = userManager.GetUserAsync(HttpContext.User).Result;
+
+            if (User.IsInRole("Admin"))
+            {
+                var workmodeForUser = _workModeForUserRepository.GetAllWorkModesForUser().OrderByDescending(c => c.DateOfWorkMode);
+                return View(workmodeForUser);
+            }
+            else
+            {
+                var workmodeForUser = _workModeForUserRepository.GetAllWorkModesForUser().Where(c => c.UserId == user.Id).OrderByDescending(c => c.DateOfWorkMode);
+                return View(workmodeForUser);
+            }
         }
 
         [HttpGet]
@@ -85,11 +101,11 @@ namespace Schedulist.App.Controllers
             {
                 SetupUserList();
                 SetupWorkModeList();
-                var validationResults = _workModeForUserRepository.WorkModeForUserValidation(workModeForUser);
-                if (validationResults != ValidationResult.Success)
-                {
-                    return View(workModeForUser);
-                }
+                //var validationResults = _workModeForUserRepository.WorkModeForUserValidation(workModeForUser);
+                //if (validationResults != ValidationResult.Success)
+                //{
+                //    return View(workModeForUser);
+                //}
                 _workModeForUserRepository.UpdateWorkModeForUser(id, workModeForUser);
                 logger.LogInformation("Work mode for user has been updated successfully");
                 PopUpNotification("Work mode for user has been updated successfully");
@@ -120,11 +136,11 @@ namespace Schedulist.App.Controllers
             {
                 SetupUserList();
                 SetupWorkModeList();
-                var validationResults = _workModeForUserRepository.WorkModeForUserValidation(workModeForUser);
-                if (validationResults != ValidationResult.Success)
-                {
-                    return View(workModeForUser);
-                }
+                //var validationResults = _workModeForUserRepository.WorkModeForUserValidation(workModeForUser);
+                //if (validationResults != ValidationResult.Success)
+                //{
+                //    return View(workModeForUser);
+                //}
                 _workModeForUserRepository.CreateWorkModeForUser(workModeForUser);
                 logger.LogInformation("Work mode created.");
                 PopUpNotification("Work mode has been created successfully");
