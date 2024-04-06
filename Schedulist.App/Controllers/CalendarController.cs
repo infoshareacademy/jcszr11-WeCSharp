@@ -60,6 +60,10 @@ namespace Schedulist.App.Controllers
 
         public IActionResult PreviousMonth(DateTime date, string userToEdit)
         {
+            if (!User.Identity.IsAuthenticated)
+            {
+                return Redirect("/Identity/Account/Login");
+            }
             var userManager = HttpContext.RequestServices.GetRequiredService<UserManager<User>>();
             var user = userManager.GetUserAsync(HttpContext.User).Result;
 
@@ -73,6 +77,10 @@ namespace Schedulist.App.Controllers
         }
         public IActionResult NextMonth(DateTime date, string userToEdit)
         {
+            if (!User.Identity.IsAuthenticated)
+            {
+                return Redirect("/Identity/Account/Login");
+            }
             var userManager = HttpContext.RequestServices.GetRequiredService<UserManager<User>>();
             var user = userManager.GetUserAsync(HttpContext.User).Result;
 
@@ -87,6 +95,10 @@ namespace Schedulist.App.Controllers
 
         public IActionResult ChangeUser(DateTime date, string userToEdit)
         {
+            if (!User.Identity.IsAuthenticated)
+            {
+                return Redirect("/Identity/Account/Login");
+            }
             var userManager = HttpContext.RequestServices.GetRequiredService<UserManager<User>>();
             var user = userManager.GetUserAsync(HttpContext.User).Result;
 
@@ -96,6 +108,51 @@ namespace Schedulist.App.Controllers
             var userNameDisplay = $"{user?.Name}";
             List<WorkModeForUser> workModesToDraw = _workModeForUserRepository.GetAllWorkModesForUser().Where(e => e.DateOfWorkMode.Month == date.Month && e.UserId == userToEdit).ToList();
             _calendarParams = new MonthViewModel(date, calendarEventsToDraw, _userDict, userToEdit, _workModeRepository, workModesToDraw, userNameDisplay);
+            return View("Index", _calendarParams);
+        }
+
+        public IActionResult UpdateWorkMode(DateTime date, string userToEdit, int workModeId)
+        {
+            if (!User.Identity.IsAuthenticated)
+            {
+                return Redirect("/Identity/Account/Login");
+            }
+            var userManager = HttpContext.RequestServices.GetRequiredService<UserManager<User>>();
+            var user = userManager.GetUserAsync(HttpContext.User).Result;
+
+            List<CalendarEvent> allCalendarEvents = _calendarEventRepository.GetAllCalendarEvents();
+            user = _userRepository.GetAllUsers().First(obj => obj.Id == userToEdit);
+            var userNameDisplay = $"{user?.Name}";
+            var calendarEventsToDraw = allCalendarEvents.Where(e => e.UserId == user.Id && e.CalendarEventDate.Month == date.Month).ToList();
+
+            var allWorkModesForUser = _workModeForUserRepository.GetAllWorkModesForUser();
+            bool workModeIsUpdated = false;
+            foreach (var workModeForUser in allWorkModesForUser)
+            {
+                if (workModeForUser.UserId == userToEdit && workModeForUser.DateOfWorkMode == DateOnly.FromDateTime(date))
+                {
+                    _workModeForUserRepository.UpdateWorkModeForUser(workModeForUser.Id ,new WorkModeForUser()
+                    {
+                        DateOfWorkMode = DateOnly.FromDateTime(date),
+                        UserId = userToEdit,
+                        WorkModeId = workModeId
+                    });
+                    workModeIsUpdated = true;
+                }
+            }
+            if (!workModeIsUpdated)
+            {
+                _workModeForUserRepository.CreateWorkModeForUser(new WorkModeForUser()
+                {
+                    DateOfWorkMode = DateOnly.FromDateTime(date),
+                    UserId = userToEdit,
+                    WorkModeId = workModeId
+                });
+            }
+
+            List<WorkModeForUser> workModesToDraw = _workModeForUserRepository.GetAllWorkModesForUser().Where(e => e.DateOfWorkMode.Month == date.Month && e.UserId == userToEdit).ToList();
+            _calendarParams = new MonthViewModel(date, calendarEventsToDraw, _userDict, userToEdit, _workModeRepository, workModesToDraw, userNameDisplay);
+
             return View("Index", _calendarParams);
         }
 

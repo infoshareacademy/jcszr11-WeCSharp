@@ -297,7 +297,7 @@
                         <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                             @foreach (WorkMode workMode in allWorkModes)
                             {
-                                <a class="dropdown-item" onclick="">@workMode.Name</a>
+                                <a class="dropdown-item" onclick="location.href='@Url.Action("UpdateWorkMode", "Calendar", new {@date = drawDate, @userToEdit = Model.UserToEdit, @workModeId = workMode.Id})'">@workMode.Name</a>
                             }
                         </div>
                     </div>
