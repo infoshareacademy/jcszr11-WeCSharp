@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc.Rendering;
 using Schedulist.DAL.Models;
+using Schedulist.DAL.Repositories.Interfaces;
 
 namespace Schedulist.App.ViewModels
 {
@@ -8,10 +9,11 @@ namespace Schedulist.App.ViewModels
         public DateOnly StartOfWeek { get; set; }
         public DateOnly EndOfWeek { get; set; }
         public User User { get; set; }
-        public string WorkMode { get; set; }
+        public List<WorkModeForUser> WorkModesForUser { get; set; }
         public List<CalendarEvent> CalendarEvents { get; set; }
         public List<SelectListItem> GetAllWorkModeNames { get; set; }
-        public WeekViewModel(DateOnly date, User user, string workMode, List<CalendarEvent> calendarEvents)
+        public List<WorkMode> WorkModes { get; set; }
+        public WeekViewModel(DateOnly date, User user, List<WorkModeForUser> workModesForUser, List<WorkMode> workModes, List<CalendarEvent> calendarEvents)
         {
             DateOnly startOfWeek = date;
             while (true)
@@ -40,7 +42,8 @@ namespace Schedulist.App.ViewModels
                 }
             }
             User = user;
-            WorkMode = workMode;
+            WorkModesForUser = workModesForUser;
+            WorkModes = workModes;
             CalendarEvents = calendarEvents;
         }
     }

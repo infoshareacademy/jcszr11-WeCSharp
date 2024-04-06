@@ -1,5 +1,6 @@
 ﻿@using Schedulist.App.ViewModels
 @using Schedulist.DAL.Models
+@using Schedulist.DAL.Repositories
 @model WeekViewModel
 
 @{
@@ -73,9 +74,6 @@
         </div> *@
         <div style="width: 150px">
             <button class="btn btn-primary" style="padding: 8px; width: 130px" onclick="location.href='@Url.Action("ChangeUser", "Calendar", new {@date = Model.StartOfWeek, @userToEdit = Model.User.Id})'">Month View</button>
-        </div>
-        <div class="month-user-name">
-            @Model.User.Name @Model.User.Surname - @Model.WorkMode
         </div>
     </div>
     <div class="row day-calendar-row">
@@ -197,6 +195,40 @@
                         Add new event
                     </button>
                 </div>
+            //TODO
+            WorkMode workModeForThisDay = new WorkMode();
+            @foreach (WorkModeForUser workMode in Model.WorkModesForUser)
+            {
+            if (workMode.DateOfWorkMode == day)
+                {
+                    workModeForThisDay = Model.WorkModes.Where(p => p.Id == workMode.WorkModeId).FirstOrDefault();
+                }
+            }
+            @:Work mode:
+            <div class="sidebar-button-container">
+                <div class="calendar-dropdown" style="width: auto;">
+                    <div class="dropdown">
+                        <button id="userButton" class="btn btn-primary dropdown-toggle user-dropdown" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="width: auto;">
+                            @{var allWorkModes = Model.WorkModes;
+                            if (workModeForThisDay.Name != null)
+                            {
+                                <span>@workModeForThisDay.Name</span>
+                            }
+                            else
+                            {
+                                <span>No work mode</span>
+                            }
+                            }
+                        </button>
+                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                            @foreach (WorkMode workMode in allWorkModes)
+                            {
+                                <a class="dropdown-item" onclick="location.href='@Url.Action("WeekUpdateWorkMode", "Calendar", new {@date = day, @userToEdit = Model.User.Id, @workModeId = workMode.Id})'">@workMode.Name</a>
+                            }
+                        </div>
+                    </div>
+                </div>
+            </div>
             @:</div>
         @:</div>
     }

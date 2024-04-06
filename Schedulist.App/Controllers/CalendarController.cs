@@ -198,9 +198,6 @@ namespace Schedulist.App.Controllers
                 user = _userRepository.GetAllUsers().First(obj => obj.Id == userToEdit);
             }
             DateOnly dateOnly = DateOnly.FromDateTime(date);
-            WorkModeForUser workMode = _workModeForUserRepository.GetWorkModeByUserIdAndDateOfWorkMode((string)user.Id, dateOnly);
-            string workModeString = "No work mode";
-            if (workMode != null) workModeString = _workModeRepository.GetWorkModeById(workMode.WorkModeId).Name;
             List<CalendarEvent> calendarEvents = _calendarEventRepository.GetAllCalendarEvents();
             DateOnly startOfWeek = DateOnly.FromDateTime(date);
             while (true)
@@ -226,10 +223,79 @@ namespace Schedulist.App.Controllers
                     endOfWeek = endOfWeek.AddDays(1);
                 }
             }
+            List<WorkModeForUser> workModesToDraw = _workModeForUserRepository.GetAllWorkModesForUser().Where(p => p.UserId == userToEdit && p.DateOfWorkMode >= startOfWeek && p.DateOfWorkMode <= endOfWeek).ToList();
+            List<WorkMode> workModes = _workModeRepository.GetAllWorkModes().ToList();
             var calendarEventsToDraw = calendarEvents.Where(c => c.UserId == user.Id && c.CalendarEventDate > startOfWeek && c.CalendarEventDate < endOfWeek).ToList();
-            var weekViewModel = new WeekViewModel(dateOnly, user, workModeString, calendarEventsToDraw);
+            var weekViewModel = new WeekViewModel(dateOnly, user, workModesToDraw, workModes, calendarEventsToDraw);
             Debug.WriteLine($"Drawing calendar week for: {weekViewModel.StartOfWeek} - {weekViewModel.EndOfWeek}");
             return View(weekViewModel);
+        }
+
+        public IActionResult WeekUpdateWorkMode(DateTime date, string userToEdit, int workModeId)
+        {
+            var userManager = HttpContext.RequestServices.GetRequiredService<UserManager<User>>();
+            var user = userManager.GetUserAsync(HttpContext.User).Result;
+
+            if (userToEdit != string.Empty)
+            {
+                user = _userRepository.GetAllUsers().First(obj => obj.Id == userToEdit);
+            }
+            DateOnly dateOnly = DateOnly.FromDateTime(date);
+            List<CalendarEvent> calendarEvents = _calendarEventRepository.GetAllCalendarEvents();
+            DateOnly startOfWeek = DateOnly.FromDateTime(date);
+            while (true)
+            {
+                if (startOfWeek.DayOfWeek == DayOfWeek.Monday)
+                {
+                    break;
+                }
+                else
+                {
+                    startOfWeek = startOfWeek.AddDays(-1);
+                }
+            }
+            DateOnly endOfWeek = DateOnly.FromDateTime(date);
+            while (true)
+            {
+                if (endOfWeek.DayOfWeek == DayOfWeek.Sunday)
+                {
+                    break;
+                }
+                else
+                {
+                    endOfWeek = endOfWeek.AddDays(1);
+                }
+            }
+            var allWorkModesForUser = _workModeForUserRepository.GetAllWorkModesForUser();
+            bool workModeIsUpdated = false;
+            foreach (var workModeForUser in allWorkModesForUser)
+            {
+                if (workModeForUser.UserId == userToEdit && workModeForUser.DateOfWorkMode == DateOnly.FromDateTime(date))
+                {
+                    _workModeForUserRepository.UpdateWorkModeForUser(workModeForUser.Id, new WorkModeForUser()
+                    {
+                        DateOfWorkMode = DateOnly.FromDateTime(date),
+                        UserId = userToEdit,
+                        WorkModeId = workModeId
+                    });
+                    workModeIsUpdated = true;
+                }
+            }
+            if (!workModeIsUpdated)
+            {
+                _workModeForUserRepository.CreateWorkModeForUser(new WorkModeForUser()
+                {
+                    DateOfWorkMode = DateOnly.FromDateTime(date),
+                    UserId = userToEdit,
+                    WorkModeId = workModeId
+                });
+            }
+            List<WorkModeForUser> workModesToDraw = _workModeForUserRepository.GetAllWorkModesForUser().Where(p => p.UserId == userToEdit && p.DateOfWorkMode >= startOfWeek && p.DateOfWorkMode <= endOfWeek).ToList();
+            List<WorkMode> workModes = _workModeRepository.GetAllWorkModes().ToList();
+            var calendarEventsToDraw = calendarEvents.Where(c => c.UserId == user.Id && c.CalendarEventDate > startOfWeek && c.CalendarEventDate < endOfWeek).ToList();
+            var weekViewModel = new WeekViewModel(dateOnly, user, workModesToDraw, workModes, calendarEventsToDraw);
+            Debug.WriteLine($"Drawing calendar week for: {weekViewModel.StartOfWeek} - {weekViewModel.EndOfWeek}");
+            return View("Week", weekViewModel);
         }
 
         //GET: CalendarController/Create
