@@ -14,12 +14,16 @@ namespace Schedulist.App.Controllers
     {
         private readonly IUserRepository _userRepository;
         private readonly IWorkModeRepository _workModeRepository;
+        private readonly IDepartmentRepository _departmentRepository;
+        private readonly IPositionRepository _positiontRepository;
         private readonly UserManager<User> _userManager;
-        public AdminController(ILogger<AdminController> logger, IUserRepository userRepository, IWorkModeRepository workModeRepository, UserManager<User> userManager) : base(logger)
+        public AdminController(ILogger<AdminController> logger, IUserRepository userRepository, IWorkModeRepository workModeRepository, IDepartmentRepository departmentRepository, IPositionRepository positionRepository, UserManager<User> userManager) : base(logger)
         {
             _userRepository = userRepository;
             _userManager = userManager;
             _workModeRepository = workModeRepository;
+            _departmentRepository = departmentRepository;
+            _positiontRepository = positionRepository;
         }
         public async Task<IActionResult> Management()
         {
@@ -165,6 +169,8 @@ namespace Schedulist.App.Controllers
             var userToUpdate = _userRepository.GetUserById(Id);
             AdminViewModel adminViewModel = new AdminViewModel();
             adminViewModel.User = userToUpdate;
+            adminViewModel.Departments = _departmentRepository.GetAllDepartments();
+            adminViewModel.Positions = _positiontRepository.GetAllPositions();
 
             return View(adminViewModel);
         }
@@ -172,11 +178,13 @@ namespace Schedulist.App.Controllers
         [HttpPost]
         public IActionResult UpdateUser(AdminViewModel adminViewModel)
         {
+            var newDepartment = adminViewModel.Department;
+            var newPosition =  adminViewModel.Position;
             try
             {
                 if (ModelState.IsValid)
                 {
-                    _userRepository.UpdateUser(adminViewModel.User);
+                    _userRepository.UpdateUser(adminViewModel.User, newDepartment, newPosition);
 
                     PopUpNotification("User has been updated successfully");
 

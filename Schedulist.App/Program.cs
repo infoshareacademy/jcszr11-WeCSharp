@@ -53,6 +53,8 @@ namespace Schedulist.App
             builder.Services.AddScoped<ICalendarRepository, CalendarRepository>();
             builder.Services.AddTransient<IWorkModeForUserRepository, WorkModeForUserRepository>();
             builder.Services.AddTransient<IWorkModeRepository, WorkModeRepository>();
+            builder.Services.AddTransient<IDepartmentRepository, DepartmentRepository>();
+            builder.Services.AddTransient<IPositionRepository, PositionRepository>();
             //builder.Services.AddScoped<ErrorHandlingMiddleware>();
 
             var app = builder.Build();

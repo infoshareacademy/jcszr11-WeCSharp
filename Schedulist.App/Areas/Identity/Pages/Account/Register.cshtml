@@ -37,6 +37,16 @@
                 <label asp-for="Input.Surname">Surname</label>
                 <span asp-validation-for="Input.Surname" class="text-danger"></span>
             </div>
+            <div class="form-floating mb-3">
+                <input asp-for="Input.Department" class="form-control" aria-required="true" placeholder="Surname" />
+                <label asp-for="Input.Department">Department</label>
+                <span asp-validation-for="Input.Department" class="text-danger"></span>
+            </div>
+            <div class="form-floating mb-3">
+                <input asp-for="Input.Position" class="form-control" aria-required="true" placeholder="Surname" />
+                <label asp-for="Input.Position">Position</label>
+                <span asp-validation-for="Input.Position" class="text-danger"></span>
+            </div>
 @*             <div class="form-floating mb-3">
                 <select asp-for="Input.Role" asp-items="@Model.Input.RoleList" class="form-select">
                     <option selected disabled>-Select Role-</option>

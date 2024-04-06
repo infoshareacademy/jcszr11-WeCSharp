@@ -7,9 +7,8 @@ namespace Schedulist.DAL.Repositories.Interfaces
         public List<User> GetAllUsers();
         public User GetUserById(string id);
         public bool CreateUser(User user);
-        //Task<bool> UpdateUser(User user);
         public bool DeleteUser(User user);
-        public bool UpdateUser(User user);
+        public bool UpdateUser(User user, Department department, Position position);
 
     }
 }

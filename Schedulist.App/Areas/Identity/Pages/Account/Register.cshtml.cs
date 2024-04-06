@@ -6,9 +6,7 @@ using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.ModelBinding.Validation;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.AspNetCore.WebUtilities;
 using Schedulist.DAL.Models;
 using System.ComponentModel.DataAnnotations;
@@ -109,6 +107,16 @@ namespace Schedulist.App.Areas.Identity.Pages.Account
             [Display(Name = "Surname")]
             public string Surname { get; set; }
 
+            [Required]
+            [StringLength(100, ErrorMessage = "Department must be minimum length of 2 characters", MinimumLength = 2)]
+            [Display(Name = "Department")]
+            public string Department { get; set; }
+
+            [Required]
+            [StringLength(100, ErrorMessage = "Position must be minimum length of 2 characters", MinimumLength = 2)]
+            [Display(Name = "Position")]
+            public string Position { get; set; }
+
         }
 
 
@@ -141,6 +149,8 @@ namespace Schedulist.App.Areas.Identity.Pages.Account
 
                 user.Name = Input.Name;
                 user.Surname = Input.Surname;
+                user.Department.Name = Input.Department;
+                user.Position.Name = Input.Position;
 
                 var result = await _userManager.CreateAsync(user, Input.Password);
 
