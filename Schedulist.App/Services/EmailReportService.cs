@@ -32,7 +32,7 @@ namespace Schedulist.App.Services
 
             document.Save(filename);
         }
-        public static void SendEmail(string emailAdress)
+        public static bool SendEmail(string emailAdress)
         {
             //checking if required pdf exists and generating it if it doesn't
             DateTime previousMonth = DateTime.Now.AddMonths(-1);
@@ -83,6 +83,7 @@ Thank you for using Schedulist."
             client.Authenticate("schedulistapp@gmail.com", "lbax mujr mwuw wbhi");
             client.Send(message);
             client.Disconnect(true);
+            return true;
         }
     }
 }
