@@ -85,11 +85,11 @@ namespace Schedulist.App.Controllers
             {
                 SetupUserList();
                 SetupWorkModeList();
-                var validationResults = _workModeForUserRepository.WorkModeForUserValidation(workModeForUser);
-                if (validationResults != ValidationResult.Success)
-                {
-                    return View(workModeForUser);
-                }
+                //var validationResults = _workModeForUserRepository.WorkModeForUserValidation(workModeForUser);
+                //if (validationResults != ValidationResult.Success)
+                //{
+                //    return View(workModeForUser);
+                //}
                 _workModeForUserRepository.UpdateWorkModeForUser(id, workModeForUser);
                 logger.LogInformation("Work mode for user has been updated successfully");
                 PopUpNotification("Work mode for user has been updated successfully");
@@ -120,11 +120,11 @@ namespace Schedulist.App.Controllers
             {
                 SetupUserList();
                 SetupWorkModeList();
-                var validationResults = _workModeForUserRepository.WorkModeForUserValidation(workModeForUser);
-                if (validationResults != ValidationResult.Success)
-                {
-                    return View(workModeForUser);
-                }
+                //var validationResults = _workModeForUserRepository.WorkModeForUserValidation(workModeForUser);
+                //if (validationResults != ValidationResult.Success)
+                //{
+                //    return View(workModeForUser);
+                //}
                 _workModeForUserRepository.CreateWorkModeForUser(workModeForUser);
                 logger.LogInformation("Work mode created.");
                 PopUpNotification("Work mode has been created successfully");
