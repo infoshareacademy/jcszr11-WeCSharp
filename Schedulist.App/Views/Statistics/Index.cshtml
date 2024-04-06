@@ -75,18 +75,6 @@
 
         <h1>Statistics</h1>
 
-        <div class="container">
-            <div class="row">
-                <div class="col">
-                    <div class="tile">
-                        <h6>Number of users: 2</h6>
-                    </div>
-                </div>
-                <div class="col">
-                </div>
-            </div>
-        </div>
-
         <div class="chart-container" style="margin-top: 50px;">
             <div class="chart-wrapper">
                 <canvas id="myChart" width="150" height="100"></canvas>
@@ -104,6 +92,8 @@
             </div>
         </div>
 
+        
+
         @section Scripts {
             <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
             <script>
@@ -113,7 +103,7 @@
                     data: {
                         labels: @Html.Raw(Json.Serialize(ViewBag.Labels)),
                         datasets: [{
-                            label: 'Work Modes',
+                            label: 'Number of work modes per user - current month',
                             data: @Html.Raw(Json.Serialize(ViewBag.Data)),
                             backgroundColor: 'rgba(152 251 152)',
                             borderColor: 'rgba(	144 238 144)',
@@ -135,10 +125,10 @@
                 var myChart2 = new Chart(ctx2, {
                     type: 'bar',
                     data: {
-                        labels: @Html.Raw(Json.Serialize(ViewBag.SerializedEventsLabels)),
+                        labels: @Html.Raw(Json.Serialize(ViewBag.Labels2)),
                         datasets: [{
-                            label: 'Calendar Events',
-                            data: @Html.Raw(Json.Serialize(ViewBag.SerializedEventsLabels)),
+                            label: 'Home office by Date - current month',
+                            data: @Html.Raw(Json.Serialize(ViewBag.Data2)),
                             backgroundColor: 'rgba(	135 206 235)',
                             borderColor: 'rgba(	135 206 235)',
                             borderWidth: 1
@@ -161,7 +151,7 @@
                     data: {
                         labels: @Html.Raw(Json.Serialize(ViewBag.Labels3)),
                         datasets: [{
-                            label: 'Work Modes',
+                            label: 'Sick leave by Date - current month',
                             data: @Html.Raw(Json.Serialize(ViewBag.Data3)),
                             backgroundColor: 'rgba(255 228 181)',
                             borderColor: 'rgba(255 228 181)',
@@ -185,7 +175,7 @@
                     data: {
                         labels: @Html.Raw(Json.Serialize(ViewBag.Labels4)),
                         datasets: [{
-                            label: 'Work Modes',
+                            label: 'Holiday by Date - current month',
                             data: @Html.Raw(Json.Serialize(ViewBag.Data4)),
                             backgroundColor: 'rgba(205 92 92)',
                             borderColor: 'rgba(205 92 92)',
@@ -204,9 +194,6 @@
                 });
             </script>
         }
-
-
-
 
     </body>
     </html>

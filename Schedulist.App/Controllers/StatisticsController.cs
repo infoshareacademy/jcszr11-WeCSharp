@@ -21,23 +21,60 @@ namespace Schedulist.App.Controllers
         }
         public IActionResult Index()
         {
-            var workModes = _context.WorkModesToUsers.Include(w => w.User)
+            var workModesCurrentMonthByUser = _context.WorkModesToUsers.Include(w => w.User)
+                .Where(wm => wm.DateOfWorkMode.Month == DateTime.Now.Month)
                 .GroupBy(wm => wm.User.Name)
                 .Select(group => new { Name = group.Key, Count = group.Count() })
                 .ToList();
 
-            var labels = workModes.Select(wm => wm.Name).ToArray();
-            var data = workModes.Select(wm => wm.Count).ToArray();
+            var labels = workModesCurrentMonthByUser.Select(wm => wm.Name).ToArray();
+            var data = workModesCurrentMonthByUser.Select(wm => wm.Count).ToArray();
 
             ViewBag.Labels = labels;
             ViewBag.Data = data;
 
 
+            var homeOfficePerUser = _context.WorkModesToUsers
+                .Where(wm => wm.DateOfWorkMode.Month == DateTime.Now.Month && wm.WorkModeId == 2)
+                .GroupBy(wm => wm.DateOfWorkMode)
+                .Select(group => new { Date = group.Key, Count = group.Count() })
+                .ToList();
+
+            var labels2 = homeOfficePerUser.Select(wm => wm.Date).ToArray();
+            var data2 = homeOfficePerUser.Select(wm => wm.Count).ToArray();
+
+            ViewBag.Labels2 = labels2;
+            ViewBag.Data2 = data2;
+
+            var sickLeavesCurrentMonth = _context.WorkModesToUsers
+                .Where(wm => wm.DateOfWorkMode.Month == DateTime.Now.Month && wm.WorkModeId == 3)
+                .GroupBy(wm => wm.DateOfWorkMode)
+                .Select(group => new { Date = group.Key, Count = group.Count() })
+                .ToList();
+
+            var labels3 = sickLeavesCurrentMonth.Select(wm => wm.Date).ToArray();
+            var data3 = sickLeavesCurrentMonth.Select(wm => wm.Count).ToArray();
+
+            ViewBag.Labels3 = labels3;
+            ViewBag.Data3 = data3;
+
+            var HolidayCurrentMonth = _context.WorkModesToUsers
+                .Where(wm => wm.DateOfWorkMode.Month == DateTime.Now.Month && wm.WorkModeId == 5)
+                .GroupBy(wm => wm.DateOfWorkMode)
+                .Select(group => new { Date = group.Key, Count = group.Count() })
+                .ToList();
+
+            var labels4 = HolidayCurrentMonth.Select(wm => wm.Date).ToArray();
+            var data4 = HolidayCurrentMonth.Select(wm => wm.Count).ToArray();
+
+            ViewBag.Labels4 = labels4;
+            ViewBag.Data4 = data4;
+
             return View();
         }
         public IActionResult DataFromDatabase()
         {
-       
+
             return View();
         }
 
@@ -48,7 +85,7 @@ namespace Schedulist.App.Controllers
         }
         public IActionResult Privacy()
         {
-            return View(); 
+            return View();
         }
     }
 }
