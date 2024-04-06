@@ -128,6 +128,16 @@ namespace Schedulist.App.Controllers
             return RedirectToAction(nameof(Management));
         }
 
+        [HttpGet]
+        public IActionResult UpdateUser(string Id)
+        {
+            var userToUpdate = _userRepository.GetUserById(Id);
+            AdminViewModel adminViewModel = new AdminViewModel();
+            adminViewModel.User = userToUpdate;
+
+            return View(adminViewModel);
+        }
+
         [HttpPost]
         public IActionResult UpdateUser(AdminViewModel adminViewModel)
         {

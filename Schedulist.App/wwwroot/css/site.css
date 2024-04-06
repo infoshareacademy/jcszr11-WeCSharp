@@ -516,7 +516,7 @@ table td tr {
     color: white !important;
 }
 .adminButtom:hover {
-    outline: 2px solid black;
+    outline: 2px solid black !important;
 }
 .management-container-container {
     margin-left: 20px;
