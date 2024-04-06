@@ -10,19 +10,19 @@ namespace Schedulist.App.Services
     {
         public static void CreatePdf(DateTime date)
         {
-            PdfDocument document = new PdfDocument();
-            CultureInfo ci = new CultureInfo("en-GB");
+            PdfDocument document = new();
+            CultureInfo ci = new("en-GB");
             string month = date.ToString("MMMM_yyyy", ci);
 
             PdfPage page = document.AddPage();
             XGraphics gfx = XGraphics.FromPdfPage(page);
 
-            XFont header = new XFont("Verdana", 20, XFontStyle.Bold);
+            XFont header = new("Verdana", 20, XFontStyle.Bold);
             gfx.DrawString(@$"Raport for {month}", header, XBrushes.Black,
             new XRect(0, 10, page.Width, 50),
             XStringFormats.Center);
 
-            XFont font = new XFont("Verdana", 14, XFontStyle.Bold);
+            XFont font = new("Verdana", 14, XFontStyle.Bold);
             string text = "Hello world";
             gfx.DrawString(text, font, XBrushes.Black,
             new XRect(20, 70, page.Width, page.Height),
@@ -32,11 +32,11 @@ namespace Schedulist.App.Services
 
             document.Save(filename);
         }
-        public static void SendEmail(string emailAdress)
+        public static bool SendEmail(string emailAdress)
         {
             //checking if required pdf exists and generating it if it doesn't
             DateTime previousMonth = DateTime.Now.AddMonths(-1);
-            CultureInfo ci = new CultureInfo("en-GB");
+            CultureInfo ci = new("en-GB");
             string previousMonthString = previousMonth.ToString("MMMM_yyyy", ci);
             string filename = $"Raport_For_{previousMonthString}.pdf";
             if (!File.Exists(filename))
@@ -83,6 +83,7 @@ Thank you for using Schedulist."
             client.Authenticate("schedulistapp@gmail.com", "lbax mujr mwuw wbhi");
             client.Send(message);
             client.Disconnect(true);
+            return true;
         }
     }
 }
