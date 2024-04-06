@@ -13,7 +13,7 @@
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
                 <label asp-for="@Model.WorkMode.Name" class="control-label"></label>
-                @Html.DropDownListFor(model => @Model.WorkModeId, ViewBag.WorkModesWithId as SelectList, "Select Work Mode", new { @class = "form-control" })
+                @Html.DropDownListFor(model => @Model.WorkModeId, ViewBag.WorkModes as SelectList, "Select Work Mode", new { @class = "form-control" })
                 <span asp-validation-for="@Model.WorkMode.Name" class="text-danger"></span>
             </div>
             <div class="form-group">

@@ -25,14 +25,6 @@ namespace Schedulist.App.Controllers
 
         }
 
-        //GET: WorkModeForUserController
-        [Route("WorkModesToUser")]
-        public ActionResult Index()
-        {
-            var workmodeForUser = _workModeForUserRepository.GetAllWorkModesForUser();
-            return View(workmodeForUser);
-        }
-
         [HttpPost]
         public ActionResult Delete(int id)
         {
@@ -51,13 +43,6 @@ namespace Schedulist.App.Controllers
                 return View();
             }
         }
-        [HttpGet]
-        public ActionResult Edit(int id)
-        {
-            var model = _workModeForUserRepository.GetWorkModeById(id);
-            logger.LogInformation($"Editing Work Mode started!");
-            return View(model);
-        }
 
         public void SetupWorkModeList()
         {
@@ -66,18 +51,29 @@ namespace Schedulist.App.Controllers
             ViewBag.WorkModes = new SelectList(workModesItems, "Value", "Text");
         }
 
-        public void SetupWorkModeList(int selectedValue)
-        {
-            var workModes = _workModeRepository.GetAllWorkModes();
-            var workModeItems = workModes.Select(workMode => new SelectListItem { Text = workMode.Name, Value = workMode.Id.ToString() });
-            ViewBag.WorkModesWithId = new SelectList(workModeItems, "Value", "Text", selectedValue);
-        }
-
         private void SetupUserList()
         {
             var users = _userRepository.GetAllUsers();
             var usersListItems = users.Select(user => new SelectListItem { Text = $"{user.Name} {user.Surname}", Value = user.Id.ToString() });
             ViewBag.Users = new SelectList(usersListItems, "Value", "Text");
+        }
+
+        //GET: WorkModeForUserController
+        [Route("WorkModesToUser")]
+        public ActionResult Index()
+        {
+            var workmodeForUser = _workModeForUserRepository.GetAllWorkModesForUser();
+            return View(workmodeForUser);
+        }
+
+        [HttpGet]
+        public ActionResult Edit(int id)
+        {
+            SetupUserList();
+            SetupWorkModeList();
+            var model = _workModeForUserRepository.GetWorkModeById(id);
+            logger.LogInformation($"Editing Work Mode started!");
+            return View("Edit", model);
         }
 
         //POST: WorkModeForUserController/Edit/5
@@ -88,7 +84,7 @@ namespace Schedulist.App.Controllers
             try
             {
                 SetupUserList();
-                SetupWorkModeList(id);
+                SetupWorkModeList();
                 var validationResults = _workModeForUserRepository.WorkModeForUserValidation(workModeForUser);
                 if (validationResults != ValidationResult.Success)
                 {
