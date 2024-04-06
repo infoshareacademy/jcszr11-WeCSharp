@@ -33,11 +33,11 @@
                 var buttonStyle = "background-color: rgb(224, 157, 49)";
                 var buttonText = "Update";
             }
-            <div style="padding-top: 10px;">
-                <button class="form-button" type="submit" style='@(buttonStyle)'><span>@(buttonText)</span></button>
+            <div class="form-group" style="text-align: center; display: flex; justify-content: center; align-items: center; padding-top: 12px;">
+                <button class="button buttonGreen" type="submit"><span>@(buttonText)</span></button>
             </div>
-            <div style="padding-top: 12px">
-                <a asp-action="Index" class="form-button btn btn-dark shadow-none">Back to List</a>
+            <div class="form-group" style="text-align: center; display: flex; justify-content: center; align-items: center; padding-top: 8px;">
+                <a asp-action="Index" class="button buttonBlue" style="text-decoration: none;">Back to List</a>
             </div>
         </form>
     </div>
