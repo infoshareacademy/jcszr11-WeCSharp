@@ -490,10 +490,11 @@ html {
     border: 1px solid #408540;
     width: auto;
     font-size: 15px;
+    color: #fff;
 }
 
     .buttonGreenWorkMode:hover {
-        color: #64ae64;
+        color: #fff;
         border: solid 1px #64ae64;
     }
 
