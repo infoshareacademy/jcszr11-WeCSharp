@@ -131,7 +131,7 @@ namespace Schedulist.App.Controllers
             {
                 if (workModeForUser.UserId == userToEdit && workModeForUser.DateOfWorkMode == DateOnly.FromDateTime(date))
                 {
-                    _workModeForUserRepository.UpdateWorkModeForUser(workModeForUser.Id ,new WorkModeForUser()
+                    _workModeForUserRepository.UpdateWorkModeForUser(workModeForUser.Id, new WorkModeForUser()
                     {
                         DateOfWorkMode = DateOnly.FromDateTime(date),
                         UserId = userToEdit,
@@ -156,7 +156,7 @@ namespace Schedulist.App.Controllers
             return View("Index", _calendarParams);
         }
 
-        public IActionResult Day (DateTime date, string userToEdit)
+        public IActionResult Day(DateTime date, string userToEdit)
         {
             var userManager = HttpContext.RequestServices.GetRequiredService<UserManager<User>>();
             var user = userManager.GetUserAsync(HttpContext.User).Result;
@@ -178,14 +178,66 @@ namespace Schedulist.App.Controllers
             TempData["UserDetailsWM"] = $"{user.Name} {user.Surname}";
             DateOnly dateOnly = DateOnly.FromDateTime(date);
             WorkModeForUser workMode = _workModeForUserRepository.GetWorkModeByUserIdAndDateOfWorkMode(user.Id, dateOnly);
-            string workModeString = "No work mode";
-            if (workMode != null) workModeString = _workModeRepository.GetAllWorkModes().Where(x => x.Id == workMode.WorkModeId).FirstOrDefault().Name;
             //if (workMode != null) workModeString = _workModeRepository.GetWorkModeById(workMode.WorkModeId).Name;
             List<CalendarEvent> calendarEvents = _calendarEventRepository.GetAllCalendarEvents();
             var calendarEventsToDraw = calendarEvents.Where(calendarEvent => calendarEvent.UserId == user.Id && calendarEvent.CalendarEventDate == dateOnly).ToList();
-            var dayViewModel = new DayViewModel(dateOnly, user, workModeString, calendarEventsToDraw, HttpContext.Request.Path + HttpContext.Request.QueryString);
+            var workModes = _workModeRepository.GetAllWorkModes();
+            var dayViewModel = new DayViewModel(dateOnly, user, workMode, workModes, calendarEventsToDraw, HttpContext.Request.Path + HttpContext.Request.QueryString);
             logger.LogInformation($"Drawing calendar day for: {dateOnly}");
             return View(dayViewModel);
+        }
+        public IActionResult DayUpdateWorkMode(DateTime date, string userToEdit, int workModeId)
+        {
+            var userManager = HttpContext.RequestServices.GetRequiredService<UserManager<User>>();
+            var user = userManager.GetUserAsync(HttpContext.User).Result;
+
+            if (userToEdit != string.Empty)
+            {
+                user = _userRepository.GetAllUsers().First(obj => obj.Id == userToEdit);
+            }
+            var allWorkModesForUser = _workModeForUserRepository.GetAllWorkModesForUser();
+            bool workModeIsUpdated = false;
+            foreach (var workModeForUser in allWorkModesForUser)
+            {
+                if (workModeForUser.UserId == userToEdit && workModeForUser.DateOfWorkMode == DateOnly.FromDateTime(date))
+                {
+                    _workModeForUserRepository.UpdateWorkModeForUser(workModeForUser.Id, new WorkModeForUser()
+                    {
+                        DateOfWorkMode = DateOnly.FromDateTime(date),
+                        UserId = userToEdit,
+                        WorkModeId = workModeId
+                    });
+                    workModeIsUpdated = true;
+                }
+            }
+            if (!workModeIsUpdated)
+            {
+                _workModeForUserRepository.CreateWorkModeForUser(new WorkModeForUser()
+                {
+                    DateOfWorkMode = DateOnly.FromDateTime(date),
+                    UserId = userToEdit,
+                    WorkModeId = workModeId
+                });
+            }
+            TempData["ReturnUrl"] = HttpContext.Request.Path + HttpContext.Request.QueryString;
+            TempData["ReturnUrlWM"] = HttpContext.Request.Path + HttpContext.Request.QueryString;
+            TempData["SelectedDate"] = date;
+            TempData["SelectedDateForWM"] = date;
+            TempData["DayDate"] = date;
+            TempData["DayDateWM"] = date;
+            TempData["UserId"] = userToEdit;
+            TempData["UserIdForWM"] = userToEdit;
+            TempData["UserDetails"] = $"{user.Name} {user.Surname}";
+            TempData["UserDetailsWM"] = $"{user.Name} {user.Surname}";
+            DateOnly dateOnly = DateOnly.FromDateTime(date);
+            WorkModeForUser workMode = _workModeForUserRepository.GetWorkModeByUserIdAndDateOfWorkMode(user.Id, dateOnly);
+            //if (workMode != null) workModeString = _workModeRepository.GetWorkModeById(workMode.WorkModeId).Name;
+            List<CalendarEvent> calendarEvents = _calendarEventRepository.GetAllCalendarEvents();
+            var calendarEventsToDraw = calendarEvents.Where(calendarEvent => calendarEvent.UserId == user.Id && calendarEvent.CalendarEventDate == dateOnly).ToList();
+            var workModes = _workModeRepository.GetAllWorkModes();
+            var dayViewModel = new DayViewModel(dateOnly, user, workMode, workModes, calendarEventsToDraw, HttpContext.Request.Path + HttpContext.Request.QueryString);
+            logger.LogInformation($"Drawing calendar day for: {dateOnly}");
+            return View("Day", dayViewModel);
         }
 
         public IActionResult Week(DateTime date, string userToEdit)

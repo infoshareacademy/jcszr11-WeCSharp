@@ -61,17 +61,6 @@
         <div class="month-name">
             @Model.StartOfWeek.ToString("dd MMMM yyyy") - @Model.EndOfWeek.ToString("dd MMMM yyyy")
         </div>
-        @* <div class="calendar-dropdown">
-            <div class="dropdown">
-                <button class="btn btn-primary dropdown-toggle month-view-dropdown" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    Week
-                </button>
-                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                    <a class="dropdown-item" onclick="location.href='@Url.Action("Day", "Calendar", new {@date = DateTime.Now, @userToEdit = Model.User.Id})'">Day</a>
-                    <a class="dropdown-item" onclick="location.href='@Url.Action("ChangeUser", "Calendar", new {@date = DateTime.Now, @userToEdit = Model.User.Id})'">Month</a>
-                </div>
-            </div>
-        </div> *@
         <div style="width: 150px">
             <button class="btn btn-primary" style="padding: 8px; width: 130px" onclick="location.href='@Url.Action("ChangeUser", "Calendar", new {@date = Model.StartOfWeek, @userToEdit = Model.User.Id})'">Month View</button>
         </div>
@@ -195,7 +184,6 @@
                         Add new event
                     </button>
                 </div>
-            //TODO
             WorkMode workModeForThisDay = new WorkMode();
             @foreach (WorkModeForUser workMode in Model.WorkModesForUser)
             {
