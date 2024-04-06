@@ -241,10 +241,10 @@
             {
                 <h2 style="padding-bottom: 15px">@DateOnly.FromDateTime(drawDate)</h2>
                 <div class="calendar-sidebar-event-container">
-                    <button class="btn btn-primary" onclick="location.href='@Url.Action("Day", "Calendar", new {@date = drawDate, @userToEdit = Model.UserToEdit})'">
+                    <button class="btn buttonDayView" onclick="location.href='@Url.Action("Day", "Calendar", new {@date = drawDate, @userToEdit = Model.UserToEdit})'">
                         Day view
                     </button>
-                    <button class="btn btn-primary" onclick="location.href='@Url.Action("Week", "Calendar", new {@date = drawDate, @userToEdit = Model.UserToEdit})'">
+                    <button class="btn buttonDayView" onclick="location.href='@Url.Action("Week", "Calendar", new {@date = drawDate, @userToEdit = Model.UserToEdit})'">
                         Week view
                     </button>
                 </div>
@@ -264,11 +264,11 @@
             if (!doesHaveEvents) {
                 @:No calendar events
             }
-            <div class="sidebar-button-container">
-            <button class="btn btn-primary" onclick="location.href='@Url.Action("Create", "Calendar")'">
-                Add new event
+             <div class="form-group" style="text-align: center; display: flex; justify-content: center; align-items: center; padding-top: 12px; padding-bottom: 12px">
+            <button class="button buttonGreen" onclick="location.href='@Url.Action("Create", "Calendar")'">
+                Create new event
             </button>
-            </div>
+             </div>
             WorkMode workModeForThisDay = new WorkMode();
             @foreach (WorkModeForUser workMode in Model.WorkModesToDraw)
             {
@@ -281,7 +281,7 @@
             <div class="sidebar-button-container">
                 <div class="calendar-dropdown" style="width: auto;">
                     <div class="dropdown">
-                        <button id="userButton" class="btn btn-primary dropdown-toggle user-dropdown" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="width: auto;">
+                        <button id="userButton" class="btn buttonGreenWorkMode dropdown-toggle user-dropdown" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="width: auto;">
                             @{var allWorkModes = Model.WorkMode.GetAllWorkModes();
                             if (workModeForThisDay.Name != null)
                             {

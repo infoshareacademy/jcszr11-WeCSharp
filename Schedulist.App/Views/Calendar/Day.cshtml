@@ -55,7 +55,7 @@
         </div>
         <div class="calendar-dropdown" style="width: 130px">
             <div class="dropdown">
-                <button class="btn btn-primary dropdown-toggle month-view-dropdown" style="width: 130px" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <button class="btn buttonDayView dropdown-toggle month-view-dropdown" style="width: 130px" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     Change view
                 </button>
                 <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
@@ -78,7 +78,7 @@
         <div class="event-dropdown" style="margin-left: 10px">
             <input type="hidden" name="chosenDate" value="@Model.Date.ToString(" yyyy-MM-dd")" />
             <button class="button buttonGreen" onclick="location.href='@Url.Action("Create", "Calendar")'" style="white-space: nowrap;">
-                Add new event
+                Create new event
             </button>
         </div>
         <div class="month-user-name">

@@ -245,7 +245,7 @@ html {
 
 .calendar-event-for-day {
     color: #fff;
-    background-color: #007bff;
+    background-color: #3372a6;
     border: 1px solid transparent;
     border-radius: 0.25rem;
     margin: 2px;
@@ -365,7 +365,7 @@ html {
 }
 
 .button {
-    font-family: 'Arial Narrow';
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
 /*---------- Calendar event Create/Update ----------*/
@@ -374,8 +374,8 @@ html {
     height: 40px;
     border-radius: 5px;
     transition: transform 0.2s;
-    font-family: 'Open Sans';
-    font-size: 18px;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-size: 15px;
 }
 
     .form-button:hover {
@@ -394,7 +394,7 @@ html {
 /*-----Buttons------*/
 
 .button {
-    font-family: Dubai;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     font-weight: 0;
     color: #fff;
     padding: 7px 30px;
@@ -452,6 +452,47 @@ html {
 }
 
     .buttonGreen:hover {
+        color: #64ae64;
+        border: solid 1px #64ae64;
+    }
+
+/*DayView*/
+.buttonDayView {
+    background-color: #0e488a;
+    border: 1px solid #0e488a;
+    width: auto;
+    font-size: 15px;
+    color: #fff;
+}
+
+    .buttonDayView:hover {
+        color: #fff;
+        border: solid 1px #fff;
+    }
+
+    .buttonWeekView:hover {
+        color: #64ae64;
+        border: solid 1px #64ae64;
+    }
+
+/*MonthView*/
+.buttonWeekView {
+    background-color: #392c8a;
+    border: 1px solid #392c8a;
+    width: auto;
+    font-size: 15px;
+}
+
+
+/*Green-WorkMode*/
+.buttonGreenWorkMode {
+    background-color: #408540;
+    border: 1px solid #408540;
+    width: auto;
+    font-size: 15px;
+}
+
+    .buttonGreenWorkMode:hover {
         color: #64ae64;
         border: solid 1px #64ae64;
     }
