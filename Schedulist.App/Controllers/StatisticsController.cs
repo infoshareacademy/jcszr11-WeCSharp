@@ -21,8 +21,8 @@ namespace Schedulist.App.Controllers
         }
         public IActionResult Index()
         {
-            var workModes = _context.WorkModes
-                .GroupBy(wm => wm.Name)
+            var workModes = _context.WorkModesToUsers.Include(w => w.User)
+                .GroupBy(wm => wm.User.Name)
                 .Select(group => new { Name = group.Key, Count = group.Count() })
                 .ToList();
 
@@ -31,6 +31,7 @@ namespace Schedulist.App.Controllers
 
             ViewBag.Labels = labels;
             ViewBag.Data = data;
+
 
             return View();
         }

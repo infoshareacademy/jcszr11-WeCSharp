@@ -1,5 +1,7 @@
 ﻿@using Schedulist.DAL.Models
+@using Schedulist.App.Controllers
 @model IEnumerable<Statistics>
+
 
 @{
     ViewData["Title"] = "Statistics";
@@ -24,7 +26,6 @@
 </head>
 <body>
     <div class="container" style="margin-top: 50px;">
-        <h1>Statistics</h1>
         <style>
             .chart-container {
                 display: flex;
@@ -72,6 +73,8 @@
                 }
         </style>
 
+        <h1>Statistics</h1>
+
         <div class="container">
             <div class="row">
                 <div class="col">
@@ -80,9 +83,6 @@
                     </div>
                 </div>
                 <div class="col">
-                </div>
-                <div class="col">
-                    Column
                 </div>
             </div>
         </div>
@@ -135,10 +135,10 @@
                 var myChart2 = new Chart(ctx2, {
                     type: 'bar',
                     data: {
-                        labels: @Html.Raw(Json.Serialize(ViewBag.Labels2)),
+                        labels: @Html.Raw(Json.Serialize(ViewBag.SerializedEventsLabels)),
                         datasets: [{
-                            label: 'Work Modes',
-                            data: @Html.Raw(Json.Serialize(ViewBag.Data2)),
+                            label: 'Calendar Events',
+                            data: @Html.Raw(Json.Serialize(ViewBag.SerializedEventsLabels)),
                             backgroundColor: 'rgba(	135 206 235)',
                             borderColor: 'rgba(	135 206 235)',
                             borderWidth: 1
@@ -204,5 +204,9 @@
                 });
             </script>
         }
+
+
+
+
     </body>
     </html>
