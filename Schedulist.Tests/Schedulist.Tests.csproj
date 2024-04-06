@@ -17,6 +17,11 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Schedulist.App\Schedulist.App.csproj" />
+    <ProjectReference Include="..\Schedulist.DAL\Schedulist.DAL.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Using Include="Xunit" />
   </ItemGroup>
 

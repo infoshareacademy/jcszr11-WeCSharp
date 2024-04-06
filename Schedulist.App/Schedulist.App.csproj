@@ -6,6 +6,7 @@
     <ImplicitUsings>enable</ImplicitUsings>
   </PropertyGroup>
 	<ItemGroup>
+		<PackageReference Include="entityframework" Version="6.4.4" />
 		<PackageReference Include="MailKit" Version="4.4.0" />
 		<PackageReference Include="Microsoft.AspNet.Razor" Version="3.3.0" />
 		<PackageReference Include="Microsoft.AspNetCore.Components.QuickGrid.EntityFrameworkAdapter" Version="8.0.3" />
