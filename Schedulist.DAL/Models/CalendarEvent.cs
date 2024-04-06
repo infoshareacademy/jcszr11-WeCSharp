@@ -39,7 +39,7 @@ namespace Schedulist.DAL.Models
 
         //EntityFramework Configuration Section
         [Name("UserId")]
-        [Display(Name = "Assigned to user with ID")]
+        [Display(Name = "Assigned to user")]
         public string UserId { get; set; }
         public User User { get; set; }
         //EntityFramework Configuration Section

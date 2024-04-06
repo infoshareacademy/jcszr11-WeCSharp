@@ -25,14 +25,6 @@ namespace Schedulist.App.Controllers
 
         }
 
-        //GET: WorkModeForUserController
-        [Route("WorkModesToUser")]
-        public ActionResult Index()
-        {
-            var workmodeForUser = _workModeForUserRepository.GetAllWorkModesForUser();
-            return View(workmodeForUser);
-        }
-
         [HttpPost]
         public ActionResult Delete(int id)
         {
@@ -46,17 +38,10 @@ namespace Schedulist.App.Controllers
             }
             catch (Exception ex)
             {
-                Debug.WriteLine($"Exception occurred: {ex.Message}");
+                logger.LogInformation($"Exception occurred: {ex.Message}");
                 PopUpNotification("Error occurred while deleting calendar event", notificationType: NotificationType.error);
                 return View();
             }
-        }
-        [HttpGet]
-        public ActionResult Edit(int id)
-        {
-            var model = _workModeForUserRepository.GetWorkModeById(id);
-            Debug.WriteLine($"Editing Work Mode started!");
-            return View(model);
         }
 
         public void SetupWorkModeList()
@@ -73,16 +58,39 @@ namespace Schedulist.App.Controllers
             ViewBag.Users = new SelectList(usersListItems, "Value", "Text");
         }
 
+        //GET: WorkModeForUserController
+        [Route("WorkModesToUser")]
+        public ActionResult Index()
+        {
+            var workmodeForUser = _workModeForUserRepository.GetAllWorkModesForUser();
+            return View(workmodeForUser);
+        }
+
+        [HttpGet]
+        public ActionResult Edit(int id)
+        {
+            SetupUserList();
+            SetupWorkModeList();
+            var model = _workModeForUserRepository.GetWorkModeById(id);
+            logger.LogInformation($"Editing Work Mode started!");
+            return View("Edit", model);
+        }
+
         //POST: WorkModeForUserController/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(WorkModeForUser workModeForUser)
+        public ActionResult Edit(int id, WorkModeForUser workModeForUser)
         {
             try
             {
                 SetupUserList();
                 SetupWorkModeList();
-                _workModeForUserRepository.UpdateWorkModeForUser(workModeForUser);
+                var validationResults = _workModeForUserRepository.WorkModeForUserValidation(workModeForUser);
+                if (validationResults != ValidationResult.Success)
+                {
+                    return View(workModeForUser);
+                }
+                _workModeForUserRepository.UpdateWorkModeForUser(id, workModeForUser);
                 logger.LogInformation("Work mode for user has been updated successfully");
                 PopUpNotification("Work mode for user has been updated successfully");
                 return RedirectToAction(nameof(Index));
@@ -92,14 +100,6 @@ namespace Schedulist.App.Controllers
                 return View();
             }
         }
-
-        // GET: WorkModeController/Details/5
-        //public IActionResult Details(int id)
-        //{
-        //    var workmode = _repository.GetAllWorkModes()[id];
-        //    return View(workmode);
-        //}
-
 
         //GET: WorkModeController/Create
         [HttpGet]
@@ -120,29 +120,22 @@ namespace Schedulist.App.Controllers
             {
                 SetupUserList();
                 SetupWorkModeList();
-                //var validationResults = _workModeForUserService.ValidateWorkMode(workModeForUser);
-                //if (validationResults.Any(x => x != ValidationResult.Success))
-                //{
-                //    validationResults.Where(x => x != ValidationResult.Success).ToList().ForEach(x => ModelState.AddModelError(nameof(workModeForUser.DateOfWorkMode), x.ErrorMessage));
-                //    return View(workModeForUser);
-                //}
-                //else
-                //{
-                //    return View();
-                //}
+                var validationResults = _workModeForUserRepository.WorkModeForUserValidation(workModeForUser);
+                if (validationResults != ValidationResult.Success)
+                {
+                    return View(workModeForUser);
+                }
                 _workModeForUserRepository.CreateWorkModeForUser(workModeForUser);
+                logger.LogInformation("Work mode created.");
+                PopUpNotification("Work mode has been created successfully");
                 return RedirectToAction(nameof(Index));
-
             }
-            catch
+            catch (Exception ex)
             {
+                PopUpNotification("Error occurred while deleting Calendar Event", notificationType: NotificationType.error);
+                logger.LogError($"Exception occurred: {ex.Message}");
                 return Ok();
             }
-
-            //var model = new WorkModeViewModel();
-            //}
-
-            //GET: WorkModeForUserController/Delete/5
         }
     }
 }

@@ -22,12 +22,6 @@ namespace Schedulist.App.Services
                 timeValidationResult,
                 validationResult
             };
-
-        }
-
-        public List<ValidationResult> ValidateCalendarEvent(int id)
-        {
-            throw new NotImplementedException();
         }
     }
 }

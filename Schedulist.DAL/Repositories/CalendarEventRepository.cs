@@ -43,7 +43,6 @@ namespace Schedulist.DAL.Repositories
             calendarEvent.UserId = updatedCalendarEvent.UserId;
             calendarEvent.CalendarEventName = updatedCalendarEvent.CalendarEventName;
             _db.SaveChanges();
-            //return true;
         }
         public bool DeleteCalendarEvent(CalendarEvent calendarEvent)
         {

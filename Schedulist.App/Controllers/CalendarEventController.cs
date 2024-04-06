@@ -76,7 +76,7 @@ namespace Schedulist.App.Controllers
             }
             catch (Exception ex)
             {
-                PopUpNotification("Error occurred while deleting Calendar Event", notificationType: NotificationType.error);
+                PopUpNotification("Error occurred while creating Calendar Event", notificationType: NotificationType.error);
                 logger.LogError($"Exception occurred: {ex.Message}");
                 return Ok();
             }

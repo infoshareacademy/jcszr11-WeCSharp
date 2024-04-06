@@ -20,7 +20,7 @@
         string sidebarId = $"calendarEvent{calendarEvent.Id}";
         @:closeCalendarSidebar('@sidebarId');
     }
-                }
+                        }
 
     function closeCalendarSidebar(sidebarId) {
         var sidebarElement = document.getElementById(sidebarId);
@@ -64,25 +64,42 @@
                 </div>
             </div>
         </div>
-@*         //new part
-        <div>
-            <div class="dropdown">
-                <button class="btn btn-primary dropdown-toggle calendar-day-work-mode" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    Choose work mode
-                </button>
-                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-
-                </div>
-            </div>
-            //new part *@
-        <div class="event-dropdown">
+        <div class="event-dropdown" style="margin-left: 10px">
             <input type="hidden" name="chosenDate" value="@Model.Date.ToString(" yyyy-MM-dd")" />
             <button class="button buttonGreen" onclick="location.href='@Url.Action("Create", "Calendar")'" style="white-space: nowrap;">
                 Add new event
             </button>
         </div>
+        @{
+            WorkMode workModeForThisDay = new WorkMode();
+            var allWorkModes = Model.WorkModes;
+        }
+        @if (Model.WorkModeForUser != null)
+        {
+            workModeForThisDay = Model.WorkModes.Where(p => p.Id == Model.WorkModeForUser.WorkModeId).FirstOrDefault();
+        }
+        <div class="button-field event-dropdown" style="margin-left: 15px;">
+            <div class="dropdown">
+                <button id="userButton" class="btn btn-primary dropdown-toggle user-dropdown" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="width: 150px;">
+                    @if (workModeForThisDay.Name != null)
+                    {
+                        <span>@workModeForThisDay.Name</span>
+                    }
+                    else
+                    {
+                        <span>No work mode</span>
+                    }
+                </button>
+                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                    @foreach (WorkMode workMode in allWorkModes)
+                    {
+                        <a class="dropdown-item" onclick="location.href='@Url.Action("DayUpdateWorkMode", "Calendar", new {@date = Model.Date, @userToEdit = Model.User.Id, @workModeId = workMode.Id})'">@workMode.Name</a>
+                    }
+                </div>
+            </div>
+        </div>
         <div class="month-user-name">
-            @Model.User.Name @Model.User.Surname - @Model.WorkMode
+            @Model.User.Name @Model.User.Surname
         </div>
     </div>
     <div class="row day-calendar-row">
@@ -153,11 +170,11 @@
             @calendarEvent.CalendarEventStartTime - @calendarEvent.CalendarEventEndTime<br>
             @calendarEvent.CalendarEventName<br>
             @calendarEvent.CalendarEventDescription<br>
-             <div class="form-group" style="text-align: center; display: flex; justify-content: center; align-items: center; padding-top: 12px;">
+            <div class="form-group" style="text-align: center; display: flex; justify-content: center; align-items: center; padding-top: 12px;">
                 <button class="button buttonBlue" onclick="location.href='@Url.Action("Edit", "CalendarEvent", new { id = calendarEvent.Id, returnUrl = Model.CurrentUrl })'">
                     Edit
                 </button>
-                </div>
+            </div>
             <div class="form-group" style="text-align: center; display: flex; justify-content: center; align-items: center; padding-top: 12px;">
                 <button type="button" class="button buttonRed" onclick="DeleteCalendarEvent('@Url.Action("Delete", "CalendarEvent")?id=@calendarEvent.Id','@calendarEvent.CalendarEventName','@calendarEvent.CalendarEventDescription',
                         '@calendarEvent.CalendarEventDate','@calendarEvent.CalendarEventStartTime','@calendarEvent.CalendarEventEndTime','@calendarEvent.UserId')">

@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Schedulist.App.Models.Enum;
+using Schedulist.App.Services;
 using Schedulist.App.ViewModels.Admin;
 using Schedulist.DAL.Models;
 using Schedulist.DAL.Repositories.Interfaces;
@@ -38,6 +39,34 @@ namespace Schedulist.App.Controllers
             var listOfWorkModes = _workModeRepository.GetAllWorkModes().ToList();
 
             return View(new AdminViewModel { Users = userListItems, ListOfWorkModes = listOfWorkModes });
+        }
+        public async Task<IActionResult> SendEmail(string email)
+        {
+            var isReportSent = EmailReportService.SendEmail(email);
+            if (isReportSent)
+            {
+                logger.LogInformation($"Email successfully sent to {email}");
+            }
+            else
+            {
+                logger.LogError($"Email unsuccessfully sent to {email}");
+            }
+            var userListItems = new List<UserListItemModel>();
+            var allUsers = _userRepository.GetAllUsers().ToList();
+            foreach (var user in allUsers)
+            {
+                userListItems.Add(new UserListItemModel
+                {
+                    Id = user.Id,
+                    Name = user.Name,
+                    Surname = user.Surname,
+                    Email = user.Email,
+                    Roles = string.Join(",", (await _userManager.GetRolesAsync(user)))
+                });
+            }
+            var listOfWorkModes = _workModeRepository.GetAllWorkModes().ToList();
+
+            return View("Management", new AdminViewModel { Users = userListItems, ListOfWorkModes = listOfWorkModes });
         }
         [HttpPost]
         public async Task<IActionResult> AddToAdministrator(string userId)
