@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Schedulist.App.Models.Enum;
 using Schedulist.App.Services.Interfaces;
@@ -62,8 +63,23 @@ namespace Schedulist.App.Controllers
         [Route("WorkModesToUser")]
         public ActionResult Index()
         {
-            var workmodeForUser = _workModeForUserRepository.GetAllWorkModesForUser();
-            return View(workmodeForUser);
+            if (!User.Identity.IsAuthenticated)
+            {
+                return Redirect("/Identity/Account/Login");
+            }
+            var userManager = HttpContext.RequestServices.GetRequiredService<UserManager<User>>();
+            var user = userManager.GetUserAsync(HttpContext.User).Result;
+
+            if (User.IsInRole("Admin"))
+            {
+                var workmodeForUser = _workModeForUserRepository.GetAllWorkModesForUser().OrderByDescending(c => c.DateOfWorkMode);
+                return View(workmodeForUser);
+            }
+            else
+            {
+                var workmodeForUser = _workModeForUserRepository.GetAllWorkModesForUser().Where(c => c.UserId == user.Id).OrderByDescending(c => c.DateOfWorkMode);
+                return View(workmodeForUser);
+            }
         }
 
         [HttpGet]

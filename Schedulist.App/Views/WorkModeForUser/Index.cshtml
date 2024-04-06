@@ -18,15 +18,14 @@
     <thead class="thead-dark">
         <tr>
             <th scope="col">
-                Assigned to User
-            </th>
-            <th scope="col">
                 Work Mode date
             </th>
             <th scope="col">
                 @Html.DisplayNameFor(model => model.WorkMode.Name)
-            </th>         
-            <th></th>
+            </th>  
+            <th scope="col">
+                Assigned to User
+            </th>
         </tr>
     </thead>
     <tbody>
@@ -34,15 +33,14 @@
         {
             <tr>
                 <td>
-                    @Html.DisplayFor(modelItem => item.User.Name) @Html.DisplayFor(modelItem => item.User.Surname)
-                </td>
-                <td>
                     @Html.DisplayFor(modelItem => item.DateOfWorkMode)
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.WorkMode.Name)
-                </td>   
-            
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.User.Name) @Html.DisplayFor(modelItem => item.User.Surname)
+                </td>
                 <td>
                     <div class="button-container">
                        @*  <button type="button" class="btn btn-primary">@Html.ActionLink("Edit", "Edit", new { id = item.Id }, new { style = "color: white;" })</button> *@

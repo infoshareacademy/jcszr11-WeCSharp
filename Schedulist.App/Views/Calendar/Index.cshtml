@@ -48,19 +48,31 @@
             <div class="userNameDisplay">
                 <span><strong>Current User:</strong> @userName</span>
             </div>
+            @if (User.IsInRole("Admin"))
+            {
 <div class="calendar-dropdown">
     <div class="dropdown">
         <button id="userButton" class="btn btn-secondary dropdown-toggle user-dropdown" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="width: auto;">
             <span style="color:black">Select User Calendar:</span><span id="userNameDisplay"> @Model.UserNameDisplay</span>
         </button>
+        
         <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+            
             @foreach (KeyValuePair<string, string> DropdownUser in Model.UserDict)
             {
                  <a class="dropdown-item" onclick="location.href='@Url.Action("ChangeUser", "Calendar", new {@date = Model.CurrentDate, @userToEdit = DropdownUser.Key})'">@DropdownUser.Value</a>
-            }
+                            }
+                        
+                        @* else
+                        {
+                            <a class="dropdown-item" onclick="location.href='@Url.Action("ChangeUser", "Calendar", new {@date = Model.CurrentDate, @Model.UserNameDisplay})'">@Model.UserNameDisplay</a>
+                        } *@
         </div>
+        
     </div>
+    
 </div>
+}
         </div>
         <div class="row flex-nowrap" style="border-left: 1px solid lightgrey;">
             @for (int i = 0; i < 7; i++)
