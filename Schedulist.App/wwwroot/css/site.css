@@ -449,13 +449,26 @@ html {
     border: 1px solid #64ae64;
     width: auto;
     font-size: 15px;
+    color: #fff;
 }
 
     .buttonGreen:hover {
         color: #64ae64;
+        background-color: #fff;
         border: solid 1px #64ae64;
     }
 
+.buttonGray {
+    background-color: lightgray;
+    border: 1px solid gray;
+    width: auto;
+    font-size: 15px;
+}
+
+    .buttonGray:hover {
+        color: #fff;
+        border: solid 1px #64ae64;
+    }
 /*DayView*/
 .buttonDayView {
     background-color: #0e488a;

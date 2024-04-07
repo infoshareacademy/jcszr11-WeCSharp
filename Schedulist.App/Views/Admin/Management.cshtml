@@ -88,16 +88,16 @@
                     </td>
                     <td>
                         <form asp-action="AddToAdministrator" asp-route-userId="@user.Id" method="post">
-                            <button class="adminButtom" type="submit" style="white-space: nowrap;">Add&nbsp;To&nbsp;Administrator</button>
+                            <button class="btn buttonGray" type="submit" style="white-space: nowrap;">Add&nbsp;To&nbsp;Administrator</button>
                         </form>
                     </td>
                     <td>
                         <form asp-action="AddToStandardRole" asp-route-userId="@user.Id" method="post">
-                            <button class="adminButtom" type="submit" style="white-space: nowrap;">Add&nbsp;To&nbsp;Standard&nbsp;Role</button>
+                            <button class="btn buttonGray" type="submit" style="white-space: nowrap;">Add&nbsp;To&nbsp;Standard&nbsp;Role</button>
                         </form>
                     </td>
                     <td>
-                        <button style="white-space: nowrap;" type="button" class="adminButtom" onclick="DeleteUser('@Url.Action("DeleteUser", "Admin")?id=@user.Id','@user.Name','@user.Surname',
+                        <button style="white-space: nowrap;" type="button" class="button buttonRed" onclick="DeleteUser('@Url.Action("DeleteUser", "Admin")?id=@user.Id','@user.Name','@user.Surname',
                         '@user.Email','@user.Roles')">
                             Delete
                         </button>
@@ -109,14 +109,14 @@
                 </td> *@
                     <td>
                         <form asp-action="UpdateUser" asp-route-id="@user.Id" method="get">
-                            <button class="adminButtom" style="white-space: nowrap;">
+                            <button class="btn buttonGray" style="white-space: nowrap;">
                                 Modify&nbsp;User
                             </button>
                         </form>
                     </td>
                     <td>
                         @* <button action="@Url.Action()" onclick="sendReport('@user.Email');" class="adminButtom" type="button" style="white-space: nowrap;"> *@
-                        <button onclick="location.href='@Url.Action("SendEmail", "Admin", new {@email = user.Email})'" style="white-space: nowrap;">
+                        <button class="button buttonBlue" onclick="location.href='@Url.Action("SendEmail", "Admin", new {@email = user.Email})'" style="white-space: nowrap;">
                             Send&nbsp;Report
                         </button>
                     </td>
@@ -157,14 +157,14 @@
                 <div style="margin-bottom: 20px; display: flex; flex-direction: column; justify-content: center; align-items: center;">
                     <label asp-for="@Model.WorkMode.Name" class="form-label" style="font-size: 23px; white-space: nowrap;">Create&nbsp;new&nbsp;Work&nbsp;Mode</label>
                     <input asp-for="@Model.WorkMode.Name" autocomplete="off" placeholder="Insert type of new Work Mode" class="newWorkModeForm" style=" width: 270px !important; text-align: center; margin-bottom: 10px;" />
-                    <button class="adminButtom" type="submit" style="white-space: nowrap; width: 200px;" onclick="window.location.href='@Url.Action("CreateNewWorkMode", "Admin")?@Model.WorkMode.Name'">Save&nbsp;new&nbsp;Work&nbsp;Mode</button>
+                    <button class="btn buttonGreen" type="submit" style="white-space: nowrap; width: 200px;" onclick="window.location.href='@Url.Action("CreateNewWorkMode", "Admin")?@Model.WorkMode.Name'">Save&nbsp;new&nbsp;Work&nbsp;Mode</button>
                 </div>
             </form>
             <form method="post" asp-action="DeleteWorkMode">
                 <div style="display: flex; flex-direction: column; justify-content: center; align-items: center;">
                     <label asp-for="@Model.WorkMode.Name" class="form-label" style="font-size:23px;">Delete Work Mode</label>
                     @Html.DropDownListFor(w => w.WorkMode.Id, new SelectList(Model.ListOfWorkModes, "Id", "Name"), "--Select Work Mode--", new { @class = "drop-down" })
-                    <button class="adminButtom" type="submit" style="white-space: nowrap; width: 180px;">Delete&nbsp;Work&nbsp;Mode</button>
+                    <button class="button buttonRed" type="submit" style="white-space: nowrap; width: 180px;">Delete&nbsp;Work&nbsp;Mode</button>
                 </div>
             </form>
         </div>
