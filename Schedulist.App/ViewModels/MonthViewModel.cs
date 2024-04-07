@@ -11,11 +11,16 @@ namespace Schedulist.App.ViewModels
         public int DaysToDraw { get; private set; }
         public DateTime StartDate { get; private set; }
         public List<CalendarEvent> CalendarEvents { get; set; }
-        public Dictionary<string, int> UserDict { get; set; }
-        public int UserToEdit;
+        public Dictionary<string, string> UserDict { get; set; }
+
+        public string UserToEdit;
+
+        public string UserNameDisplay;
+
         public IWorkModeRepository WorkMode;
+
         public List<WorkModeForUser> WorkModesToDraw;
-        public MonthViewModel(List<CalendarEvent> calendarEvents, Dictionary<string, int> userDict, int userToEdit, IWorkModeRepository workMode, List<WorkModeForUser> workModesToDraw)
+        public MonthViewModel(List<CalendarEvent> calendarEvents, Dictionary<string, string> userDict, string userToEdit, string userNameDisplay, IWorkModeRepository workMode, List<WorkModeForUser> workModesToDraw)
         {
             CurrentDate = DateTime.Now;
             FirstDayOfTheMonth = new DateTime(CurrentDate.Year, CurrentDate.Month, 1);
@@ -26,10 +31,12 @@ namespace Schedulist.App.ViewModels
             CalendarEvents = calendarEvents;
             UserDict = userDict;
             UserToEdit = userToEdit;
+            UserNameDisplay = userNameDisplay;
             WorkMode = workMode;
             WorkModesToDraw = workModesToDraw;
+            
     }
-        public MonthViewModel(DateTime date, List<CalendarEvent> calendarEvents, Dictionary<string, int> userDict, int userToEdit, IWorkModeRepository workMode, List<WorkModeForUser> workModesToDraw)
+        public MonthViewModel(DateTime date, List<CalendarEvent> calendarEvents, Dictionary<string, string> userDict, string userToEdit, IWorkModeRepository workMode, List<WorkModeForUser> workModesToDraw, string userNameDisplay)
         {
             CurrentDate = date;
             FirstDayOfTheMonth = new DateTime(CurrentDate.Year, CurrentDate.Month, 1);
@@ -40,9 +47,10 @@ namespace Schedulist.App.ViewModels
             else StartDate = FirstDayOfTheMonth.AddDays(-(int)FirstDayOfTheMonth.DayOfWeek - 6);
             CalendarEvents = calendarEvents;
             UserDict = userDict;
-            UserToEdit = userToEdit;
+            UserToEdit = userToEdit;           
             WorkMode = workMode;
             WorkModesToDraw = workModesToDraw;
+            UserNameDisplay = userNameDisplay;
         }
     }
 }

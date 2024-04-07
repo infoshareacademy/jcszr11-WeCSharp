@@ -1,4 +1,6 @@
-﻿using Microsoft.Extensions.Logging;
+﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
 using Schedulist.DAL.Models;
 using Schedulist.DAL.Repositories.Interfaces;
 
@@ -6,15 +8,16 @@ namespace Schedulist.DAL.Repositories
 {
     public class UserRepository : BaseRepository, IUserRepository
     {
-        public UserRepository(SchedulistDbContext db, ILogger<BaseRepository> logger) : base(db, logger)
+        private readonly UserManager<User> _userManager;
+        public UserRepository(SchedulistDbContext db, ILogger<BaseRepository> logger, UserManager<User> userManager) : base(db, logger)
         {
-
+            _userManager = userManager;
         }
         public List<User> GetAllUsers()
         {
             try
             {
-                return _db.Users.ToList();
+                return _db.Users.Include(u => u.Department).Include(u =>u.Position).ToList();
             }
             catch (Exception ex)
             {
@@ -22,7 +25,7 @@ namespace Schedulist.DAL.Repositories
                 return new List<User>();
             }
         }
-        public User GetUserById(int id)
+        public User GetUserById(string id)
         {
             try
             {
@@ -49,20 +52,6 @@ namespace Schedulist.DAL.Repositories
                 return false;
             }
         }
-        public bool UpdateUser(User user)
-        {
-            try
-            {
-                _db.Users.Update(user);
-                _db.SaveChanges();
-                return true;
-            }
-            catch (Exception ex)
-            {
-                _logger.LogError(ex, "An error occurred while updating User in database.");
-                return false;
-            }
-        }
         public bool DeleteUser(User user)
         {
             try
@@ -74,6 +63,29 @@ namespace Schedulist.DAL.Repositories
             catch (Exception ex)
             {
                 _logger.LogError(ex, "An error occurred while deleting Calendar Event in database.");
+                return false;
+            }
+        }
+        public bool UpdateUser(User user, Department department, Position position)
+        {
+            try
+            {
+                var userFromDB = _db.Users.FirstOrDefault(u => u.Id == user.Id) ?? 
+                    throw new Exception("User was not found in database");
+
+                userFromDB.Name = user.Name;
+                userFromDB.Surname = user.Surname;
+                userFromDB.Email = user.Email;
+                userFromDB.Department = _db.Departments.FirstOrDefault(d => d.Id == department.Id);
+                userFromDB.Position = _db.Positions.FirstOrDefault(d => d.Id == position.Id);
+
+                _db.SaveChanges();
+
+                return true;
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "An error occurred while updating the User in database.");
                 return false;
             }
         }

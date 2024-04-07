@@ -1,0 +1,50 @@
+﻿@model Schedulist.DAL.Models.WorkModeForUser
+@inject Schedulist.DAL.Repositories.Interfaces.IWorkModeRepository workModeRepository
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<h4 class="text-center" style="display:flex; justify-content:center; font-size: 30px">Work Mode Update</h4>
+<hr />
+<div class="row">
+    <div class="col-md-12" style="text-align: center; display: flex; justify-content: center; gap: 10px">
+        <form asp-action="Edit">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="@Model.WorkMode.Name" class="control-label"></label>
+                @Html.DropDownListFor(model => @Model.WorkModeId, ViewBag.WorkModes as SelectList, "Select Work Mode", new { @class = "form-control" })
+                <span asp-validation-for="@Model.WorkMode.Name" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="UserId" class="control-label"></label>
+                <div class="col-md-12">
+                    @Html.DropDownListFor(model => Model.UserId, ViewBag.Users as SelectList, "---", new { @class = "form-control" })
+                    <span asp-validation-for="UserId" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="form-group">
+                <label asp-for="DateOfWorkMode" class="control-label"></label>
+                <input asp-for="DateOfWorkMode" class="form-control" />
+                <span asp-validation-for="DateOfWorkMode" class="text-danger"></span>
+            </div>
+
+            @{
+                var buttonStyle = "background-color: rgb(224, 157, 49)";
+                var buttonText = "Update";
+            }
+            <div class="form-group" style="text-align: center; display: flex; justify-content: center; align-items: center; padding-top: 12px;">
+                <button class="button buttonGreen" type="submit"><span>@(buttonText)</span></button>
+            </div>
+            <div class="form-group" style="text-align: center; display: flex; justify-content: center; align-items: center; padding-top: 8px;">
+                <a asp-action="Index" class="button buttonBlue" style="text-decoration: none;">Back to List</a>
+            </div>
+        </form>
+    </div>
+</div>
+
+
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

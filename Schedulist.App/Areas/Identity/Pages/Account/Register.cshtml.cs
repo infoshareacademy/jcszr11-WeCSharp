@@ -2,40 +2,42 @@
 // The .NET Foundation licenses this file to you under the MIT license.
 #nullable disable
 
-using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Text;
-using System.Text.Encodings.Web;
-using System.Threading;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authentication;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.WebUtilities;
-using Microsoft.Extensions.Logging;
+using Microsoft.EntityFrameworkCore;
+using Schedulist.DAL;
+using Schedulist.DAL.Models;
+using Schedulist.DAL.Repositories.Interfaces;
+using System.ComponentModel.DataAnnotations;
+using System.Text;
+using System.Text.Encodings.Web;
 
 namespace Schedulist.App.Areas.Identity.Pages.Account
 {
     public class RegisterModel : PageModel
     {
-        private readonly SignInManager<IdentityUser> _signInManager;
-        private readonly UserManager<IdentityUser> _userManager;
-        private readonly IUserStore<IdentityUser> _userStore;
-        private readonly IUserEmailStore<IdentityUser> _emailStore;
+        private readonly SignInManager<User> _signInManager;
+        private readonly UserManager<User> _userManager;
+        private readonly IUserStore<User> _userStore;
+        private readonly IUserEmailStore<User> _emailStore;
         private readonly ILogger<RegisterModel> _logger;
         private readonly IEmailSender _emailSender;
+        private readonly RoleManager<IdentityRole> _roleManager;
+        private readonly IDepartmentRepository _departmentRepository;
+        private readonly IPositionRepository _positiontRepository;
+        //private readonly SchedulistDbContext _db { get; set; }
 
         public RegisterModel(
-            UserManager<IdentityUser> userManager,
-            IUserStore<IdentityUser> userStore,
-            SignInManager<IdentityUser> signInManager,
+            UserManager<User> userManager,
+            IUserStore<User> userStore,
+            SignInManager<User> signInManager,
             ILogger<RegisterModel> logger,
-            IEmailSender emailSender)
+            IEmailSender emailSender, RoleManager<IdentityRole> roleManager, SchedulistDbContext db,
+            IDepartmentRepository departmentRepository, IPositionRepository positionRepository)
         {
             _userManager = userManager;
             _userStore = userStore;
@@ -43,6 +45,10 @@ namespace Schedulist.App.Areas.Identity.Pages.Account
             _signInManager = signInManager;
             _logger = logger;
             _emailSender = emailSender;
+            _roleManager = roleManager;
+            _departmentRepository = departmentRepository;
+            _positiontRepository = positionRepository;
+            //_db = db;
         }
 
         /// <summary>
@@ -97,13 +103,48 @@ namespace Schedulist.App.Areas.Identity.Pages.Account
             [Display(Name = "Confirm password")]
             [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
             public string ConfirmPassword { get; set; }
+
+            //[ValidateNever]
+            //public IEnumerable<SelectListItem> RoleList { get; set; }
+            //public string? Role { get; set; }
+            [Required]
+            [StringLength(100, ErrorMessage = "Name must be minimum length of 2 characters", MinimumLength = 2)]
+            [Display(Name = "Name")]
+            public string Name { get; set; }
+
+            [Required]
+            [StringLength(100, ErrorMessage = "Surname must be minimum length of 2 characters", MinimumLength = 2)]
+            [Display(Name = "Surname")]
+            public string Surname { get; set; }
+
+            [Required(ErrorMessage = "Please select a Department")]
+            [Display(Name = "Department")]
+            public int DepartmentId { get; set; }
+
+            [Required(ErrorMessage = "Please select a Position")]
+            [Display(Name = "Position")]
+            public int PositionId { get; set; }
+
+            public List<Department> Departments { get; set; } = new List<Department>();
+
         }
 
 
         public async Task OnGetAsync(string returnUrl = null)
         {
+            //Input = new InputModel()
+            //{
+            //    RoleList = _roleManager.Roles.Select(x => x.Name).Select(a => new SelectListItem
+            //    {
+            //        Text = a,
+            //        Value = a
+            //    }),
+            //};
+
             ReturnUrl = returnUrl;
             ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
+            ViewData["Departments"] = await _departmentRepository.GetAllDepartmentsAsync(); 
+            ViewData["Positions"] = await _positiontRepository.GetAllPositionsAsync(); 
         }
 
         public async Task<IActionResult> OnPostAsync(string returnUrl = null)
@@ -116,11 +157,53 @@ namespace Schedulist.App.Areas.Identity.Pages.Account
 
                 await _userStore.SetUserNameAsync(user, Input.Email, CancellationToken.None);
                 await _emailStore.SetEmailAsync(user, Input.Email, CancellationToken.None);
+
+                ViewData["Departments"] = new List<Department>
+                    {
+                new Department() { Id = 1, Name = "IT" },
+                new Department() { Id = 2, Name = "Construction" },
+                new Department() { Id = 3, Name = "Human Resources" },
+                new Department() { Id = 4, Name = "Marketing" },
+                new Department() { Id = 5, Name = "Production" },
+                new Department() { Id = 6, Name = "Finance and Accounting" },
+                new Department() { Id = 7, Name = "Customer Service" },
+                new Department() { Id = 8, Name = "Administration" },
+                new Department() { Id = 9, Name = "Procurement" },
+                new Department() { Id = 10, Name = "Sales" }
+                    };
+                ViewData["Positions"] = new List<Position>
+                    {
+                new Position() { Id = 1, Name = "Software Developer" },
+                new Position() { Id = 2, Name = "Constructor" },
+                new Position() { Id = 3, Name = "Human Resources Manager" },
+                new Position() { Id = 4, Name = "Marketing Manager" },
+                new Position() { Id = 5, Name = "CNC Operator" },
+                new Position() { Id = 6, Name = "Financial Controller" },
+                new Position() { Id = 7, Name = "Customer Service Supporter" },
+                new Position() { Id = 8, Name = "Administrative Assistant" },
+                new Position() { Id = 9, Name = "Procurement Specialist" },
+                new Position() { Id = 10, Name = "Sales Representative" }
+                    };
+
+                user.Name = Input.Name;
+                user.Surname = Input.Surname;
+                user.DepartmentId = Input.DepartmentId;
+                user.PositionId = Input.PositionId;
+
                 var result = await _userManager.CreateAsync(user, Input.Password);
 
                 if (result.Succeeded)
                 {
+                    //await _userManager.AddToRoleAsync(user, "USER");
                     _logger.LogInformation("User created a new account with password.");
+
+                    //if (!String.IsNullOrEmpty(Input.Role))
+                    //{
+                    //    await _userManager.AddToRoleAsync(user, Input.Role);
+                    //} else
+                    //{
+                    await _userManager.AddToRoleAsync(user, "User");
+                    //}
 
                     var userId = await _userManager.GetUserIdAsync(user);
                     var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);
@@ -154,27 +237,27 @@ namespace Schedulist.App.Areas.Identity.Pages.Account
             return Page();
         }
 
-        private IdentityUser CreateUser()
+        private User CreateUser()
         {
             try
             {
-                return Activator.CreateInstance<IdentityUser>();
+                return Activator.CreateInstance<User>();
             }
             catch
             {
-                throw new InvalidOperationException($"Can't create an instance of '{nameof(IdentityUser)}'. " +
-                    $"Ensure that '{nameof(IdentityUser)}' is not an abstract class and has a parameterless constructor, or alternatively " +
+                throw new InvalidOperationException($"Can't create an instance of '{nameof(User)}'. " +
+                    $"Ensure that '{nameof(User)}' is not an abstract class and has a parameterless constructor, or alternatively " +
                     $"override the register page in /Areas/Identity/Pages/Account/Register.cshtml");
             }
         }
 
-        private IUserEmailStore<IdentityUser> GetEmailStore()
+        private IUserEmailStore<User> GetEmailStore()
         {
             if (!_userManager.SupportsUserEmail)
             {
                 throw new NotSupportedException("The default UI requires a user store with email support.");
             }
-            return (IUserEmailStore<IdentityUser>)_userStore;
+            return (IUserEmailStore<User>)_userStore;
         }
     }
 }

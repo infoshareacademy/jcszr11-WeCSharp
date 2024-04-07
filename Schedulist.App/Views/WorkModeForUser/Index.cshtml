@@ -1,0 +1,65 @@
+﻿@model IEnumerable<Schedulist.DAL.Models.WorkModeForUser>
+ 
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Work Modes list</h1>
+
+<p>
+    <div style="display: flex; justify-content: center; align-items: center;">
+        <a class="btn buttonGreen" asp-controller="WorkModeForUser" asp-action="Create" style="white-space: nowrap; width: 180px; justify-content: center">
+            Create new work mode
+        </a>
+    </div>
+</p>
+
+<table class="table table-bordered">
+    <thead class="thead-dark">
+        <tr>
+            <th scope="col">
+                Work Mode date
+            </th>
+            <th scope="col">
+                @Html.DisplayNameFor(model => model.WorkMode.Name)
+            </th>  
+            <th scope="col">
+                Assigned to User
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model) 
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.DateOfWorkMode)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.WorkMode.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.User.Name) @Html.DisplayFor(modelItem => item.User.Surname)
+                </td>
+                <td>
+                    <div class="button-container">
+                       @*  <button type="button" class="btn btn-primary">@Html.ActionLink("Edit", "Edit", new { id = item.Id }, new { style = "color: white;" })</button> *@
+                        <a href="@Url.Action("Edit", new { id = item.Id })" class="button buttonBlue" style="text-decoration: none;">Edit</a>
+                        <button class="button buttonRed" onclick="DeleteWorkMode('@Url.Action("Delete", "WorkModeForUser")?id=@item.Id','@item.WorkMode.Name','@item.User.Name', '@item.User.Surname','@item.DateOfWorkMode')">
+                            Delete
+                        </button>
+                    </div>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<script>
+    var workModeDeletedMessage = localStorage.getItem('workModeDeletedMessage');
+
+    if (workModeDeletedMessage) {
+        toastr.success(workModeDeletedMessage);
+        localStorage.removeItem('workModeDeletedMessage');
+    }
+</script>

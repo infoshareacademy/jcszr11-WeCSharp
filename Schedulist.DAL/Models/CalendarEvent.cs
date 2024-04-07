@@ -1,11 +1,10 @@
 ﻿using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
 using CsvHelper.Configuration.Attributes;
 
 
 namespace Schedulist.DAL.Models
 {
-    public class CalendarEvent /*: IValidatableObject*/
+    public class CalendarEvent 
     {
         [Key]
         [Name("CalendarEventId")]
@@ -40,8 +39,8 @@ namespace Schedulist.DAL.Models
 
         //EntityFramework Configuration Section
         [Name("UserId")]
-        [Display(Name = "Assigned to user with ID")]
-        public int UserId { get; set; }
+        [Display(Name = "Assigned to user")]
+        public string UserId { get; set; }
         public User User { get; set; }
         //EntityFramework Configuration Section
 
@@ -50,7 +49,7 @@ namespace Schedulist.DAL.Models
 
         }
         public CalendarEvent(int calendarEventId, string calendarEventName, string calendarEventDescription, DateOnly calendarEventDate,
-            TimeOnly calendarEventStartTime, TimeOnly calendarEventEndTime, int userId)
+            TimeOnly calendarEventStartTime, TimeOnly calendarEventEndTime, string userId)
         {
             Id = calendarEventId;
             CalendarEventName = calendarEventName;
@@ -61,13 +60,5 @@ namespace Schedulist.DAL.Models
             UserId = userId;
         }
 
-        //public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
-        //{
-        //    if (CalendarEventEndTime <= CalendarEventStartTime)
-        //    {
-        //        yield return new ValidationResult("End Time cannot be earlier or the same time as Start Time of Calendar Event!", new[] { "CalendarEventEndTime" });
-        //    }
-
-        //}
     }
 }

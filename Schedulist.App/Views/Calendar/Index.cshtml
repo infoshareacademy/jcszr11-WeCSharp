@@ -1,42 +1,75 @@
-﻿@using Schedulist.App.ViewModels
+﻿@using Microsoft.AspNetCore.Identity
+@using Schedulist.App.ViewModels
 @using Schedulist.DAL.Models
 @using Schedulist.DAL.Repositories
+@using Schedulist.DAL.Shared
 @model MonthViewModel
+@inject SignInManager<User> SignInManager
+@inject UserManager<User> UserManager
 
-<div class="text-center" style="height: calc(100vh - 140px);">
-    <div class="container-fluid d-flex h-100 flex-column">
-        <div class="row flex-nowrap month-name">
-            <div class="button-field"></div>
+@{
+    var loggedInUser = await UserManager.GetUserAsync(User);
+    var userName = $"{loggedInUser.Name} {loggedInUser.Surname}";
+}
+
+<script>
+    function openCalendarSidebar(element) {
+        closeCalendarSidebars()
+        var sidebarId = element.getAttribute('data-sidebar-id');
+        var sidebarElement = document.getElementById(sidebarId);
+        sidebarElement.style.display = "block";
+    }
+
+    function closeCalendarSidebars() {
+        @for (int i = 1; i<=31; i++)
+        {
+            @:closeCalendarSidebar('Day-@i');
+        }
+    }
+
+    function closeCalendarSidebar(sidebarId) {
+        var sidebarElement = document.getElementById(sidebarId);
+        sidebarElement.style.display = "none";
+    }
+</script>
+
+<div class="text-center" style="height: 100vh;">
+    <div class="container-fluid d-flex h-100 flex-column" style="padding: 0;">
+        <div class="row flex-nowrap month-name-container">
             <div class="button-field">
                 <button type="button" class="btn btn-light" onclick="location.href='@Url.Action("PreviousMonth", "Calendar", new {@date = Model.CurrentDate, @userToEdit = Model.UserToEdit})'"><</button>
             </div>
             <div class="button-field">
                 <button type="button" class="btn btn-light" onclick="location.href='@Url.Action("NextMonth", "Calendar", new {@date = Model.CurrentDate, @userToEdit = Model.UserToEdit})'">></button>
             </div>
+            <div class="month-name">
+                @Model.FirstDayOfTheMonth.ToString("MMMM yyyy")
+            </div>
+            <div class="userNameDisplay">
+                <span><strong>Current User:</strong> @userName</span>
+            </div>
+            @if (User.IsInRole("Admin"))
+            {
             <div class="calendar-dropdown">
                 <div class="dropdown">
-                    <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        @Model.UserDict.First(obj => obj.Value == Model.UserToEdit).Key 
+                    <button id="userButton" class="btn btn-secondary dropdown-toggle user-dropdown" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="width: auto;">
+                        <span style="color:black">Select User Calendar:</span><span id="userNameDisplay"> @Model.UserNameDisplay</span>
                     </button>
                     <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                        @foreach (KeyValuePair <string, int> DropdownUser in Model.UserDict)
+                        @foreach (KeyValuePair<string, string> DropdownUser in Model.UserDict)
                         {
-                            <a class="dropdown-item" onclick="location.href='@Url.Action("ChangeUser", "Calendar", new {@date = Model.CurrentDate, @userToEdit = DropdownUser.Value})'">@DropdownUser.Key</a>
+                            <a class="dropdown-item" onclick="location.href='@Url.Action("ChangeUser", "Calendar", new {@date = Model.CurrentDate, @userToEdit = DropdownUser.Key})'">@DropdownUser.Value</a>
                         }
-                        </div>
                     </div>
                 </div>
-                <div class="col">
-                    @Model.FirstDayOfTheMonth.ToString("MMMM yyyy")
-                </div>
-                <div class="calendar-dropdown"></div>
-                <div class="calendar-dropdown"></div>
             </div>
+            }
+        </div>
         <div class="row flex-nowrap" style="border-left: 1px solid lightgrey;">
             @for (int i = 0; i < 7; i++)
             {
                 DateTime drawDayOfWeek = @Model.StartDate.AddDays(i);
-                <div class="col calendar-header">@drawDayOfWeek.DayOfWeek</div>
+                <div class="col calendar-header day-calendar-row-hour">@drawDayOfWeek.DayOfWeek</div>
             }
         </div>
         <div class="row flex-nowrap flex-grow-1" style="border-left: 1px solid lightgrey;">
@@ -65,31 +98,34 @@
                             {
                                 if (calendarEvent.CalendarEventDate.Day == drawDate.Day)
                                 {
-                                    numberOfCalendarEvents += 1;
-                                    calendarEventForDay.Add(calendarEvent);
+                                numberOfCalendarEvents += 1;
+                                calendarEventForDay.Add(calendarEvent);
                                 }
                             }
                             if (drawDate == DateTime.Today)
                             {
-                                <button type="button" class="col calendar-block this-month today" onclick="location.href='@Url.Action("Day", "Calendar", new {@date = drawDate, @userToEdit = Model.UserToEdit})'">
-                                    <div class="calendar-day-date">
-                                        @drawDate.Day
-                                    </div>
-                                <div class="calendar-day-work-mode">
-                                            @{string workModeForThisDay = "";}
-                                            @foreach (WorkModeForUser workMode in Model.WorkModesToDraw)
+                                <button type="button" class="col calendar-block this-month today" data-sidebar-id="Day-@drawDate.Day" onclick="openCalendarSidebar(this)">
+                                <div class="calendar-day-date">
+                                    @drawDate.Day
+                                </div>
+                            <div class="calendar-day-work-mode">
+                                        @{WorkMode workModeForThisDay = new WorkMode();}
+                                        @foreach (WorkModeForUser workMode in Model.WorkModesToDraw)
                                             {
                                             if (workMode.DateOfWorkMode == DateOnly.FromDateTime(drawDate))
                                                 {
-                                                    workModeForThisDay = Model.WorkMode.GetWorkModeById(workMode.Id).Name;
+                                                    workModeForThisDay = Model.WorkMode.GetWorkModeById(workMode.WorkModeId);
                                                 }
                                         }
-                                        @workModeForThisDay;
+                                        @if (workModeForThisDay != null)
+                                        {
+                                        @workModeForThisDay.Name;
+                                        }
                                     </div>
                                     <div style="height: 100%">
                                     @foreach (CalendarEvent calendarEvent in calendarEventForDay)
                                     {
-                                        if (workModeForThisDay == "SickLeave" || workModeForThisDay == "Holiday")
+                                        if (workModeForThisDay.Id == 3 || workModeForThisDay.Id == 5)
                                         {
                                               if (daysToRemove > 0)
                                             {
@@ -123,17 +159,17 @@
                             }
                             else
                             {
-                                <button type="button" class="col calendar-block this-month" onclick="location.href='@Url.Action("Day", "Calendar", new {@date = drawDate, @userToEdit = Model.UserToEdit})'">
+                                <button type="button" class="col calendar-block this-month" data-sidebar-id="Day-@drawDate.Day" onclick="openCalendarSidebar(this)">
                                     <div class="calendar-day-date">
                                         @drawDate.Day
                                     </div>
                                     <div class="calendar-day-work-mode">
                                             @{string workModeForThisDay = "";}
-                                            @foreach (WorkModeForUser workMode in Model.WorkModesToDraw)
+                                             @foreach (WorkModeForUser workMode in Model.WorkModesToDraw)
                                             {
                                             if (workMode.DateOfWorkMode == DateOnly.FromDateTime(drawDate))
                                                 {
-                                                    workModeForThisDay = Model.WorkMode.GetWorkModeById(workMode.Id).Name;
+                                                    workModeForThisDay = Model.WorkMode.GetWorkModeById(workMode.WorkModeId).Name;
                                                 }
                                         }
                                         @workModeForThisDay
@@ -141,7 +177,7 @@
                                     <div style="height: 100%">
                                     @foreach (CalendarEvent calendarEvent in calendarEventForDay)
                                     {
-                                        if (workModeForThisDay == "SickLeave" || workModeForThisDay == "Holiday")
+                                        if (workModeForThisDay == WorkModeNames.SICK_LEAVE || workModeForThisDay == WorkModeNames.HOLIDAY)
                                         {
                                               if (daysToRemove > 0)
                                             {
@@ -176,7 +212,7 @@
                         }
                         else
                         {
-                            <button type="button" class="col calendar-block" onclick="location.href='@Url.Action("Day", "Calendar", drawDate)'">
+                            <button type="button" class="col calendar-block">
                                 <div class="calendar-day-date">
                                     @drawDate.Day
                                 </div>
@@ -188,5 +224,88 @@
             }
         </div>
     </div>
+</div>
+
+@* day sidebar *@
+<div>
+    @{
+        for (int i = 0; i < 31; i++)
+        {
+            drawDate = Model.FirstDayOfTheMonth.AddDays(i);
+            int id = i + 1;
+            @:<div id="Day-@id" class="calendar-sidebar-container">
+            @:<div class="calendar-sidebar">
+            @:<button onclick="closeCalendarSidebars()" class="sidebar-close-button">x</button>
+            bool doesHaveEvents = false;
+            if (drawDate.Month == Model.CurrentDate.Month)
+            {
+                <h2 style="padding-bottom: 15px">@DateOnly.FromDateTime(drawDate)</h2>
+                <div class="calendar-sidebar-event-container">
+                    <button class="btn buttonDayView" onclick="location.href='@Url.Action("Day", "Calendar", new {@date = drawDate, @userToEdit = Model.UserToEdit})'">
+                        Day view
+                    </button>
+                    <button class="btn buttonDayView" onclick="location.href='@Url.Action("Week", "Calendar", new {@date = drawDate, @userToEdit = Model.UserToEdit})'">
+                        Week view
+                    </button>
+                </div>
+                @foreach (CalendarEvent calendarEvent in @Model.CalendarEvents)
+                {
+                    if (calendarEvent.UserId == @Model.UserToEdit && calendarEvent.CalendarEventDate == DateOnly.FromDateTime(drawDate))
+                    {
+                        doesHaveEvents = true;
+                        <div class="calendar-sidebar-event-container">
+                        @calendarEvent.CalendarEventStartTime - @calendarEvent.CalendarEventEndTime<br>
+                        @calendarEvent.CalendarEventName<br>
+                        @calendarEvent.CalendarEventDescription<br>
+                        </div>
+                    }
+                }
+            }
+            if (!doesHaveEvents) {
+                @:No calendar events
+            }
+             <div class="form-group" style="text-align: center; display: flex; justify-content: center; align-items: center; padding-top: 12px; padding-bottom: 12px">
+            <button class="button buttonGreen" style="white-space: nowrap; width: 150px; justify-content: center" onclick="location.href='@Url.Action("Create", "Calendar")'">
+                Create new event
+            </button>
+             </div>
+            WorkMode workModeForThisDay = new WorkMode();
+            @foreach (WorkModeForUser workMode in Model.WorkModesToDraw)
+            {
+                if (workMode.DateOfWorkMode == DateOnly.FromDateTime(drawDate))
+                {
+                    workModeForThisDay = Model.WorkMode.GetWorkModeById(workMode.WorkModeId);
+                }
+            }
+            @:Work mode:
+            <div class="sidebar-button-container">
+                <div class="calendar-dropdown" style="width: auto;">
+                    <div class="dropdown">
+                        <button id="userButton" class="btn buttonGreenWorkMode dropdown-toggle user-dropdown" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="width: auto;">
+                            @{var allWorkModes = Model.WorkMode.GetAllWorkModes();
+                            if (workModeForThisDay.Name != null)
+                            {
+                                allWorkModes.Remove(workModeForThisDay);
+                                <span>@workModeForThisDay.Name</span>
+                            }
+                            else
+                            {
+                                <span>No work mode</span>
+                            }
+                            }
+                        </button>
+                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                            @foreach (WorkMode workMode in allWorkModes)
+                            {
+                                <a class="dropdown-item" onclick="location.href='@Url.Action("UpdateWorkMode", "Calendar", new {@date = drawDate, @userToEdit = Model.UserToEdit, @workModeId = workMode.Id})'">@workMode.Name</a>
+                            }
+                        </div>
+                    </div>
+                </div>
+            </div>
+            @:</div>
+            @:</div>
+        }
+    }
 </div>
 

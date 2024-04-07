@@ -6,96 +6,181 @@
     ViewData["Title"] = "Day";
 }
 
-<div class="row-margin">
-    <h1>@Model.Date</h1>
-    <h1>
-        @Model.User.Name @Model.User.Surname - @Model.WorkMode
+<script>
+    function openCalendarSidebar(element) {
+        closeCalendarSidebars()
+        var sidebarId = element.getAttribute('data-sidebar-id');
+        var sidebarElement = document.getElementById(sidebarId);
+        sidebarElement.style.display = "block";
+    }
 
-        <button class="btn btn-primary" onclick="location.href='@Url.Action("CreateWM", "Calendar")'">
-            Choose work mode
-        </button>
-    </h1>
-    
-    
-</div>
-
-@if (@Model.CalendarEvents.Count > 0)
-{
-    <div style="display: flex;">
-        <div class="row flex-nowrap row-margin">
-            <div class="col-3 row-title row-text text-center standard-border">
-                @Html.DisplayNameFor(model => model.CalendarEvents.FirstOrDefault().CalendarEventName)
-            </div>
-            <div class="col  row-title row-text text-center standard-border">
-                @Html.DisplayNameFor(model => model.CalendarEvents.FirstOrDefault().CalendarEventDescription)
-            </div>
-            <div class="col-1  row-title row-text text-center standard-border">
-                @Html.DisplayNameFor(model => model.CalendarEvents.FirstOrDefault().CalendarEventStartTime)
-            </div>
-            <div class="col-1  row-title row-text text-center standard-border">
-                @Html.DisplayNameFor(model => model.CalendarEvents.FirstOrDefault().CalendarEventEndTime)
-            </div>
-            <div class="btn-edit-delete"></div>
-        </div>
-    </div>
+    function closeCalendarSidebars() {
     @foreach (CalendarEvent calendarEvent in @Model.CalendarEvents)
     {
-        if (calendarEvent.UserId == @Model.User.Id && calendarEvent.CalendarEventDate == @Model.Date)
-        {
-            <div style="display: flex;">
-                <div class="row flex-nowrap row-margin">
-                    <div class="col-3 row-text text-center standard-border">
-                        @Html.DisplayFor(modelItem => calendarEvent.CalendarEventName)
-                    </div>
-                    <div class="col row-text text-center standard-border">
-                        @Html.DisplayFor(modelItem => calendarEvent.CalendarEventDescription)
-                    </div>
-                    <div class="col-1 row-text text-center standard-border">
-                        @Html.DisplayFor(modelItem => calendarEvent.CalendarEventStartTime)
-                    </div>
-                    <div class="col-1 row-text text-center standard-border">
-                        @Html.DisplayFor(modelItem => calendarEvent.CalendarEventEndTime)
-                    </div>
-@*                     <button class="btn btn-primary btn-edit-delete" onclick="location.href='@Url.Action("Edit", "CalendarEvent")/@calendarEvent.CalendarEventId'">
-                        e
-                    </button> *@
-                    <button class="btn btn-primary btn-edit-delete" onclick="DeleteCalendarEvent('@Url.Action("Delete", "CalendarEvent")?id=@calendarEvent.Id','@calendarEvent.CalendarEventName','@calendarEvent.CalendarEventDescription',
-                    '@calendarEvent.CalendarEventDate','@calendarEvent.CalendarEventStartTime','@calendarEvent.CalendarEventEndTime','@calendarEvent.UserId')">
-                        Delete
-                    </button>
-                </div>
-            </div>
-        }
+        string sidebarId = $"calendarEvent{calendarEvent.Id}";
+        @:closeCalendarSidebar('@sidebarId');
     }
-}
-else
-{
-    <div class="no-events text-center">
-        No events for that day
-    </div>
-}
-@if (Model.WorkMode == "Holiday leave" || Model.WorkMode == "Sick leave")
-{
-    <div class="no-events text-center">
-        You cannot create new Calendar event if Work mode equals "Holiday leave" or "Sick leave"!
-    </div>
-}
-else
-{
-    <div class="add-event text-center">
-        <input type="hidden" name="chosenDate" value="@Model.Date.ToString(" yyyy-MM-dd")" />
-        <button class="btn btn-primary" onclick="location.href='@Url.Action("Create", "Calendar")'">
-            Add new event
-        </button>
-    </div>
-}
+                        }
 
+    function closeCalendarSidebar(sidebarId) {
+        var sidebarElement = document.getElementById(sidebarId);
+        sidebarElement.style.display = "none";
+    }
 
-<script>
     var calendarEventDeletedMessage = localStorage.getItem('calendarEventDeletedMessage');
 
     if (calendarEventDeletedMessage) {
         toastr.success(calendarEventDeletedMessage);
         localStorage.removeItem('calendarEventDeletedMessage');
     }
+
+    // var calendarEventDeletedMessage = localStorage.getItem('calendarEventDeletedMessage');
+
+    // if (calendarEventDeletedMessage) {
+    //     toastr.success(calendarEventDeletedMessage);
+    //     localStorage.removeItem('calendarEventDeletedMessage');
+    // }
 </script>
+
+<div style="position: sticky; top: 0; z-index: 2;">
+    <div class="row flex-nowrap month-name-container">
+        <div class="button-field">
+            <button type="button" class="btn btn-light" onclick="location.href='@Url.Action("Day", "Calendar", new {@date = Model.Date.AddDays(-1), @userToEdit = Model.User.Id})'"><</button>
+        </div>
+        <div class="button-field">
+            <button type="button" class="btn btn-light" onclick="location.href='@Url.Action("Day", "Calendar", new {@date = Model.Date.AddDays(1), @userToEdit = Model.User.Id})'">></button>
+        </div>
+        <div class="month-name">
+            @Model.Date.ToString("dd MMMM yyyy")
+        </div>
+        <div class="calendar-dropdown" style="width: 130px">
+            <div class="dropdown">
+                <button class="btn buttonDayView dropdown-toggle month-view-dropdown" style="width: 130px" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Change view
+                </button>
+                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                    <a class="dropdown-item" onclick="location.href='@Url.Action("Week", "Calendar", new {@date = Model.Date, @userToEdit = Model.User.Id})'">Week</a>
+                    <a class="dropdown-item" onclick="location.href='@Url.Action("ChangeUser", "Calendar", new {@date = Model.Date, @userToEdit = Model.User.Id})'">Month</a>
+                </div>
+            </div>
+        </div>
+        <div class="event-dropdown" style="margin-left: 10px">
+            <input type="hidden" name="chosenDate" value="@Model.Date.ToString(" yyyy-MM-dd")" />
+            <button class="button buttonGreen" onclick="location.href='@Url.Action("Create", "Calendar")'" style="white-space: nowrap; width: 150px; justify-content: center">
+                Create new event
+            </button>
+        </div>
+        @{
+            WorkMode workModeForThisDay = new WorkMode();
+            var allWorkModes = Model.WorkModes;
+        }
+        @if (Model.WorkModeForUser != null)
+        {
+            workModeForThisDay = Model.WorkModes.Where(p => p.Id == Model.WorkModeForUser.WorkModeId).FirstOrDefault();
+        }
+        <div class="button-field event-dropdown" style="margin-left: 15px;">
+            <div class="dropdown">
+                <button id="userButton" class="btn buttonGreenWorkMode dropdown-toggle user-dropdown" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="width: 150px;">
+                    @if (workModeForThisDay.Name != null)
+                    {
+                        <span>@workModeForThisDay.Name</span>
+                    }
+                    else
+                    {
+                        <span>No work mode</span>
+                    }
+                </button>
+                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                    @foreach (WorkMode workMode in allWorkModes)
+                    {
+                        <a class="dropdown-item" onclick="location.href='@Url.Action("DayUpdateWorkMode", "Calendar", new {@date = Model.Date, @userToEdit = Model.User.Id, @workModeId = workMode.Id})'">@workMode.Name</a>
+                    }
+                </div>
+            </div>
+        </div>
+        <div class="month-user-name">
+            @Model.User.Name @Model.User.Surname
+        </div>
+    </div>
+    <div class="row day-calendar-row">
+        <div class="col-1 day-calendar-row-hour calendar-header" style="width: 135px;">Hour</div>
+        <div class="col-11 calendar-header" style="width: calc(100% - 135px);"></div>
+    </div>
+</div>
+
+<div class="calendar-hour-container">
+    @for (int i = 0; i < 24; i++)
+    {
+        <div class="row day-calendar-row">
+            @if (i < 12)
+            {
+                if (i == 0)
+                {
+                    <div class="col-1 day-calendar-row-hour">12 AM</div>
+                }
+                else
+                {
+                    <div class="col-1 day-calendar-row-hour">@i AM</div>
+                }
+            }
+            else
+            {
+                if (i == 12)
+                {
+                    <div class="col-1 day-calendar-row-hour">12 AM</div>
+                }
+                else
+                {
+                    <div class="col-1 day-calendar-row-hour">@i PM</div>
+                }
+            }
+            <div class="col-11"></div>
+        </div>
+    }
+</div>
+
+<div class="calendar-calendar-event-container">
+    <div class="day-calendar-event-container">
+        @if (@Model.CalendarEvents.Count > 0)
+        {
+            foreach (CalendarEvent calendarEvent in @Model.CalendarEvents)
+            {
+                if (calendarEvent.UserId == @Model.User.Id && calendarEvent.CalendarEventDate == @Model.Date)
+                {
+                    string top = $"{calendarEvent.CalendarEventStartTime.Hour * 60 + calendarEvent.CalendarEventStartTime.Minute}px";
+                    var duration = calendarEvent.CalendarEventEndTime - calendarEvent.CalendarEventStartTime;
+                    string height = $"{duration.Hours * 60 + duration.Minutes}px";
+                    string sidebarId = $"calendarEvent{calendarEvent.Id}";
+                    <div class="day-calendar-event" style="top: @top; height: @height;" data-sidebar-id="@sidebarId" onclick="openCalendarSidebar(this)">
+                        @calendarEvent.CalendarEventName
+                    </div>
+
+                }
+            }
+        }
+    </div>
+</div>
+
+@foreach (CalendarEvent calendarEvent in @Model.CalendarEvents)
+{
+    string sidebarId = $"calendarEvent{calendarEvent.Id}";
+    <div id="@sidebarId" class="calendar-sidebar-container">
+        <div class="calendar-sidebar">
+            <button onclick="closeCalendarSidebars()" class="sidebar-close-button">x</button>
+            @calendarEvent.CalendarEventStartTime - @calendarEvent.CalendarEventEndTime<br>
+            @calendarEvent.CalendarEventName<br>
+            @calendarEvent.CalendarEventDescription<br>
+            <div class="form-group" style="text-align: center; display: flex; justify-content: center; align-items: center; padding-top: 12px;">
+                <button class="button buttonBlue" onclick="location.href='@Url.Action("Edit", "CalendarEvent", new { id = calendarEvent.Id, returnUrl = Model.CurrentUrl })'">
+                    Edit
+                </button>
+            </div>
+            <div class="form-group" style="text-align: center; display: flex; justify-content: center; align-items: center; padding-top: 12px;">
+                <button type="button" class="button buttonRed" onclick="DeleteCalendarEvent('@Url.Action("Delete", "CalendarEvent")?id=@calendarEvent.Id','@calendarEvent.CalendarEventName','@calendarEvent.CalendarEventDescription',
+                        '@calendarEvent.CalendarEventDate','@calendarEvent.CalendarEventStartTime','@calendarEvent.CalendarEventEndTime','@calendarEvent.UserId')">
+                    Delete
+                </button>
+            </div>
+        </div>
+    </div>
+}

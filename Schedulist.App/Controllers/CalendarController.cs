@@ -1,80 +1,168 @@
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.VisualStudio.Web.CodeGenerators.Mvc.Templates.BlazorIdentity.Pages;
+using Schedulist.App.Services;
+using Schedulist.App.Services.Interfaces;
 using Schedulist.App.ViewModels;
 using Schedulist.DAL.Models;
 using Schedulist.DAL.Repositories.Interfaces;
 using System.ComponentModel.DataAnnotations;
 using System.Diagnostics;
+using System.Security.Principal;
+
 
 namespace Schedulist.App.Controllers
 {
     public class CalendarController : ControllerBase
     {
-        private User _user;
-        private readonly CalendarEvent _newCalendarEvent;
+        private readonly IHttpContextAccessor _httpContextAccessor;
         private readonly IWorkModeForUserRepository _workModeForUserRepository;
         private readonly IWorkModeRepository _workModeRepository;
         private readonly ICalendarEventRepository _calendarEventRepository;
+        private readonly ICalendarEventService _calendarEventService;
         private readonly IUserRepository _userRepository;
-        private Dictionary<string, int> _userDict = [];
+        private Dictionary<string, string> _userDict = [];
         private MonthViewModel _calendarParams;
-        public CalendarController(ILogger<CalendarController> logger, User user, IWorkModeForUserRepository workModeForUserRepository, IWorkModeRepository workModeRepository, ICalendarEventRepository calendarEventRepository, IUserRepository userRepository) : base(logger)
+        public CalendarController(IHttpContextAccessor httpContextAccessor, ILogger<CalendarController> logger, IWorkModeForUserRepository workModeForUserRepository, IWorkModeRepository workModeRepository, ICalendarEventRepository calendarEventRepository, ICalendarEventService calendarEventService, IUserRepository userRepository) : base(logger)
         {
-            _user = user;
+            _httpContextAccessor = httpContextAccessor;
             _workModeForUserRepository = workModeForUserRepository;
             _workModeRepository = workModeRepository;
             _calendarEventRepository = calendarEventRepository;
+            _calendarEventService = calendarEventService;
             _userRepository = userRepository;
-            _newCalendarEvent = new CalendarEvent();
             foreach (User userToAdd in _userRepository.GetAllUsers())
             {
-                _userDict.Add($"{userToAdd.Name} {userToAdd.Surname}", userToAdd.Id);
+                _userDict.Add(userToAdd.Id, $"{userToAdd.Name} {userToAdd.Surname}");
             }
         }
 
         public IActionResult Index()
         {
-            int userToChangeId = _user.Id;
+            if (!User.Identity.IsAuthenticated)
+            {
+                return Redirect("/Identity/Account/Login");
+            }
+            var userManager = HttpContext.RequestServices.GetRequiredService<UserManager<User>>();
+            var user = userManager.GetUserAsync(HttpContext.User).Result;
+
+            //var user = _httpContextAccessor.HttpContext?.User;
+
+            string userToChangeId = user.Id;
             List<CalendarEvent> allCalendarEvents = _calendarEventRepository.GetAllCalendarEvents();
-            var calendarEventsToDraw = allCalendarEvents.Where(e => e.UserId == userToChangeId && e.CalendarEventDate.Month == DateTime.Now.Month).ToList();
+            var calendarEventsToDraw = allCalendarEvents.Where(calendarEvent => calendarEvent.UserId == userToChangeId && calendarEvent.CalendarEventDate.Month == DateTime.Now.Month).ToList();
             List<WorkModeForUser> workModesToDraw = _workModeForUserRepository.GetAllWorkModesForUser().Where(e => e.DateOfWorkMode.Month == DateTime.Now.Month && e.UserId == userToChangeId).ToList();
-            _calendarParams = new MonthViewModel(calendarEventsToDraw, _userDict, userToChangeId, _workModeRepository, workModesToDraw);
+            var userNameDisplay = $"{user?.Name}";
+            _calendarParams = new MonthViewModel(calendarEventsToDraw, _userDict, userToChangeId, userNameDisplay, _workModeRepository, workModesToDraw);
             return View(_calendarParams);
         }
 
-        public IActionResult PreviousMonth(DateTime date, int userToEdit)
+        public IActionResult PreviousMonth(DateTime date, string userToEdit)
         {
-            List<CalendarEvent> allCalendarEvents = _calendarEventRepository.GetAllCalendarEvents();
-            _user = _userRepository.GetAllUsers().First(obj => obj.Id == userToEdit);
-            var calendarEventsToDraw = allCalendarEvents.Where(e => e.UserId == _user.Id && e.CalendarEventDate.Month == date.AddMonths(-1).Month).ToList();
-            List<WorkModeForUser> workModesToDraw = _workModeForUserRepository.GetAllWorkModesForUser().Where(e => e.DateOfWorkMode.Month == date.AddMonths(-1).Month && e.UserId == userToEdit).ToList();
-            _calendarParams = new MonthViewModel(date.AddMonths(-1), calendarEventsToDraw, _userDict, userToEdit, _workModeRepository, workModesToDraw);
-            return View("Index", _calendarParams);
-        }
-        public IActionResult NextMonth(DateTime date, int userToEdit)
-        {
-            List<CalendarEvent> allCalendarEvents = _calendarEventRepository.GetAllCalendarEvents();
-            _user = _userRepository.GetAllUsers().First(obj => obj.Id == userToEdit);
-            var calendarEventsToDraw = allCalendarEvents.Where(e => e.UserId == _user.Id && e.CalendarEventDate.Month == date.AddMonths(+1).Month).ToList();
-            List<WorkModeForUser> workModesToDraw = _workModeForUserRepository.GetAllWorkModesForUser().Where(e => e.DateOfWorkMode.Month == date.AddMonths(+1).Month && e.UserId == userToEdit).ToList();
-            _calendarParams = new MonthViewModel(date.AddMonths(1), calendarEventsToDraw, _userDict, userToEdit, _workModeRepository, workModesToDraw);
-            return View("Index", _calendarParams);
-        }
-
-        public IActionResult ChangeUser(DateTime date, int userToEdit)
-        {
-            _user = _userRepository.GetAllUsers().First(obj => obj.Id == userToEdit);
-            List<CalendarEvent> allCalendarEvents = _calendarEventRepository.GetAllCalendarEvents();
-            var calendarEventsToDraw = allCalendarEvents.Where(e => e.UserId == _user.Id && e.CalendarEventDate.Month == date.Month).ToList();
-            List<WorkModeForUser> workModesToDraw = _workModeForUserRepository.GetAllWorkModesForUser().Where(e => e.DateOfWorkMode.Month == date.Month && e.UserId == userToEdit).ToList();
-            _calendarParams = new MonthViewModel(date, calendarEventsToDraw, _userDict, userToEdit, _workModeRepository, workModesToDraw);
-            return View("Index", _calendarParams);
-        }
-
-        public IActionResult Day(DateTime date, int userToEdit)
-        {
-            if (userToEdit != 0)
+            if (!User.Identity.IsAuthenticated)
             {
-                _user = _userRepository.GetAllUsers().First(obj => obj.Id == userToEdit);
+                return Redirect("/Identity/Account/Login");
+            }
+            var userManager = HttpContext.RequestServices.GetRequiredService<UserManager<User>>();
+            var user = userManager.GetUserAsync(HttpContext.User).Result;
+
+            List<CalendarEvent> allCalendarEvents = _calendarEventRepository.GetAllCalendarEvents();
+            user = _userRepository.GetAllUsers().First(obj => obj.Id == userToEdit);
+            var userNameDisplay = $"{user?.Name}";
+            var calendarEventsToDraw = allCalendarEvents.Where(e => e.UserId == user.Id && e.CalendarEventDate.Month == date.AddMonths(-1).Month).ToList();
+            List<WorkModeForUser> workModesToDraw = _workModeForUserRepository.GetAllWorkModesForUser().Where(e => e.DateOfWorkMode.Month == date.AddMonths(-1).Month && e.UserId == userToEdit).ToList();
+            _calendarParams = new MonthViewModel(date.AddMonths(-1), calendarEventsToDraw, _userDict, userToEdit, _workModeRepository, workModesToDraw, userNameDisplay);
+            return View("Index", _calendarParams);
+        }
+        public IActionResult NextMonth(DateTime date, string userToEdit)
+        {
+            if (!User.Identity.IsAuthenticated)
+            {
+                return Redirect("/Identity/Account/Login");
+            }
+            var userManager = HttpContext.RequestServices.GetRequiredService<UserManager<User>>();
+            var user = userManager.GetUserAsync(HttpContext.User).Result;
+
+            List<CalendarEvent> allCalendarEvents = _calendarEventRepository.GetAllCalendarEvents();
+            user = _userRepository.GetAllUsers().First(obj => obj.Id == userToEdit);
+            var userNameDisplay = $"{user?.Name}";
+            var calendarEventsToDraw = allCalendarEvents.Where(e => e.UserId == user.Id && e.CalendarEventDate.Month == date.AddMonths(+1).Month).ToList();
+            List<WorkModeForUser> workModesToDraw = _workModeForUserRepository.GetAllWorkModesForUser().Where(e => e.DateOfWorkMode.Month == date.AddMonths(1).Month && e.UserId == userToEdit).ToList();
+            _calendarParams = new MonthViewModel(date.AddMonths(1), calendarEventsToDraw, _userDict, userToEdit, _workModeRepository, workModesToDraw, userNameDisplay);
+            return View("Index", _calendarParams);
+        }
+
+        public IActionResult ChangeUser(DateTime date, string userToEdit)
+        {
+            if (!User.Identity.IsAuthenticated)
+            {
+                return Redirect("/Identity/Account/Login");
+            }
+            var userManager = HttpContext.RequestServices.GetRequiredService<UserManager<User>>();
+            var user = userManager.GetUserAsync(HttpContext.User).Result;
+
+            user = _userRepository.GetAllUsers().First(obj => obj.Id == userToEdit);
+            List<CalendarEvent> allCalendarEvents = _calendarEventRepository.GetAllCalendarEvents();
+            var calendarEventsToDraw = allCalendarEvents.Where(e => e.UserId == user.Id && e.CalendarEventDate.Month == date.Month).ToList();
+            var userNameDisplay = $"{user?.Name}";
+            List<WorkModeForUser> workModesToDraw = _workModeForUserRepository.GetAllWorkModesForUser().Where(e => e.DateOfWorkMode.Month == date.Month && e.UserId == userToEdit).ToList();
+            _calendarParams = new MonthViewModel(date, calendarEventsToDraw, _userDict, userToEdit, _workModeRepository, workModesToDraw, userNameDisplay);
+            return View("Index", _calendarParams);
+        }
+
+        public IActionResult UpdateWorkMode(DateTime date, string userToEdit, int workModeId)
+        {
+            if (!User.Identity.IsAuthenticated)
+            {
+                return Redirect("/Identity/Account/Login");
+            }
+            var userManager = HttpContext.RequestServices.GetRequiredService<UserManager<User>>();
+            var user = userManager.GetUserAsync(HttpContext.User).Result;
+
+            List<CalendarEvent> allCalendarEvents = _calendarEventRepository.GetAllCalendarEvents();
+            user = _userRepository.GetAllUsers().First(obj => obj.Id == userToEdit);
+            var userNameDisplay = $"{user?.Name}";
+            var calendarEventsToDraw = allCalendarEvents.Where(e => e.UserId == user.Id && e.CalendarEventDate.Month == date.Month).ToList();
+
+            var allWorkModesForUser = _workModeForUserRepository.GetAllWorkModesForUser();
+            bool workModeIsUpdated = false;
+            foreach (var workModeForUser in allWorkModesForUser)
+            {
+                if (workModeForUser.UserId == userToEdit && workModeForUser.DateOfWorkMode == DateOnly.FromDateTime(date))
+                {
+                    _workModeForUserRepository.UpdateWorkModeForUser(workModeForUser.Id, new WorkModeForUser()
+                    {
+                        DateOfWorkMode = DateOnly.FromDateTime(date),
+                        UserId = userToEdit,
+                        WorkModeId = workModeId
+                    });
+                    workModeIsUpdated = true;
+                }
+            }
+            if (!workModeIsUpdated)
+            {
+                _workModeForUserRepository.CreateWorkModeForUser(new WorkModeForUser()
+                {
+                    DateOfWorkMode = DateOnly.FromDateTime(date),
+                    UserId = userToEdit,
+                    WorkModeId = workModeId
+                });
+            }
+
+            List<WorkModeForUser> workModesToDraw = _workModeForUserRepository.GetAllWorkModesForUser().Where(e => e.DateOfWorkMode.Month == date.Month && e.UserId == userToEdit).ToList();
+            _calendarParams = new MonthViewModel(date, calendarEventsToDraw, _userDict, userToEdit, _workModeRepository, workModesToDraw, userNameDisplay);
+
+            return View("Index", _calendarParams);
+        }
+
+        public IActionResult Day(DateTime date, string userToEdit)
+        {
+            var userManager = HttpContext.RequestServices.GetRequiredService<UserManager<User>>();
+            var user = userManager.GetUserAsync(HttpContext.User).Result;
+
+            if (userToEdit != string.Empty)
+            {
+                user = _userRepository.GetAllUsers().First(obj => obj.Id == userToEdit);
             }
 
             TempData["ReturnUrl"] = HttpContext.Request.Path + HttpContext.Request.QueryString;
@@ -85,28 +173,195 @@ namespace Schedulist.App.Controllers
             TempData["DayDateWM"] = date;
             TempData["UserId"] = userToEdit;
             TempData["UserIdForWM"] = userToEdit;
-            TempData["UserDetails"] = $"{_user.Name} {_user.Surname}";
-            TempData["UserDetailsWM"] = $"{_user.Name} {_user.Surname}";
+            TempData["UserDetails"] = $"{user.Name} {user.Surname}";
+            TempData["UserDetailsWM"] = $"{user.Name} {user.Surname}";
             DateOnly dateOnly = DateOnly.FromDateTime(date);
-            WorkModeForUser workMode = _workModeForUserRepository.GetWorkModeByUserIdAndDateOfWorkMode((int)_user.Id, dateOnly);
-            string workModeString = "No work mode";
-            //if (workMode != null) workModeString = _workModeRepository.GetAllWorkModes().Where(x => x.Id == workMode.WorkModeId).FirstOrDefault().Name;
-            if (workMode != null) workModeString = _workModeRepository.GetWorkModeById(workMode.WorkModeId).Name;
+            WorkModeForUser workMode = _workModeForUserRepository.GetWorkModeByUserIdAndDateOfWorkMode(user.Id, dateOnly);
+            //if (workMode != null) workModeString = _workModeRepository.GetWorkModeById(workMode.WorkModeId).Name;
             List<CalendarEvent> calendarEvents = _calendarEventRepository.GetAllCalendarEvents();
-            var calendarEventsToDraw = calendarEvents.Where(c => c.UserId == _user.Id && c.CalendarEventDate == dateOnly).ToList();
-            var dayViewModel = new DayViewModel(dateOnly, _user, workModeString, calendarEventsToDraw);
-            Debug.WriteLine($"Drawing calendar day for: {dateOnly}");
+            var calendarEventsToDraw = calendarEvents.Where(calendarEvent => calendarEvent.UserId == user.Id && calendarEvent.CalendarEventDate == dateOnly).ToList();
+            var workModes = _workModeRepository.GetAllWorkModes();
+            var dayViewModel = new DayViewModel(dateOnly, user, workMode, workModes, calendarEventsToDraw, HttpContext.Request.Path + HttpContext.Request.QueryString);
+            logger.LogInformation($"Drawing calendar day for: {dateOnly}");
             return View(dayViewModel);
+        }
+        public IActionResult DayUpdateWorkMode(DateTime date, string userToEdit, int workModeId)
+        {
+            var userManager = HttpContext.RequestServices.GetRequiredService<UserManager<User>>();
+            var user = userManager.GetUserAsync(HttpContext.User).Result;
+
+            if (userToEdit != string.Empty)
+            {
+                user = _userRepository.GetAllUsers().First(obj => obj.Id == userToEdit);
+            }
+            var allWorkModesForUser = _workModeForUserRepository.GetAllWorkModesForUser();
+            bool workModeIsUpdated = false;
+            foreach (var workModeForUser in allWorkModesForUser)
+            {
+                if (workModeForUser.UserId == userToEdit && workModeForUser.DateOfWorkMode == DateOnly.FromDateTime(date))
+                {
+                    _workModeForUserRepository.UpdateWorkModeForUser(workModeForUser.Id, new WorkModeForUser()
+                    {
+                        DateOfWorkMode = DateOnly.FromDateTime(date),
+                        UserId = userToEdit,
+                        WorkModeId = workModeId
+                    });
+                    workModeIsUpdated = true;
+                }
+            }
+            if (!workModeIsUpdated)
+            {
+                _workModeForUserRepository.CreateWorkModeForUser(new WorkModeForUser()
+                {
+                    DateOfWorkMode = DateOnly.FromDateTime(date),
+                    UserId = userToEdit,
+                    WorkModeId = workModeId
+                });
+            }
+            TempData["ReturnUrl"] = HttpContext.Request.Path + HttpContext.Request.QueryString;
+            TempData["ReturnUrlWM"] = HttpContext.Request.Path + HttpContext.Request.QueryString;
+            TempData["SelectedDate"] = date;
+            TempData["SelectedDateForWM"] = date;
+            TempData["DayDate"] = date;
+            TempData["DayDateWM"] = date;
+            TempData["UserId"] = userToEdit;
+            TempData["UserIdForWM"] = userToEdit;
+            TempData["UserDetails"] = $"{user.Name} {user.Surname}";
+            TempData["UserDetailsWM"] = $"{user.Name} {user.Surname}";
+            DateOnly dateOnly = DateOnly.FromDateTime(date);
+            WorkModeForUser workMode = _workModeForUserRepository.GetWorkModeByUserIdAndDateOfWorkMode(user.Id, dateOnly);
+            //if (workMode != null) workModeString = _workModeRepository.GetWorkModeById(workMode.WorkModeId).Name;
+            List<CalendarEvent> calendarEvents = _calendarEventRepository.GetAllCalendarEvents();
+            var calendarEventsToDraw = calendarEvents.Where(calendarEvent => calendarEvent.UserId == user.Id && calendarEvent.CalendarEventDate == dateOnly).ToList();
+            var workModes = _workModeRepository.GetAllWorkModes();
+            var dayViewModel = new DayViewModel(dateOnly, user, workMode, workModes, calendarEventsToDraw, HttpContext.Request.Path + HttpContext.Request.QueryString);
+            logger.LogInformation($"Drawing calendar day for: {dateOnly}");
+            return View("Day", dayViewModel);
+        }
+
+        public IActionResult Week(DateTime date, string userToEdit)
+        {
+            var userManager = HttpContext.RequestServices.GetRequiredService<UserManager<User>>();
+            var user = userManager.GetUserAsync(HttpContext.User).Result;
+
+            if (userToEdit != string.Empty)
+            {
+                user = _userRepository.GetAllUsers().First(obj => obj.Id == userToEdit);
+            }
+            DateOnly dateOnly = DateOnly.FromDateTime(date);
+            List<CalendarEvent> calendarEvents = _calendarEventRepository.GetAllCalendarEvents();
+            DateOnly startOfWeek = DateOnly.FromDateTime(date);
+            while (true)
+            {
+                if (startOfWeek.DayOfWeek == DayOfWeek.Monday)
+                {
+                    break;
+                }
+                else
+                {
+                    startOfWeek = startOfWeek.AddDays(-1);
+                }
+            }
+            DateOnly endOfWeek = DateOnly.FromDateTime(date);
+            while (true)
+            {
+                if (endOfWeek.DayOfWeek == DayOfWeek.Sunday)
+                {
+                    break;
+                }
+                else
+                {
+                    endOfWeek = endOfWeek.AddDays(1);
+                }
+            }
+            List<WorkModeForUser> workModesToDraw = _workModeForUserRepository.GetAllWorkModesForUser().Where(p => p.UserId == userToEdit && p.DateOfWorkMode >= startOfWeek && p.DateOfWorkMode <= endOfWeek).ToList();
+            List<WorkMode> workModes = _workModeRepository.GetAllWorkModes().ToList();
+            var calendarEventsToDraw = calendarEvents.Where(c => c.UserId == user.Id && c.CalendarEventDate > startOfWeek && c.CalendarEventDate < endOfWeek).ToList();
+            var weekViewModel = new WeekViewModel(dateOnly, user, workModesToDraw, workModes, calendarEventsToDraw);
+            Debug.WriteLine($"Drawing calendar week for: {weekViewModel.StartOfWeek} - {weekViewModel.EndOfWeek}");
+            return View(weekViewModel);
+        }
+
+        public IActionResult WeekUpdateWorkMode(DateTime date, string userToEdit, int workModeId)
+        {
+            var userManager = HttpContext.RequestServices.GetRequiredService<UserManager<User>>();
+            var user = userManager.GetUserAsync(HttpContext.User).Result;
+
+            if (userToEdit != string.Empty)
+            {
+                user = _userRepository.GetAllUsers().First(obj => obj.Id == userToEdit);
+            }
+            DateOnly dateOnly = DateOnly.FromDateTime(date);
+            List<CalendarEvent> calendarEvents = _calendarEventRepository.GetAllCalendarEvents();
+            DateOnly startOfWeek = DateOnly.FromDateTime(date);
+            while (true)
+            {
+                if (startOfWeek.DayOfWeek == DayOfWeek.Monday)
+                {
+                    break;
+                }
+                else
+                {
+                    startOfWeek = startOfWeek.AddDays(-1);
+                }
+            }
+            DateOnly endOfWeek = DateOnly.FromDateTime(date);
+            while (true)
+            {
+                if (endOfWeek.DayOfWeek == DayOfWeek.Sunday)
+                {
+                    break;
+                }
+                else
+                {
+                    endOfWeek = endOfWeek.AddDays(1);
+                }
+            }
+            var allWorkModesForUser = _workModeForUserRepository.GetAllWorkModesForUser();
+            bool workModeIsUpdated = false;
+            foreach (var workModeForUser in allWorkModesForUser)
+            {
+                if (workModeForUser.UserId == userToEdit && workModeForUser.DateOfWorkMode == DateOnly.FromDateTime(date))
+                {
+                    _workModeForUserRepository.UpdateWorkModeForUser(workModeForUser.Id, new WorkModeForUser()
+                    {
+                        DateOfWorkMode = DateOnly.FromDateTime(date),
+                        UserId = userToEdit,
+                        WorkModeId = workModeId
+                    });
+                    workModeIsUpdated = true;
+                }
+            }
+            if (!workModeIsUpdated)
+            {
+                _workModeForUserRepository.CreateWorkModeForUser(new WorkModeForUser()
+                {
+                    DateOfWorkMode = DateOnly.FromDateTime(date),
+                    UserId = userToEdit,
+                    WorkModeId = workModeId
+                });
+            }
+            List<WorkModeForUser> workModesToDraw = _workModeForUserRepository.GetAllWorkModesForUser().Where(p => p.UserId == userToEdit && p.DateOfWorkMode >= startOfWeek && p.DateOfWorkMode <= endOfWeek).ToList();
+            List<WorkMode> workModes = _workModeRepository.GetAllWorkModes().ToList();
+            var calendarEventsToDraw = calendarEvents.Where(c => c.UserId == user.Id && c.CalendarEventDate > startOfWeek && c.CalendarEventDate < endOfWeek).ToList();
+            var weekViewModel = new WeekViewModel(dateOnly, user, workModesToDraw, workModes, calendarEventsToDraw);
+            Debug.WriteLine($"Drawing calendar week for: {weekViewModel.StartOfWeek} - {weekViewModel.EndOfWeek}");
+            return View("Week", weekViewModel);
         }
 
         //GET: CalendarController/Create
         public ActionResult Create(int id)
         {
-            var calendarEvent = _newCalendarEvent;
-            calendarEvent.UserId = _user.Id;
+            var userManager = HttpContext.RequestServices.GetRequiredService<UserManager<User>>();
+            var user = userManager.GetUserAsync(HttpContext.User).Result;
+
+            //var calendarEvent = new CalendarEvent();
+            //calendarEvent.UserId = user.Id;
+            //var calendarEvent = new CalendarEvent();
+            //calendarEvent.UserId = _user.Id;
 
             Debug.WriteLine($"Creating Calendar Event started.");
-            return View(calendarEvent);
+            return View();
         }
 
         // POST: CalendarController/Create
@@ -116,32 +371,30 @@ namespace Schedulist.App.Controllers
         {
             try
             {
-                DateTime selectedDate = (DateTime)TempData.Peek("SelectedDate");
+                DateTime selectedDate = PickTempDataValue<DateTime>("SelectedDate");
                 DateOnly parsedChosenDate = DateOnly.FromDateTime(selectedDate);
 
-                calendarEvent.UserId = (int)TempData.Peek("UserId");
+                calendarEvent.UserId = TempData.Peek("UserId").ToString();
                 calendarEvent.CalendarEventDate = parsedChosenDate;
-                var timeValidationResult = _calendarEventRepository.CalendarEventTimesValidation(calendarEvent.CalendarEventStartTime, calendarEvent.CalendarEventEndTime);
-                var validationResult = _calendarEventRepository.CalendarEventOverlappingValidation(calendarEvent.CalendarEventDate, calendarEvent.CalendarEventStartTime, calendarEvent.CalendarEventEndTime, calendarEvent.UserId);
-                if (timeValidationResult != ValidationResult.Success)
+                var validationResults = _calendarEventService.ValidateCalendarEvent(calendarEvent);
+                if (validationResults.Any(x => x != ValidationResult.Success))
                 {
-                    ModelState.AddModelError(nameof(calendarEvent.CalendarEventEndTime), timeValidationResult.ErrorMessage);                  
-                    return View(calendarEvent);
-                } 
-                if (validationResult != ValidationResult.Success)
-                {
-                    ModelState.AddModelError(nameof(calendarEvent.CalendarEventStartTime), validationResult.ErrorMessage);              
+                    validationResults.Where(x => x != ValidationResult.Success).ToList().ForEach(x => ModelState.AddModelError(nameof(calendarEvent.CalendarEventEndTime), x.ErrorMessage));
                     return View(calendarEvent);
                 }
                 _calendarEventRepository.CreateCalendarEvent(calendarEvent);
-                Debug.WriteLine($"Created Calendar Event.");
-                PopupNotification("Calendar event has been created successfully");
+                logger.LogInformation($"Created Calendar Event.");
+                PopUpNotification("Calendar event has been created successfully");
                 var returnUrl = TempData["ReturnUrl"] as string;
                 return Redirect(returnUrl);
             }
+            catch (ArgumentNullException ex)
+            {
+                return HandleValueTempDataNotFound(ex.ParamName!);
+            }
             catch (Exception ex)
             {
-                Debug.WriteLine($"Exception occurred: {ex.Message}");
+                logger.LogInformation($"Exception occurred: {ex.Message}");
                 return View();
             }
         }
@@ -149,7 +402,7 @@ namespace Schedulist.App.Controllers
         // GET: WorkModeController/Create
         public ActionResult CreateWM()
         {
-            Debug.WriteLine($"Creating Work Mode started!");
+            logger.LogInformation($"Creating Work Mode started!");
             return View();
         }
 
@@ -164,15 +417,14 @@ namespace Schedulist.App.Controllers
                 //{
                 //    return View(workModesToUser);
                 //}
-
-                DateTime selectedDate = (DateTime)TempData.Peek("SelectedDateForWM");
+                DateTime selectedDate = PickTempDataValue<DateTime>("SelectedDateForWM");
                 DateOnly parsedChosenDate = DateOnly.FromDateTime(selectedDate);
 
-                workModesToUser.UserId = (int)TempData.Peek("UserId");
+                workModesToUser.UserId = (string)TempData.Peek("UserId")!;
                 workModesToUser.DateOfWorkMode = parsedChosenDate;
                 _workModeForUserRepository.CreateWorkModeForUser(workModesToUser);
-                Debug.WriteLine("Created new work mode!");
-                PopupNotification("Work mode has been created successfully");
+                logger.LogInformation("Created new work mode!");
+                PopUpNotification("Work mode has been created successfully");
                 var returnUrl = TempData["ReturnUrlWM"] as string;
                 return Redirect(returnUrl);
             }
@@ -190,6 +442,43 @@ namespace Schedulist.App.Controllers
         public IActionResult Privacy()
         {
             return View();
+        }
+
+        // GET: CalendarController/Edit/5
+        [HttpGet]
+        [ResponseCache(Duration = 30, NoStore = true)]
+        public ActionResult Edit(int id)
+        {
+            var model = _calendarEventRepository.GetCalendarEventById(id);
+            logger.LogInformation($"Updating Calendar Event started.");
+            return View("Edit", model);
+        }
+
+        //PUT: CalendarController/Edit/5
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Edit(int id, CalendarEvent calendarEvent)
+        {
+            try
+            {
+                var validationResults = _calendarEventService.ValidateCalendarEvent(calendarEvent);
+                if (validationResults.Any(x => x != ValidationResult.Success))
+                {
+                    validationResults.Where(x => x != ValidationResult.Success).ToList().ForEach(x => ModelState.AddModelError(nameof(calendarEvent.CalendarEventEndTime), x.ErrorMessage));
+                    return View(calendarEvent);
+                }
+                _calendarEventRepository.UpdateCalendarEvent(id, calendarEvent);
+                logger.LogInformation($"Modified Calendar Event.");
+                PopUpNotification("Calendar event has been updated successfully");
+                return RedirectToAction(nameof(Index));
+
+                //var returnUrl = TempData["ReturnUrl"] as string;
+                //return Redirect(returnUrl);
+            }
+            catch
+            {
+                return View();
+            }
         }
     }
 }

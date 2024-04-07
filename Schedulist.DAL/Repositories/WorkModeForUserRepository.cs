@@ -1,6 +1,9 @@
-﻿using Microsoft.Extensions.Logging;
+﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
+using Schedulist.App.Exceptions;
 using Schedulist.DAL.Models;
 using Schedulist.DAL.Repositories.Interfaces;
+using System.ComponentModel.DataAnnotations;
 
 namespace Schedulist.DAL.Repositories
 {
@@ -13,7 +16,8 @@ namespace Schedulist.DAL.Repositories
         {
             try
             {
-                return _db.WorkModesToUsers.ToList();
+                var workModesList = _db.WorkModesToUsers.Include(e => e.User).Include(w => w.WorkMode).ToList();
+                return workModesList;
             }
             catch (Exception ex)
             {
@@ -23,13 +27,16 @@ namespace Schedulist.DAL.Repositories
         }
         public WorkModeForUser CreateWorkModeForUser(WorkModeForUser workMode)
         {
-            throw new NotImplementedException();
+            _db.WorkModesToUsers.Add(workMode);
+            _db.SaveChanges();
+            return workMode;
         }
-        public WorkModeForUser GetWorkModeByUserIdAndDateOfWorkMode(int userId, DateOnly dateOfWorkMode)
+        public WorkModeForUser GetWorkModeByUserIdAndDateOfWorkMode(string userId, DateOnly dateOfWorkMode)
         {
             try
             {
-                return _db.WorkModesToUsers.Where(w => w.UserId == userId && w.DateOfWorkMode == dateOfWorkMode).FirstOrDefault();
+                var workModeByUserAndDate = _db.WorkModesToUsers.Where(w => w.UserId == userId && w.DateOfWorkMode == dateOfWorkMode).FirstOrDefault();
+                return workModeByUserAndDate;
             }
             catch (Exception ex)
             {
@@ -41,7 +48,8 @@ namespace Schedulist.DAL.Repositories
         {
             try
             {
-                return _db.WorkModesToUsers.FirstOrDefault(w => w.Id == id);
+                var workModeById = _db.WorkModesToUsers.Include(e => e.User).Include(w => w.WorkMode).FirstOrDefault(w => w.Id == id);
+                return workModeById;
             }
             catch (Exception ex)
             {
@@ -49,18 +57,19 @@ namespace Schedulist.DAL.Repositories
                 return new WorkModeForUser();
             }
         }
-        public bool UpdateWorkModeForUser(WorkModeForUser workModeToUpdate)
+        public void UpdateWorkModeForUser(int id, WorkModeForUser workModeToUpdate)
         {
             try
             {
-                _db.WorkModesToUsers.Update(workModeToUpdate);
+                var workMode = GetWorkModeById(id);
+                workMode.DateOfWorkMode = workModeToUpdate.DateOfWorkMode;
+                workMode.WorkModeId = workModeToUpdate.WorkModeId;
+                workMode.UserId = workModeToUpdate.UserId;
                 _db.SaveChanges();
-                return true;
             }
             catch (Exception ex)
             {
                 _logger.LogError(ex, "An error occurred while updating Work Mode from the database.");
-                return false;
             }
         }
         public bool DeleteWorkModeForUser(WorkModeForUser workModeToDelete)
@@ -76,6 +85,17 @@ namespace Schedulist.DAL.Repositories
                 _logger.LogError(ex, "An error occurred while deleting Work Mode from the database.");
                 return false;
             }
+        }
+
+        public ValidationResult WorkModeForUserValidation(WorkModeForUser workMode)
+        {
+            List<WorkModeForUser> allWorkModes = GetAllWorkModesForUser();
+            var providedDateOfWorkMode = allWorkModes.FirstOrDefault(wm=>wm.UserId==workMode.UserId && wm.DateOfWorkMode==workMode.DateOfWorkMode);
+            if (providedDateOfWorkMode != null)
+            {
+                return new ValidationResult("There is already a work mode for that day. Please provide different values.");
+            }
+            return ValidationResult.Success;
         }
     }
 }

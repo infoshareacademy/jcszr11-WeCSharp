@@ -1,4 +1,11 @@
-﻿<!DOCTYPE html>
+﻿@using Microsoft.AspNetCore.Identity
+@using Schedulist.DAL.Models
+
+@inject SignInManager<User> SignInManager
+@inject UserManager<User> UserManager
+
+
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
@@ -16,38 +23,51 @@
     <div class="container-fluid text-center">
         <div class="row content">
             <div class="col-sm-2 sidenav">
+                <div class="profile">
+                    ScheduList
+                </div>
+                 @if (SignInManager.IsSignedIn(User))
+ {
                 <ul class="nav nav-pills flex-column mt-4">
-                    <a class="navbar-brand" href="#">
-                        <img src="https://i.ibb.co/Gt4K0p6/schedulistlogo.png" alt="schedulistlogo" border="0">
-                    </a>
-                    <li class="nav-item">
-                        <a class="nav-link d-flex align-items-center" asp-area="" asp-controller="Calendar" asp-action="Index" style="color: white; font-size: 26px; font-family: Dubai;">
-                            <i class="bi bi-caret-right text-white text-primary m-3"></i> <span style="font-size: 20px; font-family: Dubai;">Calendar</span>
+                    <li class="nav-item" style="margin-top: 20px;">
+                        <a class="button buttonNavbar" asp-area="" asp-controller="Calendar" asp-action="Index">
+                            <span>Calendar</span>
                         </a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link d-flex align-items-center" asp-area="" asp-controller="CalendarEvent" asp-action="Index" style="color: white; font-size: 26px; font-family: Dubai;">
-                            <i class="bi bi-caret-right  text-white text-primary m-3"></i> <span style="font-size: 20px; font-family: Dubai;">Calendar Events</span>
+                    <li class="nav-item" style="margin-top: 12px;">
+                        <a class="button buttonNavbar" asp-area="" asp-controller="CalendarEvent" asp-action="Index">
+                            <span>Calendar Events</span>
                         </a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link d-flex align-items-center" asp-area="" asp-controller="WorkModesToUser" asp-action="Index" style="color: white; font-size: 26px; font-family: Dubai;">
-                            <i class="bi bi-caret-right text-white text-primary m-3"></i> <i class="bi bi-building-fill"></i> <span style="font-size: 20px; font-family: Dubai;">Work Modes</span>
+                    <li class="nav-item" style="margin-top: 12px;">
+                        <a class="button buttonNavbar" asp-area="" asp-controller="WorkModesToUser" asp-action="Index">
+                            <span>Work Modes</span>
                         </a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link d-flex align-items-center" asp-area="" asp-controller="WorkMode" asp-action="Statistics" style="color: white; font-size: 26px; font-family: Dubai;">
-                            <i class="bi bi-caret-right text-white text-primary m-3"></i><span style="font-size: 20px; font-family: Dubai;">Statistics</span>
+                    <li class="nav-item" style="margin-top: 12px;">
+                        <a class="button buttonNavbar" asp-area="" asp-controller="Statistics" asp-action="Index">
+                          <span>Statistics</span>
                         </a>
                     </li>
                     <li class="nav-item-register mt-auto">
                         <a class="nav-link d-flex align-items-center" style="color: white;"></a>
                     </li>
-                    <partial name="_LoginPartial" style="color: white;"></partial>
-
+                    @if (User.IsInRole("Admin"))
+                    {
+                        <hr class="horizontal-line" style="height: 3px; border: 1px solid gray; margin: 10px">
+                        <li class="nav-item" style="margin-top: 12px;">
+                            <a class="button buttonNavbar" asp-area="" asp-controller="Admin" asp-action="Management">
+                                <span>Management</span>
+                            </a>
+                        </li>
+                    }
                 </ul>
+ }
+                <div class="footer" style="position: absolute; bottom: 0; width: 100%;">
+                    <partial name="_LoginPartial" style="color: white;"></partial>
+                </div>
             </div>
-            <main class="col-sm-10">
+            <main class="col">
                 @RenderBody()
             </main>
         </div>

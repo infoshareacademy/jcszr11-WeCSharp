@@ -1,9 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Schedulist.DAL.Models;
+﻿using Schedulist.DAL.Models;
+using System.ComponentModel.DataAnnotations;
 
 namespace Schedulist.DAL.Repositories.Interfaces
 {
@@ -11,10 +7,12 @@ namespace Schedulist.DAL.Repositories.Interfaces
     {
         List<WorkModeForUser> GetAllWorkModesForUser();
         WorkModeForUser CreateWorkModeForUser(WorkModeForUser workMode);
-        bool UpdateWorkModeForUser(WorkModeForUser workMode);
+        public void UpdateWorkModeForUser(int id, WorkModeForUser workMode);
         bool DeleteWorkModeForUser(WorkModeForUser workModeToDelete);
-        WorkModeForUser GetWorkModeByUserIdAndDateOfWorkMode(int idUser, DateOnly dateWorkMode);
+        WorkModeForUser GetWorkModeByUserIdAndDateOfWorkMode(string idUser, DateOnly dateWorkMode);
         public WorkModeForUser GetWorkModeById(int id);
+        public ValidationResult WorkModeForUserValidation(WorkModeForUser workMode);
+        //public ValidationResult WorkModeForUserDateValidation(WorkModeForUser workMode);
 
     }
 }

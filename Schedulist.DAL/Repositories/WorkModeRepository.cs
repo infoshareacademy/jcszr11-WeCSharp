@@ -1,11 +1,6 @@
 ﻿using Microsoft.Extensions.Logging;
 using Schedulist.DAL.Models;
 using Schedulist.DAL.Repositories.Interfaces;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Schedulist.DAL.Repositories
 {
@@ -31,6 +26,34 @@ namespace Schedulist.DAL.Repositories
             {
                 _logger.LogError(ex, "An error occurred while retrieving from database");
                 return new List<WorkMode>();
+            }
+        }
+        public bool CreateWorkMode(WorkMode newModeMode)
+        {
+            try
+            {
+                _db.WorkModes.Add(newModeMode);
+                _db.SaveChanges();
+                return true;
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "An error occurred while saving new Work Mode to DB");
+                return false;
+            }
+        }
+        public bool DeleteWorkMode(WorkMode workModeToDelete)
+        {
+            try
+            {
+                _db.WorkModes.Remove(workModeToDelete);
+                _db.SaveChanges();
+                return true;
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "An error occurred while deleting  Work Mode from DB");
+                return false;
             }
         }
     }

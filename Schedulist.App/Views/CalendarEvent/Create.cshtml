@@ -1,21 +1,15 @@
 ﻿@model CalendarEvent
 @using Schedulist.DAL.Models
+@{
+    ViewBag.Title = "AssignUser";
+}
 
-
-<h4 class="text-center" style="display:flex; justify-content:center; font-size: 30px">@(Model == null ? "Calendar Event Creation" : "Calendar Event Update")</h4>
+<h4 class="text-center" style="display:flex; justify-content:center; font-size: 30px">Calendar Event Creation</h4>
 <hr />
 <div class="row">
     <div class="col-md-12" style="text-align: center; display: flex; justify-content: center; gap: 10px">
         <form asp-action="Create">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            @if (Model != null)
-            {
-                <div class="form-group">
-                <label asp-for="Id" class="control-label" hidden></label>
-                <input asp-for="Id" class="form-control" hidden/>
-                <span asp-validation-for="Id" class="text-danger"></span>
-            </div>
-            }           
             <div class="form-group">
                 <label asp-for="CalendarEventName" class="control-label"></label>
                 <input asp-for="CalendarEventName" class="form-control" />
@@ -43,25 +37,25 @@
             </div>
             <div class="form-group">
                 <label asp-for="UserId" class="control-label"></label>
-                <input asp-for="UserId" class="form-control" />
-                <span asp-validation-for="UserId" class="text-danger"></span>
+                <div class="col-md-12">
+                    @Html.DropDownListFor(model => Model.UserId, ViewBag.Users as SelectList, "---", new { @class = "form-control" })
+                    <span asp-validation-for="UserId" class="text-danger"></span>
+                </div>
             </div>
-            @{
-                var buttonStyle = (Model == null ? "background-color: green;" : "background-color: rgb(224, 157, 49);");
-                var buttonText = (Model == null ? "Create" : "Update");
-            }
-            <div style="padding-top: 10px;">
-                <button class="form-button" type="submit" style='@(buttonStyle)'><span>@(buttonText)</span></button>
+          <div class="form-group" style="text-align: center; display: flex; justify-content: center; align-items: center; padding-top: 8px;">
+                <input type="submit" value="Create" class="button buttonGreen" />
             </div>
-            <div style="padding-top: 12px">
-                <a asp-action="Index" class="form-button btn btn-dark shadow-none">Back to List</a>
+            <div class="form-group" style="text-align: center; display: flex; justify-content: center; align-items: center; padding-top: 8px;">
+                <a asp-action="Index" class="button buttonBlue" style="text-decoration: none;">Back to List</a>
             </div>
-        </form>
+            </form>
     </div>
 </div>
 
 @section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
     @{
         await Html.RenderPartialAsync("_ValidationScriptsPartial");
     }

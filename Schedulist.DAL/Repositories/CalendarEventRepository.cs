@@ -1,5 +1,7 @@
-﻿using Microsoft.EntityFrameworkCore.Query.Internal;
+﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Query.Internal;
 using Microsoft.Extensions.Logging;
+using Schedulist.App.Exceptions;
 using Schedulist.DAL.Models;
 using Schedulist.DAL.Repositories.Interfaces;
 using System.ComponentModel.DataAnnotations;
@@ -9,83 +11,51 @@ namespace Schedulist.DAL.Repositories
 {
     public class CalendarEventRepository : BaseRepository, ICalendarEventRepository
     {
-        public CalendarEventRepository(SchedulistDbContext db, ILogger<BaseRepository> logger) : base (db, logger)
+        public CalendarEventRepository(SchedulistDbContext db, ILogger<BaseRepository> logger) : base(db, logger)
         {
 
         }
 
         public List<CalendarEvent> GetAllCalendarEvents()
         {
-            try
-            {
-                return _db.CalendarEvents.ToList();
-            }
-            catch (Exception ex)
-            {
-                _logger.LogError(ex, "An error occurred while retrieving Calendar Events from the database.");
-                return new List<CalendarEvent>();
-            }
+            return _db.CalendarEvents.Include(e => e.User).ToList();
         }
         public CalendarEvent GetCalendarEventById(int id)
         {
-            try
-            {
-                return _db.CalendarEvents.FirstOrDefault(c => c.Id == id);
-            }
-            catch (Exception ex)
-            {
-                _logger.LogError(ex, "An error occurred while retrieving Calendar Event from the database.");
-                return new CalendarEvent();
-            }
+            var calendarEvent = _db.CalendarEvents.FirstOrDefault(c => c.Id == id);
+            if (calendarEvent == null) throw new NotFoundException("Calendar Event not found!");
+            return calendarEvent;
         }
         public bool CreateCalendarEvent(CalendarEvent calendarEvent)
         {
-            try
-            {
-                _db.CalendarEvents.Add(calendarEvent);
-                _db.SaveChanges();
-                return true;
-            }
-            catch (Exception ex)
-            {
-                _logger.LogError(ex, "An error occurred while saving Calendar Event to database.");
-                return false;
-            }
+            _db.CalendarEvents.Add(calendarEvent);
+            _db.SaveChanges();
+            return true;
         }
-        public bool UpdateCalendarEvent(CalendarEvent calendarEvent)
+        public void UpdateCalendarEvent(int id, CalendarEvent updatedCalendarEvent)
         {
-            try
-            {
-                _db.CalendarEvents.Update(calendarEvent);
-                _db.SaveChanges();
-                return true;
-            }
-            catch (Exception ex)
-            {
-                _logger.LogError(ex, "An error occurred while updating Calendar Event in database.");
-                return false;
-            }
+            var calendarEvent = _db.CalendarEvents.FirstOrDefault(r => r.Id == id);
+            if (calendarEvent == null) throw new NotFoundException("Calendar Event not found!");
+            calendarEvent.CalendarEventDate = updatedCalendarEvent.CalendarEventDate;
+            calendarEvent.CalendarEventDescription = updatedCalendarEvent.CalendarEventDescription;
+            calendarEvent.CalendarEventStartTime = updatedCalendarEvent.CalendarEventStartTime;
+            calendarEvent.CalendarEventEndTime = updatedCalendarEvent.CalendarEventEndTime;
+            calendarEvent.UserId = updatedCalendarEvent.UserId;
+            calendarEvent.CalendarEventName = updatedCalendarEvent.CalendarEventName;
+            _db.SaveChanges();
         }
         public bool DeleteCalendarEvent(CalendarEvent calendarEvent)
         {
-            try
-            {
-                _db.CalendarEvents.Remove(calendarEvent);
-                _db.SaveChanges();
-                return true;
-            }
-            catch (Exception ex)
-            {
-                _logger.LogError(ex, "An error occurred while deleting Calendar Event in database.");
-                return false;
-            }
+            _db.CalendarEvents.Remove(calendarEvent);
+            _db.SaveChanges();
+            return true;
         }
-        public ValidationResult CalendarEventOverlappingValidation(DateOnly calendarEventDate, TimeOnly calendarEventStartTime, TimeOnly calendarEventEndTime, int userId)
+        public ValidationResult CalendarEventOverlappingValidation(CalendarEvent calendarEvent)
         {
             List<CalendarEvent> allCalendarEvents = GetAllCalendarEvents();
-            var providedStartTime = allCalendarEvents.FirstOrDefault(c => c.UserId == userId &&
-                                    c.CalendarEventDate == calendarEventDate && ((calendarEventStartTime >= c.CalendarEventStartTime && calendarEventStartTime < c.CalendarEventEndTime)
-                                    || (c.CalendarEventStartTime > calendarEventStartTime && c.CalendarEventStartTime < calendarEventEndTime)));
+            var providedStartTime = allCalendarEvents.FirstOrDefault(c => c.UserId == calendarEvent.UserId && c.Id != calendarEvent.Id &&
+                                    c.CalendarEventDate == calendarEvent.CalendarEventDate && ((calendarEvent.CalendarEventStartTime >= c.CalendarEventStartTime && calendarEvent.CalendarEventStartTime < c.CalendarEventEndTime)
+                                    || (c.CalendarEventStartTime > calendarEvent.CalendarEventStartTime && c.CalendarEventStartTime < calendarEvent.CalendarEventEndTime)));
 
             if (providedStartTime != null)
             {
@@ -94,9 +64,9 @@ namespace Schedulist.DAL.Repositories
             return ValidationResult.Success;
         }
 
-        public ValidationResult CalendarEventTimesValidation(TimeOnly calendarEventStartTime, TimeOnly calendarEventEndTime)
+        public ValidationResult CalendarEventTimesValidation(CalendarEvent calendarEvent)
         {
-            if (calendarEventStartTime >= calendarEventEndTime)
+            if (calendarEvent.CalendarEventStartTime >= calendarEvent.CalendarEventEndTime)
             {
                 return new ValidationResult("Start Time cannot be later or the same time as End Time!");
             }
