@@ -6,5 +6,6 @@ namespace Schedulist.DAL.Repositories.Interfaces
     {
         List<Department> GetAllDepartments();
         Department GetDepartmentById(int Id);
+        Task<List<Department>> GetAllDepartmentsAsync();
     }
 }

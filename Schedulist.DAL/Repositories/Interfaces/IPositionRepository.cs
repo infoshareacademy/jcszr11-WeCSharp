@@ -6,5 +6,6 @@ namespace Schedulist.DAL.Repositories.Interfaces
     {
         List<Position> GetAllPositions();
         Position GetPositionById(int Id);
+        Task<List<Position>> GetAllPositionsAsync();
     }
 }

@@ -1,4 +1,6 @@
 ﻿@page
+@using Schedulist.DAL.Models
+
 @model RegisterModel
 @{
     ViewData["Title"] = "Register";
@@ -38,14 +40,32 @@
                 <span asp-validation-for="Input.Surname" class="text-danger"></span>
             </div>
             <div class="form-floating mb-3">
-                <input asp-for="Input.Department" class="form-control" aria-required="true" placeholder="Surname" />
-                <label asp-for="Input.Department">Department</label>
-                <span asp-validation-for="Input.Department" class="text-danger"></span>
+                <select asp-for="Input.DepartmentId" class="form-control" aria-required="true">
+                    <option value="">-- Select Department --</option>
+                    @if (ViewData["Departments"] is List<Department> departments)
+                    {
+                        foreach (var department in departments)
+                        {
+                            <option value="@department.Id">@department.Name</option>
+                        }
+                    }
+                </select>
+                <label asp-for="Input.DepartmentId" class="form-label">Department</label>
+                <span asp-validation-for="Input.DepartmentId" class="text-danger"></span>
             </div>
             <div class="form-floating mb-3">
-                <input asp-for="Input.Position" class="form-control" aria-required="true" placeholder="Surname" />
-                <label asp-for="Input.Position">Position</label>
-                <span asp-validation-for="Input.Position" class="text-danger"></span>
+                <select asp-for="Input.PositionId" class="form-control" aria-required="true">
+                    <option value="">-- Select Position --</option>
+                    @if (ViewData["Positions"] is List<Position> positions)
+                    {
+                        foreach (var position in positions)
+                        {
+                            <option value="@position.Id">@position.Name</option>
+                        }
+                    }
+                </select>
+                <label asp-for="Input.PositionId" class="form-label">Position</label>
+                <span asp-validation-for="Input.PositionId" class="text-danger"></span>
             </div>
 @*             <div class="form-floating mb-3">
                 <select asp-for="Input.Role" asp-items="@Model.Input.RoleList" class="form-select">

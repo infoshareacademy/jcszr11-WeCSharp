@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using Schedulist.DAL.Models;
 using Schedulist.DAL.Repositories.Interfaces;
@@ -34,6 +35,18 @@ namespace Schedulist.DAL.Repositories
             {
                 _logger.LogError(ex, "An error occurred while retrieving Departments from the database.");
                 return new Position();
+            }
+        }
+        public async Task<List<Position>> GetAllPositionsAsync()
+        {
+            try
+            {
+                return await _db.Positions.ToListAsync();
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "An error occurred while retrieving Departments from the database.");
+                return new List<Position>();
             }
         }
     }
