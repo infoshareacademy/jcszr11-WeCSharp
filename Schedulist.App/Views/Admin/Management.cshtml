@@ -1,7 +1,7 @@
 ﻿@using Schedulist.App.Services
 @model Schedulist.App.ViewModels.Admin.AdminViewModel
 
-<div class="calendar-sidebar-container" style="top:0; position:fixed; width: 450px;" id="edit">
+@* <div class="calendar-sidebar-container" style="top:0; position:fixed; width: 450px;" id="edit">
     <div class="calendar-sidebar">
         <button onclick="closeCalendarSidebar('edit')" class="sidebar-close-button">x</button>
         <h4 class="text-center" style="display:flex; justify-content:center; font-size: 30px">User Update Form</h4>
@@ -10,6 +10,9 @@
             <div class="col-md-12" style="text-align: center; display: flex; justify-content: center; gap: 10px">
                 <form asp-action="UpdateUser" asp-controller="Admin">
                     <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                    <div class="form-group">
+                        <input asp-for="@Model.User.Id" class="form-control" type="hidden" />
+                    </div>
                     <div class="form-group">
                         <label asp-for="@Model.User.Name" class="control-label" for="Name"></label>
                         <input asp-for="@Model.User.Name" class="form-control" />
@@ -25,6 +28,16 @@
                         <input asp-for="@Model.User.Email" class="form-control" />
                         <span asp-validation-for="@Model.User.Email" class="text-danger"></span>
                     </div>
+                    <div class="form-group">
+                        <label asp-for="@Model.User.Department" class="control-label" for="Email"></label>
+                        <input asp-for="@Model.User.Department" class="form-control" />
+                        <span asp-validation-for="@Model.User.Department" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="@Model.User.Position" class="control-label" for="Email"></label>
+                        <input asp-for="@Model.User.Position" class="form-control" />
+                        <span asp-validation-for="@Model.User.Position" class="text-danger"></span>
+                    </div>
                     <div class="form-group" style="text-align: center; display: flex; justify-content: center; align-items: center; padding-top: 12px;">
                         <button type="submit" class="button buttonGreen"><span>Update User</span></button>
                     </div>
@@ -32,7 +45,7 @@
             </div>
         </div>
     </div>
-</div>
+</div> *@
 
 <h2 style="display: flex; justify-content: flex-start; margin-top: 20px; white-space:nowrap;">Users&nbsp;Management&nbsp;Section</h2>
 <div class="management-container" style="width: 300px !important;">
@@ -43,6 +56,8 @@
                 <th class="text-indicator">Name</th>
                 <th class="text-indicator">Surname</th>
                 <th class="text-indicator">Email</th>
+                <th style="width: 100px;" class="text-indicator">Department</th>
+                <th style="width: 100px;" class="text-indicator">Position</th>
                 <th class="text-indicator">Roles</th>
                 <th colspan="5" class="text-indicator" style="white-space: nowrap; text-align:center; vertical-align: central;">Admin&nbsp;options</th>
         </thead>
@@ -50,7 +65,7 @@
             @foreach (var user in Model.Users)
             {
                 <tr>
-                    <td>
+                    <td style="width: auto">
                         <span class="pointer">@user.Id</span>
                     </td>
                     <td>
@@ -61,6 +76,12 @@
                     </td>
                     <td>
                         <span class="pointer">@Html.DisplayFor(_ => user.Email)</span>
+                    </td>
+                    <td>
+                        <span class="pointer">@user.Department.Name</span>
+                    </td>
+                    <td>
+                        <span class="pointer">@user.Position.Name</span>
                     </td>
                     <td>
                         <span class="pointer">@user.Roles</span>
@@ -81,10 +102,17 @@
                             Delete
                         </button>
                     </td>
+                    @*                     <td>
+                <button onclick="openCalendarSidebar(this)" data-sidebar-id="edit" class="adminButtom" type="submit" style="white-space: nowrap;">
+                Modify&nbsp;User
+                </button>
+                </td> *@
                     <td>
-                        <button onclick="openCalendarSidebar(this)" data-sidebar-id="edit" class="adminButtom" type="submit" style="white-space: nowrap;">
-                            Modify&nbsp;User
-                        </button>
+                        <form asp-action="UpdateUser" asp-route-id="@user.Id" method="get">
+                            <button class="adminButtom" style="white-space: nowrap;">
+                                Modify&nbsp;User
+                            </button>
+                        </form>
                     </td>
                     <td>
                         @* <button action="@Url.Action()" onclick="sendReport('@user.Email');" class="adminButtom" type="button" style="white-space: nowrap;"> *@

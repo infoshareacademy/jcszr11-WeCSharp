@@ -11,6 +11,12 @@ namespace Schedulist.App.ViewModels.Admin
         [ValidateNever]
         public WorkMode? WorkMode { get; set; } = new WorkMode();
         public User? User { get; set; } = new User();
+        [ValidateNever]
+        public Department? Department { get; set; } = new Department();
+        public List<Department> Departments { get; set; } = new List<Department>();
+        [ValidateNever]
+        public Position? Position { get; set; } = new Position();
+        public List<Position> Positions { get; set; } = new List<Position>();
 
     }
 }

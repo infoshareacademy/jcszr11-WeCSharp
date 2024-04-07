@@ -1,10 +1,4 @@
-﻿
-using Schedulist.DAL.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Schedulist.DAL.Models;
 
 namespace Schedulist.DAL.Repositories.Interfaces
 {
@@ -13,8 +7,8 @@ namespace Schedulist.DAL.Repositories.Interfaces
         public List<User> GetAllUsers();
         public User GetUserById(string id);
         public bool CreateUser(User user);
-        public bool UpdateUser(User user);
         public bool DeleteUser(User user);
+        public bool UpdateUser(User user, Department department, Position position);
 
     }
 }

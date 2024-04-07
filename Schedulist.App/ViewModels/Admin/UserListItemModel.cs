@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Schedulist.DAL.Models;
+using System.ComponentModel.DataAnnotations;
 
 namespace Schedulist.App.ViewModels.Admin
 {
@@ -7,6 +8,8 @@ namespace Schedulist.App.ViewModels.Admin
         public string Id { get; set; }
         public string Name { get; set; }
         public string Surname { get; set; }
+        public Department Department { get; set; } = new Department();
+        public Position Position { get; set; } = new Position();
         public string? Roles { get; set; }
 
         [DisplayFormat(NullDisplayText = "-")]
