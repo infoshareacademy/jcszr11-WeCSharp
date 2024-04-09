@@ -265,7 +265,7 @@
                 @:No calendar events
             }
              <div class="form-group" style="text-align: center; display: flex; justify-content: center; align-items: center; padding-top: 12px; padding-bottom: 12px">
-            <button class="button buttonGreen" style="white-space: nowrap; width: 150px; justify-content: center" onclick="location.href='@Url.Action("Create", "Calendar")'">
+            <button class="button buttonGreen" style="white-space: nowrap; width: 150px; justify-content: center" onclick="location.href='@Url.Action("Create", "Calendar", new {@date = DateOnly.FromDateTime(drawDate)})'">
                 Create new event
             </button>
              </div>

@@ -65,8 +65,7 @@
             </div>
         </div>
         <div class="event-dropdown" style="margin-left: 10px">
-            <input type="hidden" name="chosenDate" value="@Model.Date.ToString(" yyyy-MM-dd")" />
-            <button class="button buttonGreen" onclick="location.href='@Url.Action("Create", "Calendar")'" style="white-space: nowrap; width: 150px; justify-content: center">
+            <button class="button buttonGreen" onclick="location.href='@Url.Action("Create", "Calendar", new {@date = Model.Date})'" style="white-space: nowrap; width: 150px; justify-content: center">
                 Create new event
             </button>
         </div>

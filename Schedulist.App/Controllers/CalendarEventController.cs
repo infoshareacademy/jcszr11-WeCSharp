@@ -65,7 +65,7 @@ namespace Schedulist.App.Controllers
         {
             SetupUserList();
             logger.LogInformation($"Creating Calendar Event started.");
-            return View();
+            return View(new CalendarEvent());
         }
 
         private void SetupUserList()

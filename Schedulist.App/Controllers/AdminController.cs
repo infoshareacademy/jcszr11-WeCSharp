@@ -46,9 +46,9 @@ namespace Schedulist.App.Controllers
 
             return View(new AdminViewModel { Users = userListItems, ListOfWorkModes = listOfWorkModes });
         }
-        public async Task<IActionResult> SendEmail(string email)
+        public async Task<IActionResult> SendEmail(string email, DateTime month)
         {
-            var isReportSent = EmailReportService.SendEmail(email);
+            var isReportSent = EmailReportService.SendEmail(email, month);
             if (isReportSent)
             {
                 logger.LogInformation($"Email successfully sent to {email}");
@@ -167,7 +167,7 @@ namespace Schedulist.App.Controllers
         public IActionResult UpdateUser(string Id)
         {
             var userToUpdate = _userRepository.GetUserById(Id);
-            AdminViewModel adminViewModel = new AdminViewModel();
+            AdminViewModel adminViewModel = new();
             adminViewModel.User = userToUpdate;
             adminViewModel.Departments = _departmentRepository.GetAllDepartments();
             adminViewModel.Positions = _positiontRepository.GetAllPositions();

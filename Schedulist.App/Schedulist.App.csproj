@@ -31,5 +31,8 @@
   <ItemGroup>
     <ProjectReference Include="..\Schedulist.DAL\Schedulist.DAL.csproj" />
   </ItemGroup>
+  <ItemGroup>
+    <Folder Include="logs\" />
+  </ItemGroup>
 
 </Project>

@@ -9,6 +9,7 @@ using Schedulist.DAL.Repositories.Interfaces;
 using System.ComponentModel.DataAnnotations;
 using System.Diagnostics;
 using System.Security.Principal;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 
 namespace Schedulist.App.Controllers
@@ -21,7 +22,7 @@ namespace Schedulist.App.Controllers
         private readonly ICalendarEventRepository _calendarEventRepository;
         private readonly ICalendarEventService _calendarEventService;
         private readonly IUserRepository _userRepository;
-        private Dictionary<string, string> _userDict = [];
+        private readonly Dictionary<string, string> _userDict = [];
         private MonthViewModel _calendarParams;
         public CalendarController(IHttpContextAccessor httpContextAccessor, ILogger<CalendarController> logger, IWorkModeForUserRepository workModeForUserRepository, IWorkModeRepository workModeRepository, ICalendarEventRepository calendarEventRepository, ICalendarEventService calendarEventService, IUserRepository userRepository) : base(logger)
         {
@@ -157,6 +158,8 @@ namespace Schedulist.App.Controllers
 
         public IActionResult Day(DateTime date, string userToEdit)
         {
+            TempData["ReturnUrl"] = HttpContext.Request.Path + HttpContext.Request.QueryString;
+            TempData["UserId"] = userToEdit;
             var userManager = HttpContext.RequestServices.GetRequiredService<UserManager<User>>();
             var user = userManager.GetUserAsync(HttpContext.User).Result;
 
@@ -164,20 +167,8 @@ namespace Schedulist.App.Controllers
             {
                 user = _userRepository.GetAllUsers().First(obj => obj.Id == userToEdit);
             }
-
-            TempData["ReturnUrl"] = HttpContext.Request.Path + HttpContext.Request.QueryString;
-            TempData["ReturnUrlWM"] = HttpContext.Request.Path + HttpContext.Request.QueryString;
-            TempData["SelectedDate"] = date;
-            TempData["SelectedDateForWM"] = date;
-            TempData["DayDate"] = date;
-            TempData["DayDateWM"] = date;
-            TempData["UserId"] = userToEdit;
-            TempData["UserIdForWM"] = userToEdit;
-            TempData["UserDetails"] = $"{user.Name} {user.Surname}";
-            TempData["UserDetailsWM"] = $"{user.Name} {user.Surname}";
             DateOnly dateOnly = DateOnly.FromDateTime(date);
             WorkModeForUser workMode = _workModeForUserRepository.GetWorkModeByUserIdAndDateOfWorkMode(user.Id, dateOnly);
-            //if (workMode != null) workModeString = _workModeRepository.GetWorkModeById(workMode.WorkModeId).Name;
             List<CalendarEvent> calendarEvents = _calendarEventRepository.GetAllCalendarEvents();
             var calendarEventsToDraw = calendarEvents.Where(calendarEvent => calendarEvent.UserId == user.Id && calendarEvent.CalendarEventDate == dateOnly).ToList();
             var workModes = _workModeRepository.GetAllWorkModes();
@@ -218,19 +209,8 @@ namespace Schedulist.App.Controllers
                     WorkModeId = workModeId
                 });
             }
-            TempData["ReturnUrl"] = HttpContext.Request.Path + HttpContext.Request.QueryString;
-            TempData["ReturnUrlWM"] = HttpContext.Request.Path + HttpContext.Request.QueryString;
-            TempData["SelectedDate"] = date;
-            TempData["SelectedDateForWM"] = date;
-            TempData["DayDate"] = date;
-            TempData["DayDateWM"] = date;
-            TempData["UserId"] = userToEdit;
-            TempData["UserIdForWM"] = userToEdit;
-            TempData["UserDetails"] = $"{user.Name} {user.Surname}";
-            TempData["UserDetailsWM"] = $"{user.Name} {user.Surname}";
             DateOnly dateOnly = DateOnly.FromDateTime(date);
             WorkModeForUser workMode = _workModeForUserRepository.GetWorkModeByUserIdAndDateOfWorkMode(user.Id, dateOnly);
-            //if (workMode != null) workModeString = _workModeRepository.GetWorkModeById(workMode.WorkModeId).Name;
             List<CalendarEvent> calendarEvents = _calendarEventRepository.GetAllCalendarEvents();
             var calendarEventsToDraw = calendarEvents.Where(calendarEvent => calendarEvent.UserId == user.Id && calendarEvent.CalendarEventDate == dateOnly).ToList();
             var workModes = _workModeRepository.GetAllWorkModes();
@@ -241,6 +221,8 @@ namespace Schedulist.App.Controllers
 
         public IActionResult Week(DateTime date, string userToEdit)
         {
+            TempData["ReturnUrl"] = HttpContext.Request.Path + HttpContext.Request.QueryString;
+            TempData["UserId"] = userToEdit;
             var userManager = HttpContext.RequestServices.GetRequiredService<UserManager<User>>();
             var user = userManager.GetUserAsync(HttpContext.User).Result;
 
@@ -278,7 +260,7 @@ namespace Schedulist.App.Controllers
             List<WorkMode> workModes = _workModeRepository.GetAllWorkModes().ToList();
             var calendarEventsToDraw = calendarEvents.Where(c => c.UserId == user.Id && c.CalendarEventDate > startOfWeek && c.CalendarEventDate < endOfWeek).ToList();
             var weekViewModel = new WeekViewModel(dateOnly, user, workModesToDraw, workModes, calendarEventsToDraw);
-            Debug.WriteLine($"Drawing calendar week for: {weekViewModel.StartOfWeek} - {weekViewModel.EndOfWeek}");
+            logger.LogDebug($"Drawing calendar week for: {weekViewModel.StartOfWeek} - {weekViewModel.EndOfWeek}");
             return View(weekViewModel);
         }
 
@@ -345,22 +327,15 @@ namespace Schedulist.App.Controllers
             List<WorkMode> workModes = _workModeRepository.GetAllWorkModes().ToList();
             var calendarEventsToDraw = calendarEvents.Where(c => c.UserId == user.Id && c.CalendarEventDate > startOfWeek && c.CalendarEventDate < endOfWeek).ToList();
             var weekViewModel = new WeekViewModel(dateOnly, user, workModesToDraw, workModes, calendarEventsToDraw);
-            Debug.WriteLine($"Drawing calendar week for: {weekViewModel.StartOfWeek} - {weekViewModel.EndOfWeek}");
+            logger.LogDebug($"Drawing calendar week for: {weekViewModel.StartOfWeek} - {weekViewModel.EndOfWeek}");
             return View("Week", weekViewModel);
         }
 
         //GET: CalendarController/Create
-        public ActionResult Create(int id)
+        public ActionResult Create(DateTime date)
         {
-            var userManager = HttpContext.RequestServices.GetRequiredService<UserManager<User>>();
-            var user = userManager.GetUserAsync(HttpContext.User).Result;
-
-            //var calendarEvent = new CalendarEvent();
-            //calendarEvent.UserId = user.Id;
-            //var calendarEvent = new CalendarEvent();
-            //calendarEvent.UserId = _user.Id;
-
-            Debug.WriteLine($"Creating Calendar Event started.");
+            TempData["SelectedDate"] = date;
+            logger.LogInformation($"Creating Calendar Event started.");
             return View();
         }
 
@@ -400,9 +375,10 @@ namespace Schedulist.App.Controllers
         }
 
         // GET: WorkModeController/Create
-        public ActionResult CreateWM()
+        public ActionResult CreateWM(DateTime date)
         {
             logger.LogInformation($"Creating Work Mode started!");
+            TempData["SelectedDate"] = date;
             return View();
         }
 
@@ -413,10 +389,6 @@ namespace Schedulist.App.Controllers
         {
             try
             {
-                //if (!ModelState.IsValid)
-                //{
-                //    return View(workModesToUser);
-                //}
                 DateTime selectedDate = PickTempDataValue<DateTime>("SelectedDateForWM");
                 DateOnly parsedChosenDate = DateOnly.FromDateTime(selectedDate);
 
@@ -425,7 +397,7 @@ namespace Schedulist.App.Controllers
                 _workModeForUserRepository.CreateWorkModeForUser(workModesToUser);
                 logger.LogInformation("Created new work mode!");
                 PopUpNotification("Work mode has been created successfully");
-                var returnUrl = TempData["ReturnUrlWM"] as string;
+                var returnUrl = TempData["ReturnUrl"] as string;
                 return Redirect(returnUrl);
             }
             catch

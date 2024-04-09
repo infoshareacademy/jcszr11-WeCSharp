@@ -30,18 +30,17 @@ namespace Schedulist.App.Services
 
             string filename = $"Raport_For_{month}.pdf";
 
-            document.Save(filename);
+            document.Save($"raports/{filename}");
         }
-        public static bool SendEmail(string emailAdress)
+        public static bool SendEmail(string emailAdress, DateTime month)
         {
             //checking if required pdf exists and generating it if it doesn't
-            DateTime previousMonth = DateTime.Now.AddMonths(-1);
             CultureInfo ci = new("en-GB");
-            string previousMonthString = previousMonth.ToString("MMMM_yyyy", ci);
-            string filename = $"Raport_For_{previousMonthString}.pdf";
-            if (!File.Exists(filename))
+            string selectedMonth = month.ToString("MMMM_yyyy", ci);
+            string filename = $"Raport_For_{selectedMonth}.pdf";
+            if (!File.Exists($"raports/{filename}"))
             {
-                CreatePdf(previousMonth);
+                CreatePdf(month);
             }
 
 
@@ -60,17 +59,17 @@ namespace Schedulist.App.Services
 @$"Hello!
 
 
-The attachment includes a report for {previousMonthString.Replace("_", " ")}.
+The attachment includes a report for {selectedMonth.Replace("_", " ")}.
 Thank you for using Schedulist."
             };
             multipart.Add(body);
 
             var attachment = new MimePart("document", "pdf")
             {
-                Content = new MimeContent(File.OpenRead(filename), ContentEncoding.Default),
+                Content = new MimeContent(File.OpenRead($"raports/{filename}"), ContentEncoding.Default),
                 ContentDisposition = new ContentDisposition(ContentDisposition.Attachment),
                 ContentTransferEncoding = ContentEncoding.Base64,
-                FileName = Path.GetFileName(filename)
+                FileName = Path.GetFileName($"raports/{filename}")
             };
             multipart.Add(attachment);
 

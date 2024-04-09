@@ -55,23 +55,15 @@ namespace Schedulist.App
             builder.Services.AddTransient<IWorkModeRepository, WorkModeRepository>();
             builder.Services.AddTransient<IDepartmentRepository, DepartmentRepository>();
             builder.Services.AddTransient<IPositionRepository, PositionRepository>();
-            //builder.Services.AddScoped<ErrorHandlingMiddleware>();
 
             var app = builder.Build();
-            //using (var scope = app.Services.CreateScope())
-            //{
-            //    //var dbSeed = scope.ServiceProvider.GetService<DBSeed>();
-            //    //await dbSeed.CreateAdmin();
-            //}
             // Configure the HTTP request pipeline.
             if (!app.Environment.IsDevelopment())
             {
                 app.UseExceptionHandler("/Calendar/Error");
-                // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
             }
 
-            //app.UseMiddleware<ErrorHandlingMiddleware>();
             app.UseHttpsRedirection();
             app.UseStaticFiles();
 
